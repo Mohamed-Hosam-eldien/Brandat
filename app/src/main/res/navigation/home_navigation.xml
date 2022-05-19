@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.brandat.ui.fragments.favorite.FavoriteFragment"
+        android:label="@string/fav"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.brandat.ui.fragments.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.brandat.ui.fragments.cart.CartFragment"
+        android:label="@string/cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.brandat.ui.fragments.category.CategoryFragment"
+        android:label="@string/category"
+        tools:layout="@layout/fragment_category" />
+</navigation>
