@@ -103,4 +103,7 @@ dependencies {
 
     // Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
+
+    //Image slider
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
 }

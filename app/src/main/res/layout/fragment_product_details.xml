@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.ProductDetailsFragment">
+
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/image_slider"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:animateLayoutChanges="true"
+            app:iss_auto_cycle="true"
+            app:iss_delay="1"
+            app:iss_error_image="@drawable/error"
+            app:iss_period="2000"
+            app:iss_placeholder="@drawable/placeholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/share_btn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/share"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/product_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/courgette"
+            android:text="animals for selling"
+            android:textColor="#000000"
+            android:textSize="18sp"
+
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_slider" />
+
+        <TextView
+            android:id="@+id/product_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="325$"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/product_name_tv"
+            app:layout_constraintStart_toStartOf="@id/product_name_tv"
+            app:layout_constraintTop_toBottomOf="@id/product_name_tv" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="242dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="@id/product_price_tv"
+            app:layout_constraintStart_toStartOf="@id/product_price_tv"
+            app:layout_constraintTop_toBottomOf="@id/product_price_tv"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="310dp" />
+
+        <ImageView
+            android:id="@+id/favorite_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_favorite_border"
+            app:layout_constraintEnd_toStartOf="@id/ratingBar"
+            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/product_price_tv" />
+
+        <ImageView
+            android:id="@+id/rating_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/star"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.529"
+            app:layout_constraintStart_toEndOf="@id/ratingBar"
+            app:layout_constraintTop_toBottomOf="@id/product_price_tv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
