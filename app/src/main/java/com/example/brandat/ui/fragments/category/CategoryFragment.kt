@@ -49,7 +49,7 @@ class CategoryFragment : Fragment() {
 
         categories.add(CategoryModel("Dresses", R.drawable.sh2))
         categories.add(CategoryModel("T_Shirts", R.drawable.dress_kid))
-        categories.add(CategoryModel("Shooes", R.drawable.sh))
+        categories.add(CategoryModel("Shooes", R.drawable.bag))
         categories.add(CategoryModel("Accessories", R.drawable.sh3))
         categories.add(CategoryModel("Dresses", R.drawable.dress_kid))
         categories.add(CategoryModel("Dresses", R.drawable.sh5))
