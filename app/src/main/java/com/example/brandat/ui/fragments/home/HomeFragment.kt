@@ -1,13 +1,15 @@
 package com.example.brandat.ui.fragments.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.navigation.fragment.findNavController
+
 import com.example.brandat.R
+import com.example.brandat.ui.ProductActivity
 
 class HomeFragment : Fragment() {
 
@@ -23,7 +25,12 @@ class HomeFragment : Fragment() {
         button = view.findViewById(R.id.button)
 
         button.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment)
+            //findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment)
+
+            var intent:Intent
+            intent = Intent(requireActivity(), ProductActivity::class.java)
+            startActivity(intent)
+
         }
 
         return view
