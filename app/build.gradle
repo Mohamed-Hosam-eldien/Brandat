@@ -100,7 +100,16 @@ dependencies {
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.todkars:shimmer-recyclerview:0.4.1'
+    implementation 'com.github.mike14u:shimmer-recyclerview-x:1.0.0'
+    implementation 'com.github.skydoves:androidveil:1.0.8'
 
     // Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
+
+    // slider
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.0.6'
+
+    // lottie
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }

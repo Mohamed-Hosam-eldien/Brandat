@@ -15,6 +15,15 @@
         <entry key="..\:/android_studio_projects/Brandat/app/src/main/res/layout/fragment_home.xml" value="0.11018518518518519" />
         <entry key="..\:/android_studio_projects/Brandat/app/src/main/res/layout/main_toolbar.xml" value="0.171875" />
         <entry key="..\:/android_studio_projects/Brandat/app/src/main/res/menu/home_menu.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/ic_favorite_fill.xml" value="0.1515" />
+        <entry key="app/src/main/res/drawable/rounded_shap.xml" value="0.1515" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1644021739130435" />
+        <entry key="app/src/main/res/layout/brands_item_shimmer.xml" value="0.17604166666666668" />
+        <entry key="app/src/main/res/layout/data_not_found.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/main_toolbar.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/no_connection.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/recycler_home_item.xml" value="0.1644021739130435" />
       </map>
     </option>
   </component>

@@ -1,9 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.home.HomeFragment"
+
+        >
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:lottie_rawRes="@raw/no_coneection"
+            app:lottie_autoPlay="true"
+            android:visibility="gone"
+            app:lottie_loop="true"/>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+
+
+   <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       android:fillViewport="true"
+          >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+           android:orientation="vertical"
+
+    >
+
+  <com.denzcoskun.imageslider.ImageSlider
+    android:id="@+id/imageSlider"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.home.HomeFragment">
+    android:layout_height="200dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:auto_cycle="true"
+    app:delay="0"
+    app:period="2000"
+    app:corner_radius="5"
+    app:placeholder="@drawable/slider_image_1"
+    />
+
+        <TextView
+            android:id="@+id/brand_title"
+            android:layout_width="wrap_content"
+            android:textSize="27sp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_centerHorizontal="true"
+            android:text="@string/brands"
+            android:layout_gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="8dp"
+            app:layout_constraintTop_toBottomOf="@id/imageSlider"
+            android:textStyle="bold"
+            android:fontFamily="cursive"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/recycler_home_item"
+           android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/brand_title"
+
+>
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--        <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--            android:id="@+id/shimmerFrameLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center"-->
+<!--            app:shimmer_repeat_count="10"-->
+<!--            app:shimmer_demo_grid_child_count="2"-->
+
+<!--            android:orientation="vertical">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+
+<!--                android:orientation="vertical">-->
+
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+<!--                <include layout="@layout/brands_item_shimmer" />-->
+
+
+<!--            </LinearLayout>-->
+<!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+
+
+
+
+<!--        <com.mikelau.views.shimmer.ShimmerRecyclerView-->
+<!--            xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--            android:id="@+id/shimmer_recycler_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="@id/home_recycle"-->
+<!--            app:shimmer_demo_reverse_animation="false"-->
+<!--            android:splitMotionEvents="false"-->
+<!--            app:shimmer_demo_mask_width=".5"-->
+<!--            app:shimmer_demo_child_count="16"-->
+<!--            app:shimmer_demo_grid_child_count="2"-->
+<!--            app:shimmer_demo_angle="4"-->
+<!--            app:shimmer_demo_layout="@layout/brands_item_shimmer"-->
+<!--            app:shimmer_demo_layout_manager_type="grid"-->
+<!--            />-->
+        <com.skydoves.androidveil.VeilRecyclerFrameView
+            android:id="@+id/veilRecyclerView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:veilFrame_layout="@layout/brands_item_shimmer"
+            app:veilFrame_veiled="true"
+            app:layout_constraintTop_toTopOf="@id/home_recycle"
+            app:veilFrame_shimmerEnable="true"
+            app:veilFrame_baseColor="#FFC2C2C2"
+            android:visibility="gone"
+            app:veilFrame_highlightColor="#FFC2C2C2"
+            app:veilFrame_baseAlpha="0.6"
+            app:veilFrame_highlightAlpha="1.0"
+            app:veilFrame_radius="8dp" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+   </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
