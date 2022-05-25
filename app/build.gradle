@@ -103,4 +103,14 @@ dependencies {
 
     // Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
+
+    //lottie
+
+    // lottie
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
+   //circleimageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }

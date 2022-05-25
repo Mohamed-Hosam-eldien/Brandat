@@ -4,6 +4,17 @@
     <string name="category">Category</string>
     <string name="fav">Favorite</string>
     <string name="cart">Cart</string>
+    <string name="order">Order</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="customer_name">Customer Name :</string>
+    <string name="order_number">Order Number :</string>
+    <string name="order_item">Order Item :</string>
+    <string name="order_details">order details</string>
+    <string name="total_price">total price :</string>
+    <string name="payment_method">Payment method :</string>
+    <string name="order_date">Order Date :</string>
+    <string name="phone">Phone :</string>
+    <string name="address">Address :</string>
 </resources>

@@ -15,10 +15,28 @@
         <entry key="..\:/android_studio_projects/Brandat/app/src/main/res/layout/fragment_home.xml" value="0.11018518518518519" />
         <entry key="..\:/android_studio_projects/Brandat/app/src/main/res/layout/main_toolbar.xml" value="0.171875" />
         <entry key="..\:/android_studio_projects/Brandat/app/src/main/res/menu/home_menu.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/circle.xml" value="0.1325" />
+        <entry key="app/src/main/res/drawable/circle_image.xml" value="0.1325" />
+        <entry key="app/src/main/res/drawable/ic_baseline_fastfood_24.xml" value="0.1325" />
+        <entry key="app/src/main/res/drawable/ic_category.xml" value="0.1325" />
+        <entry key="app/src/main/res/drawable/oval_shap.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/rounded_button.xml" value="0.1325" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.10009057971014493" />
+        <entry key="app/src/main/res/layout/d3d3.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/d3d3d3.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.10009057971014493" />
+        <entry key="app/src/main/res/layout/fragment_my_order.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_order_details.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.16077898550724637" />
+        <entry key="app/src/main/res/layout/items_in_order.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/main_toolbar.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/my_order_item.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/home_menu.xml" value="0.165625" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
