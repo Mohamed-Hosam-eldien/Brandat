@@ -2,15 +2,19 @@ package com.example.brandat.ui.fragments.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.ProductItemBinding
+import com.example.brandat.utils.ProductDiffUtil
 
-class ProductRvAdapter(private val productList: ArrayList<ProductModel>) :
-    RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
+
+class ProductRvAdapter : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
+
+    private var products = emptyList<ProductModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(
-            ProductItemBinding.inflate(
+            com.example.brandat.databinding.ProductItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -19,17 +23,34 @@ class ProductRvAdapter(private val productList: ArrayList<ProductModel>) :
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.binding.ivProduct.setImageResource(productList[position].productImg)
-        holder.binding.tvProductPrice.text = productList[position].ProductPrice
-        holder.binding.tvProductName.text = productList[position].productName
+        val currentProduct = products[position]
+        holder.bind(currentProduct)
+        holder.itemView.setOnClickListener {
+
+        }
     }
 
     override fun getItemCount(): Int {
-        return productList.size
+        return products.size
     }
 
+    fun setData(newData: ArrayList<ProductModel>) {
+        val productDiffutil=ProductDiffUtil(products,newData)
+        val productDiffUtilResult=DiffUtil.calculateDiff(productDiffutil)
+        products = ArrayList(newData)
+        productDiffUtilResult.dispatchUpdatesTo(this)
 
+    }
+
+    //============================================================
     class ProductViewHolder(val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(productList: ProductModel) {
+            binding.product=productList
+            binding.executePendingBindings()
+
+        }
+
     }
 }

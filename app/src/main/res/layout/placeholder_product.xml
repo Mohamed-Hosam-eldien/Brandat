@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="product"
-            type="com.example.brandat.ui.fragments.category.ProductModel" />
-    </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        onProductClicked="@{product}"
         app:cardCornerRadius="21dp"
         app:cardElevation="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,8 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/sh"
-                setProductImg="@{product.productImg}"
+                android:background="@color/purple_700"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:padding="3dp"
-                android:text="@{product.productName}"
+                android:background="@color/purple_700"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,8 +46,8 @@
                 android:layout_marginBottom="11dp"
                 android:fontFamily="serif-monospace"
                 android:padding="1dp"
-                android:text="370 Eg"
-                android:textColor="@color/white"
+
+             android:background="@color/purple_700"
                 android:textSize="21sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/tv_product_name"
@@ -63,7 +56,6 @@
 
             <ImageView
                 android:id="@+id/iv_favorite"
-                onFavClicked="@{product}"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="19dp"
@@ -71,7 +63,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_product_price"
                 app:layout_constraintTop_toTopOf="@id/tv_product_price"
-                app:srcCompat="@drawable/ic_favorite_fill"
+               android:backgroundTint="@color/purple_700"
                 app:tint="#C12E23" />
 
             <ImageView
@@ -79,13 +71,13 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="16dp"
-                onCartClicked="@{product}"
                 android:padding="7dp"
                 android:background="@drawable/cart_shape_back"
                 app:layout_constraintBottom_toTopOf="@id/tv_product_name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_add_to_cart"
+               android:backgroundTint="@color/purple_700"
                 app:tint="@color/white" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

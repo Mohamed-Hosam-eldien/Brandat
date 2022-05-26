@@ -20,11 +20,11 @@ class ProductFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        products.add(ProductModel("CLASSIC BACKPACK","379 Eg", R.drawable.sh5))
-        products.add(ProductModel(" BACKPACK","3700 Eg", R.drawable.sh3))
-        products.add(ProductModel("CLASSIC","3 Eg", R.drawable.sh2))
-        products.add(ProductModel("Dress","370 Eg", R.drawable.sh))
-        products.add(ProductModel("CLASSIC BACKPACK","379 Eg", R.drawable.dress_kid))
+        products.add(ProductModel("CLASSIC BACKPACK", "379 Eg", R.drawable.sh5))
+        products.add(ProductModel(" BACKPACK", "3700 Eg", R.drawable.sh3))
+        products.add(ProductModel("CLASSIC", "3 Eg", R.drawable.sh2))
+        products.add(ProductModel("Dress", "370 Eg", R.drawable.sh))
+        products.add(ProductModel("CLASSIC BACKPACK", "379 Eg", R.drawable.dress_kid))
 
     }
 
@@ -47,10 +47,19 @@ class ProductFragment : Fragment() {
         binding.rvProducts.apply {
             val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
             setLayoutManager(layoutManager)
-            productRvAdapter = ProductRvAdapter(products)
+            productRvAdapter = ProductRvAdapter()
+            productRvAdapter.setData(products)
             adapter = productRvAdapter
 
         }
+    }
+
+    fun showShimmerEffect() {
+       // binding.rvProducts
+    }
+
+    fun hideShimmerEffect() {
+
     }
 
 }

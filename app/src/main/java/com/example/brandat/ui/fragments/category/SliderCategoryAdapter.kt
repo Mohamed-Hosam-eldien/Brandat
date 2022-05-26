@@ -30,8 +30,7 @@ class SliderCategoryAdapter(private val sliderList: ArrayList<CategoryModel>?,
     override fun getItemCount(): Int {
         return sliderList!!.size
     }
-
+//===============================================
    class SliderCategoryViewHolder(val binding: SliderCategoryItemBinding): RecyclerView.ViewHolder(binding.root) {
-
    }
 }

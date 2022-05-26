@@ -42,7 +42,8 @@ class FavoriteFragment : Fragment() {
         binding.rvFavorits.apply {
             val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
             setLayoutManager(layoutManager)
-            productRvAdapter = ProductRvAdapter(products)
+            productRvAdapter = ProductRvAdapter()
+            productRvAdapter.setData(products)
             adapter = productRvAdapter
 
         }
