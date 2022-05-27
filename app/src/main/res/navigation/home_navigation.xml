@@ -25,4 +25,9 @@
         android:name="com.example.brandat.ui.fragments.category.CategoryFragment"
         android:label="@string/category"
         tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.brandat.ui.fragments.address.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address" />
 </navigation>
