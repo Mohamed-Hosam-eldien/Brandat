@@ -1,7 +1,9 @@
 package com.example.brandat.ui.fragments.cart
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.CartItemBinding
@@ -37,8 +39,9 @@ class CartRvAdapter : RecyclerView.Adapter<CartRvAdapter.CartViewHolder>() {
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val currentCart = carts[position]
         holder.bind(currentCart)
-        holder.itemView.setOnClickListener {
 
+        holder.itemView.setOnClickListener {
+            Log.e("TAG", "onBindViewHolder: ", )
         }
     }
 

@@ -27,7 +27,11 @@
         tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/productFragment"
-        android:name="com.example.brandat.ProductFragment"
+        android:name="com.example.brandat.ui.fragments.category.ProductFragment"
         android:label="fragment_product"
-        tools:layout="@layout/fragment_product" />
+        tools:layout="@layout/fragment_product" >
+        <action
+            android:id="@+id/action_productFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
 </navigation>

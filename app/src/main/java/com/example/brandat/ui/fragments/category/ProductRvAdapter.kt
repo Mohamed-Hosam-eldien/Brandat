@@ -1,9 +1,13 @@
 package com.example.brandat.ui.fragments.category
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.brandat.R
 import com.example.brandat.databinding.ProductItemBinding
 import com.example.brandat.utils.ProductDiffUtil
 
@@ -25,9 +29,10 @@ class ProductRvAdapter : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val currentProduct = products[position]
         holder.bind(currentProduct)
-        holder.itemView.setOnClickListener {
-
-        }
+//        holder.itemView.setOnClickListener {
+//
+//            Log.e("TAG", "product clicked: ", )
+//        }
     }
 
     override fun getItemCount(): Int {

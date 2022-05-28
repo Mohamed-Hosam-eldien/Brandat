@@ -32,7 +32,7 @@ class CategoryFragment : Fragment() {
 
 
     //connect Category With Tabs
-    //Map
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +58,7 @@ class CategoryFragment : Fragment() {
         viewPager2 = binding.viewPagerCategories
         tabsViewPager=binding.viewPagerSubCategory
         initializeSlider()
+        sliderWork()
         initializeTabLayout()
 
         val compositePageTransformer = CompositePageTransformer()
@@ -89,7 +90,23 @@ class CategoryFragment : Fragment() {
             setPageTransformer(compositePageTransformer)
         }
     }
-
+//=================================================================
+    private fun sliderWork() {
+//binding.viewPagerCategories.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+//        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+//    }
+//
+//    override fun onPageSelected(position: Int) {
+//        super.onPageSelected(position)
+//    }
+//
+//    override fun onPageScrollStateChanged(state: Int) {
+//        super.onPageScrollStateChanged(state)
+//    }
+//}
+    }
+//=================================================================
     private fun initializeTabLayout() {
         tabsViewPager.adapter = ProductViewPagerAdapter(requireActivity())
         TabLayoutMediator(binding.tablayout, binding.viewPagerSubCategory) { tab, index ->

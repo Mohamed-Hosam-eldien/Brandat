@@ -4,7 +4,11 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import coil.load
+import com.example.brandat.R
 import com.example.brandat.ui.fragments.category.ProductModel
 
 class ProductRowBinding {
@@ -13,8 +17,11 @@ class ProductRowBinding {
         @BindingAdapter("onProductClicked")
         @JvmStatic
         fun onProductClicked(productCard:CardView,product:ProductModel){
+            Log.e("TAG", "onProductClicked: ", )
             productCard.setOnClickListener {
-                Log.e("TAG", "onProductClicked: ", )
+
+//                val navController = Navigation.findNavController(productCard)
+//                navController.navigate(R.id.action_productFragment_to_cartFragment)
             }
         }
         @BindingAdapter("onFavClicked")
@@ -41,7 +48,7 @@ class ProductRowBinding {
         //when dealing with API , use this method instead
         @BindingAdapter("setImgForProduct")
         @JvmStatic
-        fun loadImgFromUrl(image: ImageView, url: String) {
+        fun setImgForProduct(image: ImageView, url: String) {
             image.load(url)
            // crossFade(600)
         }
