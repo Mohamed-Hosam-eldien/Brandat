@@ -2,11 +2,11 @@ package com.example.brandat.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
@@ -14,6 +14,9 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProductDetailsBinding
 import com.example.brandat.ui.User
 import com.example.brandat.ui.UserAdapter
+import com.like.LikeButton
+import com.like.OnLikeListener
+
 
 class ProductDetailsFragment : Fragment() {
 
@@ -42,17 +45,16 @@ class ProductDetailsFragment : Fragment() {
         binding.shareBtn.setOnClickListener {
             shareProduct()
         }
+
         binding.backBtn.setOnClickListener {
             requireActivity().finish()
         }
 
         binding.favoriteBtn.setOnClickListener {
-            if(binding.favoriteBtn.tag.equals("1")){
-                binding.favoriteBtn.setImageResource(R.drawable.ic_favorite_filled)
-                binding.favoriteBtn.tag = "0"
-            }else{
-                binding.favoriteBtn.tag = "1"
-            }
+
+
+
+
         }
 
 
@@ -61,6 +63,8 @@ class ProductDetailsFragment : Fragment() {
 
         return binding.root
     }
+
+
     private fun setupRecyclerView() {
         binding.recyclerview.adapter = mAdapter
         binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
