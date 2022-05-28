@@ -1,5 +1,6 @@
 package com.example.brandat.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
@@ -19,10 +20,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         navController = findNavController(R.id.navHostFragment)
 
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        binding.imgProfile.setOnClickListener {
+            startActivity(Intent(this, Profile::class.java))
+        }
 
     }
 

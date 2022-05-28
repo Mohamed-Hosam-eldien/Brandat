@@ -36,6 +36,7 @@
                     android:src="@drawable/ic_search" />
 
                 <ImageView
+                    android:id="@+id/imgProfile"
                     android:layout_width="40dp"
                     android:layout_height="38dp"
                     android:layout_alignParentEnd="true"
