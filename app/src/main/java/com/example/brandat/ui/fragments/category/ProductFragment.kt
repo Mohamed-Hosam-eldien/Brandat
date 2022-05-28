@@ -1,4 +1,4 @@
-package com.example.brandat.ui.fragments.favorite
+package com.example.brandat.ui.fragments.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,24 +8,23 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
-import com.example.brandat.databinding.FragmentFavoriteBinding
-import com.example.brandat.ui.fragments.category.ProductModel
-import com.example.brandat.ui.fragments.category.ProductRvAdapter
+import com.example.brandat.databinding.FragmentProductBinding
 
-class FavoriteFragment : Fragment() {
+
+class ProductFragment : Fragment() {
+
     private lateinit var productRvAdapter: ProductRvAdapter
-    private lateinit var binding: FragmentFavoriteBinding
+    private lateinit var binding: FragmentProductBinding
     private val products: ArrayList<ProductModel> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        products.add(ProductModel("CLASSIC BACKPACK", "379 Eg", R.drawable.bag))
+        products.add(ProductModel("CLASSIC BACKPACK", "379 Eg", R.drawable.sh5))
         products.add(ProductModel(" BACKPACK", "3700 Eg", R.drawable.sh3))
         products.add(ProductModel("CLASSIC", "3 Eg", R.drawable.sh2))
         products.add(ProductModel("Dress", "370 Eg", R.drawable.sh))
         products.add(ProductModel("CLASSIC BACKPACK", "379 Eg", R.drawable.dress_kid))
-
 
     }
 
@@ -33,13 +32,19 @@ class FavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFavoriteBinding.inflate(LayoutInflater.from(context), container, false)
+        binding = FragmentProductBinding.inflate(LayoutInflater.from(context), container, false)
         setUpRecyclerView()
         return binding.root
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
     private fun setUpRecyclerView() {
-        binding.rvFavorits.apply {
+        binding.rvProducts.apply {
             val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
             setLayoutManager(layoutManager)
             productRvAdapter = ProductRvAdapter()
@@ -49,8 +54,11 @@ class FavoriteFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    fun showShimmerEffect() {
+       // binding.rvProducts
+    }
+
+    fun hideShimmerEffect() {
 
     }
 

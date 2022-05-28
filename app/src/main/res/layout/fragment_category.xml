@@ -1,9 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+<androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.category.CategoryFragment">
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="9dp"
+        tools:context=".ui.fragments.category.CategoryFragment">
+
+        <TextView
+            android:id="@+id/txt_browes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:padding="5dp"
+            android:text="Browes Category"
+            android:textSize="29sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingStart="60dp"
+            android:paddingEnd="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_browes" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_pager_categories">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="17dp"
+                android:background="#9a7c84"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingStart="4dp"
+                android:paddingBottom="9dp"
+                app:cardCornerRadius="9dp"
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tablayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#f8f6f7"
+                    android:padding="3dp"
+                    app:tabIndicatorColor="@color/black"
+                    app:tabRippleColor="@color/black"
+                    app:tabTextColor="@color/black">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/kid_tab"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Kid" />
 
 
-</FrameLayout>
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/womenTab"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Women" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/menTab"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Men" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/saleTab"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Sale" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.viewpager2.widget.ViewPager2
+                app:layout_constraintTop_toBottomOf="@+id/cardview"
+                android:layout_width="match_parent"
+                android:id="@+id/view_pager_subCategory"
+                android:layout_height="match_parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+</layout>
