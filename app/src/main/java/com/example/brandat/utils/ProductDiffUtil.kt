@@ -7,6 +7,7 @@ class ProductDiffUtil(
     private val oldList: List<ProductModel>,
     private val newList: List<ProductModel>
 ) : DiffUtil.Callback() {
+
     override fun getOldListSize(): Int {
         return oldList.size
     }
