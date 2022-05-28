@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/categoryFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/favoriteFragment"
@@ -29,9 +29,5 @@
         android:id="@+id/productFragment"
         android:name="com.example.brandat.ui.fragments.category.ProductFragment"
         android:label="fragment_product"
-        tools:layout="@layout/fragment_product" >
-        <action
-            android:id="@+id/action_productFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_product" />
 </navigation>
