@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_navigation"
+    app:startDestination="@id/profileDataFragment">
+
+    <fragment
+        android:id="@+id/currencyFragment"
+        android:name="com.example.brandat.ui.fragments.currency.CurrencyFragment"
+        android:label="Currency"
+        tools:layout="@layout/fragment_currency" />
+    <fragment
+        android:id="@+id/profileDataFragment"
+        android:name="com.example.brandat.ui.fragments.profile.ProfileDataFragment"
+        android:label="Profile" >
+        <action
+            android:id="@+id/action_profileDataFragment_to_currencyFragment"
+            app:destination="@id/currencyFragment" />
+    </fragment>
+</navigation>

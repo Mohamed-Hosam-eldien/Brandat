@@ -12,4 +12,17 @@
     <string name="currency">Currency</string>
     <string name="language">Language</string>
     <string name="sign_out">Sign Out</string>
+    <string name="dollar">Dollar</string>
+    <string name="bound">Bound</string>
+    <string name="steps">asd</string>
+    <string name="click_to_add_address">Click To Add Address</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="cash">Cash</string>
+    <string name="paypal">Paypal</string>
+    <string name="copon">copon</string>
+    <string name="price">Price :</string>
+    <string name="apply">Apply</string>
+    <string name="delivery">Delivery :</string>
+    <string name="total">Total :</string>
+
 </resources>

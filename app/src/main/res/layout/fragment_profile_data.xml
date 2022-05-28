@@ -19,30 +19,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:src="@drawable/ic_person"
             app:civ_border_width="2dp"
             app:civ_border_color="#FF000000" />
 
         <TextView
-            android:id="@+id/profile_text"
+            android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textSize="22sp"
+            android:textSize="18sp"
+            android:text="mohamed hosam"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_image"
             tools:text="Mohamed Hosam" />
 
         <TextView
-            android:id="@+id/profile_default_address"
+            android:id="@+id/txt_default_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/profile_text"
+            app:layout_constraintTop_toBottomOf="@id/txtName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:text="nile street, haram, giza"
             tools:text="nile street, haram, giza"
             android:layout_marginTop="8dp"
             android:textSize="16sp" />
@@ -50,11 +52,12 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="18dp"
-            android:src="@drawable/ic_location_on"
-            app:layout_constraintEnd_toStartOf="@id/profile_default_address"
-            app:layout_constraintBottom_toBottomOf="@id/profile_default_address"
             android:layout_marginEnd="4dp"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:src="@drawable/ic_location_on"
+            app:layout_constraintBottom_toBottomOf="@id/txt_default_address"
+            app:layout_constraintEnd_toStartOf="@id/txt_default_address"
+            app:layout_constraintTop_toTopOf="@+id/txt_default_address" />
 
 
         <androidx.cardview.widget.CardView
@@ -62,10 +65,10 @@
             android:layout_width="280dp"
             app:cardElevation="12dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48sp"
+            android:layout_marginTop="16sp"
             app:cardCornerRadius="16dp"
             app:cardUseCompatPadding="true"
-            app:layout_constraintTop_toBottomOf="@id/profile_default_address"
+            app:layout_constraintTop_toBottomOf="@id/txt_default_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -77,59 +80,62 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/orderLayout"
                     android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="@string/my_orders"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
 
                     <ImageView
+                        android:layout_width="18sp"
+                        android:layout_height="18sp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
+                        android:contentDescription="@null"
                         android:src="@drawable/ic_arrow_forward"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="@string/my_orders"
                         android:textSize="24sp"
-                        android:contentDescription="@null"
                         tools:ignore="RelativeOverlap" />
 
 
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/addressLayout"
                     android:padding="12dp"
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_alignParentStart="true"
-                        android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
                         android:text="@string/my_addresses"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
 
                     <ImageView
+                        android:layout_width="18sp"
+                        android:layout_height="18sp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_arrow_forward"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="@string/my_orders" />
 
 
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/languageLayout"
                     android:padding="12dp"
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
@@ -137,19 +143,19 @@
 
 
                     <TextView
-                        android:layout_alignParentStart="true"
-                        android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
                         android:text="@string/language"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
 
                     <ImageView
+                        android:layout_width="18sp"
+                        android:layout_height="18sp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_arrow_forward"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="@string/my_orders"
                         android:textSize="24sp" />
 
@@ -157,25 +163,26 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/currencyLayout"
                     android:padding="12dp"
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_alignParentStart="true"
-                        android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
                         android:text="@string/currency"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
 
                     <ImageView
+                        android:layout_width="18sp"
+                        android:layout_height="18sp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_arrow_forward"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="@string/my_orders"
                         android:textSize="24sp" />
 
@@ -187,6 +194,7 @@
         </androidx.cardview.widget.CardView>
 
         <Button
+            android:id="@+id/btnSignOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/red"

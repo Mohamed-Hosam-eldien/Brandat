@@ -1,10 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.OrderStatus">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.OrderStatus">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <params.com.stepview.StatusViewScroller
+            android:id="@+id/stepView"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:stepCount="3"
+            app:currentCount="2"
+            app:drawLabels="true"
+            app:currentStepZoom="0.3"
+            app:lineGap="15dp"
+            app:lineWidth="3dp"
+            app:lineColor="#0A3EA0"
+            app:lineColorIncomplete="#5F80FC"
+            app:lineColorCurrent="#91A8D0"
+            app:circleColor="#0A3EA0"
+            app:circleColorCurrent="#4A68FF"
+            app:circleColorIncomplete="#BCBCBE"
+            app:textColorLabels="@android:color/white"
+            app:textColorLabelsCurrent="@android:color/white"
+            app:textColorLabelsIncomplete="@android:color/black"
+            app:circleStrokeColorCurrent="#91A8D0"
+            app:textSizeLabels="18sp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:completeDrawable="@drawable/ic_done" />
+
+
+        <fragment
+            android:id="@+id/navHostFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stepView"
+            app:navGraph="@navigation/profile_navigation" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
