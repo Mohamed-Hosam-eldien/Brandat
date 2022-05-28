@@ -12,16 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Brandat">
         <activity
-            android:name=".ui.ProductActivity"
+            android:name=".registeration.RegistrationActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.ProductActivity"
+            android:exported="true" >
+        </activity>
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
