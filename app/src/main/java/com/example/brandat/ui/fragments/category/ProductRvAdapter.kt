@@ -12,7 +12,7 @@ import com.example.brandat.databinding.ProductItemBinding
 import com.example.brandat.utils.ProductDiffUtil
 
 
-class ProductRvAdapter : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
+class ProductRvAdapter(var onClickedListener: OnClickedListener) : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
 
     private var products = emptyList<ProductModel>()
 
@@ -29,10 +29,11 @@ class ProductRvAdapter : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val currentProduct = products[position]
         holder.bind(currentProduct)
-//        holder.itemView.setOnClickListener {
-//
-//            Log.e("TAG", "product clicked: ", )
-//        }
+           holder.itemView.setOnClickListener {
+
+                onClickedListener.onClicked(currentProduct)
+
+             }
     }
 
     override fun getItemCount(): Int {
