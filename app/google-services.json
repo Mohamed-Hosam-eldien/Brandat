@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1099434071720",
+    "project_id": "brandat-c5ea9",
+    "storage_bucket": "brandat-c5ea9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1099434071720:android:a3d3c4e62b2c40357ad49d",
+        "android_client_info": {
+          "package_name": "com.example.brandat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1099434071720-fn79p8btbgvhngm9ucrp5sj8b89dq6u8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.brandat",
+            "certificate_hash": "b403ffbf1eb11822176db529e04d275dca5f519b"
+          }
+        },
+        {
+          "client_id": "1099434071720-n4f0pmjksh08dlmm5rli7gote3tmf6n2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsU9FaPOCUnSIb0ZwdfvnQnV4D87lAgBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1099434071720-n4f0pmjksh08dlmm5rli7gote3tmf6n2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -139,5 +140,13 @@ dependencies {
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
 
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+
+    //firebase
+    implementation 'com.google.firebase:firebase-database:20.0.5'
+    implementation 'com.google.firebase:firebase-core:21.0.0'
+    implementation 'com.firebaseui:firebase-ui-database:8.0.0'
+    implementation 'com.google.firebase:firebase-auth:21.0.5'
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
 
 }
