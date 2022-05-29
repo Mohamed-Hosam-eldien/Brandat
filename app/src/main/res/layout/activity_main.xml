@@ -38,8 +38,8 @@
 
                 <ImageView
                     android:id="@+id/imgProfile"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_person_circle" />

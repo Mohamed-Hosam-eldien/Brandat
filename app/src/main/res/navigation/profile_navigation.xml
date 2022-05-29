@@ -17,5 +17,12 @@
         <action
             android:id="@+id/action_profileDataFragment_to_currencyFragment"
             app:destination="@id/currencyFragment" />
+        <action
+            android:id="@+id/action_profileDataFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.brandat.ui.fragments.address.AddressFragment"
+        android:label="AddressFragment" />
 </navigation>

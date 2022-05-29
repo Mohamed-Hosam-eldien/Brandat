@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/order_navigation">
+    android:id="@+id/order_navigation"
+    app:startDestination="@id/firstOrderStatus">
 
+    <fragment
+        android:id="@+id/firstOrderStatus"
+        android:name="com.example.brandat.ui.fragments.orderStatus.FirstOrderStatus"
+        android:label="FirstOrderStatus" >
+        <action
+            android:id="@+id/action_firstOrderStatus_to_secondOrderStatus"
+            app:destination="@id/secondOrderStatus" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondOrderStatus"
+        android:name="com.example.brandat.ui.fragments.orderStatus.SecondOrderStatus"
+        android:label="SecondOrderStatus" />
 </navigation>

@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.cart
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentCartBinding
+import com.example.brandat.ui.OrderStatus
 
 class CartFragment : Fragment() {
 
@@ -46,7 +48,7 @@ class CartFragment : Fragment() {
 
         binding.buyButn.setOnClickListener {
             //go to eng hossam
-            Toast.makeText(requireContext(), "go to eng hossam", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(requireContext(), OrderStatus::class.java))
         }
 
     }

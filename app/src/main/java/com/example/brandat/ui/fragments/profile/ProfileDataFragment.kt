@@ -43,7 +43,7 @@ class ProfileDataFragment : Fragment() {
         }
         binding.addressLayout.setOnClickListener{
             // navigate to addresses fragment
-            startActivity(Intent(requireContext(), OrderStatus::class.java))
+            it.findNavController().navigate(R.id.action_profileDataFragment_to_addressFragment)
         }
         binding.currencyLayout.setOnClickListener{
             // navigate to currency fragment
