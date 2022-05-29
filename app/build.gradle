@@ -134,8 +134,4 @@ dependencies {
     // floating button
     implementation 'com.github.clans:fab:1.6.4'
 
-    // lottie
-    def lottieVersion = "3.4.0"
-    implementation "com.airbnb.android:lottie:$lottieVersion"
-
 }

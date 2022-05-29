@@ -4,9 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
-import com.example.brandat.R
-import com.example.brandat.databinding.FragmentCategoryBinding
 import com.example.brandat.databinding.SliderCategoryItemBinding
 
 class SliderCategoryAdapter(private val sliderList: ArrayList<CategoryModel>?,
@@ -14,8 +11,8 @@ class SliderCategoryAdapter(private val sliderList: ArrayList<CategoryModel>?,
     RecyclerView.Adapter<SliderCategoryAdapter.SliderCategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderCategoryViewHolder {
-       return  (SliderCategoryViewHolder(SliderCategoryItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)))
 
+        return  (SliderCategoryViewHolder(SliderCategoryItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)))
     }
 
     override fun onBindViewHolder(holder: SliderCategoryViewHolder, position: Int) {

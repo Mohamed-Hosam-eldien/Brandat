@@ -6,29 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentCartBinding
 
 class CartFragment : Fragment() {
+
     private lateinit var binding: FragmentCartBinding
     private lateinit var cartAdapter: CartRvAdapter
     private var cartList: ArrayList<Cart> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        cartList.add(Cart("CLASSIC BACKPACK","235 $", R.drawable.dress_kid,2))
-        cartList.add(Cart("CLASSIC BACKPACK","235 $", R.drawable.bag,2))
-        cartList.add(Cart("CLASSIC BACKPACK","235 $", R.drawable.sh5,2))
-        cartList.add(Cart("Dress","235 $", R.drawable.sh2,2))
-        cartList.add(Cart("CLASSIC BACKPACK","235 $", R.drawable.dress_kid,2))
-        cartList.add(Cart("Dress","235 $", R.drawable.dress_kid,2))
-        cartList.add(Cart("CLASSIC BACKPACK","235 $", R.drawable.bag,2))
-        cartList.add(Cart("CLASSIC BACKPACK","235 $", R.drawable.dress_kid,2))
-        cartList.add(Cart("Dress","235 $", R.drawable.sh3,2))
-        cartList.add(Cart("CLASSIC BACKPACK","235 $", R.drawable.dress_kid,2))
+        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.dress_kid, 2))
+        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.bag, 2))
+        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.sh5, 2))
+        cartList.add(Cart("Dress", "235 $", R.drawable.sh2, 2))
+        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.dress_kid, 2))
+        cartList.add(Cart("Dress", "235 $", R.drawable.dress_kid, 2))
+        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.bag, 2))
+        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.dress_kid, 2))
+        cartList.add(Cart("Dress", "235 $", R.drawable.sh3, 2))
+        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.dress_kid, 2))
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,19 +43,21 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.buyButn.setOnClickListener{
-           //go to eng hossam
+
+        binding.buyButn.setOnClickListener {
+            //go to eng hossam
             Toast.makeText(requireContext(), "go to eng hossam", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     private fun setUpRecyclerView() {
         binding.rvCart.apply {
             val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             setLayoutManager(layoutManager)
-            cartAdapter= CartRvAdapter()
+            cartAdapter = CartRvAdapter()
             cartAdapter.setData(cartList)
-            adapter=cartAdapter
+            adapter = cartAdapter
         }
     }
 }
