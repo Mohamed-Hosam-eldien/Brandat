@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/brand_layout"
+        android:layout_width="179dp"
+        android:layout_height="200dp"
+        >
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:outlineAmbientShadowColor="#DFD8D8"
+            app:cardUseCompatPadding="false"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            android:shadowColor="#DFD8D8"
+            android:outlineSpotShadowColor="#DFD8D8"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:background="#DFD8D8"
+
+            >
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:id="@+id/img_brand"
+                    android:scaleType="centerInside"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:background="@color/shimmerColor"
+                    />
+                <TextView
+                    android:id="@+id/brand_name"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_margin="4dp"
+                    android:layout_height="0dp"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:background="@drawable/rounded_shap"
+                    android:layout_gravity="center"
+                    android:textStyle="normal"
+                    />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
