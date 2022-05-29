@@ -29,7 +29,6 @@ lateinit var brandAdapter: BrandAdapter
         super.onViewCreated(view, savedInstanceState)
         imageSlider()
         initView()
-        shimmer()
 
     }
     private fun imageSlider() {
@@ -50,7 +49,7 @@ lateinit var brandAdapter: BrandAdapter
         // brandAdapter= BrandAdapter(arrayListOf())
         // and remove next line
         brandAdapter= BrandAdapter(fakeDataTestRecycle())
-        binding.homeRecycle.apply {
+        binding.bradsRecycler.apply {
             var layoutManager = GridLayoutManager(context, 2)
             setLayoutManager(layoutManager)
 
@@ -58,14 +57,7 @@ lateinit var brandAdapter: BrandAdapter
 
         }
     }
-   private  fun  shimmer(){
-       brandAdapter= BrandAdapter(fakeDataTestRecycle())
 
-       binding.veilRecyclerView2.setAdapter(brandAdapter)
-      binding.veilRecyclerView2.setLayoutManager(GridLayoutManager(context,2))
-       binding.veilRecyclerView2.addVeiledItems(15)
-
-   }
     private  fun fakeDataTestRecycle() : ArrayList<BrandModel>{
 
         var fakeList  =ArrayList<BrandModel>()
