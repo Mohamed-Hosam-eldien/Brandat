@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.RecyclerHomeItemBinding
 
-class BrandAdapter(var brandList :ArrayList<BrandModel>) : RecyclerView.Adapter<BrandAdapter.BrandViewHolder>() {
+class BrandAdapter(private var brandList :ArrayList<BrandModel>) : RecyclerView.Adapter<BrandAdapter.BrandViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandViewHolder {

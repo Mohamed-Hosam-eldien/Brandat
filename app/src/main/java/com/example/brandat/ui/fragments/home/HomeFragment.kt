@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentHomeBinding
@@ -32,16 +31,14 @@ lateinit var brandAdapter: BrandAdapter
 
     }
     private fun imageSlider() {
-
         val imageList = ArrayList<SlideModel>()
         imageList.add(SlideModel(R.drawable.slider_placeholder_image))
         imageList.add(SlideModel(R.drawable.slider_image_1))
         imageList.add(SlideModel(R.drawable.slider_image_2))
         imageList.add(SlideModel(R.drawable.slider_image_3))
 
-
-         binding.imageSlider.setImageList(imageList)
-         binding.imageSlider.setImageList(imageList)
+        binding.imageSlider.setImageList(imageList)
+        binding.imageSlider.setImageList(imageList)
     }
 
     private fun initView(){
@@ -72,18 +69,6 @@ lateinit var brandAdapter: BrandAdapter
         fakeList.add(BrandModel(R.drawable.martener_logo,"DR MARTENS"))
         fakeList.add(BrandModel(R.drawable.converse_logo,"CONVERSE"))
         fakeList.add(BrandModel(R.drawable.img,"ZARA"))
-
-
-
-
-
-
-
-
-
-
-
-
 
         return  fakeList
 
