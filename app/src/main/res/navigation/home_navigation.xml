@@ -46,4 +46,9 @@
         android:id="@+id/orderDetailsFragment"
         android:name="com.example.brandat.ui.fragments.orderDetails.OrderDetailsFragment"
         android:label="OrderDetailsFragment" />
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.brandat.ui.fragments.address.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address" />
 </navigation>

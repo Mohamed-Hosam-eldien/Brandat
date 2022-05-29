@@ -8,6 +8,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Address">Address</string>
     <string name="customer_name">Customer Name :</string>
     <string name="order_number">Order Number :</string>
     <string name="order_item">Order Item :</string>
