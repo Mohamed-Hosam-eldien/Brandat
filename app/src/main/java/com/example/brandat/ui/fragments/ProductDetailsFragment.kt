@@ -14,8 +14,7 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProductDetailsBinding
 import com.example.brandat.ui.User
 import com.example.brandat.ui.UserAdapter
-import com.like.LikeButton
-import com.like.OnLikeListener
+
 
 
 class ProductDetailsFragment : Fragment() {
