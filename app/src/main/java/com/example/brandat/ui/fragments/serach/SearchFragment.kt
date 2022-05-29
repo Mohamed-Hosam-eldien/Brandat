@@ -1,4 +1,4 @@
-package com.example.brandat.registeration
+package com.example.brandat.ui.fragments.serach
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.brandat.R
 
-class RegisterFragment : Fragment() {
+
+class SearchFragment : Fragment() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +21,9 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
+    companion object {
+    }
 }

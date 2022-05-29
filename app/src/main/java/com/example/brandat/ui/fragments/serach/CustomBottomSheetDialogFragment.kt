@@ -1,4 +1,4 @@
-package com.example.brandat.serach
+package com.example.brandat.ui.fragments.serach
 
 import android.os.Bundle
 import android.view.LayoutInflater

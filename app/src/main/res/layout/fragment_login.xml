@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="200dp"
-    tools:context=".registeration.RegistrationActivity">
+    tools:context=".ui.fragments.registeration.RegistrationActivity">
 
 
     <TextView

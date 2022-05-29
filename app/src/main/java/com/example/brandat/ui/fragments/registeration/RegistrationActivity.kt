@@ -1,4 +1,4 @@
-package com.example.brandat.registeration
+package com.example.brandat.ui.fragments.registeration
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
