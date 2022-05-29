@@ -19,17 +19,17 @@ class OrderStatus : AppCompatActivity() {
 
         binding.stepView.statusView.setStatusList(stepList.toList())
 
-        binding.next.setOnClickListener{
-            if(binding.stepView.statusView.currentCount <= 2)
-                binding.stepView.statusView.currentCount = binding.stepView.statusView.currentCount + 1
-
-
-        }
-
-        binding.back.setOnClickListener{
-            if(binding.stepView.statusView.currentCount > 1)
-                binding.stepView.statusView.currentCount = binding.stepView.statusView.currentCount - 1
-        }
+//        binding.next.setOnClickListener{
+//            if(binding.stepView.statusView.currentCount <= 2)
+//                binding.stepView.statusView.currentCount = binding.stepView.statusView.currentCount + 1
+//
+//        }
+//
+//        binding.back.setOnClickListener{
+//            if(binding.stepView.statusView.currentCount > 1)
+//                binding.stepView.statusView.currentCount = binding.stepView.statusView.currentCount - 1
+//
+//        }
 
     }
 
