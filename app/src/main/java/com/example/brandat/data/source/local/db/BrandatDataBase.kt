@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.brandat.ui.fragments.address.AddressModel
-
+// don forget to use automigration
 @Database(
     entities = arrayOf(AddressModel::class),
     version = 1,
