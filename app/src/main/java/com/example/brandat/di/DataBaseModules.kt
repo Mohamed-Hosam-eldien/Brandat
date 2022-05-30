@@ -20,7 +20,7 @@ object DataBaseModules {
         Room.databaseBuilder(
             context,
             BrandatDataBase::class.java,
-            "WeatherApp-DB"
+            "Brandat-DB"
         ).build()
 
     @Provides
