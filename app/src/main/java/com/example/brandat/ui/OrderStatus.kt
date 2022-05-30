@@ -17,7 +17,7 @@ class OrderStatus : AppCompatActivity() {
         binding = ActivityOrderStatusBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.stepView.statusView.setStatusList(stepList.toList())
+       // binding.stepView.statusView.setStatusList(stepList.toList())
 
 //        binding.next.setOnClickListener{
 //            if(binding.stepView.statusView.currentCount <= 2)
