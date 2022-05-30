@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -17,7 +20,7 @@ import com.example.brandat.databinding.FragmentCategoryBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import java.lang.Math.abs
 
-class CategoryFragment : Fragment() {
+class CategoryFragment : Fragment() ,OnClickedListener {
 
     private lateinit var binding: FragmentCategoryBinding
 
@@ -126,6 +129,11 @@ class CategoryFragment : Fragment() {
         sliderAdapter = SliderCategoryAdapter(categories, viewPager2)
         viewPager2.adapter = sliderAdapter
 
+
+    }
+
+    override fun onClicked(currentProduct: ProductModel) {
+        findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment)
 
     }
 

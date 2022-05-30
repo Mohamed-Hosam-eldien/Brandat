@@ -1,3 +1,11 @@
 package com.example.brandat.ui.fragments.address
 
-data class AddressModel(var countryName:String,var Governorate:String, var street:String )
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class AddressModel(
+    @PrimaryKey
+    var countryName:String
+    ,var Governorate:String
+    , var street:String )
