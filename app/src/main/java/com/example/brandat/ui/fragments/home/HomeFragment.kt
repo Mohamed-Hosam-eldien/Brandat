@@ -32,10 +32,10 @@ lateinit var brandAdapter: BrandAdapter
     }
     private fun imageSlider() {
         val imageList = ArrayList<SlideModel>()
-        imageList.add(SlideModel(R.drawable.slider_placeholder_image))
+        imageList.add(SlideModel(R.drawable.sh))
         imageList.add(SlideModel(R.drawable.slider_image_1))
-        imageList.add(SlideModel(R.drawable.slider_image_2))
-        imageList.add(SlideModel(R.drawable.slider_image_3))
+        imageList.add(SlideModel(R.drawable.sh2))
+        imageList.add(SlideModel(R.drawable.sh3))
 
         binding.imageSlider.setImageList(imageList)
         binding.imageSlider.setImageList(imageList)
