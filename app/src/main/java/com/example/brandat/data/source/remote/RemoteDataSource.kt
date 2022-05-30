@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 class RemoteDataSource@Inject constructor(
     private val networkService: NetworkService
-){
+) :IRemoteDataSource{
 
 
 }

@@ -1,4 +1,6 @@
 package com.example.brandat.data.source.local
 
-class LocalDataSource {
+import javax.inject.Inject
+
+class LocalDataSource @Inject constructor() :ILocalDataSource {
 }

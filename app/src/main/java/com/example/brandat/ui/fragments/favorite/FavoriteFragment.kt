@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
@@ -16,10 +17,10 @@ class FavoriteFragment : Fragment() {
     private lateinit var productRvAdapter: ProductRvAdapter
     private lateinit var binding: FragmentFavoriteBinding
     private val products: ArrayList<ProductModel> = ArrayList()
+    private  val favouriteViewModel :FavouriteViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         products.add(ProductModel("CLASSIC BACKPACK", "379 Eg", R.drawable.bag))
         products.add(ProductModel(" BACKPACK", "3700 Eg", R.drawable.sh3))
         products.add(ProductModel("CLASSIC", "3 Eg", R.drawable.sh2))
