@@ -17,6 +17,8 @@
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/layout/fragment_register.xml" value="0.2" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/layout/reviewer_row_layout.xml" value="0.2" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/menu/home_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_home.xml" value="0.171875" />
         <entry key="..\:/android_studio_projects/Brandat/app/src/main/res/drawable/ic_baseline_fastfood_24.xml" value="0.1015" />
         <entry key="..\:/android_studio_projects/Brandat/app/src/main/res/drawable/ic_person.xml" value="0.136" />
         <entry key="..\:/android_studio_projects/Brandat/app/src/main/res/drawable/ic_person_circle.xml" value="0.136" />
@@ -37,7 +39,10 @@
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/fragment_favorite.xml" value="0.15208333333333332" />
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/fragment_home.xml" value="0.12" />
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/fragment_product.xml" value="0.1" />
+        <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/placeholder_product.xml" value="0.171875" />
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/product_item.xml" value="0.1" />
+        <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/recycler_home_item.xml" value="0.171875" />
+        <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/reviewer_row_layout.xml" value="0.171875" />
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/second_order_state.xml" value="0.1" />
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/slider_category_item.xml" value="0.171875" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/activity_main.xml" value="0.1" />

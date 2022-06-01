@@ -2,6 +2,7 @@ package com.example.brandat.di
 
 import com.example.brandat.data.source.remote.NetworkService
 import com.example.brandat.utils.Constants.Companion.BASE_URL
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,45 +12,44 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-  // @Singleton
+
+    //@Singleton
     @Provides
-    fun provideHttpClient() : OkHttpClient {
+    fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
             .build()
     }
 
-   // @Singleton
+    //@Singleton
     @Provides
     fun provideConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create()
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        return GsonConverterFactory.create(gson)
     }
-//    @Provides
-//    fun provideConverterFactory(): GsonConverterFactory {
-//        val gson = GsonBuilder()
-//            .setLenient()
-//            .create()
-//        return GsonConverterFactory.create(gson)
-//    }
-   // @Singleton
+
+    //@Singleton
     @Provides
     fun provideRetrofitInstance(
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
-       val interceptor = HttpLoggingInterceptor()
-       interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-      // val authorizationHeader = "Basic "+"erfrfrfvdfrvdfr4345455="
-       val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
-          // .addHeader("Authorization",authorizationHeader).build();
+
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(client)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
