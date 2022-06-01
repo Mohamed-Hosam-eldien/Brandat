@@ -36,7 +36,6 @@ class ProductRvAdapter(var onClickedListener: OnClickedListener) :
 
         holder.itemView.setOnClickListener {
             onClickedListener.onClicked(currentProduct)
-
         }
     }
 

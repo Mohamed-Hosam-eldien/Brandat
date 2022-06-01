@@ -115,13 +115,14 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
     }
 
     override fun onClicked(currentProduct: Product) {
-        findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment)
-
+        val bundle = Bundle()
+        bundle.putLong("productId", currentProduct.id)
+        Log.d("TAG", "onClicked: ray7 ${currentProduct.id}")
+        findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment, bundle)
     }
 
 
     override fun getPosition(position: Int, context: Context) {
-
         Toast.makeText(context, "pos ${position}" , Toast.LENGTH_SHORT).show()
     }
 

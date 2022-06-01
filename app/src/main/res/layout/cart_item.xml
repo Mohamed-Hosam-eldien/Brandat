@@ -123,7 +123,6 @@
                 android:fontFamily="serif"
                 android:gravity="center"
                 android:padding="1dp"
-
                 android:text="@{String.valueOf(cart.PQuantity)}"
                 android:textColor="@color/black"
                 android:textSize="27sp"
