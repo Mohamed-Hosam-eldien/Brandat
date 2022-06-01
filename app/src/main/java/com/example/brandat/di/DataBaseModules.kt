@@ -10,21 +10,22 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-@InstallIn(SingletonComponent::class)
+
 @Module
+@InstallIn(SingletonComponent::class)
 object DataBaseModules {
 
     @Provides
-    @Singleton
+    //@Singleton
     fun provideDatabase(@ApplicationContext context: Context): BrandatDataBase =
         Room.databaseBuilder(
             context,
             BrandatDataBase::class.java,
-            "WeatherApp-DB"
+            "Brandat-DB"
         ).build()
 
     @Provides
-    @Singleton
+   // @Singleton
     fun provideBrandatDao(db: BrandatDataBase): BrandatDao = db.brandatDao()
 
 }

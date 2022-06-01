@@ -56,6 +56,6 @@
         android:label="OrderDetailsFragment" />
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.example.brandat.ui.fragments.ProductDetailsFragment"
+        android:name="com.example.brandat.ui.fragments.productdetails.ProductDetailsFragment"
         android:label="ProductDetailsFragment" />
 </navigation>

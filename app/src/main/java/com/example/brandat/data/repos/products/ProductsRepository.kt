@@ -1,14 +1,22 @@
 package com.example.brandat.data.repos.products
 
+import android.util.Log
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
-import dagger.hilt.android.scopes.ViewModelScoped
+import com.example.brandat.models.Product
+import com.example.brandat.models.Products
+import retrofit2.Response
 import javax.inject.Inject
 
-@ViewModelScoped
+//@ActivityRetainedScoped
+//@ViewModelScoped
 class ProductsRepository @Inject constructor(
-    var localDataSource: ILocalDataSource,
-     var remoteDataSource: IRemoteDataSource
-    ) :IProductsRepository{
+    private var localDataSource: ILocalDataSource,
+    private var remoteDataSource: IRemoteDataSource
+) : IProductsRepository {
+    override suspend fun getProductDetails(productId: Long):Response<Product> {
+        Log.d("TAG", "getProductDetails: $productId")
+        return remoteDataSource.getProductDetails(productId)
+    }
 
 }
