@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.FragmentFavoriteBinding
 import com.example.brandat.models.Product
+import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.category.OnClickedListener
 import com.example.brandat.ui.fragments.category.ProductModel
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
@@ -55,7 +56,7 @@ class FavoriteFragment : Fragment(),OnClickedListener {
 
     }
 
-    override fun onClicked(currentProduct: Product) {
+    override fun onClicked(currentProduct: ProductDetails) {
     }
 
 }

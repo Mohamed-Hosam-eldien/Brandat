@@ -22,6 +22,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentCategoryBinding
 import com.example.brandat.models.Product
+import com.example.brandat.models.ProductDetails
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
@@ -194,7 +195,7 @@ class CategoryFragment : Fragment(), OnClickedListener {
         viewPager2.adapter = sliderAdapter
     }
 
-    override fun onClicked(currentProduct: Product) {
+    override fun onClicked(currentProduct: ProductDetails) {
         findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment)
     }
 

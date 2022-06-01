@@ -15,7 +15,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
-            android:name="com.example.brandat.ui.fragments.ProductDetailsFragment"
+            android:name="com.example.brandat.ui.fragments.productdetails.ProductDetailsFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

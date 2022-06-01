@@ -5,7 +5,7 @@
     <data>
         <variable
             name="product"
-            type="com.example.brandat.models.Product" />
+            type="com.example.brandat.models.ProductDetails" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -26,7 +26,7 @@
 
             <ImageView
                 android:id="@+id/iv_product"
-                android:src="@{product.imageProduct.src}"
+
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
                 android:layout_marginBottom="16dp"
                 android:fontFamily="serif"
                 android:padding="1dp"
-                android:text=""
+                android:text="@{product.variants.get(0).price}"
                 android:textColor="@color/white"
                 android:textSize="21sp"
                 android:textStyle="bold"

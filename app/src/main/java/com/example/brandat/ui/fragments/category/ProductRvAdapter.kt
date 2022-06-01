@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.brandat.databinding.ProductItemBinding
 import com.example.brandat.models.Product
+import com.example.brandat.models.ProductDetails
 import com.example.brandat.utils.ProductDiffUtil
 import okhttp3.internal.wait
 
@@ -14,7 +15,7 @@ import okhttp3.internal.wait
 class ProductRvAdapter(var onClickedListener: OnClickedListener) :
     RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
 
-    private var products = emptyList<Product>()
+    private var products = emptyList<ProductDetails>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(
@@ -43,7 +44,7 @@ class ProductRvAdapter(var onClickedListener: OnClickedListener) :
         return products.size
     }
 
-    fun setData(newData: List<Product>) {
+    fun setData(newData: List<ProductDetails>) {
         val productDiffutil = ProductDiffUtil(products, newData)
         val productDiffUtilResult = DiffUtil.calculateDiff(productDiffutil)
         products = ArrayList(newData)
@@ -54,9 +55,8 @@ class ProductRvAdapter(var onClickedListener: OnClickedListener) :
     class ProductViewHolder(val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(productList: Product) {
+        fun bind(productList: ProductDetails) {
             binding.product = productList
-
             binding.executePendingBindings()
         }
 

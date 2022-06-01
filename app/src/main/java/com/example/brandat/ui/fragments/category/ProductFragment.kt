@@ -18,6 +18,7 @@ import com.example.brandat.CategoryViewModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProductBinding
 import com.example.brandat.models.Product
+import com.example.brandat.models.ProductDetails
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -62,8 +63,8 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
 
         viewModel.categoryResponse.observe(requireActivity()) {
             for(product in it.body()?.products!!) {
+                Log.d("TAG", "Product -->  ${product.title}")
                 products.add(ProductModel(product.title, "98", product.imageProduct.src))
-                Log.d("TAG", "Product -->  ")
             }
             productRvAdapter.setData(it.body()!!.products)
         }
@@ -114,7 +115,7 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
 
     }
 
-    override fun onClicked(currentProduct: Product) {
+    override fun onClicked(currentProduct: ProductDetails) {
         val bundle = Bundle()
         bundle.putLong("productId", currentProduct.id)
         Log.d("TAG", "onClicked: ray7 ${currentProduct.id}")

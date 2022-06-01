@@ -2,11 +2,12 @@ package com.example.brandat.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.brandat.models.Product
+import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.category.ProductModel
 
 class ProductDiffUtil(
-    private val oldList: List<Product>,
-    private val newList: List<Product>
+    private val oldList: List<ProductDetails>,
+    private val newList: List<ProductDetails>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {

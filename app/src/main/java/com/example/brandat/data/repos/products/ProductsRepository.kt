@@ -14,11 +14,17 @@ import retrofit2.Response
 import javax.inject.Inject
 import kotlin.math.log
 
+//@ActivityRetainedScoped
+//@ViewModelScoped
 
 class ProductsRepository @Inject constructor(
-    var localDataSource: ILocalDataSource,
-     var remoteDataSource: IRemoteDataSource
-    ) :IProductsRepository{
+    private var localDataSource: ILocalDataSource,
+    private var remoteDataSource: IRemoteDataSource
+) : IProductsRepository {
+    override suspend fun getProductDetails(productId: Long):Response<Product> {
+        Log.d("TAG", "getProductDetails: $productId")
+        return remoteDataSource.getProductDetails(productId)
+    }
 
     private suspend fun getCategory(productId: Long): Response<Products> {
         return remoteDataSource.getCategories(productId)

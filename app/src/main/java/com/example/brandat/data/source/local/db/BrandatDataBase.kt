@@ -7,7 +7,7 @@ import com.example.brandat.ui.fragments.address.AddressModel
 // don forget to use automigration
 @Database(
     entities = arrayOf(AddressModel::class),
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 //@TypeConverters(TypeConverter::class)
