@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+<variable
+    name="SmartCollection"
+    type="com.example.brandat.models.Brand" />
+        
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -44,6 +47,7 @@
                     android:layout_height="200dp"
                     android:animateLayoutChanges="true"
                     app:iss_auto_cycle="true"
+
                     app:iss_delay="1"
                     app:iss_error_image="@drawable/error"
                     app:iss_period="2000"
@@ -88,7 +92,7 @@
             >
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/brads_recycler"
+                android:id="@+id/brands_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible"
@@ -99,23 +103,23 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-<!--        <com.mikelau.views.shimmer.ShimmerRecyclerView-->
-<!--            xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--            android:id="@+id/shimmer_recycle"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:shimmer_demo_reverse_animation="false"-->
-<!--            android:splitMotionEvents="false"-->
-<!--            app:shimmer_demo_mask_width=".5"-->
-<!--            app:shimmer_demo_child_count="16"-->
-<!--            app:shimmer_demo_grid_child_count="2"-->
-<!--            app:shimmer_demo_angle="4"-->
-<!--            android:visibility="visible"-->
-<!--            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"-->
+        <com.mikelau.views.shimmer.ShimmerRecyclerView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/shimmer_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:shimmer_demo_reverse_animation="false"
+            android:splitMotionEvents="false"
+            app:shimmer_demo_mask_width=".5"
+            app:shimmer_demo_child_count="16"
+            app:shimmer_demo_grid_child_count="2"
+            app:shimmer_demo_angle="4"
+            android:visibility="gone"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 
-<!--            app:shimmer_demo_layout="@layout/brands_item_shimmer"-->
-<!--            app:shimmer_demo_layout_manager_type="grid"-->
-<!--            />-->
+            app:shimmer_demo_layout="@layout/brands_item_shimmer"
+            app:shimmer_demo_layout_manager_type="grid"
+            />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

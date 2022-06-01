@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TableLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
@@ -43,6 +44,9 @@ class CategoryFragment : Fragment() ,OnClickedListener {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentCategoryBinding.inflate(LayoutInflater.from(context), container, false)
+        val args: Bundle = requireArguments()
+        val brandId = args.getLong("brandId")
+        Toast.makeText(requireContext(), "brandId $brandId", Toast.LENGTH_SHORT).show()
         return binding.root
     }
 

@@ -12,4 +12,9 @@ class ProductViewPagerAdapter(fragmentActivity:FragmentActivity): FragmentStateA
         return ProductFragment()
     }
 
+    override fun getItemId(position: Int): Long {
+        return super.getItemId(position)
+    }
+
+
 }
