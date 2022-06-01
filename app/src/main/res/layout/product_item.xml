@@ -5,7 +5,7 @@
     <data>
         <variable
             name="product"
-            type="com.example.brandat.ui.fragments.category.ProductModel" />
+            type="com.example.brandat.models.Product" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -26,11 +26,9 @@
 
             <ImageView
                 android:id="@+id/iv_product"
-                setProductImg="@{product.productImg}"
+                android:src="@{product.imageProduct.src}"
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bag"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,10 +42,9 @@
                 android:gravity="center"
                 android:padding="3dp"
                 tools:text="CLASSIC BACKPACK"
-                android:text="@{product.productName}"
+                android:text="@{product.title}"
                 android:textColor="@color/white"
                 android:textSize="19sp"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_product" />
@@ -59,11 +56,10 @@
                 android:layout_marginBottom="16dp"
                 android:fontFamily="serif"
                 android:padding="1dp"
-                android:text="370 Eg"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="21sp"
                 android:textStyle="bold"
-
                 app:layout_constraintEnd_toEndOf="@id/tv_product_name"
                 app:layout_constraintStart_toStartOf="@id/tv_product_name"
                 app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
@@ -74,7 +70,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="11dp"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_favorite_fill"

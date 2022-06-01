@@ -1,24 +1,24 @@
 package com.example.brandat.ui.fragments.category
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brandat.R
+import com.bumptech.glide.Glide
 import com.example.brandat.databinding.ProductItemBinding
+import com.example.brandat.models.Product
 import com.example.brandat.utils.ProductDiffUtil
+import okhttp3.internal.wait
 
 
-class ProductRvAdapter(var onClickedListener: OnClickedListener) : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
+class ProductRvAdapter(var onClickedListener: OnClickedListener) :
+    RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
 
-    private var products = emptyList<ProductModel>()
+    private var products = emptyList<Product>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(
-            com.example.brandat.databinding.ProductItemBinding.inflate(
+            ProductItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -29,33 +29,36 @@ class ProductRvAdapter(var onClickedListener: OnClickedListener) : RecyclerView.
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val currentProduct = products[position]
         holder.bind(currentProduct)
-           holder.itemView.setOnClickListener {
 
-                onClickedListener.onClicked(currentProduct)
+        Glide.with(holder.binding.root)
+            .load(currentProduct.imageProduct.src)
+            .into(holder.binding.ivProduct)
 
-             }
+        holder.itemView.setOnClickListener {
+            onClickedListener.onClicked(currentProduct)
+
+        }
     }
 
     override fun getItemCount(): Int {
         return products.size
     }
 
-    fun setData(newData: ArrayList<ProductModel>) {
-        val productDiffutil=ProductDiffUtil(products,newData)
-        val productDiffUtilResult=DiffUtil.calculateDiff(productDiffutil)
+    fun setData(newData: List<Product>) {
+        val productDiffutil = ProductDiffUtil(products, newData)
+        val productDiffUtilResult = DiffUtil.calculateDiff(productDiffutil)
         products = ArrayList(newData)
         productDiffUtilResult.dispatchUpdatesTo(this)
-
     }
 
     //============================================================
     class ProductViewHolder(val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(productList: ProductModel) {
-            binding.product=productList
-            binding.executePendingBindings()
+        fun bind(productList: Product) {
+            binding.product = productList
 
+            binding.executePendingBindings()
         }
 
     }

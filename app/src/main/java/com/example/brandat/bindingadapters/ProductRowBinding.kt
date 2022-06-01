@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import coil.load
 import com.example.brandat.R
+import com.example.brandat.models.Product
 import com.example.brandat.ui.fragments.category.ProductModel
 
 class ProductRowBinding {
@@ -16,7 +17,7 @@ class ProductRowBinding {
     companion object {
         @BindingAdapter("onProductClicked")
         @JvmStatic
-        fun onProductClicked(productCard:CardView,product:ProductModel){
+        fun onProductClicked(productCard:CardView,product: Product){
             Log.e("TAG", "onProductClicked: ", )
             productCard.setOnClickListener {
 
@@ -26,14 +27,14 @@ class ProductRowBinding {
         }
         @BindingAdapter("onFavClicked")
         @JvmStatic
-        fun onFavClicked(favImag:ImageView,product:ProductModel){
+        fun onFavClicked(favImag:ImageView,product:Product){
             favImag.setOnClickListener {
                 Log.e("TAG", "onFavClicked: ", )
             }
         }
         @BindingAdapter("onCartClicked")
         @JvmStatic
-        fun onCartClicked(cartImag:ImageView,product:ProductModel){
+        fun onCartClicked(cartImag:ImageView,product:Product){
             cartImag.setOnClickListener {
                 Log.e("TAG", "onCartClicked: ", )
             }
