@@ -169,6 +169,11 @@ dependencies {
 
 
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+
+    //Increase and Decrease dependency
+    implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
+
+
 }
 kapt {
     correctErrorTypes = true
