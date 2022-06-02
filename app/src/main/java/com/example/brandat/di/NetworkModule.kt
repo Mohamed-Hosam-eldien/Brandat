@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    @Singleton
+//    @Singleton
     @Provides
     fun provideHttpClient() : OkHttpClient {
         return OkHttpClient.Builder()
@@ -24,13 +24,13 @@ object NetworkModule {
             .build()
     }
 
-    @Singleton
+//    @Singleton
     @Provides
     fun provideConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
     }
 
-    @Singleton
+//    @Singleton
     @Provides
     fun provideRetrofitInstance(
         okHttpClient: OkHttpClient,
@@ -43,7 +43,7 @@ object NetworkModule {
             .build()
     }
 
-    @Singleton
+//    @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit): NetworkService {
         return retrofit.create(NetworkService::class.java)

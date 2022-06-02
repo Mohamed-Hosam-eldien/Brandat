@@ -48,9 +48,21 @@
         <entry key="app/src/main/res/drawable/oval_shap.xml" value="0.1365" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15217391304347827" />
         <entry key="app/src/main/res/layout/adderss_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/brands_item_shimmer.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/cart_item.xml" value="0.13541666666666666" />
         <entry key="app/src/main/res/layout/d3d3.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/favourite_item.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/favourite_tem.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/layout/fragment_address.xml" value="0.165625" />
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/fragment_category.xml" value="0.16404077849860982" />
+        <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/fragment_product.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/main_toolbar.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/my_order_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/placeholder_product.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/product_item.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/second_order_state.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.165625" />
       </map>
     </option>

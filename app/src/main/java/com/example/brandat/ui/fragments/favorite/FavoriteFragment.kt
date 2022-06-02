@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.favorite
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,21 +11,23 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFavoriteBinding
+import com.example.brandat.models.Favourite
+import com.example.brandat.models.Product
 import com.example.brandat.ui.fragments.category.OnClickedListener
 import com.example.brandat.ui.fragments.category.ProductModel
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
-
-class FavoriteFragment : Fragment(),OnClickedListener {
-    private lateinit var productRvAdapter: ProductRvAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import kotlin.collections.ArrayList
+@AndroidEntryPoint
+class FavoriteFragment : Fragment(),OnclickListener {
+    private lateinit var favouriteAdapter: FavouriteAdapter
     private lateinit var binding: FragmentFavoriteBinding
-    private val products: ArrayList<ProductModel> = ArrayList()
+    private val favourite: List<Favourite> = ArrayList()
     private  val favouriteViewModel :FavouriteViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        products.add(ProductModel("CLASSIC", "3 Eg", R.drawable.sh2))
-        products.add(ProductModel("Dress", "370 Eg", R.drawable.sh))
-        products.add(ProductModel("CLASSIC BACKPACK", "379 Eg", R.drawable.dress_kid))
 
 
     }
@@ -34,20 +37,9 @@ class FavoriteFragment : Fragment(),OnClickedListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFavoriteBinding.inflate(LayoutInflater.from(context), container, false)
-        setUpRecyclerView()
+        setupUi()
+
         return binding.root
-    }
-
-    private fun setUpRecyclerView() {
-        productRvAdapter = ProductRvAdapter(this)
-
-        binding.rvFavorits.apply {
-            val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
-            setLayoutManager(layoutManager)
-            productRvAdapter.setData(products)
-            adapter = productRvAdapter
-
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,7 +47,70 @@ class FavoriteFragment : Fragment(),OnClickedListener {
 
     }
 
-    override fun onClicked(currentProduct: ProductModel) {
+
+    private  fun observeShowData(){
+        favouriteViewModel.getFavouriteProducts()
+        favouriteViewModel.getFavouriteProducts.observe(viewLifecycleOwner) {
+            it?.let{
+                if (it.isEmpty()){
+                    print(it.size)
+                    binding.empty.visibility = View.VISIBLE
+
+                }
+                else{
+                    binding.empty.visibility = View.GONE
+                }
+                favouriteAdapter.setData(it)
+            }
+
+        }
+
+    }
+    private fun setupUi() {
+       favouriteAdapter = FavouriteAdapter(this)
+        binding.rvFavorits.apply {
+            val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
+            setLayoutManager(layoutManager)
+            favouriteAdapter.setData(favourite)
+            adapter = favouriteAdapter
+            observeShowData()
+
+
+        }
     }
 
+
+
+
+
+
+
+
+
+    override fun onItemClicked(productId: Long) {
+
+    }
+
+    override fun onRemoveClicked(favourite: Favourite) {
+          print("doooooooooooooo")
+        val builder =AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes"){_,_,->
+            favouriteViewModel.removeFavouriteProduct(favourite.productName)
+            showSnackbar()
+        }
+        builder.setNegativeButton("No"){_,_,->
+
+        }
+        builder.setTitle("Delete${favourite.productName}")
+        builder.setMessage("Are you sure you want to delete ${favourite.productName} from favourite")
+        builder.create().show()
+    }
+
+    private fun showSnackbar() {
+
+
+    }
+
+
 }
+

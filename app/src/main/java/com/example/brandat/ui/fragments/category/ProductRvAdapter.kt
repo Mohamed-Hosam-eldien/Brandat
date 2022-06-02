@@ -1,20 +1,23 @@
-package com.example.brandat.ui.fragments.category
+ package com.example.brandat.ui.fragments.category
 
-import android.util.Log
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
 import com.example.brandat.databinding.ProductItemBinding
+import com.example.brandat.models.Favourite
 import com.example.brandat.utils.ProductDiffUtil
 
 
-class ProductRvAdapter(var onClickedListener: OnClickedListener) : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
+ class ProductRvAdapter(var onClickedListener: OnClickedListener) : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
 
-    private var products = emptyList<ProductModel>()
+   // private var products = emptyList<Product>()
+    private var product = emptyList<ProductModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(
@@ -27,29 +30,37 @@ class ProductRvAdapter(var onClickedListener: OnClickedListener) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val currentProduct = products[position]
+        val currentProduct = product[position]
+        //val currentProducts = products[position]
+     //holder.bind(currentProducts)
         holder.bind(currentProduct)
-           holder.itemView.setOnClickListener {
+        //val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
 
-                onClickedListener.onClicked(currentProduct)
+      //  onClickedListener.checkFavourite(setFavDataFake(currentProduct,bm),holder.binding.ivProduct)
+        holder.itemView.setOnClickListener {
+            onClickedListener .onItemClicked(currentProduct)
+        }
 
-             }
+        holder.binding.ivFavorite.setOnClickListener {
+            val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
+            onClickedListener.onFavClicked(setFavDataFake(currentProduct,bm),holder.binding.ivFavorite)
+        }
     }
 
     override fun getItemCount(): Int {
-        return products.size
+        return product.size
     }
 
     fun setData(newData: ArrayList<ProductModel>) {
-        val productDiffutil=ProductDiffUtil(products,newData)
+        val productDiffutil=ProductDiffUtil(product,newData)
         val productDiffUtilResult=DiffUtil.calculateDiff(productDiffutil)
-        products = ArrayList(newData)
+        product = ArrayList(newData)
         productDiffUtilResult.dispatchUpdatesTo(this)
 
     }
 
     //============================================================
-    class ProductViewHolder(val binding: ProductItemBinding) :
+    class ProductViewHolder(val binding:ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(productList: ProductModel) {
@@ -59,4 +70,16 @@ class ProductRvAdapter(var onClickedListener: OnClickedListener) : RecyclerView.
         }
 
     }
+
+
+    private fun setFavDataFake(product :ProductModel,imageView: Bitmap):Favourite{
+        return Favourite(
+            productId = 1,
+            productImage = imageView,
+            productName = product.productName, productPrice = "88", isFav = 1
+        )
+    }
+
+
+
 }

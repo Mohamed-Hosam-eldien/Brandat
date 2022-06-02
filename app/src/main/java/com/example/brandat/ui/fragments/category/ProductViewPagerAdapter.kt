@@ -10,6 +10,9 @@ class ProductViewPagerAdapter(fragmentActivity:FragmentActivity): FragmentStateA
 
     override fun createFragment(position: Int): Fragment {
         return ProductFragment()
+
+
+        
     }
 
 }

@@ -15,7 +15,7 @@ import javax.inject.Singleton
 object DataBaseModules {
 
     @Provides
-    @Singleton
+   @Singleton
     fun provideDatabase(@ApplicationContext context: Context): BrandatDataBase =
         Room.databaseBuilder(
             context,

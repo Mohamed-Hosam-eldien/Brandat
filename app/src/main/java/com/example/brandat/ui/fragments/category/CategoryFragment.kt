@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TableLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -17,12 +19,17 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentCategoryBinding
+import com.example.brandat.models.Favourite
+import com.example.brandat.models.Product
+import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
-
-class CategoryFragment : Fragment() ,OnClickedListener {
+@AndroidEntryPoint
+ class CategoryFragment : Fragment() ,OnClickedListener {
 
     private lateinit var binding: FragmentCategoryBinding
+    private  val categoryViewModel : CategoryViewModel by viewModels()
 
     //slider
     private lateinit var sliderAdapter: SliderCategoryAdapter
@@ -49,15 +56,12 @@ class CategoryFragment : Fragment() ,OnClickedListener {
     //=================================================================
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         categories.add(CategoryModel("Dresses", R.drawable.sh2))
         categories.add(CategoryModel("T_Shirts", R.drawable.dress_kid))
         categories.add(CategoryModel("Shooes", R.drawable.bag))
         categories.add(CategoryModel("Accessories", R.drawable.sh3))
         categories.add(CategoryModel("Dresses", R.drawable.dress_kid))
         categories.add(CategoryModel("Dresses", R.drawable.sh5))
-
-
         viewPager2 = binding.viewPagerCategories
         tabsViewPager=binding.viewPagerSubCategory
         initializeSlider()
@@ -95,19 +99,19 @@ class CategoryFragment : Fragment() ,OnClickedListener {
     }
 //=================================================================
     private fun sliderWork() {
-//binding.viewPagerCategories.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-//        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-//    }
-//
-//    override fun onPageSelected(position: Int) {
-//        super.onPageSelected(position)
-//    }
-//
-//    override fun onPageScrollStateChanged(state: Int) {
-//        super.onPageScrollStateChanged(state)
-//    }
-//}
+binding.viewPagerCategories.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+    }
+
+    override fun onPageSelected(position: Int) {
+        super.onPageSelected(position)
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {
+        super.onPageScrollStateChanged(state)
+    }
+})
     }
 //=================================================================
     private fun initializeTabLayout() {
@@ -132,8 +136,17 @@ class CategoryFragment : Fragment() ,OnClickedListener {
 
     }
 
-    override fun onClicked(currentProduct: ProductModel) {
-        findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment)
+     override fun onItemClicked(currentProduct: ProductModel) {
+         findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment)
+
+     }
+
+    override fun onFavClicked(favourite: Favourite, ivImage: ImageView) {
+        print("")
+    }
+
+    override fun checkFavourite(favourite: Favourite, ivFav: ImageView) {
+        print(false)
 
     }
 
