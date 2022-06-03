@@ -26,7 +26,7 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
 
     private lateinit var productRvAdapter: ProductRvAdapter
     private lateinit var binding: FragmentProductBinding
-    private val products: ArrayList<ProductModel> = ArrayList()
+    private val products: ArrayList<Product> = ArrayList()
     private var productID = 395728191717L
 
     //val model : SharedViewModel by viewModels()
@@ -53,6 +53,7 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
         binding = FragmentProductBinding.inflate(LayoutInflater.from(context), container, false)
 
         setUpRecyclerView()
+
         return binding.root
     }
 
@@ -62,35 +63,35 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
 
         viewModel.categoryResponse.observe(requireActivity()) {
             for(product in it.body()?.products!!) {
-                products.add(ProductModel(product.title, "98", product.imageProduct.src))
+                products.add(product)
                 Log.d("TAG", "Product -->  ")
             }
-            productRvAdapter.setData(it.body()!!.products)
+            productRvAdapter.setData(products)
         }
 
         val model = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
-        model.positionMutable.observe(viewLifecycleOwner, Observer {
-            when(it) {
-
-                0 -> {
-                    productID = 395728191717L
-                }
-                1 -> {
-                    productID = 395728158949L
-                }
-                2 -> {
-                    productID = 395728126181L
-                }
-                3 -> {
-                    productID = 395728224485L
-                }
-
-            }
-
-            viewModel.getCategory(productID)
-
-        })
+        //model.positionMutable.observe(viewLifecycleOwner, Observer {
+//            when(it) {
+//
+//                0 -> {
+//                    productID = 395728191717L
+//                }
+//                1 -> {
+//                    productID = 395728158949L
+//                }
+//                2 -> {
+//                    productID = 395728126181L
+//                }
+//                3 -> {
+//                    productID = 395728224485L
+//                }
+//
+//            }
+//
+//            viewModel.getCategory(productID)
+//
+//        })
 
     }
 
@@ -122,8 +123,8 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
     }
 
 
-    override fun getPosition(position: Int, context: Context) {
-        Toast.makeText(context, "pos ${position}" , Toast.LENGTH_SHORT).show()
+    override fun getCategories(category: String, subCategory: String) {
+
     }
 
 }

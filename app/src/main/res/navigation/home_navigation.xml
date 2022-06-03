@@ -23,6 +23,9 @@
             app:destination="@id/categoryFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_newCategoryFragment"
+            app:destination="@id/newCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -69,5 +72,23 @@
         <argument
             android:name="productId"
             app:argType="long" />
+    </fragment>
+    <dialog
+        android:id="@+id/categoryBottomSheet"
+        android:name="com.example.brandat.ui.fragments.newcategory.bottomsheet.CategoryBottomSheet"
+        android:label="category_bottom_sheet"
+        tools:layout="@layout/category_bottom_sheet" >
+        <action
+            android:id="@+id/action_categoryBottomSheet_to_newCategoryFragment"
+            app:destination="@id/newCategoryFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/newCategoryFragment"
+        android:name="com.example.brandat.ui.fragments.newcategory.NewCategoryFragment"
+        android:label="fragment_new_category"
+        tools:layout="@layout/fragment_new_category" >
+        <action
+            android:id="@+id/action_newCategoryFragment_to_categoryBottomSheet"
+            app:destination="@id/categoryBottomSheet" />
     </fragment>
 </navigation>
