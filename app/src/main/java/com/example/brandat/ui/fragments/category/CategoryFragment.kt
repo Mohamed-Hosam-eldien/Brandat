@@ -160,7 +160,7 @@ class CategoryFragment : Fragment(), OnClickedListener {
 
             override fun onPageSelected(position: Int) {
 //                iPosition.getPosition(position,requireContext())
-                model.setPosition(position)
+//                model.setPosition(position)
                 super.onPageSelected(position)
             }
 

@@ -51,5 +51,13 @@
     <string name="total">Total</string>
     <string name="next">Next</string>
     <string name="add">Add</string>
+    <string name="men">Men</string>
+    <string name="kids">Kids</string>
+    <string name="sale">Sale</string>
+    <string name="women">Women</string>
+    <string name="items">Items</string>
+    <string name="shoes">Shoes</string>
+    <string name="t_shirt">T-Shirt</string>
+    <string name="accessories">Accessories</string>
 
 </resources>
