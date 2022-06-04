@@ -1,10 +1,11 @@
-package com.example.brandat.ui
+package com.example.brandat.ui.fragments.productdetails
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.ReviewerRowLayoutBinding
+import com.example.brandat.ui.User
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
@@ -21,7 +22,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
         companion object {
 
-            fun from(parent : ViewGroup) : ViewHolder{
+            fun from(parent : ViewGroup) : ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 var binding = ReviewerRowLayoutBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
@@ -30,18 +31,18 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: UserAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var currentUser = users[position]
         holder.bind(user = currentUser)
     }
 
     override fun getItemCount(): Int = users.size
 
-    @SuppressLint("NotifyDataSetChanged")
+
     fun setDatat(myUsers:List<User>){
         users = myUsers
         notifyDataSetChanged()

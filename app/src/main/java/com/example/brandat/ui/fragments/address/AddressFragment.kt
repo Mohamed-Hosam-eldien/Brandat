@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentAddressBinding
+import com.example.brandat.models.CustomerAddress
 
 
 class AddressFragment : Fragment() ,OnClickListener{
@@ -37,12 +39,13 @@ class AddressFragment : Fragment() ,OnClickListener{
         binding.btnAddAddress.setOnClickListener {
             //  replace with code navigation to add address screen
             makeText(requireContext(), "hello d3d3", Toast.LENGTH_SHORT).show()
+
+
         }
 
         binding.btnOpenMao.setOnClickListener {
             //  replace with code navigation to map screen
-
-            makeText(requireContext(), "hello d3d3", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_addressFragment_to_mapsFragment)
 
         }
     }
@@ -56,10 +59,10 @@ class AddressFragment : Fragment() ,OnClickListener{
 
     }
 
-    private fun fakeData(): ArrayList<AddressModel> {
-      var addressList = ArrayList<AddressModel>()
+    private fun fakeData(): ArrayList<CustomerAddress> {
+      var addressList = ArrayList<CustomerAddress>()
         for (i in 1 .. 10) {
-            addressList.add(AddressModel("iti,  ", "ismalia ,  ", "egypt"))
+            addressList.add(CustomerAddress("iti,  ", "ismalia ,  ", "egypt"))
         }
         return  addressList
 

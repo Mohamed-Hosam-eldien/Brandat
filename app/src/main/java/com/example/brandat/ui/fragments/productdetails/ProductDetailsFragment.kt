@@ -17,10 +17,8 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProductDetailsBinding
 import com.example.brandat.models.Product
 import com.example.brandat.ui.User
-import com.example.brandat.ui.UserAdapter
 import com.example.brandat.viewmodels.ProductDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class ProductDetailsFragment : Fragment() {

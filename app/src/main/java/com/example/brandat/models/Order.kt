@@ -105,7 +105,7 @@ data class Order(
     @SerializedName("refunds")
     val refunds: List<Any>,
     @SerializedName("shipping_address")
-    val shippingAddress: ShippingAddress,
+    val customerAddress: CustomerAddress,
     @SerializedName("shipping_lines")
     val shippingLines: List<Any>,
     @SerializedName("source_identifier")
