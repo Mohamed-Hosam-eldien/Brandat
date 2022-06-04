@@ -18,11 +18,12 @@ import com.example.brandat.CategoryViewModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProductBinding
 import com.example.brandat.models.Product
+import com.example.brandat.models.ProductDetails
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class ProductFragment : Fragment(),OnClickedListener, IProduct {
+class ProductFragment : Fragment(), IProduct {
 
     private lateinit var productRvAdapter: ProductRvAdapter
     private lateinit var binding: FragmentProductBinding
@@ -52,7 +53,6 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
     ): View? {
         binding = FragmentProductBinding.inflate(LayoutInflater.from(context), container, false)
 
-        setUpRecyclerView()
 
         return binding.root
     }
@@ -61,17 +61,15 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.categoryResponse.observe(requireActivity()) {
-            for(product in it.body()?.products!!) {
-                products.add(product)
-                Log.d("TAG", "Product -->  ")
-            }
-            productRvAdapter.setData(products)
+
         }
 
         val model = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+    override fun getCategories(category: String, subCategory: String) {
+        TODO("Not yet implemented")
+    }
 
-        //model.positionMutable.observe(viewLifecycleOwner, Observer {
+    //model.positionMutable.observe(viewLifecycleOwner, Observer {
 //            when(it) {
 //
 //                0 -> {
@@ -95,36 +93,3 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
 
     }
 
-    private fun setUpRecyclerView() {
-        productRvAdapter = ProductRvAdapter(this)
-
-        binding.rvProducts.apply {
-            val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
-            setLayoutManager(layoutManager)
-            //productRvAdapter.setData(products)
-            adapter = productRvAdapter
-
-        }
-    }
-
-    fun showShimmerEffect() {
-       // binding.rvProducts
-    }
-
-    fun hideShimmerEffect() {
-
-    }
-
-    override fun onClicked(currentProduct: Product) {
-        val bundle = Bundle()
-        bundle.putLong("productId", currentProduct.id)
-        Log.d("TAG", "onClicked: ray7 ${currentProduct.id}")
-        findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment, bundle)
-    }
-
-
-    override fun getCategories(category: String, subCategory: String) {
-
-    }
-
-}

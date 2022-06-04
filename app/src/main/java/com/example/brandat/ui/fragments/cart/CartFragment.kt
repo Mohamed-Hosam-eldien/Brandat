@@ -2,35 +2,30 @@ package com.example.brandat.ui.fragments.cart
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brandat.R
 import com.example.brandat.databinding.FragmentCartBinding
 import com.example.brandat.ui.OrderStatus
+import dagger.hilt.android.AndroidEntryPoint
 
-class CartFragment : Fragment() {
+@AndroidEntryPoint
+class CartFragment : Fragment(), setOnLongClicked {
 
     private lateinit var binding: FragmentCartBinding
     private lateinit var cartAdapter: CartRvAdapter
     private var cartList: ArrayList<Cart> = ArrayList()
+    private val cartViewModel: CartViewModel by viewModels()
+    //private val args by navArgs<CartFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.dress_kid, 2))
-        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.bag, 2))
-        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.sh5, 2))
-        cartList.add(Cart("Dress", "235 $", R.drawable.sh2, 2))
-        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.dress_kid, 2))
-        cartList.add(Cart("Dress", "235 $", R.drawable.dress_kid, 2))
-        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.bag, 2))
-        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.dress_kid, 2))
-        cartList.add(Cart("Dress", "235 $", R.drawable.sh3, 2))
-        cartList.add(Cart("CLASSIC BACKPACK", "235 $", R.drawable.dress_kid, 2))
+        // Log.e("args", "onCreate: ${args.product.title}", )
     }
 
     override fun onCreateView(
@@ -38,6 +33,7 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCartBinding.inflate(LayoutInflater.from(context), container, false)
+
         setUpRecyclerView()
         return binding.root
     }
@@ -51,15 +47,40 @@ class CartFragment : Fragment() {
             startActivity(Intent(requireContext(), OrderStatus::class.java))
         }
 
+        cartViewModel.getAllCartproduct()
+
+        cartViewModel.cartProduct.observe(viewLifecycleOwner) {
+            cartList = it as ArrayList<Cart>
+            Log.e("Cart", "============${cartList} ")
+            cartAdapter.setData(cartList)
+            binding.tvConut.text = "(${cartList.size.toString()} item)"
+        }
+
     }
 
     private fun setUpRecyclerView() {
+        cartAdapter = CartRvAdapter(requireContext(), requireActivity(), this)
         binding.rvCart.apply {
             val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+//            layoutManager.stackFromEnd = true
+//            layoutManager.reverseLayout = true
             setLayoutManager(layoutManager)
-            cartAdapter = CartRvAdapter()
-            cartAdapter.setData(cartList)
+
             adapter = cartAdapter
         }
+    }
+
+    private fun setRvItemSwipe() {
+
+    }
+
+    override fun onLongClicked(order: ArrayList<Cart>) {
+        cartViewModel.removeSelectedProductsFromCart(order)
+        cartViewModel.getAllCartproduct()
+    }
+
+    override fun onClicked(order: Cart) {
+        cartViewModel.removeProductFromCart(order)
+        cartViewModel.getAllCartproduct()
     }
 }

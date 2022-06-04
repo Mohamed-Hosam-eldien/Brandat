@@ -18,6 +18,8 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentNewCategoryBinding
 import com.example.brandat.databinding.FragmentProductBinding
 import com.example.brandat.models.Product
+import com.example.brandat.models.ProductDetails
+import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.category.IProduct
 import com.example.brandat.ui.fragments.category.OnClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
@@ -78,7 +80,7 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
 
         viewModel.getCategory(productID)
         viewModel.categoryResponse.observe(requireActivity()) {
-            val products: ArrayList<Product> = ArrayList()
+            val products: ArrayList<ProductDetails> = ArrayList()
             for(product in it.body()?.products!!) {
                 products.add(product)
             }
@@ -101,13 +103,6 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
             setLayoutManager(layoutManager)
             adapter = productRvAdapter
         }
-    }
-
-    override fun onClicked(currentProduct: Product) {
-        val bundle = Bundle()
-        bundle.putLong("productId", currentProduct.id)
-
-        findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment, bundle)
     }
 
     private fun fetchDataFromApi() {
@@ -140,5 +135,17 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
             binding.groupChip.visibility = View.VISIBLE
         })
 
+    }
+
+    override fun onClicked(currentProduct: ProductDetails) {
+        val bundle = Bundle()
+        bundle.putLong("productId", currentProduct.id)
+
+       findNavController().navigate(R.id.action_newCategoryFragment_to_productDetailsFragment, bundle)
+    }
+
+    override fun onCartClicked(currentProduct: Cart) {
+        Toast.makeText(requireContext(), "Hi Azoza !", Toast.LENGTH_SHORT).show()
+        viewModel.addProductToCart(currentProduct)
     }
 }

@@ -58,7 +58,7 @@ class HomeFragment : Fragment(),BrandOnClickListner {
 
         brandViewModel.getBrands()
         brandViewModel.brandResponse.observe(requireActivity()) {
-            Log.e("TAG", "onViewCreated:${it.body()} ")
+           // Log.e("TAG", "onViewCreated:${it.body()} ")
             brands = it.body()!!.brands
 
             brandAdapter.setData(brands)
@@ -73,7 +73,6 @@ class HomeFragment : Fragment(),BrandOnClickListner {
         imageList.add(SlideModel(R.drawable.img_1,ScaleTypes.CENTER_CROP))
         imageList.add(SlideModel(R.drawable.img_2,ScaleTypes.CENTER_CROP))
         imageList.add(SlideModel(R.drawable.img_3,ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.sh5,ScaleTypes.FIT))
         imageList.add(SlideModel(R.drawable.sh2,ScaleTypes.CENTER_CROP))
         imageList.add(SlideModel(R.drawable.shose_image,ScaleTypes.CENTER_CROP))
 
@@ -108,7 +107,7 @@ class HomeFragment : Fragment(),BrandOnClickListner {
     override fun onBrandClick(brandId: Long) {
         bundle = Bundle()
         bundle.putLong("brandId", brandId)
-        findNavController().navigate(R.id.action_homeFragment_to_categoryFragment,bundle)
+        findNavController().navigate(R.id.action_categoryBottomSheet_to_newCategoryFragment,bundle)
     }
 
 }

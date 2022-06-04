@@ -9,27 +9,38 @@
             name="cart"
             type="com.example.brandat.ui.fragments.cart.Cart" />
     </data>
-
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/favoriteRecipesRowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="21dp"
-        app:cardElevation="7dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="2dp">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_order"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="396dp"
+            android:layout_width="match_parent"
+            android:id="@+id/constraint"
             android:layout_height="match_parent"
             android:background="#7C7070"
             android:padding="9dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_product"
-                setProductImg="@{cart.PImage}"
-                android:layout_width="99dp"
-                android:layout_height="99dp"
+                android:layout_width="115dp"
+                android:layout_height="103dp"
                 android:src="@drawable/sh2"
                 app:civ_border_color="#FFFFFF"
                 app:civ_border_width="2dp"
@@ -40,14 +51,13 @@
                 android:id="@+id/tv_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="11dp"
+                android:layout_marginStart="3dp"
                 android:fontFamily="serif"
                 android:padding="3dp"
                 android:text="@{cart.PName}"
                 android:textColor="@color/white"
                 android:textSize="21sp"
                 app:layout_constraintStart_toEndOf="@id/img_product"
-
                 app:layout_constraintTop_toTopOf="@id/img_product" />
 
             <TextView
@@ -58,7 +68,7 @@
                 android:layout_marginTop="3dp"
                 android:fontFamily="serif"
                 android:padding="1dp"
-                android:text="@{cart.PPrice}"
+                android:text="@{String.valueOf(cart.PPrice)}"
                 android:textColor="@color/white"
                 android:textSize="21sp"
                 android:textStyle="bold"
@@ -133,5 +143,6 @@
                 app:layout_constraintTop_toTopOf="@+id/card_minus" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

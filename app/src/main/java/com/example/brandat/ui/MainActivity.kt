@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             if (destination.id == R.id.productDetailsFragment
             ) {
                 binding.bottomNavigationView.visibility = View.GONE
-               
+
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
             }

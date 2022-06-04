@@ -25,7 +25,7 @@ class BrandRowBinding {
             productCard.setOnClickListener {
 
                val navController = Navigation.findNavController(productCard)
-                navController.navigate(R.id.action_homeFragment_to_categoryFragment)
+                navController.navigate(R.id.action_homeFragment_to_newCategoryFragment)
             }
         }
     }
