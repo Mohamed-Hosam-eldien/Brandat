@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.makeText
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,12 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentAddressBinding
 import com.example.brandat.models.CustomerAddress
+import com.example.brandat.ui.fragments.productdetails.UserAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.notify
 
 @AndroidEntryPoint
 class AddressFragment : Fragment() ,OnClickListener{
       lateinit var binding: FragmentAddressBinding
-      lateinit var addressAdapter:AddressAdapter
+
+    private val addressAdapter by lazy { AddressAdapter(this) }
       var addresses : List<CustomerAddress> = fakeData()
       private val viewModel:AddressViewModel by viewModels()
 
@@ -40,10 +44,7 @@ class AddressFragment : Fragment() ,OnClickListener{
         super.onViewCreated(view, savedInstanceState)
 
 
-        viewModel.getAllAddress()
-        viewModel.getAddresses.observe(viewLifecycleOwner){
-            initView(it)
-        }
+        showObservedData()
 
         binding.btnAddAddress.setOnClickListener {
             //  replace with code navigation to add address screen
@@ -56,8 +57,18 @@ class AddressFragment : Fragment() ,OnClickListener{
         }
     }
 
+    fun showObservedData(){
+        viewModel.getAllAddress()
+        viewModel.getAddresses.observe(viewLifecycleOwner){
+
+            initView(it)
+        }
+
+    }
+
     private fun initView(addresses:List<CustomerAddress>) {
-        addressAdapter = AddressAdapter(addresses,this)
+        addressAdapter.setDatat(addresses)
+        //addressAdapter = AddressAdapter(this)
         binding.addressRecycler.apply {
            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
            adapter=addressAdapter
@@ -68,7 +79,7 @@ class AddressFragment : Fragment() ,OnClickListener{
     private fun fakeData(): ArrayList<CustomerAddress> {
       var addressList = ArrayList<CustomerAddress>()
         for (i in 1 .. 10) {
-            addressList.add(CustomerAddress("iti,  ", "ismalia ,  ", "egypt"))
+            addressList.add(CustomerAddress("ismalia ,  ", "egypt","mmm"))
         }
         return  addressList
 
@@ -78,10 +89,25 @@ class AddressFragment : Fragment() ,OnClickListener{
 
     }
 
-    override fun onClick() {
+    override fun onClick(customerAddress: CustomerAddress) {
         // remove address form recycler
         // dont forget to ask user berfor remove
         makeText(context, "deleted", Toast.LENGTH_SHORT).show()
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes"){_,_,->
+            viewModel.removeAddress(customerAddress.city)
+            showObservedData()
+        }
+        builder.setNegativeButton("Cancel"){_,_,->
+
+        }
+        builder.setIcon(R.drawable.ic_delete)
+        builder.setTitle("Delete This Address")
+        builder.setMessage("Are you sure you want to delete ${customerAddress.address1} address")
+        builder.create().show()
+
+
+
 
     }
 }

@@ -78,9 +78,7 @@ class MapsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-//        sharedPreferences = activity?.getSharedPreferences(Utli.LOCATION, Context.MODE_PRIVATE)!!
-//        latitude = sharedPreferences.getString("lat", "33")?.toDouble()!!
-//        longitude = sharedPreferences.getString("lon", "-94.04")?.toDouble()!!
+
         _binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_maps, container, false)
 
@@ -104,7 +102,7 @@ class MapsFragment : Fragment() {
 
             Toast.makeText(requireContext(), "this country saved successfully", Toast.LENGTH_SHORT).show()
 
-            findNavController().navigate(R.id.action_mapsFragment_to_addressFragment)
+            findNavController().popBackStack()
             //navController.popBackStack()
 
         }
@@ -128,12 +126,10 @@ class MapsFragment : Fragment() {
                 //street = address.locality
 
 
-                state = address.locality ?: "Nile Street"
-                city = address.subAdminArea ?: "Suez"
+                state = address.locality ?: address.featureName
+                city = address.adminArea ?: "Suez"
                 country = address.countryName ?: "Egypt"
                street = address.getAddressLine(0)
-                //timeZone= "$state $city $country".trimIndent()
-
 
             }
 

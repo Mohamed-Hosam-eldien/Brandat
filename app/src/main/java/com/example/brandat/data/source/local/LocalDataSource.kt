@@ -18,5 +18,9 @@ class LocalDataSource @Inject constructor(
         return  brandatDao.getAllAddresses()
     }
 
+    override suspend fun removeAddress(city: String) {
+        brandatDao.removeAddress(city)
+    }
+
 
 }

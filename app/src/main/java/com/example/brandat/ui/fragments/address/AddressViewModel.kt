@@ -35,4 +35,12 @@ class AddressViewModel @Inject public constructor(
         }
     }
 
+    fun removeAddress(city:String){
+
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.removeAddress(city)
+        }
+
+    }
+
 }

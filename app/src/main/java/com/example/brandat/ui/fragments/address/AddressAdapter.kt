@@ -5,9 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.AdderssItemBinding
 import com.example.brandat.models.CustomerAddress
+import com.example.brandat.ui.User
 
-class AddressAdapter (var addressList:List<CustomerAddress>,var onClickListener: OnClickListener)
+class AddressAdapter (var onClickListener: OnClickListener)
     : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
+
+    var addresses = emptyList<CustomerAddress>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {
         var view =AdderssItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -15,19 +18,24 @@ class AddressAdapter (var addressList:List<CustomerAddress>,var onClickListener:
     }
 
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
-        var addressItem = addressList[position]
-        holder.view.textAddress.text = addressItem.address1 .plus(addressItem.city).plus(addressItem.country)
+        var addressItem = addresses[position]
+        holder.view.textAddress.text = addressItem.address1 .plus(", "+addressItem.city).plus(", "+addressItem.country)
         holder.view.deleteAddress.setOnClickListener {
-             onClickListener.onClick()
+             onClickListener.onClick(addressItem)
         }
     }
 
     override fun getItemCount(): Int {
-        return addressList.size
+        return addresses.size
 
     }
 
     class  AddressViewHolder(var view : AdderssItemBinding):RecyclerView.ViewHolder(view.root){
 
+    }
+
+    fun setDatat(addressList:List<CustomerAddress>){
+        addresses = addressList
+        notifyDataSetChanged()
     }
 }

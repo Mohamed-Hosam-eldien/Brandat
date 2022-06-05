@@ -6,4 +6,5 @@ interface ILocalDataSource {
 
      suspend fun insertAddress(customerAddress: CustomerAddress?)
      suspend fun getAllAddresses():List<CustomerAddress>
+     suspend fun removeAddress(city:String)
 }

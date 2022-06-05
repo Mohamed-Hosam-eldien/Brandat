@@ -21,5 +21,9 @@ class UserRepository @Inject constructor(
         return localDataSource.getAllAddresses()
     }
 
+    override suspend fun removeAddress(city: String) {
+        localDataSource.removeAddress(city)
+    }
+
 
 }

@@ -10,9 +10,10 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 @Parcelize
 data class CustomerAddress(
-    @PrimaryKey
+
     @SerializedName("address1")
     val address1: String,
+    @PrimaryKey
     @SerializedName("city")
     val city: String,
     @SerializedName("country")

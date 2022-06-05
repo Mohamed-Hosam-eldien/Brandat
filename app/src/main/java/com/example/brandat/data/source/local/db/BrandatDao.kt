@@ -15,7 +15,8 @@ import com.example.brandat.models.CustomerAddress
  @Query("SELECT * FROM customeraddress")
  suspend fun getAllAddresses():List<CustomerAddress>
 
-
+ @Query("DELETE FROM customeraddress WHERE city = :city")
+ suspend fun removeAddress(city:String)
 
 
 }
