@@ -1,5 +1,6 @@
 package com.example.brandat
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,11 +19,22 @@ class CategoryViewModel @Inject constructor(
     var repoInterface: IProductsRepository
 ) : ViewModel() {
 
-    var categoryResponse: MutableLiveData<Response<Products>> = MutableLiveData()
+    private var categoryResponse = MutableLiveData<Response<Products>>()
+    var categoryLive : LiveData<Response<Products>> = categoryResponse
+
+    private var allProductResponse: MutableLiveData<Response<Products>> = MutableLiveData()
+    var productsLive : LiveData<Response<Products>> = allProductResponse
 
     fun getCategory(productId: Long) = viewModelScope.launch {
         categoryResponse.postValue(repoInterface.getCategories(productId))
     }
 
+    fun getAllProductsByName() = viewModelScope.launch {
+        allProductResponse.postValue(repoInterface.getAllProduct())
+    }
+
+    fun getAllProductsByType(type:String) = viewModelScope.launch {
+        allProductResponse.postValue(repoInterface.getAllProductByType(type))
+    }
 
 }

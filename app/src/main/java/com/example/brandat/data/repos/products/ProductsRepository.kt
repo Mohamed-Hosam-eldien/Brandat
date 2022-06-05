@@ -20,17 +20,20 @@ class ProductsRepository @Inject constructor(
      var remoteDataSource: IRemoteDataSource
     ) :IProductsRepository{
 
-    private suspend fun getCategory(productId: Long): Response<Products> {
+    override suspend fun getCategories(productId: Long): Response<Products> {
         return remoteDataSource.getCategories(productId)
     }
 
-    override suspend fun getCategories(productId: Long): Response<Products> {
-        return getCategory(productId)
+    override suspend fun getbrand():Response<Brands> {
+        return remoteDataSource.getBrands()
     }
 
-    override suspend fun getbrand():Response<Brands> {
-        Log.e("TAG", "==============getbrand:============= ${remoteDataSource.getBrands().body()}", )
-        return remoteDataSource.getBrands()
+    override suspend fun getAllProduct(): Response<Products> {
+        return remoteDataSource.getAllProductsById()
+    }
+
+    override suspend fun getAllProductByType(type: String): Response<Products> {
+        return remoteDataSource.getAllProductsByProductType(type)
     }
 
 

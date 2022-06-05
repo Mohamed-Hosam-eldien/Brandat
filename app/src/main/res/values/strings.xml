@@ -57,7 +57,8 @@
     <string name="women">Women</string>
     <string name="items">Items</string>
     <string name="shoes">Shoes</string>
-    <string name="t_shirt">T-Shirt</string>
+    <string name="t_shirt">T-Shirts</string>
     <string name="accessories">Accessories</string>
+    <string name="all">All</string>
 
 </resources>

@@ -19,7 +19,7 @@ class CategoryBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var binding: CategoryBottomSheetBinding
 
-    lateinit var model : SharedViewModel
+    lateinit var model: SharedViewModel
 
 
     override fun onCreateView(
@@ -34,39 +34,45 @@ class CategoryBottomSheet : BottomSheetDialogFragment() {
 
         val list = requireArguments().getStringArrayList("chipList")
 
-        var chipSub = ""
-        var chipCategory = ""
+        var chipSub: String
+        var chipCategory: String
 
-        if(list != null) {
+        if (list?.size == 2) {
+
             chipCategory = list[0]
             chipSub = list[1]
+
         } else {
-            chipCategory = "Men"
-            chipSub = "Shoes"
+            chipCategory = "MEN"
+            chipSub = "SHOES"
         }
+
 
         when (chipCategory) {
-            "Men" -> binding.chipGroupCategory.check(R.id.chipMen)
-            "Women" -> binding.chipGroupCategory.check(R.id.chipWomen)
-            "Kids" -> binding.chipGroupCategory.check(R.id.chipKids)
-            "Sale" -> binding.chipGroupCategory.check(R.id.chipSale)
+            "MEN" -> binding.chipGroupCategory.check(R.id.chipMen)
+            "WOMEN" -> binding.chipGroupCategory.check(R.id.chipWomen)
+            "KIDS" -> binding.chipGroupCategory.check(R.id.chipKids)
+            "SALE" -> binding.chipGroupCategory.check(R.id.chipSale)
         }
 
-        binding.chipGroupCategory.setOnCheckedChangeListener{ group, selectedChipId ->
+        when (chipSub) {
+            "SHOES" -> binding.chipGroupSub.check(R.id.chipShoes)
+            "T-SHIRTS" -> binding.chipGroupSub.check(R.id.chipShirt)
+            "ACCESSORIES" -> binding.chipGroupSub.check(R.id.chipAccess)
+        }
+
+        binding.chipGroupCategory.setOnCheckedChangeListener { group, selectedChipId ->
             chipCategory = group.findViewById<Chip>(selectedChipId).text.toString()
-            Log.d("TAG", "onCreateViewrrrrrr: $chipCategory")
         }
 
-        binding.chipGroupSub.setOnCheckedChangeListener{ group, selectedChipId ->
+        binding.chipGroupSub.setOnCheckedChangeListener { group, selectedChipId ->
             chipSub = group.findViewById<Chip>(selectedChipId).text.toString()
         }
 
-        binding.btnApply.setOnClickListener{
-            Log.d("TAG", "onCreateViewssssss: $chipCategory /// $chipSub")
-            model.setCategory(chipCategory,chipSub)
+        binding.btnApply.setOnClickListener {
+            model.setCategory(chipCategory, chipSub)
             dismiss()
         }
-
 
         return binding.root
     }

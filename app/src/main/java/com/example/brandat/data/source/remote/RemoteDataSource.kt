@@ -15,9 +15,20 @@ class RemoteDataSource @Inject constructor(
         return networkService.getBrands()
     }
 
+    override suspend fun getAllProductsById(): Response<Products> {
+       return networkService.getProductsById()
+    }
+
+    override suspend fun getAllProductsByProductType(product_type: String): Response<Products> {
+        return networkService.getProductsBySubCategory(product_type)
+    }
+
+
     override suspend fun getCategories(productId: Long): Response<Products> {
         return networkService.getCategoryByTag(productId)
     }
+
+
 
 }
 

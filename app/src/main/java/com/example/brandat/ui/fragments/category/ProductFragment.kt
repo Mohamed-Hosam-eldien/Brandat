@@ -61,7 +61,7 @@ class ProductFragment : Fragment(),OnClickedListener, IProduct {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.categoryResponse.observe(requireActivity()) {
+        viewModel.categoryLive.observe(requireActivity()) {
             for(product in it.body()?.products!!) {
                 products.add(product)
                 Log.d("TAG", "Product -->  ")

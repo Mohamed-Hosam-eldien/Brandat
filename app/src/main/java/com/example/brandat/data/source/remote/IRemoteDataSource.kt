@@ -9,8 +9,10 @@ import retrofit2.Response
 
 interface IRemoteDataSource {
 
-    suspend fun getCategories(productId: Long) : Response<Products>
-suspend fun getBrands(): Response<Brands>
+    suspend fun getCategories(productId: Long): Response<Products>
+    suspend fun getBrands(): Response<Brands>
+    suspend fun getAllProductsById(): Response<Products>
 
+    suspend fun getAllProductsByProductType(product_type: String): Response<Products>
 
 }
