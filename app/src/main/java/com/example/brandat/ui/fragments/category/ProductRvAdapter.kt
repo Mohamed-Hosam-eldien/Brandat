@@ -6,10 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.brandat.databinding.ProductItemBinding
-import com.example.brandat.models.Product
 import com.example.brandat.models.ProductDetails
+import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.ProductDiffUtil
-import okhttp3.internal.wait
 
 
 class ProductRvAdapter(var onClickedListener: OnClickedListener) :
@@ -37,7 +36,10 @@ class ProductRvAdapter(var onClickedListener: OnClickedListener) :
         Glide.with(holder.binding.root)
             .load(currentProduct.imageProduct.src)
             .into(holder.binding.ivProduct)
+        holder.binding.ivCart.setOnClickListener {
+            onClickedListener.onCartClicked(setProductDataToCartModel(currentProduct))
 
+        }
         holder.itemView.setOnClickListener {
             onClickedListener.onClicked(currentProduct)
         }
@@ -52,6 +54,14 @@ class ProductRvAdapter(var onClickedListener: OnClickedListener) :
         val productDiffUtilResult = DiffUtil.calculateDiff(productDiffutil)
         products = ArrayList(newData)
         productDiffUtilResult.dispatchUpdatesTo(this)
+    }
+
+    fun setProductDataToCartModel(productDetails: ProductDetails): Cart {
+        return Cart(
+            productDetails.title,
+            pImage = productDetails.imageProduct.src,
+            pId = productDetails.id
+        )
     }
 
     //============================================================

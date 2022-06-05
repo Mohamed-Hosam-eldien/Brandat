@@ -18,6 +18,9 @@ import com.example.brandat.CategoryViewModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentNewCategoryBinding
 import com.example.brandat.models.Product
+import com.example.brandat.models.ProductDetails
+import com.example.brandat.ui.fragments.cart.Cart
+import com.example.brandat.ui.fragments.category.IProduct
 import com.example.brandat.ui.fragments.category.OnClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.ui.fragments.category.SharedViewModel
@@ -110,6 +113,13 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
                 }
             }
 
+        viewModel.getCategory(productID)
+        viewModel.categoryResponse.observe(requireActivity()) {
+            val products: ArrayList<ProductDetails> = ArrayList()
+            for(product in it.body()?.products!!) {
+                products.add(product)
+            }
+            productRvAdapter.setData(products)
             viewModel.getCategory(productID)
 
             filterCategories()

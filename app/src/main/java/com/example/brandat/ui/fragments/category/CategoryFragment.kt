@@ -23,6 +23,7 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentCategoryBinding
 import com.example.brandat.models.Product
 import com.example.brandat.models.ProductDetails
+import com.example.brandat.ui.fragments.cart.Cart
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
@@ -196,8 +197,14 @@ class CategoryFragment : Fragment(), OnClickedListener {
     }
 
     override fun onClicked(currentProduct: ProductDetails) {
-        findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment)
+        TODO("Not yet implemented")
     }
+
+    override fun onCartClicked(currentProduct: Cart) {
+        TODO("Not yet implemented")
+    }
+
+
 
 
 }

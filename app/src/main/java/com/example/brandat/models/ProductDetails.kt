@@ -2,6 +2,7 @@ package com.example.brandat.models
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ProductDetails(
     @SerializedName("admin_graphql_api_id")
@@ -40,4 +41,4 @@ data class ProductDetails(
     val variants: List<Variant>,
     @SerializedName("vendor")
     val vendor: String
-)
+):Serializable

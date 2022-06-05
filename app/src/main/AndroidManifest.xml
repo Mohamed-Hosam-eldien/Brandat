@@ -35,6 +35,8 @@
         -->
 
 
+        tools:replace="android:theme"
+        android:theme="@style/Theme.Brandat">
         <activity
             android:name=".ui.Profile"
             android:exported="false" />

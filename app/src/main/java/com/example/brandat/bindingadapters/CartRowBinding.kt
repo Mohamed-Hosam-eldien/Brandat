@@ -12,11 +12,7 @@ class CartRowBinding {
 
     companion object {
 
-        @JvmStatic
-        @BindingAdapter("setProductImg")
-        fun setProductImg(pImg:ImageView,img:Int){
-            pImg.setImageResource(img)
-        }
+
         @JvmStatic
         @BindingAdapter("onMinusClicked")
         fun onMinusClicked(minues:CardView,cart:Cart){

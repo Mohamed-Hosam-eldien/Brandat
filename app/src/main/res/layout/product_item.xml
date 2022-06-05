@@ -77,8 +77,8 @@
 
             <ImageView
                 android:id="@+id/iv_cart"
-                onCartClicked="@{product}"
                 android:layout_width="45dp"
+                onCartClicked="@{product}"
                 android:layout_height="45dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/cart_shape_back"

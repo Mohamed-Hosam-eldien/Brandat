@@ -4,40 +4,42 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import coil.load
-import com.example.brandat.R
-import com.example.brandat.models.Product
 import com.example.brandat.models.ProductDetails
-import com.example.brandat.ui.fragments.category.ProductModel
 
 class ProductRowBinding {
 
     companion object {
         @BindingAdapter("onProductClicked")
         @JvmStatic
-        fun onProductClicked(productCard:CardView,product: ProductDetails){
-            Log.e("TAG", "onProductClicked: ", )
+        fun onProductClicked(productCard: CardView, product: ProductDetails) {
+           // Log.e("TAG", "onProductClicked: ")
             productCard.setOnClickListener {
 
 //                val navController = Navigation.findNavController(productCard)
 //                navController.navigate(R.id.action_productFragment_to_cartFragment)
             }
         }
+
         @BindingAdapter("onFavClicked")
         @JvmStatic
-        fun onFavClicked(favImag:ImageView,product:ProductDetails){
+        fun onFavClicked(favImag: ImageView, product: ProductDetails) {
             favImag.setOnClickListener {
-                Log.e("TAG", "onFavClicked: ", )
+               // Log.e("TAG", "onFavClicked: ")
             }
         }
+
         @BindingAdapter("onCartClicked")
         @JvmStatic
-        fun onCartClicked(cartImag:ImageView,product:ProductDetails){
+        fun onCartClicked(cartImag: ImageView, product: ProductDetails) {
             cartImag.setOnClickListener {
-                Log.e("TAG", "onCartClicked: ", )
+                Log.e("Az", "onCartClicked: ")
+//                val action =
+//                    ProductDetailsFragmentDirections.actionProductDetailsFragmentToCartFragment(
+//                        product
+//                    )
+//                cartImag.findNavController().navigate(action)
             }
         }
 
@@ -52,7 +54,7 @@ class ProductRowBinding {
         @JvmStatic
         fun setImgForProduct(image: ImageView, url: String) {
             image.load(url)
-           // crossFade(600)
+            // crossFade(600)
         }
     }
 }

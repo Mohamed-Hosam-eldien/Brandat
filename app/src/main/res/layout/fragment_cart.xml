@@ -55,7 +55,7 @@
             android:layout_width="105dp"
             android:layout_height="36dp"
             android:fontFamily="monospace"
-            android:text="234 $"
+            android:text="0 $"
             android:textColor="@color/black"
             android:textSize="23sp"
             android:textStyle="bold"
@@ -72,5 +72,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="607dp"
+            app:srcCompat="@drawable/brandatf"
+            tools:layout_editor_absoluteX="4dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/tv_total"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteY="4dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
