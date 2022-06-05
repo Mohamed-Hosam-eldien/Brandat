@@ -101,7 +101,7 @@ class FavoriteFragment : Fragment(),OnclickListener {
         builder.setNegativeButton("No"){_,_,->
 
         }
-        builder.setTitle("Delete${favourite.productName}")
+        builder.setTitle("Delete${favourite.productName.toLowerCase()}")
         builder.setMessage("Are you sure you want to delete ${favourite.productName} from favourite")
         builder.create().show()
     }

@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="product"
-            type="com.example.brandat.ui.fragments.category.ProductModel" />
+            name="favourit"
+            type="com.example.brandat.models.Favourite" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -25,12 +25,11 @@
             android:background="#504C4C">
 
             <ImageView
-                android:id="@+id/iv_product"
+                android:id="@+id/iv_product_fav"
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bag"
-                setImgForProduct="@{product.productImg}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,13 +43,12 @@
                 android:gravity="center"
                 android:padding="3dp"
                 tools:text="CLASSIC BACKPACK"
-                android:text="@{product.productName}"
                 android:textColor="@color/white"
                 android:textSize="19sp"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_product" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_product_fav" />
 
             <TextView
                 android:id="@+id/tv_product_price"
@@ -62,7 +60,6 @@
                 android:textColor="@color/white"
                 android:textSize="21sp"
                 android:textStyle="bold"
-                android:text="@{product.productPrice}"
 
                 app:layout_constraintEnd_toEndOf="@id/tv_product_name"
                 app:layout_constraintStart_toStartOf="@id/tv_product_name"
@@ -77,7 +74,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_favorite_border"
-                 />
+                />
 
             <ImageView
                 android:id="@+id/iv_cart"
