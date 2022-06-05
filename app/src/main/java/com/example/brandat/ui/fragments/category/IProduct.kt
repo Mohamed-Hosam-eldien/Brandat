@@ -4,6 +4,6 @@ import android.content.Context
 
 interface IProduct {
 
-    fun getPosition(position: Int,context:Context)
+    fun getCategories(category :String,subCategory :String)
 
 }

@@ -5,12 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -19,8 +17,6 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentHomeBinding
 import com.example.brandat.models.Brand
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.internal.Contexts.getApplication
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
 @AndroidEntryPoint
@@ -105,10 +101,10 @@ class HomeFragment : Fragment(),BrandOnClickListner {
         binding.brandsRecycler.visibility = View.VISIBLE
     }
 
-    override fun onBrandClick(brandId: Long) {
+    override fun onBrandClick(brandId: String) {
         bundle = Bundle()
-        bundle.putLong("brandId", brandId)
-        findNavController().navigate(R.id.action_homeFragment_to_categoryFragment,bundle)
+        bundle.putString("brandId", brandId)
+        findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment,bundle)
     }
 
 }

@@ -17,7 +17,9 @@ class ProductRvAdapter(var onClickedListener: OnClickedListener) :
 
     private var products = emptyList<ProductDetails>()
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+
         return ProductViewHolder(
             ProductItemBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -25,6 +27,7 @@ class ProductRvAdapter(var onClickedListener: OnClickedListener) :
                 false
             )
         )
+
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
