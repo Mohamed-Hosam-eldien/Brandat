@@ -26,6 +26,8 @@
 
     <style name="MyActionMode">myActionMode
         <item name="background">@color/purple_700</item>
+        <item name="colorPrimary" >@color/white</item>
+        <item name="textSizeLabels">18dp</item>
     </style>
 
 

@@ -16,9 +16,9 @@ class CartViewModel @Inject constructor(private var repo: IProductsRepository) :
     var cartProduct: LiveData<List<Cart>> = _cartProduct
 
     fun getAllCartproduct() = viewModelScope.launch {
-        var result = repo.getAllCartProducts()
+        val result = repo.getAllCartProducts()
         _cartProduct.postValue(result)
-        Log.e("Cart", "viewModel$result: ", )
+        Log.e("Cart", "viewModelCart${result.size}: ", )
     }
 
     fun removeProductFromCart(product: Cart) = viewModelScope.launch {
@@ -26,5 +26,8 @@ class CartViewModel @Inject constructor(private var repo: IProductsRepository) :
     }
     fun removeSelectedProductsFromCart(product: ArrayList<Cart>) = viewModelScope.launch {
         repo.removeSelectedProductsFromCart(product)
+    }
+    fun updateOrder(product: Cart)=viewModelScope.launch {
+        repo.updateOrder(product)
     }
 }

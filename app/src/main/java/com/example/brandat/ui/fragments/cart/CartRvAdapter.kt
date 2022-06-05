@@ -13,11 +13,13 @@ import com.example.brandat.R
 import com.example.brandat.databinding.CartItemBinding
 import com.example.brandat.utils.CartDiffUtil
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CartRvAdapter(
     var context: Context,
     private val requireActivity: FragmentActivity,
-    var onLongClicked: setOnLongClicked
+    var onClickListener: CartOnClickListener
 ) :
     RecyclerView.Adapter<CartRvAdapter.CartViewHolder>(), ActionMode.Callback {
     private var carts: List<Cart> = ArrayList()
@@ -28,14 +30,14 @@ class CartRvAdapter(
     private var selectedOrders = arrayListOf<Cart>()
     private var multiSelection = false
 
-    fun setData(newData: ArrayList<Cart>) {
+    fun setData(newData: List<Cart>) {
         val cartDiffUtil = CartDiffUtil(carts, newData)
         val cartDiffUtilResult = DiffUtil.calculateDiff(cartDiffUtil)
         carts = newData
         cartDiffUtilResult.dispatchUpdatesTo(this)
     }
 
-    class CartViewHolder(val binding:CartItemBinding) :
+    class CartViewHolder(val binding: CartItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(cartList: Cart) {
             binding.cart = cartList
@@ -58,6 +60,14 @@ class CartRvAdapter(
         rootView = holder.itemView.rootView
         val currentCart = carts[position]
         holder.bind(currentCart)
+
+        holder.binding.numberButton.number = currentCart.pQuantity.toString()
+        holder.binding.tvProductPrice.text = currentCart.pPrice.toString()
+        holder.binding.tvProductName.text.toString().lowercase()
+        holder.binding.numberButton.setOnValueChangeListener { _, _, newValue ->
+            onClickListener.onPluseMinusClicked(newValue, currentCart.pId, 100)
+        }
+
         Glide.with(context).load(currentCart.pImage).into(holder.binding.imgProduct)
         holder.itemView.setOnClickListener {
             if (multiSelection) {
@@ -71,7 +81,6 @@ class CartRvAdapter(
                 multiSelection = true
                 requireActivity.startActionMode(this)
                 applySelection(holder, currentCart)
-                true
             }
             true
         }
@@ -95,9 +104,11 @@ class CartRvAdapter(
         if (item?.itemId == R.id.delete_item_order_menue) {
             Toast.makeText(requireActivity, "${selectedOrders.size}", Toast.LENGTH_SHORT).show()
             selectedOrders.forEach {
-                onLongClicked.onClicked(it)
+                onClickListener.onClicked(it)
             }
             multiSelection = false
+            selectedOrders.clear()
+            mode?.finish()
         }
 
         return true
@@ -108,9 +119,9 @@ class CartRvAdapter(
             changeCardStyle(holder, R.color.chipTextColor, R.color.white)
         }
         multiSelection = false
-        // selectedRecipes.clear()
-        // applyStatusBarColor(R.color.statusBarColor)
+        selectedOrders.clear()
     }
+
     private fun applyActionModeTitle() {
         when (selectedOrders.size) {
             0 -> {
@@ -119,6 +130,7 @@ class CartRvAdapter(
             }
             1 -> {
                 mActionMode.title = "${selectedOrders.size} item selected"
+
                 //  mActionMode.title= R.font.m
             }
             else -> {
@@ -137,6 +149,7 @@ class CartRvAdapter(
             changeCardStyle(holder, R.color.red, R.color.green)
             applyActionModeTitle()
         }
+        Log.d("TAG", "applySelection adapter ${selectedOrders.size}: ")
     }
 
     private fun changeCardStyle(holder: CartViewHolder, backgroundColor: Int, strokeColor: Int) {
@@ -145,6 +158,12 @@ class CartRvAdapter(
         )
         holder.binding.cardOrder.strokeColor =
             ContextCompat.getColor(requireActivity, strokeColor)
+    }
+
+    fun clearContextualActionMode() {
+        if (this::mActionMode.isInitialized) {
+            mActionMode.finish()
+        }
     }
 
     private fun showSnackBar(message: String) {

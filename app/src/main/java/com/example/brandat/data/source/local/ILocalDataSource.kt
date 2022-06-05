@@ -8,5 +8,6 @@ interface ILocalDataSource {
     suspend fun removeProductFromCart(product: Cart)
     suspend fun removeSelectedProductsFromCart(product: ArrayList<Cart>)
     suspend fun getAllCartProducts(): List<Cart>
+    suspend fun updateOrder(product: Cart)
 
 }

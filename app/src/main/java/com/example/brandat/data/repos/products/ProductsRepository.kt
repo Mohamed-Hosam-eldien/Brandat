@@ -57,5 +57,9 @@ class ProductsRepository @Inject constructor(
        return localDataSource.getAllCartProducts()
     }
 
+    override suspend fun updateOrder(product: Cart) {
+        localDataSource.updateOrder(product)
+    }
+
 
 }

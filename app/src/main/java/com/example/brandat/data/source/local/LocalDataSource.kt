@@ -22,4 +22,8 @@ class LocalDataSource @Inject constructor(private var brandatDao: BrandatDao) : 
         return brandatDao.getAllCartProducts()
     }
 
+    override suspend fun updateOrder(product: Cart) {
+        brandatDao.updateOrder(product.pQuantity,product.pPrice,product.pId)
+    }
+
 }
