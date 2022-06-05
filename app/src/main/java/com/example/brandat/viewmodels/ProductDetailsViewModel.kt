@@ -9,11 +9,12 @@ import com.example.brandat.data.repos.products.IProductsRepository
 import com.example.brandat.models.Product
 import com.example.brandat.models.Products
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
-@HiltViewModel
+@ActivityRetainedScoped
 class ProductDetailsViewModel @Inject constructor(
     private var iProductsRepository: IProductsRepository
 ):ViewModel() {

@@ -18,18 +18,21 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProductDetailsBinding
 import com.example.brandat.models.Product
 import com.example.brandat.ui.User
-import com.example.brandat.ui.UserAdapter
 import com.example.brandat.viewmodels.ProductDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProductDetailsFragment : Fragment() {
 
+    private var random: Float = 4.5F
     private lateinit var mProduct: Product
     private var user: List<User> = listOf(
-        User("mohamed", "this product is so beautiful and useful", 6),
-        User("ahmed", "it's fine when you wanna a bag for you school", 3),
-        User("hoasm", "I did't like it at all so bad material", 9)
+        User("Mohamed", "this product is so beautiful wwooooww", 3),
+        User("Ahmed", "I really liked this product so awesome", 4),
+        User("Galal", "Incredible product I bought it and I'll buy it again", 5),
+        User("Salem", "it's fine when you wanna a bag for you school", 4),
+        User("Noor", "I got one for my sister and she loves it so much", 3),
+        User("Yasmeen", "I did't like it at all so bad material", 2)
     )
 
     var soso = "7782820643045"
@@ -55,12 +58,16 @@ class ProductDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_product_details, container, false)
+
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        random = (3..5).random().toFloat()
+        binding.ratingBar.rating = random
 
         binding.shareBtn.setOnClickListener {
             shareProduct()
@@ -78,7 +85,12 @@ class ProductDetailsFragment : Fragment() {
         //7782820643045
 
         setupRecyclerView()
-        mAdapter.setDatat(user)
+
+        var usersList : User? = user.asSequence().shuffled().find { true }
+        val numberOfElements = 3
+
+        val randomElements = user.asSequence().shuffled().take(numberOfElements).toList()
+        mAdapter.setDatat(randomElements)
 
 
 
