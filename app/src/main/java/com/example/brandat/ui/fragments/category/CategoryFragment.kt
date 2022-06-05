@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TableLayout
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -17,12 +21,18 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentCategoryBinding
+import com.example.brandat.models.Product
+import com.example.brandat.models.ProductDetails
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
 
-class CategoryFragment : Fragment() ,OnClickedListener {
+@AndroidEntryPoint
+class CategoryFragment : Fragment(), OnClickedListener {
 
     private lateinit var binding: FragmentCategoryBinding
+    private val iPosition: IProduct = ProductFragment()
+
 
     //slider
     private lateinit var sliderAdapter: SliderCategoryAdapter
@@ -33,16 +43,33 @@ class CategoryFragment : Fragment() ,OnClickedListener {
     private lateinit var tabLayout: TableLayout
     private lateinit var tabsViewPager: ViewPager2
 
+//    val model : SharedViewModel by viewModels()
+
+    lateinit var model : SharedViewModel
 
     //connect Category With Tabs
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val pressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Navigation.findNavController(view!!).navigate(R.id.homeFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, pressedCallback)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentCategoryBinding.inflate(LayoutInflater.from(context), container, false)
+
+        val args: Bundle = requireArguments()
+        val brandId = args.getLong("brandId")
+        Toast.makeText(requireContext(), "brandId $brandId", Toast.LENGTH_SHORT).show()
+
         return binding.root
     }
 
@@ -50,16 +77,15 @@ class CategoryFragment : Fragment() ,OnClickedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        categories.add(CategoryModel("Dresses", R.drawable.sh2))
-        categories.add(CategoryModel("T_Shirts", R.drawable.dress_kid))
-        categories.add(CategoryModel("Shooes", R.drawable.bag))
-        categories.add(CategoryModel("Accessories", R.drawable.sh3))
-        categories.add(CategoryModel("Dresses", R.drawable.dress_kid))
-        categories.add(CategoryModel("Dresses", R.drawable.sh5))
+        categories.add(CategoryModel("Shoes", R.drawable.shoes))
+        categories.add(CategoryModel("T_Shirts", R.drawable.shirt))
+        categories.add(CategoryModel("Accessories", R.drawable.bag))
+
+        model = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
 
         viewPager2 = binding.viewPagerCategories
-        tabsViewPager=binding.viewPagerSubCategory
+        tabsViewPager = binding.viewPagerSubCategory
         initializeSlider()
         sliderWork()
         initializeTabLayout()
@@ -73,17 +99,21 @@ class CategoryFragment : Fragment() ,OnClickedListener {
 
             val TAG = "VIEWPAGER_POS"
             val myOffset: Float = position * -(2 * pageOffset + pageMargin)
-            if (position < -1) {
-                page.translationX = -myOffset
-            } else if (position <= 1) {
-                val scaleFactor = Math.max(0.7f, 1 - abs(position - 0.14285715f))
-                Log.d(TAG, "transformPageVALUE: $scaleFactor")
-                page.translationX = myOffset
-                page.scaleY = scaleFactor
-                page.alpha = scaleFactor
-            } else {
-                page.alpha = 0f
-                page.translationX = myOffset
+            when {
+                position < -1 -> {
+                    page.translationX = -myOffset
+                }
+                position <= 1 -> {
+                    val scaleFactor = Math.max(0.7f, 1 - abs(position - 0.14285715f))
+                    Log.d(TAG, "transformPageVALUE: $scaleFactor")
+                    page.translationX = myOffset
+                    page.scaleY = scaleFactor
+                    page.alpha = scaleFactor
+                }
+                else -> {
+                    page.alpha = 0f
+                    page.translationX = myOffset
+                }
             }
         }
 
@@ -93,28 +123,62 @@ class CategoryFragment : Fragment() ,OnClickedListener {
             setPageTransformer(compositePageTransformer)
         }
     }
-//=================================================================
+
+    //=================================================================
     private fun sliderWork() {
-//binding.viewPagerCategories.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-//        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-//    }
-//
-//    override fun onPageSelected(position: Int) {
-//        super.onPageSelected(position)
-//    }
-//
-//    override fun onPageScrollStateChanged(state: Int) {
-//        super.onPageScrollStateChanged(state)
-//    }
-//}
+
+        binding.viewPagerCategories.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            }
+
+            override fun onPageSelected(position: Int) {
+          //      Toast.makeText(requireContext(), ""+position, Toast.LENGTH_SHORT).show()
+                super.onPageSelected(position)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+            }
+        })
+
+
+        binding.viewPagerSubCategory.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            }
+
+            override fun onPageSelected(position: Int) {
+//                iPosition.getPosition(position,requireContext())
+                model.setPosition(position)
+                super.onPageSelected(position)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+            }
+        })
+
     }
-//=================================================================
+
+    //=================================================================
     private fun initializeTabLayout() {
         tabsViewPager.adapter = ProductViewPagerAdapter(requireActivity())
         TabLayoutMediator(binding.tablayout, binding.viewPagerSubCategory) { tab, index ->
             tab.text = when (index) {
-                0 -> "Kid"
+                0 -> {
+                    "Kid"
+                }
                 1 -> "Women"
                 2 -> "Men"
                 3 -> "sale"
@@ -123,18 +187,16 @@ class CategoryFragment : Fragment() ,OnClickedListener {
                 }
             }
         }.attach()
+
     }
 
     private fun initializeSlider() {
         sliderAdapter = SliderCategoryAdapter(categories, viewPager2)
         viewPager2.adapter = sliderAdapter
-
-
     }
 
-    override fun onClicked(currentProduct: ProductModel) {
+    override fun onClicked(currentProduct: ProductDetails) {
         findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment)
-
     }
 
 

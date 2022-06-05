@@ -14,5 +14,9 @@ class LocalDataSource @Inject constructor(
             }
     }
 
+    override suspend fun getAllAddresses(): List<CustomerAddress> {
+        return  brandatDao.getAllAddresses()
+    }
+
 
 }

@@ -3,6 +3,7 @@ package com.example.brandat.data.source.local.db
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.brandat.models.CustomerAddress
 
 @Dao
@@ -10,6 +11,9 @@ import com.example.brandat.models.CustomerAddress
 
  @Insert(onConflict = OnConflictStrategy.REPLACE)
  suspend fun insertAddress(customerAddress: CustomerAddress)
+
+ @Query("SELECT * FROM customeraddress")
+ suspend fun getAllAddresses():List<CustomerAddress>
 
 
 

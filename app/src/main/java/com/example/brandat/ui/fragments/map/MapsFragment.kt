@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentMapsBinding
 import com.example.brandat.models.CustomerAddress
+import com.example.brandat.ui.fragments.address.AddressViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -33,7 +34,7 @@ class MapsFragment : Fragment() {
     private lateinit var latAndLong: LatLng
     lateinit var sharedPreferences: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
-    private val viewModel: MapsViewModel by viewModels()
+    private val viewModel: AddressViewModel by viewModels()
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     lateinit var navController: NavController

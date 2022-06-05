@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.AdderssItemBinding
 import com.example.brandat.models.CustomerAddress
 
-class AddressAdapter (var addressList:ArrayList<CustomerAddress>,var onClickListener: OnClickListener)
+class AddressAdapter (var addressList:List<CustomerAddress>,var onClickListener: OnClickListener)
     : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {

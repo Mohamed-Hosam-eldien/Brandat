@@ -8,16 +8,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentAddressBinding
 import com.example.brandat.models.CustomerAddress
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AddressFragment : Fragment() ,OnClickListener{
       lateinit var binding: FragmentAddressBinding
       lateinit var addressAdapter:AddressAdapter
+      var addresses : List<CustomerAddress> = fakeData()
+      private val viewModel:AddressViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +38,15 @@ class AddressFragment : Fragment() ,OnClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
+
+
+        viewModel.getAllAddress()
+        viewModel.getAddresses.observe(viewLifecycleOwner){
+            initView(it)
+        }
 
         binding.btnAddAddress.setOnClickListener {
             //  replace with code navigation to add address screen
-            makeText(requireContext(), "hello d3d3", Toast.LENGTH_SHORT).show()
-
-
         }
 
         binding.btnOpenMao.setOnClickListener {
@@ -50,8 +56,8 @@ class AddressFragment : Fragment() ,OnClickListener{
         }
     }
 
-    private fun initView() {
-        addressAdapter = AddressAdapter(fakeData(),this)
+    private fun initView(addresses:List<CustomerAddress>) {
+        addressAdapter = AddressAdapter(addresses,this)
         binding.addressRecycler.apply {
            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
            adapter=addressAdapter

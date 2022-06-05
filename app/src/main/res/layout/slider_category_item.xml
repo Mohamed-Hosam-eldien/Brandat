@@ -25,7 +25,6 @@
                 android:id="@+id/img_category"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:scaleType="centerCrop"
                 android:src="@drawable/sh3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

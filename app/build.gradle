@@ -11,16 +11,6 @@ plugins {
 android {
     compileSdk 31
 
-    buildscript {
-        repositories {
-            google()
-        }
-        dependencies {
-            classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.4.2")
-            classpath("com.google.dagger:hilt-android-gradle-plugin:2.42")
-        }
-    }
-
     defaultConfig {
         applicationId "com.example.brandat"
         minSdk 23
@@ -97,12 +87,10 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-
-
-//Dagger - Hilt
-    // hilt
-    implementation("com.google.dagger:hilt-android:2.38.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+    //Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
 
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
 
@@ -157,7 +145,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 
-    //circleimageview
+   //circleimageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 

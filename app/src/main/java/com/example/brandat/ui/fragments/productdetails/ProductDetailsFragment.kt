@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,11 +39,15 @@ class ProductDetailsFragment : Fragment() {
 
     private val viewModel: ProductDetailsViewModel by viewModels()
     private val mAdapter by lazy { UserAdapter() }
+    var id:Long = 0
 
     private lateinit var _binding: FragmentProductDetailsBinding
     private val binding get() = _binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        id = requireArguments().getLong("productId")
+        Toast.makeText(requireContext(), "my product $id", Toast.LENGTH_SHORT).show()
 
     }
 
@@ -112,7 +117,7 @@ class ProductDetailsFragment : Fragment() {
         Log.i("TAG", "observeShowData: ")
 
         //7782820708581L
-        viewModel.getProductDetailsFromDatabase(7782820708581L)
+        viewModel.getProductDetailsFromDatabase(id)
         viewModel.getProduct.observe(viewLifecycleOwner) {
             if (it != null) {
                 showData(it.body())
@@ -144,7 +149,6 @@ class ProductDetailsFragment : Fragment() {
             imageList.add(SlideModel(body.productDetails.imageProducts[1].src))
             imageList.add(SlideModel(body.productDetails.imageProducts[2].src))
             binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
-
         }
 
 

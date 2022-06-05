@@ -10,9 +10,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-
-@Module
 @InstallIn(SingletonComponent::class)
+@Module
 object DataBaseModules {
 
     @Provides
@@ -25,17 +24,7 @@ object DataBaseModules {
         ).build()
 
     @Provides
-   // @Singleton
+    //@Singleton
     fun provideBrandatDao(db: BrandatDataBase): BrandatDao = db.brandatDao()
 
 }
-
-
-
-
-
-
-
-
-
-

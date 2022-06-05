@@ -29,13 +29,12 @@
                 <com.denzcoskun.imageslider.ImageSlider
                     android:id="@+id/image_slider"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="280dp"
                     android:animateLayoutChanges="true"
                     app:iss_auto_cycle="true"
                     app:iss_delay="1"
                     app:iss_error_image="@drawable/error"
                     app:iss_period="2000"
-                    app:iss_placeholder="@drawable/placeholder"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +101,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="125$"
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -115,12 +113,12 @@
                     android:layout_width="242dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/lightGray"
                     android:isIndicator="true"
                     android:progressTint="#ECA800"
-                    android:backgroundTint="@color/lightGray"
                     app:layout_constraintEnd_toEndOf="@id/product_price_tv"
                     app:layout_constraintStart_toStartOf="@id/product_price_tv"
-                    app:layout_constraintTop_toBottomOf="@id/product_price_tv"/>
+                    app:layout_constraintTop_toBottomOf="@id/product_price_tv" />
 
                 <ImageView
                     android:id="@+id/favorite_btn"
@@ -142,32 +140,32 @@
                     app:layout_constraintStart_toEndOf="@id/elegantNumberButton_quantity"
                     app:layout_constraintTop_toBottomOf="@id/ratingBar" />
 
-<!--                <com.google.android.material.card.MaterialCardView-->
-<!--                    android:id="@+id/quantity_cv"-->
-<!--                    android:layout_width="120dp"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    android:layout_marginTop="24dp"-->
-<!--                    app:cardCornerRadius="18dp"-->
-<!--                    app:layout_constraintEnd_toEndOf="@id/ratingBar"-->
-<!--                    app:layout_constraintStart_toStartOf="@id/ratingBar"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/ratingBar">-->
+                <!--                <com.google.android.material.card.MaterialCardView-->
+                <!--                    android:id="@+id/quantity_cv"-->
+                <!--                    android:layout_width="120dp"-->
+                <!--                    android:layout_height="50dp"-->
+                <!--                    android:layout_marginTop="24dp"-->
+                <!--                    app:cardCornerRadius="18dp"-->
+                <!--                    app:layout_constraintEnd_toEndOf="@id/ratingBar"-->
+                <!--                    app:layout_constraintStart_toStartOf="@id/ratingBar"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/ratingBar">-->
 
-                    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-                        android:id="@+id/elegantNumberButton_quantity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        app:textSize="7sp"
-                        android:background="@drawable/rounded_shape"
-                        android:layout_marginTop="18dp"
-                        app:finalNumber="20"
-                        app:layout_constraintEnd_toEndOf="@id/ratingBar"
-                        app:layout_constraintStart_toStartOf="@id/ratingBar"
-                        app:layout_constraintTop_toBottomOf="@id/ratingBar"
-                        app:initialNumber="1"/>
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/elegantNumberButton_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/rounded_shape"
+                    android:gravity="center"
+                    app:finalNumber="20"
+                    app:initialNumber="1"
+                    app:layout_constraintEnd_toEndOf="@id/ratingBar"
+                    app:layout_constraintStart_toStartOf="@id/ratingBar"
+                    app:layout_constraintTop_toBottomOf="@id/ratingBar"
+                    app:textSize="7sp" />
 
 
-<!--                </com.google.android.material.card.MaterialCardView>-->
+                <!--                </com.google.android.material.card.MaterialCardView>-->
 
 
                 <TextView
@@ -177,7 +175,6 @@
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="18dp"
-                    android:text="Auto Image Slider is one of the most seen UI components in Android. This type of slider is mostly seen inside the apps of big E-commerce sites such as Flipkart, Amazon, and many more. Auto Image Slider is used to represent data in the form of slides that changes after a specific interval of time"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -268,12 +265,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:layout_marginBottom="45dp"
                     android:nestedScrollingEnabled="false"
                     android:overScrollMode="never"
                     android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginBottom="45dp"
                     app:layout_constraintBottom_toTopOf="@id/view2"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/reviews"
                     tools:listitem="@layout/reviewer_row_layout" />

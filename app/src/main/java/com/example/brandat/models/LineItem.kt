@@ -26,8 +26,6 @@ data class LineItem(
     val name: String,
     @SerializedName("price")
     val price: String,
-    @SerializedName("price_set")
-    val priceSet: PriceSet,
     @SerializedName("product_exists")
     val productExists: Boolean,
     @SerializedName("product_id")

@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFavoriteBinding
+import com.example.brandat.models.Product
+import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.category.OnClickedListener
 import com.example.brandat.ui.fragments.category.ProductModel
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
@@ -22,10 +23,10 @@ class FavoriteFragment : Fragment(),OnClickedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        products.add(ProductModel("CLASSIC", "3 Eg", R.drawable.sh2))
-        products.add(ProductModel("Dress", "370 Eg", R.drawable.sh))
-        products.add(ProductModel("CLASSIC BACKPACK", "379 Eg", R.drawable.dress_kid))
-
+//        products.add(ProductModel("CLASSIC", "3 Eg", R.drawable.sh2))
+//        products.add(ProductModel("Dress", "370 Eg", R.drawable.sh))
+//        products.add(ProductModel("CLASSIC BACKPACK", "379 Eg", R.drawable.dress_kid))
+//
 
     }
 
@@ -44,7 +45,7 @@ class FavoriteFragment : Fragment(),OnClickedListener {
         binding.rvFavorits.apply {
             val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
             setLayoutManager(layoutManager)
-            productRvAdapter.setData(products)
+            //productRvAdapter.setData(products)
             adapter = productRvAdapter
 
         }
@@ -55,7 +56,7 @@ class FavoriteFragment : Fragment(),OnClickedListener {
 
     }
 
-    override fun onClicked(currentProduct: ProductModel) {
+    override fun onClicked(currentProduct: ProductDetails) {
     }
 
 }
