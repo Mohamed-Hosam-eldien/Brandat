@@ -63,7 +63,9 @@ class CartRvAdapter(
 
         holder.binding.numberButton.number = currentCart.pQuantity.toString()
         holder.binding.tvProductPrice.text = currentCart.pPrice.toString()
-        holder.binding.tvProductName.text.toString().lowercase()
+
+        holder.binding.tvProductName.text = currentCart.pName.lowercase()
+
         holder.binding.numberButton.setOnValueChangeListener { _, _, newValue ->
             onClickListener.onPluseMinusClicked(newValue, currentCart.pId, 100)
         }

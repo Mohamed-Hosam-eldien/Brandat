@@ -15,6 +15,7 @@
         onProductClicked="@{product}"
         app:cardCornerRadius="21dp"
         app:cardElevation="7dp"
+        app:cardBackgroundColor="#504C4C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

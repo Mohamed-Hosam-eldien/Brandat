@@ -15,28 +15,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Brandat"
         android:usesCleartextTraffic="true"
-        tools:replace="android:theme">
+        tools:replace="android:theme"
+        android:theme="@style/Theme.Brandat">
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAcUPWl2FLUs7HxeqCBY684tI4GHZj0ens" />
-        <!--
-             TODO: Before you run your application, you need a Google Maps API key.
-
-             To get one, follow the directions here:
-
-                https://developers.google.com/maps/documentation/android-sdk/get-api-key
-
-             Once you have your API key (it starts with "AIza"), define a new property in your
-             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
-             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
-        -->
 
 
-        tools:replace="android:theme"
-        android:theme="@style/Theme.Brandat">
         <activity
             android:name=".ui.Profile"
             android:exported="false" />

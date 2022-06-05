@@ -17,7 +17,7 @@ class CategoryViewModel @Inject constructor(
     var repoInterface: IProductsRepository
 ) : ViewModel() {
 
-    private var categoryResponse = MutableLiveData<Response<Products>>()
+    var categoryResponse = MutableLiveData<Response<Products>>()
     var categoryLive : LiveData<Response<Products>> = categoryResponse
 
     private var allProductResponse: MutableLiveData<Response<Products>> = MutableLiveData()

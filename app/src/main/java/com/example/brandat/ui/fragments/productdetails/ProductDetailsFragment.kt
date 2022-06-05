@@ -21,6 +21,7 @@ import com.example.brandat.ui.User
 import com.example.brandat.viewmodels.ProductDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class ProductDetailsFragment : Fragment() {
 

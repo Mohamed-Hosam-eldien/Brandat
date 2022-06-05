@@ -82,7 +82,7 @@ class HomeFragment : Fragment(),BrandOnClickListner {
         brandAdapter = BrandAdapter(requireContext(),this)
 
         binding.brandsRecycler.apply {
-            var layoutManager = GridLayoutManager(context, 2)
+            val layoutManager = GridLayoutManager(context, 2)
             setLayoutManager(layoutManager)
             adapter = brandAdapter
 
@@ -102,8 +102,8 @@ class HomeFragment : Fragment(),BrandOnClickListner {
 
     override fun onBrandClick(brandId: String) {
         bundle = Bundle()
-        bundle.putLong("brandId", brandId)
-        findNavController().navigate(R.id.action_homeFragment_to_categoryFragment,bundle)
+        bundle.putString("brandId", brandId)
+        findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment,bundle)
     }
 
 }

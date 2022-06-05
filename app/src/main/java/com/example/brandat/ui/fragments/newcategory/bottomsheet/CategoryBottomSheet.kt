@@ -1,17 +1,13 @@
 package com.example.brandat.ui.fragments.newcategory.bottomsheet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.brandat.R
 import com.example.brandat.databinding.CategoryBottomSheetBinding
-import com.example.brandat.ui.fragments.category.IProduct
 import com.example.brandat.ui.fragments.category.SharedViewModel
-import com.example.brandat.ui.fragments.newcategory.NewCategoryFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 
@@ -19,7 +15,7 @@ class CategoryBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var binding: CategoryBottomSheetBinding
 
-    lateinit var model: SharedViewModel
+    private lateinit var model: SharedViewModel
 
 
     override fun onCreateView(
@@ -49,16 +45,16 @@ class CategoryBottomSheet : BottomSheetDialogFragment() {
 
 
         when (chipCategory) {
-            "MEN" -> binding.chipGroupCategory.check(R.id.chipMen)
-            "WOMEN" -> binding.chipGroupCategory.check(R.id.chipWomen)
-            "KIDS" -> binding.chipGroupCategory.check(R.id.chipKids)
-            "SALE" -> binding.chipGroupCategory.check(R.id.chipSale)
+            "Men" -> binding.chipGroupCategory.check(R.id.chipMen)
+            "Women" -> binding.chipGroupCategory.check(R.id.chipWomen)
+            "Kids" -> binding.chipGroupCategory.check(R.id.chipKids)
+            "Sale" -> binding.chipGroupCategory.check(R.id.chipSale)
         }
 
         when (chipSub) {
-            "SHOES" -> binding.chipGroupSub.check(R.id.chipShoes)
-            "T-SHIRTS" -> binding.chipGroupSub.check(R.id.chipShirt)
-            "ACCESSORIES" -> binding.chipGroupSub.check(R.id.chipAccess)
+            "Shoes" -> binding.chipGroupSub.check(R.id.chipShoes)
+            "T-Shirts" -> binding.chipGroupSub.check(R.id.chipShirt)
+            "Accessories" -> binding.chipGroupSub.check(R.id.chipAccess)
         }
 
         binding.chipGroupCategory.setOnCheckedChangeListener { group, selectedChipId ->

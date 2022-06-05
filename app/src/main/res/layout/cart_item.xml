@@ -9,89 +9,93 @@
             name="cart"
             type="com.example.brandat.ui.fragments.cart.Cart" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/favoriteRecipesRowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="2dp">
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_order"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:id="@+id/constraint"
-            android:layout_height="match_parent"
-            android:background="#7C7070"
-            android:padding="9dp">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_product"
-                android:layout_width="115dp"
-                android:layout_height="103dp"
-                android:src="@drawable/sh2"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="2dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#7C7070"
+                android:padding="9dp">
 
-            <TextView
-                android:id="@+id/tv_product_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:fontFamily="serif"
-                android:padding="3dp"
-                android:text="@{cart.PName}"
-                android:textColor="@color/white"
-                android:textSize="21sp"
-                app:layout_constraintStart_toEndOf="@id/img_product"
-                app:layout_constraintTop_toTopOf="@id/img_product" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_product"
+                    android:layout_width="115dp"
+                    android:layout_height="103dp"
+                    android:src="@drawable/bag"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_product_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="3dp"
-                android:fontFamily="serif"
-                android:padding="1dp"
-                android:text="@{String.valueOf(cart.PPrice)}"
-                android:textColor="@color/white"
-                android:textSize="21sp"
-                android:textStyle="bold"
-                app:layout_constraintHorizontal_bias="0.174"
-                app:layout_constraintStart_toStartOf="@id/tv_product_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
+                <TextView
+                    android:id="@+id/tv_product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="serif"
+                    android:padding="3dp"
+                    android:text="@{cart.PName}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/img_product"
+                    app:layout_constraintTop_toTopOf="@id/img_product" />
 
-            <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-                android:id="@+id/number_button"
-                android:layout_width="177dp"
-                android:layout_height="55dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
-                app:backGroundColor="@color/white"
-                app:finalNumber="20"
-                app:initialNumber="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_product_price"
-                app:textColor="@color/black"
-                app:textSize="8sp" />
+                <TextView
+                    android:id="@+id/tv_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="serif"
+                    android:padding="1dp"
+                    android:text="@{String.valueOf(cart.PPrice)}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintHorizontal_bias="0.174"
+                    app:layout_constraintStart_toStartOf="@id/tv_product_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/number_button"
+                    android:layout_width="140dp"
+                    android:layout_height="35dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="4dp"
+                    app:backgroundDrawable="@drawable/rounded_shap"
+                    app:backGroundColor="@color/white"
+                    app:finalNumber="20"
+                    app:initialNumber="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:textColor="@color/black"
+                    app:textSize="4sp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

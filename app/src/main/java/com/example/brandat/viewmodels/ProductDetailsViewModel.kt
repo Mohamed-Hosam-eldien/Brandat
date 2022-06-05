@@ -14,7 +14,8 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
-@ActivityRetainedScoped
+//@ActivityRetainedScoped
+@HiltViewModel
 class ProductDetailsViewModel @Inject constructor(
     private var iProductsRepository: IProductsRepository
 ):ViewModel() {
@@ -25,7 +26,7 @@ class ProductDetailsViewModel @Inject constructor(
     fun getProductDetailsFromDatabase(productId:Long){
         Log.d("TAG", "getProductDetailsFromDatabase: ")
         viewModelScope.launch {
-            var result= iProductsRepository.getProductDetails(productId)
+            val result= iProductsRepository.getProductDetails(productId)
             _getProduct.postValue(result)
         }
     }

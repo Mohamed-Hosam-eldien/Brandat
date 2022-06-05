@@ -17,10 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.CategoryViewModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentNewCategoryBinding
-import com.example.brandat.models.Product
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.cart.Cart
-import com.example.brandat.ui.fragments.category.IProduct
+
 import com.example.brandat.ui.fragments.category.OnClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.ui.fragments.category.SharedViewModel
@@ -33,13 +32,14 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
     private lateinit var productRvAdapter: ProductRvAdapter
     private var productID: Long = 0
     private var type: String = ""
-    private lateinit var brandName:String
+    private lateinit var brandName: String
 
     private val viewModel: CategoryViewModel by viewModels()
     private lateinit var model: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val pressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 Navigation.findNavController(view!!).navigate(R.id.homeFragment)
@@ -77,7 +77,7 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
             filterProducts()
 
             viewModel.productsLive.observe(viewLifecycleOwner) {
-                val products: ArrayList<Product> = ArrayList()
+                val products: ArrayList<ProductDetails> = ArrayList()
                 for (product in it.body()?.products!!) {
                     if (product.vendor == brandName.uppercase()) {
                         products.add(product)
@@ -113,33 +113,17 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
                 }
             }
 
-        viewModel.getCategory(productID)
-        viewModel.categoryResponse.observe(requireActivity()) {
-            val products: ArrayList<ProductDetails> = ArrayList()
-            for(product in it.body()?.products!!) {
-                products.add(product)
-            }
-            productRvAdapter.setData(products)
-            viewModel.getCategory(productID)
-
             filterCategories()
 
-            viewModel.categoryLive.observe(requireActivity()) {
-                val products: ArrayList<Product> = ArrayList()
+            viewModel.getCategory(productID)
+            viewModel.categoryResponse.observe(requireActivity()) {
+                val products: ArrayList<ProductDetails> = ArrayList()
                 for (product in it.body()?.products!!) {
-                    if (product.productType == binding.chipCatSub.text.toString().uppercase()) {
-                        products.add(product)
-                    }
+                    products.add(product)
                 }
-
-                if (products.size > 0)
-                    binding.imgEmpty.visibility = View.GONE
-                else
-                    binding.imgEmpty.visibility = View.VISIBLE
-
                 productRvAdapter.setData(products)
-
             }
+
         }
 
         binding.imgFilter.setOnClickListener {
@@ -151,19 +135,28 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
                     bundle.putString("type", binding.chipCatSub.text.toString())
                 }
 
-                findNavController().navigate(R.id.action_newCategoryFragment_to_categoryBottomSheetType, bundle)
+                findNavController().navigate(
+                    R.id.action_newCategoryFragment_to_categoryBottomSheetType,
+                    bundle
+                )
 
             } else {
 
                 val bundle = Bundle()
                 val list = ArrayList<String>()
-                if (binding.chipCat.text.toString().isNotEmpty() && binding.chipCatSub.text.toString().isNotEmpty()) {
+
+                if (binding.chipCat.text.toString()
+                        .isNotEmpty() && binding.chipCatSub.text.toString().isNotEmpty()
+                ) {
                     list.add(binding.chipCat.text.toString())
                     list.add(binding.chipCatSub.text.toString())
                     bundle.putStringArrayList("chipList", list)
                 }
 
-                findNavController().navigate(R.id.action_newCategoryFragment_to_categoryBottomSheet, bundle)
+                findNavController().navigate(
+                    R.id.action_newCategoryFragment_to_categoryBottomSheet,
+                    bundle
+                )
             }
 
         }
@@ -175,16 +168,11 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
         productRvAdapter = ProductRvAdapter(this)
 
         binding.recyclerCategory.apply {
-            val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
+            val layoutManager =
+                GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
             setLayoutManager(layoutManager)
             adapter = productRvAdapter
         }
-    }
-
-    override fun onClicked(currentProduct: Product) {
-        val bundle = Bundle()
-        bundle.putLong("productId", currentProduct.id)
-        findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment, bundle)
     }
 
     private fun filterCategories() {
@@ -194,22 +182,22 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
             val subCat = it[1]
 
             when (cat) {
-                "MEN" -> {
+                "Men" -> {
                     productID = 395728126181L
                     binding.chipCat.text = cat
                     binding.chipCatSub.text = subCat
                 }
-                "WOMEN" -> {
+                "Women" -> {
                     productID = 395728158949L
                     binding.chipCat.text = cat
                     binding.chipCatSub.text = subCat
                 }
-                "KIDS" -> {
+                "Kids" -> {
                     productID = 395728191717L
                     binding.chipCat.text = cat
                     binding.chipCatSub.text = subCat
                 }
-                "SALE" -> {
+                "Sale" -> {
                     productID = 395728224485L
                     binding.chipCat.text = cat
                     binding.chipCatSub.text = subCat
@@ -245,7 +233,7 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
 
             Toast.makeText(requireContext(), type, Toast.LENGTH_SHORT).show()
 
-            if(type == "ALL")
+            if (type == "ALL")
                 viewModel.getAllProductsByName()
             else
                 viewModel.getAllProductsByType(type)
@@ -259,7 +247,7 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
 
     override fun onResume() {
         super.onResume()
-        if(brandName == "null") {
+        if (brandName == "null") {
             binding.chipCat.text = "Men"
             binding.chipCatSub.text = "Shoes"
         } else {
@@ -268,6 +256,19 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
         }
     }
 
+    override fun onClicked(currentProduct: ProductDetails) {
+        val bundle = Bundle()
+        bundle.putLong("productId", currentProduct.id)
 
+        findNavController().navigate(
+            R.id.action_newCategoryFragment_to_productDetailsFragment,
+            bundle
+        )
+    }
+
+    override fun onCartClicked(currentProduct: Cart) {
+        Toast.makeText(requireContext(), "Hi Azoza !", Toast.LENGTH_SHORT).show()
+        viewModel.addProductToCart(currentProduct)
+    }
 
 }

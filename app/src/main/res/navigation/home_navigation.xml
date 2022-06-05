@@ -16,14 +16,6 @@
         android:label="@string/home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_homeFragment_to_newCategoryFragment"
             app:destination="@id/newCategoryFragment"
             app:popUpTo="@id/homeFragment"
@@ -39,9 +31,6 @@
         android:name="com.example.brandat.ui.fragments.category.CategoryFragment"
         android:label="@string/category"
         tools:layout="@layout/fragment_category" >
-        <action
-            android:id="@+id/action_categoryFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
         <argument
             android:name="brandId"
             app:argType="long" />
@@ -98,6 +87,9 @@
         <action
             android:id="@+id/action_newCategoryFragment_to_categoryBottomSheetType"
             app:destination="@id/categoryBottomSheetType" />
+        <action
+            android:id="@+id/action_newCategoryFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <dialog
         android:id="@+id/categoryBottomSheetType"
