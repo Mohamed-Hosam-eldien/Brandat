@@ -1,7 +1,6 @@
 package com.example.brandat.ui.fragments.newcategory
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -66,7 +65,6 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
         setUpRecyclerView()
 
         if (brandName != "null") {
-            Toast.makeText(requireContext(), "$brandName", Toast.LENGTH_SHORT).show()
 
             binding.chipCat.text = brandName
             binding.chipCatSub.text = "All"
@@ -92,7 +90,6 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
             }
 
         } else {
-            Toast.makeText(requireContext(), "$brandName", Toast.LENGTH_SHORT).show()
 
             binding.chipCat.text = "Men"
             binding.chipCatSub.text = "Shoes"
