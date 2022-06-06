@@ -9,7 +9,7 @@ import androidx.room.Query
 import com.example.brandat.models.Favourite
 
 @Dao
- interface   BrandatDao {
+ interface BrandatDao {
 
        @Insert(onConflict = OnConflictStrategy.REPLACE)
       suspend fun insertFavouriteProduct(favourite: Favourite)

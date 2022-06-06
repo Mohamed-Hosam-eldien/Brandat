@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.brandat.databinding.SliderCategoryItemBinding
 
 class SliderCategoryAdapter(private val sliderList: ArrayList<CategoryModel>?,
@@ -16,11 +17,13 @@ class SliderCategoryAdapter(private val sliderList: ArrayList<CategoryModel>?,
     }
 
     override fun onBindViewHolder(holder: SliderCategoryViewHolder, position: Int) {
-//        Glide.with(this)
+//        Glide.with(holder.binding.root)
 //            .load(sliderList!![position].categoryImage)
-//            .into(holder.imageView)
+//            .into(holder.binding.imgCategory)
+//
         holder.binding.imgCategory.setImageResource( sliderList!![position].categoryImage)
-        holder.binding.tvCategoryName.text= sliderList!![position].categoryName
+
+        holder.binding.tvCategoryName.text= sliderList[position].categoryName
 
     }
 

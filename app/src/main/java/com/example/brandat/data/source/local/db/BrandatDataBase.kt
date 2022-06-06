@@ -9,6 +9,7 @@ import com.example.brandat.ui.fragments.address.AddressModel
 @Database(
     entities = arrayOf(Favourite::class),
     version = 8,
+
     exportSchema = false
 )
 @TypeConverters(TypeConverter::class)

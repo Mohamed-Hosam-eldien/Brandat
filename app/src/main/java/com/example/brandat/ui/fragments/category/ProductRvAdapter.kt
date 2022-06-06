@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
 import com.example.brandat.databinding.ProductItemBinding
 import com.example.brandat.models.Favourite
+import com.example.brandat.models.ProductDetails
+import com.example.brandat.utils.FavouriteDiffUtil
 import com.example.brandat.utils.ProductDiffUtil
 
 
  class ProductRvAdapter(var onClickedListener: OnClickedListener) : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
 
    // private var products = emptyList<Product>()
-    private var product = emptyList<ProductModel>()
+    private var product = emptyList<ProductDetails>()
+     private var favorites = emptyList<Favourite>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(
@@ -31,27 +34,38 @@ import com.example.brandat.utils.ProductDiffUtil
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val currentProduct = product[position]
-        //val currentProducts = products[position]
-     //holder.bind(currentProducts)
         holder.bind(currentProduct)
-        //val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
 
-      //  onClickedListener.checkFavourite(setFavDataFake(currentProduct,bm),holder.binding.ivProduct)
-        holder.itemView.setOnClickListener {
-            onClickedListener .onItemClicked(currentProduct)
-        }
+           for ( i in 0 .. favorites.size.minus(1)){
+                      if(product[position].id == favorites[i].productId){
+                          holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                          holder.binding.ivFavorite.tag="favorite"
+                      }
+                  }
+              holder.binding.ivFavorite.setOnClickListener {
+                  if (holder.binding.ivFavorite.tag != "favorite") {
+                      holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                      holder.binding.ivFavorite.tag = "favorite"
+                  } else {
 
-        holder.binding.ivFavorite.setOnClickListener {
-            val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
-            onClickedListener.onFavClicked(setFavDataFake(currentProduct,bm),holder.binding.ivFavorite)
-        }
+                      holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
+                      holder.binding.ivFavorite.tag = "unFavorite"
+                      val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
+                      onClickedListener.onFavClicked(setFavDataFake(currentProduct, bm),holder.binding.ivFavorite
+                      )
+                  }
+
+              }
+
+
+
     }
 
     override fun getItemCount(): Int {
         return product.size
     }
 
-    fun setData(newData: ArrayList<ProductModel>) {
+    fun setData(newData: List<ProductDetails>) {
         val productDiffutil=ProductDiffUtil(product,newData)
         val productDiffUtilResult=DiffUtil.calculateDiff(productDiffutil)
         product = ArrayList(newData)
@@ -59,11 +73,20 @@ import com.example.brandat.utils.ProductDiffUtil
 
     }
 
+
+      fun setFavData(newData: List<Favourite>) {
+          val FavouriteDiffutil=FavouriteDiffUtil(favorites,newData)
+          val productDiffUtilResult=DiffUtil.calculateDiff(FavouriteDiffutil)
+          favorites = ArrayList(newData)
+          productDiffUtilResult.dispatchUpdatesTo(this)                         
+                                                                                
+      }                                                                         
+                                                                                
     //============================================================
     class ProductViewHolder(val binding:ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(productList: ProductModel) {
+        fun bind(productList: ProductDetails) {
             binding.product=productList
             binding.executePendingBindings()
 
@@ -72,11 +95,11 @@ import com.example.brandat.utils.ProductDiffUtil
     }
 
 
-    private fun setFavDataFake(product :ProductModel,imageView: Bitmap):Favourite{
+    private fun setFavDataFake(product :ProductDetails,imageView: Bitmap):Favourite{
         return Favourite(
-            productId = 1,
+            productId = product.id,
             productImage = imageView,
-            productName = product.productName, productPrice = "88", isFav = 1
+            productName = product.title, productPrice = "88", isFav = 1
         )
     }
 

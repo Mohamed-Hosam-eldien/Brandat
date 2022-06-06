@@ -10,11 +10,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.ProductDetailsFragment">
+        tools:context=".ui.fragments.productdetails.ProductDetailsFragment">
 
         <androidx.core.widget.NestedScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toTopOf="@id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -26,13 +28,12 @@
                 <com.denzcoskun.imageslider.ImageSlider
                     android:id="@+id/image_slider"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="280dp"
                     android:animateLayoutChanges="true"
                     app:iss_auto_cycle="true"
                     app:iss_delay="1"
                     app:iss_error_image="@drawable/error"
                     app:iss_period="2000"
-                    app:iss_placeholder="@drawable/placeholder"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -44,14 +45,15 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="6dp"
+                    android:visibility="invisible"
                     android:background="@drawable/rounded_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/share_btn"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_margin="16dp"
                     android:src="@drawable/share"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -62,14 +64,15 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="6dp"
+                    android:visibility="invisible"
                     android:background="@drawable/rounded_background"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/back_btn"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_margin="16dp"
                     android:src="@drawable/back"
                     app:layout_constraintStart_toStartOf="parent"
@@ -81,9 +84,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="black back bag"
                     android:textColor="#000000"
                     android:textSize="18sp"
+                    android:textAlignment="center"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +97,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="125$"
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -107,6 +109,7 @@
                     android:layout_width="242dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="15dp"
+                    android:shadowColor="#EFBF2D"
                     app:layout_constraintEnd_toEndOf="@id/product_price_tv"
                     app:layout_constraintStart_toStartOf="@id/product_price_tv"
                     app:layout_constraintTop_toBottomOf="@id/product_price_tv"
@@ -189,7 +192,6 @@
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="18dp"
-                    android:text="Auto Image Slider is one of the most seen UI components in Android. This type of slider is mostly seen inside the apps of big E-commerce sites such as Flipkart, Amazon, and many more. Auto Image Slider is used to represent data in the form of slides that changes after a specific interval of time"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -278,11 +280,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview"
                     android:layout_width="0dp"
-                    android:layout_height="250dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:overScrollMode="never"
                     android:visibility="visible"
-
+                    android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/reviews"

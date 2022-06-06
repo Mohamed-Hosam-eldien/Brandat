@@ -19,9 +19,6 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentCategoryBinding
-import com.example.brandat.models.Favourite
-import com.example.brandat.models.Product
-import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
@@ -99,19 +96,19 @@ import java.lang.Math.abs
     }
 //=================================================================
     private fun sliderWork() {
-binding.viewPagerCategories.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-    }
-
-    override fun onPageSelected(position: Int) {
-        super.onPageSelected(position)
-    }
-
-    override fun onPageScrollStateChanged(state: Int) {
-        super.onPageScrollStateChanged(state)
-    }
-})
+//binding.viewPagerCategories.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+//        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+//    }
+//
+//    override fun onPageSelected(position: Int) {
+//        super.onPageSelected(position)
+//    }
+//
+//    override fun onPageScrollStateChanged(state: Int) {
+//        super.onPageScrollStateChanged(state)
+//    }
+//}
     }
 //=================================================================
     private fun initializeTabLayout() {
@@ -132,14 +129,15 @@ binding.viewPagerCategories.registerOnPageChangeCallback(object : ViewPager2.OnP
     private fun initializeSlider() {
         sliderAdapter = SliderCategoryAdapter(categories, viewPager2)
         viewPager2.adapter = sliderAdapter
-
-
     }
 
      override fun onItemClicked(currentProduct: ProductModel) {
          findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment)
 
      }
+    override fun onClicked(currentProduct: ProductDetails) {
+        findNavController().navigate(R.id.action_categoryFragment_to_productDetailsFragment)
+    }
 
     override fun onFavClicked(favourite: Favourite, ivImage: ImageView) {
         print("")
