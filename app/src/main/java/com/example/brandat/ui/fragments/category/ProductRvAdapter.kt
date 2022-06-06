@@ -67,11 +67,12 @@ import com.example.brandat.utils.ProductDiffUtil
 
             }
 
-            holder.binding.ivCart.setOnClickListener {
-                onImageFavClickedListener.onCartClicked(setProductDataToCartModel(currentProduct))
 
-            }
 
+
+        }
+        holder.binding.ivCart.setOnClickListener {
+            onImageFavClickedListener.onCartClicked(setProductDataToCartModel(currentProduct))
 
         }
     }

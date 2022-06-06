@@ -34,7 +34,7 @@ class ProductRowBinding {
         @JvmStatic
         fun onCartClicked(cartImag: ImageView, product: ProductDetails) {
             cartImag.setOnClickListener {
-                Log.e("Az", "onCartClicked: ")
+              //  Log.e("Az", "onCartClicked: ")
 //                val action =
 //                    ProductDetailsFragmentDirections.actionProductDetailsFragmentToCartFragment(
 //                        product
