@@ -2,6 +2,7 @@ package com.example.brandat.data.source.local
 
 import androidx.lifecycle.LiveData
 import com.example.brandat.data.source.local.db.BrandatDao
+import com.example.brandat.models.CustomerAddress
 import com.example.brandat.models.Favourite
 import com.example.brandat.ui.fragments.cart.Cart
 import javax.inject.Inject
@@ -11,8 +12,8 @@ class LocalDataSource @Inject constructor(private var brandatDao:BrandatDao) :IL
         brandatDao.insertFavouriteProduct(favourite)
     }
 
-    override suspend fun removeFavouriteProduct(productName:String) {
-         brandatDao.removeFavouriteProduct(productName)
+    override suspend fun removeFavouriteProduct(productId:Long) {
+         brandatDao.removeFavouriteProduct(productId)
     }
 
     override suspend fun getFavouriteProducts():List<Favourite> {

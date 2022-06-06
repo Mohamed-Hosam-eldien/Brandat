@@ -9,15 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFavoriteBinding
 import com.example.brandat.models.Favourite
-import com.example.brandat.models.Product
-import com.example.brandat.ui.fragments.category.OnClickedListener
-import com.example.brandat.ui.fragments.category.ProductModel
-import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 import kotlin.collections.ArrayList
 @AndroidEntryPoint
 class FavoriteFragment : Fragment(),OnclickListener {
@@ -95,7 +89,7 @@ class FavoriteFragment : Fragment(),OnclickListener {
           print("doooooooooooooo")
         val builder =AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes"){_,_,->
-            favouriteViewModel.removeFavouriteProduct(favourite.productName)
+            favouriteViewModel.removeFavouriteProduct(favourite.productId)
             showSnackbar()
         }
         builder.setNegativeButton("No"){_,_,->

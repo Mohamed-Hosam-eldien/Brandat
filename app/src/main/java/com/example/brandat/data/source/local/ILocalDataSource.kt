@@ -10,7 +10,7 @@ import com.example.brandat.ui.fragments.cart.Cart
 interface ILocalDataSource {
 
     suspend fun insertFavouriteProduct(favourite: Favourite)
-    suspend fun removeFavouriteProduct(productName:String)
+    suspend fun removeFavouriteProduct(productId:Long)
     suspend fun getFavouriteProducts(): List<Favourite>
     suspend fun  searchInFavouriteProducts(productName:String):Favourite
 

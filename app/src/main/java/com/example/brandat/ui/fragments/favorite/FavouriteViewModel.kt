@@ -26,9 +26,9 @@ class FavouriteViewModel @Inject constructor(
             _getFavouriteProducts.postValue(result)
         }
     }
-    fun removeFavouriteProduct(productName:String){
+    fun removeFavouriteProduct(productId:Long){
         viewModelScope.launch {
-            favouriteRepository.removeFavouriteProduct(productName)
+            favouriteRepository.removeFavouriteProduct(productId)
         }
     }
 

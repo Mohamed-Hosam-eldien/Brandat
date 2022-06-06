@@ -1,10 +1,12 @@
 package com.example.brandat.ui.fragments.category
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.brandat.R
 import com.example.brandat.databinding.ProductItemBinding
 import com.example.brandat.models.Favourite
@@ -14,7 +16,7 @@ import com.example.brandat.utils.FavouriteDiffUtil
 import com.example.brandat.utils.ProductDiffUtil
 
 
- class ProductRvAdapter(var onClickedListener: OnClickedListener) : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
+ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener) : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
 
    // private var products = emptyList<Product>()
     private var product = emptyList<ProductDetails>()
@@ -36,31 +38,37 @@ import com.example.brandat.utils.ProductDiffUtil
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val currentProduct = product[position]
         holder.bind(currentProduct)
-
+        Glide.with(holder.binding.root)
+            .load(currentProduct.imageProduct.src)
+            .into(holder.binding.ivProduct)
         for (i in 0..favorites.size.minus(1)) {
-            if (product[position].id == favorites[i].productId) {
+            if (currentProduct.title == favorites[i].productName) {
                 holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
                 holder.binding.ivFavorite.tag = "favorite"
             }
+            else{
+
+                holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
+                holder.binding.ivFavorite.tag = "unFavorite"
+            }
+
         }
         holder.binding.ivFavorite.setOnClickListener {
             if (holder.binding.ivFavorite.tag != "favorite") {
                 holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
                 holder.binding.ivFavorite.tag = "favorite"
+                val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
+                onImageFavClickedListener.onFavClicked(
+                    setFavDataFake(currentProduct, bm), holder.binding.ivFavorite)
             } else {
-
+                  onImageFavClickedListener.deleteFavourite(currentProduct.id)
                 holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
                 holder.binding.ivFavorite.tag = "unFavorite"
-                val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
-                onClickedListener.onFavClicked(
-                    setFavDataFake(currentProduct, bm), holder.binding.ivFavorite
-                )
+
             }
-            Glide.with(holder.binding.root)
-                .load(currentProduct.imageProduct.src)
-                .into(holder.binding.ivProduct)
+
             holder.binding.ivCart.setOnClickListener {
-                onClickedListener.onCartClicked(setProductDataToCartModel(currentProduct))
+                onImageFavClickedListener.onCartClicked(setProductDataToCartModel(currentProduct))
 
             }
 

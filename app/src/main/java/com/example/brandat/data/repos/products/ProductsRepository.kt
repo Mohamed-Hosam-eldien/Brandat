@@ -9,7 +9,6 @@ import com.example.brandat.models.Product
 import com.example.brandat.models.Products
 import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
-import com.example.brandat.models.Products
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.NetworkResult
 import dagger.hilt.android.scopes.ActivityRetainedScoped
@@ -28,8 +27,8 @@ class ProductsRepository @Inject constructor(
         localDataSource.insertFavouriteProduct(favourite)
     }
 
-    override suspend fun removeFavouriteProduct(productName:String) {
-        localDataSource.removeFavouriteProduct(productName)
+    override suspend fun removeFavouriteProduct(productId: Long) {
+        localDataSource.removeFavouriteProduct(productId)
 
     }
 
@@ -67,6 +66,10 @@ class ProductsRepository @Inject constructor(
 
     override suspend fun updateOrder(product: Cart) {
         localDataSource.updateOrder(product)
+    }
+
+    override suspend fun getProductDetails(productId: Long): Response<Product> {
+        return  remoteDataSource.getProductDetails(productId)
     }
 
     override suspend fun getAllProduct(): Response<Products> {

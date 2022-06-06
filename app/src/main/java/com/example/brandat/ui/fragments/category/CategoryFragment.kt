@@ -6,22 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TableLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentCategoryBinding
-import com.example.brandat.models.Product
+import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.cart.Cart
 import com.google.android.material.tabs.TabLayoutMediator
@@ -29,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
 
 @AndroidEntryPoint
-class CategoryFragment : Fragment(), OnClickedListener {
+class CategoryFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoryBinding
     private val iPosition: IProduct = ProductFragment()
@@ -196,13 +194,7 @@ class CategoryFragment : Fragment(), OnClickedListener {
         viewPager2.adapter = sliderAdapter
     }
 
-    override fun onClicked(currentProduct: ProductDetails) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onCartClicked(currentProduct: Cart) {
-        TODO("Not yet implemented")
-    }
+    
 
 
 

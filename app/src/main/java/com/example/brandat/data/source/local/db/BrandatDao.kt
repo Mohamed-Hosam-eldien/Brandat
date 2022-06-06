@@ -7,9 +7,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.brandat.models.Favourite
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
 import com.example.brandat.models.CustomerAddress
 import androidx.room.*
 import com.example.brandat.ui.fragments.cart.Cart
@@ -43,8 +40,8 @@ interface BrandatDao {
 
        @Insert(onConflict = OnConflictStrategy.REPLACE)
       suspend fun insertFavouriteProduct(favourite: Favourite)
-      @Query("DELETE FROM Favourite WHERE productName = :productName")
-      suspend fun removeFavouriteProduct(productName:String)
+      @Query("DELETE FROM Favourite WHERE productId = :productId")
+      suspend fun removeFavouriteProduct(productId:Long)
      @Query("SELECT * FROM Favourite ")
      suspend fun getFavouriteProducts():List<Favourite>
      @Query("SELECT * FROM Favourite WHERE productName = :productName ")

@@ -133,11 +133,30 @@ class ProductDetailsFragment : Fragment() {
 
             //mProduct = body
 
-            binding.productNameTv.text = body.productDetails.title
-            binding.productPriceTv.text = body.productDetails.variants[0].price
-            binding.description.text = body.productDetails.bodyHtml
-            binding.oneSize.text = body.productDetails.options[0].values[0]
-            when (body.productDetails.options[1].values[0]) {
+//            binding.productNameTv.text = body.productDetails.title
+//            binding.productPriceTv.text = body.productDetails.variants[0].price
+//            binding.description.text = body.productDetails.bodyHtml
+//            binding.oneSize.text = body.productDetails.options[0].values[0]
+//            when (body.productDetails.options[1].values[0]) {
+//                "blue" -> binding.colorView.setBackgroundColor(Color.BLUE)
+//                "red" -> binding.colorView.setBackgroundColor(Color.RED)
+//                "black" -> binding.colorView.setBackgroundColor(Color.BLACK)
+//                "yellow" -> binding.colorView.setBackgroundColor(Color.YELLOW)
+//            }
+//
+//
+//            val imageList = ArrayList<SlideModel>()
+//            imageList.add(SlideModel(body.productDetails.imageProducts[0].src))
+//            imageList.add(SlideModel(body.productDetails.imageProducts[1].src))
+//            imageList.add(SlideModel(body.productDetails.imageProducts[2].src))
+//            binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
+
+
+            binding.productNameTv.text = body.title
+            binding.productPriceTv.text = body.variants?.get(0)!!.price
+            binding.description.text = body.bodyHtml
+            binding.oneSize.text = body.options[0].values[0]
+            when (body.options[1].values[0]) {
                 "blue" -> binding.colorView.setBackgroundColor(Color.BLUE)
                 "red" -> binding.colorView.setBackgroundColor(Color.RED)
                 "black" -> binding.colorView.setBackgroundColor(Color.BLACK)
@@ -146,10 +165,19 @@ class ProductDetailsFragment : Fragment() {
 
 
             val imageList = ArrayList<SlideModel>()
-            imageList.add(SlideModel(body.productDetails.imageProducts[0].src))
-            imageList.add(SlideModel(body.productDetails.imageProducts[1].src))
-            imageList.add(SlideModel(body.productDetails.imageProducts[2].src))
+            imageList.add(SlideModel(body.imageProducts[0].src))
+            imageList.add(SlideModel(body.imageProducts[1].src))
+            imageList.add(SlideModel(body.imageProducts[2].src))
             binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
+
+
+
+
+
+
+
+
+
         }
 
 

@@ -26,7 +26,7 @@ interface IProductsRepository {
     suspend fun updateOrder(product: Cart)
 
     suspend fun insertFavouriteProduct(favourite: Favourite)
-    suspend fun removeFavouriteProduct(productName:String)
+    suspend fun removeFavouriteProduct(productId: Long)
     suspend fun getFavouriteProducts():List<Favourite>
     suspend fun  searchInFavouriteProducts(productName:String):Favourite
     suspend fun getCategories(productId: Long): Response<Products>

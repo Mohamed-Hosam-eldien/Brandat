@@ -9,9 +9,9 @@ import javax.annotation.Nullable
 data class Favourite(
     @Nullable
     @PrimaryKey
+    var productId:Long,
     var productName:String,
     var productPrice:String,
-    var productId:Long,
     val productImage:Bitmap,
     var isFav:Int
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -17,16 +18,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.CategoryViewModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentNewCategoryBinding
+import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.cart.Cart
 
-import com.example.brandat.ui.fragments.category.OnClickedListener
+import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.ui.fragments.category.SharedViewModel
+import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewCategoryFragment : Fragment(), OnClickedListener {
+class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     private lateinit var binding: FragmentNewCategoryBinding
     private lateinit var productRvAdapter: ProductRvAdapter
@@ -35,6 +38,8 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
     private lateinit var brandName: String
 
     private val viewModel: CategoryViewModel by viewModels()
+    private val favouriteViewModel:FavouriteViewModel by viewModels()
+
     private lateinit var model: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +71,7 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
         brandName = requireArguments().getString("brandId").toString()
 
         setUpRecyclerView()
+        observeOnFavourite()
 
         if (brandName != "null") {
 
@@ -256,14 +262,25 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
         }
     }
 
-    override fun onClicked(currentProduct: ProductDetails) {
+
+    override fun onItemClicked(currentProductId: Long) {
         val bundle = Bundle()
-        bundle.putLong("productId", currentProduct.id)
+        bundle.putLong("productId", currentProductId)
 
         findNavController().navigate(
             R.id.action_newCategoryFragment_to_productDetailsFragment,
             bundle
         )
+
+    }
+
+    override fun onFavClicked(favourite: Favourite, ivImage: ImageView) {
+           favouriteViewModel.insertFavouriteProduct(favourite)
+
+    }
+
+    override fun deleteFavourite(favouriteId: Long) {
+        favouriteViewModel.removeFavouriteProduct(favouriteId)
     }
 
     override fun onCartClicked(currentProduct: Cart) {
@@ -271,4 +288,12 @@ class NewCategoryFragment : Fragment(), OnClickedListener {
         viewModel.addProductToCart(currentProduct)
     }
 
+    private  fun observeOnFavourite(){
+        favouriteViewModel.getFavouriteProducts()
+        favouriteViewModel.getFavouriteProducts.observe(viewLifecycleOwner){
+            if (it!= null){
+                productRvAdapter.setFavData(it)
+            }
+        }
+    }
 }

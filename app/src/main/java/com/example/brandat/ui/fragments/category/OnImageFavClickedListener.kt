@@ -3,9 +3,11 @@ package com.example.brandat.ui.fragments.category
 import android.widget.ImageView
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.Product
+import com.example.brandat.ui.fragments.cart.Cart
 
-interface OnClickedListener {
+interface OnImageFavClickedListener {
     fun onItemClicked(currentProductId:Long)
     fun onFavClicked(favourite: Favourite,ivImage:ImageView)
-     fun checkFavourite(favourite: Favourite)
+     fun deleteFavourite(favouriteId: Long)
+     fun onCartClicked(productDataToCartModel: Cart)
 }
