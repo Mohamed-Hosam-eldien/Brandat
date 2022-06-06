@@ -6,7 +6,7 @@
         android:title="@string/home"
         android:icon="@drawable/ic_home"/>
 
-    <item android:id="@+id/categoryFragment"
+    <item android:id="@+id/newCategoryFragment"
         android:title="@string/category"
         android:icon="@drawable/ic_category"/>
 

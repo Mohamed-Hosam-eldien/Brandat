@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="yellow">#FFE83B</color>
     <color name="shimmerColor">#C2C2C2</color>
 
     <color name="red">#D70D0D</color>
@@ -14,5 +15,12 @@
     <color name="lightGray">#F0F0F0</color>
     <color name="darkGray">#C2C2C2</color>
     <color name="darkG">#4F5053</color>
+
+    // chip colors
+    <color name="checkedChipBackgroundColor">#44403E</color>
+    <color name="chipBackgroundColor">#2044403E</color>
+
+    <color name="checkedChipTextColor">@color/white</color>
+    <color name="chipTextColor">@color/darkG</color>
 
 </resources>

@@ -3,18 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
         <variable
             name="product"
             type="com.example.brandat.models.ProductDetails" />
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="169dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        onProductClicked="@{product}"
         app:cardCornerRadius="21dp"
         app:cardElevation="7dp"
+        app:cardBackgroundColor="#504C4C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,11 +27,9 @@
 
             <ImageView
                 android:id="@+id/iv_product"
+                android:src="@{product.imageProduct.src}"
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bag"
-                setImgForProduct="@{product.imageProduct.src}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,10 +43,9 @@
                 android:gravity="center"
                 android:padding="3dp"
                 tools:text="CLASSIC BACKPACK"
-                android:text="@{product.title}"
+                android:text="@{product.title.toLowerCase()}"
                 android:textColor="@color/white"
-                android:textSize="19sp"
-
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_product" />
@@ -56,32 +54,32 @@
                 android:id="@+id/tv_product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:fontFamily="serif"
-                android:padding="1dp"
-                android:textColor="@color/white"
-                android:textSize="21sp"
-                android:textStyle="bold"
+                android:padding="8dp"
                 android:text="@{product.variants.get(0).price}"
-
+                android:textColor="@color/yellow"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/tv_product_name"
                 app:layout_constraintStart_toStartOf="@id/tv_product_name"
                 app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
             <ImageView
                 android:id="@+id/iv_favorite"
+                onFavClicked="@{product}"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="11dp"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_favorite_border"
-                 />
+                app:srcCompat="@drawable/ic_favorite_fill"
+                app:tint="#D53125" />
 
             <ImageView
                 android:id="@+id/iv_cart"
                 android:layout_width="45dp"
+                onCartClicked="@{product}"
                 android:layout_height="45dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/cart_shape_back"
@@ -92,5 +90,8 @@
                 app:tint="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
+
+
 </layout>

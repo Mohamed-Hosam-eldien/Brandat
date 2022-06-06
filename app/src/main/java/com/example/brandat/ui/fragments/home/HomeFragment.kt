@@ -5,12 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -19,8 +17,6 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentHomeBinding
 import com.example.brandat.models.Brand
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.internal.Contexts.getApplication
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
 @AndroidEntryPoint
@@ -58,7 +54,7 @@ class HomeFragment : Fragment(),BrandOnClickListner {
 
         brandViewModel.getBrands()
         brandViewModel.brandResponse.observe(requireActivity()) {
-            Log.e("TAG", "onViewCreated:${it.body()} ")
+           // Log.e("TAG", "onViewCreated:${it.body()} ")
             brands = it.body()!!.brands
 
             brandAdapter.setData(brands)
@@ -73,7 +69,6 @@ class HomeFragment : Fragment(),BrandOnClickListner {
         imageList.add(SlideModel(R.drawable.img_1,ScaleTypes.CENTER_CROP))
         imageList.add(SlideModel(R.drawable.img_2,ScaleTypes.CENTER_CROP))
         imageList.add(SlideModel(R.drawable.img_3,ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.sh5,ScaleTypes.FIT))
         imageList.add(SlideModel(R.drawable.sh2,ScaleTypes.CENTER_CROP))
         imageList.add(SlideModel(R.drawable.shose_image,ScaleTypes.CENTER_CROP))
 
@@ -87,7 +82,7 @@ class HomeFragment : Fragment(),BrandOnClickListner {
         brandAdapter = BrandAdapter(requireContext(),this)
 
         binding.brandsRecycler.apply {
-            var layoutManager = GridLayoutManager(context, 2)
+            val layoutManager = GridLayoutManager(context, 2)
             setLayoutManager(layoutManager)
             adapter = brandAdapter
 
@@ -105,10 +100,10 @@ class HomeFragment : Fragment(),BrandOnClickListner {
         binding.brandsRecycler.visibility = View.VISIBLE
     }
 
-    override fun onBrandClick(brandId: Long) {
+    override fun onBrandClick(brandId: String) {
         bundle = Bundle()
-        bundle.putLong("brandId", brandId)
-        findNavController().navigate(R.id.action_homeFragment_to_categoryFragment,bundle)
+        bundle.putString("brandId", brandId)
+        findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment,bundle)
     }
 
 }

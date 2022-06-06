@@ -1,5 +1,7 @@
 package com.example.brandat.ui.fragments.address
 
+import com.example.brandat.models.CustomerAddress
+
 interface OnClickListener {
-    fun onClick()
+    fun onClick(city:CustomerAddress)
 }

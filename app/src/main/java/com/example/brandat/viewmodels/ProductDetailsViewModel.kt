@@ -9,10 +9,12 @@ import com.example.brandat.data.repos.products.IProductsRepository
 import com.example.brandat.models.Product
 import com.example.brandat.models.Products
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
+//@ActivityRetainedScoped
 @HiltViewModel
 class ProductDetailsViewModel @Inject constructor(
     private var iProductsRepository: IProductsRepository
@@ -24,7 +26,7 @@ class ProductDetailsViewModel @Inject constructor(
     fun getProductDetailsFromDatabase(productId:Long){
         Log.d("TAG", "getProductDetailsFromDatabase: ")
         viewModelScope.launch {
-            var result= iProductsRepository.getProductDetails(productId)
+            val result= iProductsRepository.getProductDetails(productId)
             _getProduct.postValue(result)
         }
     }

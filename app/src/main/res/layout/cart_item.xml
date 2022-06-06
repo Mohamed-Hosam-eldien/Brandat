@@ -10,128 +10,92 @@
             type="com.example.brandat.ui.fragments.cart.Cart" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/favoriteRecipesRowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="21dp"
-        app:cardElevation="7dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="2dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="396dp"
-            android:layout_height="match_parent"
-            android:background="#7C7070"
-            android:padding="9dp">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/img_product"
-                setProductImg="@{cart.PImage}"
-                android:layout_width="99dp"
-                android:layout_height="99dp"
-                android:src="@drawable/sh2"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="2dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#7C7070"
+                android:padding="9dp">
 
-            <TextView
-                android:id="@+id/tv_product_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="11dp"
-                android:fontFamily="serif"
-                android:padding="3dp"
-                android:text="@{cart.PName}"
-                android:textColor="@color/white"
-                android:textSize="21sp"
-                app:layout_constraintStart_toEndOf="@id/img_product"
-
-                app:layout_constraintTop_toTopOf="@id/img_product" />
-
-            <TextView
-                android:id="@+id/tv_product_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="3dp"
-                android:fontFamily="serif"
-                android:padding="1dp"
-                android:text="@{cart.PPrice}"
-                android:textColor="@color/white"
-                android:textSize="21sp"
-                android:textStyle="bold"
-                app:layout_constraintHorizontal_bias="0.174"
-                app:layout_constraintStart_toStartOf="@id/tv_product_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_plus"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="29dp"
-                android:layout_marginEnd="17dp"
-                android:background="@color/white"
-                app:cardCornerRadius="3dp"
-                app:cardElevation="7dp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_product_price"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_product_price">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_product"
+                    android:layout_width="115dp"
+                    android:layout_height="103dp"
+                    android:src="@drawable/bag"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_product_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:text="+"
-
-                    android:textColor="@color/black"
-                    android:textSize="21sp"
-                    android:textStyle="bold"
-                   />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_minus"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="29dp"
-                android:layout_marginEnd="100dp"
-                android:background="@color/white"
-                app:cardCornerRadius="3dp"
-                onMinusClicked="@{cart}"
-                app:cardElevation="7dp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_product_price"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_product_price">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="serif"
+                    android:padding="3dp"
+                    android:text="@{cart.PName}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/img_product"
+                    app:layout_constraintTop_toTopOf="@id/img_product" />
 
                 <TextView
+                    android:id="@+id/tv_product_price"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:text="-"
-                    android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="serif"
+                    android:padding="1dp"
+                    android:text="@{String.valueOf(cart.PPrice)}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                   />
-            </androidx.cardview.widget.CardView>
+                    app:layout_constraintHorizontal_bias="0.174"
+                    app:layout_constraintStart_toStartOf="@id/tv_product_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
-            <TextView
-                android:id="@+id/tv_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="serif"
-                android:gravity="center"
-                android:padding="1dp"
-                android:text="@{String.valueOf(cart.PQuantity)}"
-                android:textColor="@color/black"
-                android:textSize="27sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/card_minus"
-                app:layout_constraintEnd_toStartOf="@id/card_plus"
-                app:layout_constraintStart_toEndOf="@id/card_minus"
-                app:layout_constraintTop_toTopOf="@+id/card_minus" />
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/number_button"
+                    android:layout_width="140dp"
+                    android:layout_height="35dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="4dp"
+                    app:backgroundDrawable="@drawable/rounded_shap"
+                    app:backGroundColor="@color/white"
+                    app:finalNumber="20"
+                    app:initialNumber="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:textColor="@color/black"
+                    app:textSize="4sp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

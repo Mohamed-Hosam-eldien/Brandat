@@ -24,6 +24,13 @@ class OrderDetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
 
+
+        val args: Bundle = requireArguments()
+        val brandId = args.getLong("productId")
+        Log.d("TAG", "onCreateView ppppppp: ${brandId}")
+        Toast.makeText(requireContext(), "productId $brandId", Toast.LENGTH_SHORT).show()
+
+
     }
 
     override fun onCreateView(
@@ -32,12 +39,6 @@ class OrderDetailsFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_order_details, container, false)
-
-
-        val args: Bundle = requireArguments()
-        val brandId = args.getLong("productId")
-        Log.d("TAG", "onCreateView ppppppp: ${brandId}")
-        Toast.makeText(requireContext(), "productId $brandId", Toast.LENGTH_SHORT).show()
 
         return binding.root
     }

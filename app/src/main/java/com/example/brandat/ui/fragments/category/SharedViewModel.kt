@@ -5,16 +5,15 @@ import androidx.lifecycle.ViewModel
 
 class SharedViewModel: ViewModel() {
 
-    val positionMutable = MutableLiveData<Int>()
+    val positionMutable = MutableLiveData<List<String>>()
+    val typeMutable = MutableLiveData<String>()
 
-    fun setPosition(position: Int) {
-        positionMutable.value = position
+    fun setCategory(category: String, subCategory:String) {
+        positionMutable.value = listOf(category,subCategory)
     }
 
-    fun getPosition() : MutableLiveData<Int>{
-        return positionMutable
+    fun setProductType(type:String) {
+        typeMutable.value = type
     }
-
-
 
 }

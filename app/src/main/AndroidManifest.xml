@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.brandat">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:name=".MyApplication"
@@ -12,7 +15,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:theme"
         android:theme="@style/Theme.Brandat">
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAcUPWl2FLUs7HxeqCBY684tI4GHZj0ens" />
+
+
         <activity
             android:name=".ui.Profile"
             android:exported="false" />
@@ -21,14 +33,11 @@
             android:exported="false" />
         <activity
             android:name=".ui.ProductActivity"
-            android:exported="false"/>
-
+            android:exported="true"/>
         <activity
-            android:name="com.example.brandat.ui.fragments.registeration.RegistrationActivity"
-            android:exported="true">
+            android:name=".ui.fragments.registeration.RegistrationActivity"
+            android:exported="true"/>
 
-
-        </activity>
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

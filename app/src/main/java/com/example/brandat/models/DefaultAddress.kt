@@ -1,17 +1,20 @@
 package com.example.brandat.models
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class DefaultAddress(
     @SerializedName("address1")
     val address1: String,
     @SerializedName("address2")
-    val address2: Any,
+    val address2: String = "",
     @SerializedName("city")
     val city: String,
     @SerializedName("company")
-    val company: Any,
+    val company: String = "",
     @SerializedName("country")
     val country: String,
     @SerializedName("country_code")
@@ -35,7 +38,12 @@ data class DefaultAddress(
     @SerializedName("province")
     val province: String,
     @SerializedName("province_code")
-    val provinceCode: Any,
+    val provinceCode: String,
     @SerializedName("zip")
     val zip: String
+):Parcelable
+
+data class Addresses(
+    @SerializedName("addresses")
+    val addresses: List<DefaultAddress?>? = null
 )
