@@ -10,6 +10,8 @@ import com.example.brandat.R
 
 class RegisterFragment : Fragment() {
 private lateinit var binding:FragmentResultOwner
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
