@@ -24,6 +24,7 @@ interface IProductsRepository {
     suspend fun removeSelectedProductsFromCart(product: ArrayList<Cart>)
     suspend fun getAllCartProducts(): List<Cart>
     suspend fun updateOrder(product: Cart)
+    suspend fun getAllPrice() : Double
 
     suspend fun insertFavouriteProduct(favourite: Favourite)
     suspend fun removeFavouriteProduct(productId: Long)

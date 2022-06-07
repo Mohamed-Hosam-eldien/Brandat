@@ -15,6 +15,10 @@ class CartViewModel @Inject constructor(private var repo: IProductsRepository) :
     private val _cartProduct: MutableLiveData<List<Cart>> = MutableLiveData<List<Cart>>()
     var cartProduct: LiveData<List<Cart>> = _cartProduct
 
+    private val _allPrice: MutableLiveData<Double> = MutableLiveData<Double>()
+    var allPrice: LiveData<Double> = _allPrice
+
+
     fun getAllCartproduct() = viewModelScope.launch {
         val result = repo.getAllCartProducts()
         _cartProduct.postValue(result)
@@ -29,5 +33,13 @@ class CartViewModel @Inject constructor(private var repo: IProductsRepository) :
     }
     fun updateOrder(product: Cart)=viewModelScope.launch {
         repo.updateOrder(product)
+    }
+    fun getAllPrice() =viewModelScope.launch {
+        val price = repo.getAllPrice()
+        _allPrice.postValue(price)
+    }
+
+    fun addProductToCart(cart: Cart) = viewModelScope.launch {
+        repo.addProductToCart(cart)
     }
 }

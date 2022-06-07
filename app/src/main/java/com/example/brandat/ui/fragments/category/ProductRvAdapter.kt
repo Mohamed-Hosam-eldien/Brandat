@@ -2,6 +2,7 @@ package com.example.brandat.ui.fragments.category
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -98,10 +99,13 @@ import com.example.brandat.utils.ProductDiffUtil
       }
 
     fun setProductDataToCartModel(productDetails: ProductDetails): Cart {
+       // Log.d("TAG", "setProductDataToCartModel: ${productDetails.variants[0].price.toInt()}")
         return Cart(
             productDetails.title,
+            productDetails.variants[0].price,
             pImage = productDetails.imageProduct.src,
-            pId = productDetails.id
+            pId = productDetails.id,
+            tPrice = productDetails.variants[0].price.toDouble()
         )
     }
 

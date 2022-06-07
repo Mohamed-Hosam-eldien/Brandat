@@ -1,10 +1,7 @@
 package com.example.brandat.data.source.local
 
-import androidx.lifecycle.LiveData
-import com.example.brandat.models.Favourite
-
 import com.example.brandat.models.CustomerAddress
-
+import com.example.brandat.models.Favourite
 import com.example.brandat.ui.fragments.cart.Cart
 
 interface ILocalDataSource {
@@ -23,5 +20,7 @@ interface ILocalDataSource {
     suspend fun removeSelectedProductsFromCart(product: ArrayList<Cart>)
     suspend fun getAllCartProducts(): List<Cart>
     suspend fun updateOrder(product: Cart)
+    suspend fun getAllPrice(): Double
+
 
 }

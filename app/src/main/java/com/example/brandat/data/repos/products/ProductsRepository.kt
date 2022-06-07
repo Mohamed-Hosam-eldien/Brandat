@@ -68,6 +68,10 @@ class ProductsRepository @Inject constructor(
         localDataSource.updateOrder(product)
     }
 
+    override suspend fun getAllPrice(): Double {
+        return localDataSource.getAllPrice()
+    }
+
     override suspend fun getProductDetails(productId: Long): Response<Product> {
         return  remoteDataSource.getProductDetails(productId)
     }

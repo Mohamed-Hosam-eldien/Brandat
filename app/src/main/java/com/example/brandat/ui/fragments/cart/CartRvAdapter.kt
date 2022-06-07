@@ -13,8 +13,6 @@ import com.example.brandat.R
 import com.example.brandat.databinding.CartItemBinding
 import com.example.brandat.utils.CartDiffUtil
 import com.google.android.material.snackbar.Snackbar
-import java.util.*
-import kotlin.collections.ArrayList
 
 class CartRvAdapter(
     var context: Context,
@@ -29,6 +27,7 @@ class CartRvAdapter(
     private var myViewHolders = arrayListOf<CartViewHolder>()
     private var selectedOrders = arrayListOf<Cart>()
     private var multiSelection = false
+    private var totalPrice = 0.0
 
     fun setData(newData: List<Cart>) {
         val cartDiffUtil = CartDiffUtil(carts, newData)
@@ -61,13 +60,26 @@ class CartRvAdapter(
         val currentCart = carts[position]
         holder.bind(currentCart)
 
+        totalPrice += currentCart.pPrice.toDouble()
+
         holder.binding.numberButton.number = currentCart.pQuantity.toString()
-        holder.binding.tvProductPrice.text = currentCart.pPrice.toString()
+//        holder.binding.tvProductPrice.text = (currentCart.pPrice.toDouble()
+//                * holder.binding.numberButton.number.toInt()).toString()
+
+        if(currentCart.tPrice == 0.0) {
+            holder.binding.tvProductPrice.text = currentCart.pPrice
+        } else {
+            holder.binding.tvProductPrice.text = currentCart.tPrice.toString()
+        }
+
 
         holder.binding.tvProductName.text = currentCart.pName.lowercase()
 
+//        if (position == carts.size - 1)
+//            Log.d("TAG", "onBindViewHolder: $totalPrice")
+
         holder.binding.numberButton.setOnValueChangeListener { _, _, newValue ->
-            onClickListener.onPluseMinusClicked(newValue, currentCart.pId, 100)
+            onClickListener.onPluseMinusClicked(newValue, currentCart.pId, currentCart.pPrice)
         }
 
         Glide.with(context).load(currentCart.pImage).into(holder.binding.imgProduct)

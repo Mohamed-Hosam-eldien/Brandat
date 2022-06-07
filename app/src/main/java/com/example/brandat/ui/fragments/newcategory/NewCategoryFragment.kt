@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +28,7 @@ import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.ui.fragments.category.SharedViewModel
 import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -293,6 +296,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     override fun onCartClicked(currentProduct: Cart) {
         viewModel.addProductToCart(currentProduct)
+        //Log.e(TAG, "onCartClicked: $", )
+        showSnackBar(currentProduct)
     }
 
     private  fun observeOnFavourite(){
@@ -302,5 +307,16 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 productRvAdapter.setFavData(it)
             }
         }
+    }
+
+    private fun showSnackBar(cart: Cart) {
+        val snackbar = Snackbar.make(binding.newCat, "Added to Cart", Snackbar.LENGTH_LONG)
+        snackbar.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.purple_700))
+        snackbar.setAction("undo") {
+            viewModel.addProductToCart(cart)
+            Toast.makeText(requireContext(), "Removed from Cart!", Toast.LENGTH_SHORT).show()
+        }.show()
     }
 }

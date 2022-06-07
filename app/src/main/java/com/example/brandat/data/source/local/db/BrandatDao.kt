@@ -1,14 +1,8 @@
 package com.example.brandat.data.source.local.db
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.example.brandat.models.Favourite
-import com.example.brandat.models.CustomerAddress
 import androidx.room.*
+import com.example.brandat.models.CustomerAddress
+import com.example.brandat.models.Favourite
 import com.example.brandat.ui.fragments.cart.Cart
 
 @Dao
@@ -26,26 +20,32 @@ interface BrandatDao {
     suspend fun getAllCartProducts(): List<Cart>
 
 
-    @Query("update cart_table set pQuantity =:conut,pPrice=:price where pId =:id")
-    suspend fun updateOrder( conut:Int,price:Int,id:Long)
- @Insert(onConflict = OnConflictStrategy.REPLACE)
- suspend fun insertAddress(customerAddress: CustomerAddress)
+    @Query("update cart_table set pQuantity =:conut,tPrice=:totalPrice where pId =:id")
+    suspend fun updateOrder(conut: Int, id: Long,totalPrice:Double)
 
- @Query("SELECT * FROM customeraddress")
- suspend fun getAllAddresses():List<CustomerAddress>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAddress(customerAddress: CustomerAddress)
 
- @Query("DELETE FROM customeraddress WHERE city = :city")
- suspend fun removeAddress(city:String)
+    @Query("SELECT * FROM customeraddress")
+    suspend fun getAllAddresses(): List<CustomerAddress>
 
+    @Query("DELETE FROM customeraddress WHERE city = :city")
+    suspend fun removeAddress(city: String)
 
-       @Insert(onConflict = OnConflictStrategy.REPLACE)
-      suspend fun insertFavouriteProduct(favourite: Favourite)
-      @Query("DELETE FROM Favourite WHERE productId = :productId")
-      suspend fun removeFavouriteProduct(productId:Long)
-     @Query("SELECT * FROM Favourite ")
-     suspend fun getFavouriteProducts():List<Favourite>
-     @Query("SELECT * FROM Favourite WHERE productName = :productName ")
-     suspend fun  searchInFavouriteProducts(productName:String): Favourite
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFavouriteProduct(favourite: Favourite)
+
+    @Query("DELETE FROM Favourite WHERE productId = :productId")
+    suspend fun removeFavouriteProduct(productId: Long)
+
+    @Query("SELECT * FROM Favourite ")
+    suspend fun getFavouriteProducts(): List<Favourite>
+
+    @Query("SELECT SUM(tPrice) FROM cart_table")
+    suspend fun getAllPrice(): Double
+
+    @Query("SELECT * FROM Favourite WHERE productName = :productName ")
+    suspend fun searchInFavouriteProducts(productName: String): Favourite
 //    @Query("SELECT EXISTS(SELECT * FROM favourite WHERE productName = :productName)")
 //    suspend fun  searchInFavouriteProducts(productName:String) : Favourite
 }

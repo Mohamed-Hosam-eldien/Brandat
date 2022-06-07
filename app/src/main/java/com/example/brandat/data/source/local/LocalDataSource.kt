@@ -1,5 +1,6 @@
 package com.example.brandat.data.source.local
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.brandat.data.source.local.db.BrandatDao
 import com.example.brandat.models.CustomerAddress
@@ -56,7 +57,14 @@ class LocalDataSource @Inject constructor(private var brandatDao:BrandatDao) :IL
     }
 
     override suspend fun updateOrder(product: Cart) {
-        brandatDao.updateOrder(product.pQuantity,product.pPrice,product.pId)
+        brandatDao.updateOrder(product.pQuantity,product.pId,product.tPrice)
+    }
+
+    override suspend fun getAllPrice(): Double {
+        return if(brandatDao.getAllPrice() != null)
+            brandatDao.getAllPrice()
+        else
+            0.0
     }
 
 }
