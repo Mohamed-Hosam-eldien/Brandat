@@ -74,13 +74,6 @@ class FavoriteFragment : Fragment(),OnclickListener {
     }
 
 
-
-
-
-
-
-
-
     override fun onItemClicked(productId: Long) {
 
     }
@@ -90,6 +83,8 @@ class FavoriteFragment : Fragment(),OnclickListener {
         val builder =AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes"){_,_,->
             favouriteViewModel.removeFavouriteProduct(favourite.productId)
+//            favouriteViewModel.getFavouriteProducts()
+            requireActivity().recreate()
             showSnackbar()
         }
         builder.setNegativeButton("No"){_,_,->

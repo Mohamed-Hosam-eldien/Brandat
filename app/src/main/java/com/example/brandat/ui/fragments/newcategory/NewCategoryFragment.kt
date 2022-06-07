@@ -1,12 +1,12 @@
 package com.example.brandat.ui.fragments.newcategory
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -106,16 +106,16 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
             when (binding.chipCat.text) {
                 "Men" -> {
-                    productID = 395728126181L
+                    productID = 395964875010L
                 }
                 "Women" -> {
-                    productID = 395728158949L
+                    productID = 395963629826L
                 }
                 "Kids" -> {
-                    productID = 395728191717L
+                    productID = 395963662594L
                 }
                 "Sale" -> {
-                    productID = 395728224485L
+                    productID = 395963695362L
                 }
             }
 
@@ -124,9 +124,19 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             viewModel.getCategory(productID)
             viewModel.categoryResponse.observe(requireActivity()) {
                 val products: ArrayList<ProductDetails> = ArrayList()
+                Log.e("TAG", "onViewCategoryCreated:${it} ")
+
                 for (product in it.body()?.products!!) {
+                    if(product.productType == binding.chipCatSub.text.toString().toUpperCase())
                     products.add(product)
                 }
+
+
+                if (products.size > 0)
+                    binding.imgEmpty.visibility = View.GONE
+                else
+                    binding.imgEmpty.visibility = View.VISIBLE
+
                 productRvAdapter.setData(products)
             }
 
@@ -189,22 +199,22 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
             when (cat) {
                 "Men" -> {
-                    productID = 395728126181L
+                    productID = 395964875010L
                     binding.chipCat.text = cat
                     binding.chipCatSub.text = subCat
                 }
                 "Women" -> {
-                    productID = 395728158949L
+                    productID = 395963629826L
                     binding.chipCat.text = cat
                     binding.chipCatSub.text = subCat
                 }
                 "Kids" -> {
-                    productID = 395728191717L
+                    productID = 395963662594L
                     binding.chipCat.text = cat
                     binding.chipCatSub.text = subCat
                 }
                 "Sale" -> {
-                    productID = 395728224485L
+                    productID = 395963695362L
                     binding.chipCat.text = cat
                     binding.chipCatSub.text = subCat
                 }
@@ -212,7 +222,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
             viewModel.getCategory(productID)
             binding.groupChip.visibility = View.VISIBLE
-
 
         })
 
@@ -237,7 +246,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 }
             }
 
-            Toast.makeText(requireContext(), type, Toast.LENGTH_SHORT).show()
 
             if (type == "ALL")
                 viewModel.getAllProductsByName()
@@ -284,7 +292,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     }
 
     override fun onCartClicked(currentProduct: Cart) {
-        Toast.makeText(requireContext(), "Hi Azoza !", Toast.LENGTH_SHORT).show()
         viewModel.addProductToCart(currentProduct)
     }
 

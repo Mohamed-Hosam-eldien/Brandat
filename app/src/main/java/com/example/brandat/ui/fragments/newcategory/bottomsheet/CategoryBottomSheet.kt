@@ -39,8 +39,8 @@ class CategoryBottomSheet : BottomSheetDialogFragment() {
             chipSub = list[1]
 
         } else {
-            chipCategory = "MEN"
-            chipSub = "SHOES"
+            chipCategory = "Men"
+            chipSub = "Shoes"
         }
 
 

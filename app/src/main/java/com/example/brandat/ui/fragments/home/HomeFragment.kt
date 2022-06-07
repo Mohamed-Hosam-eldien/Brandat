@@ -54,7 +54,7 @@ class HomeFragment : Fragment(),BrandOnClickListner {
 
         brandViewModel.getBrands()
         brandViewModel.brandResponse.observe(requireActivity()) {
-           // Log.e("TAG", "onViewCreated:${it.body()} ")
+//           Log.e("TAG", "onViewCreated:${it} ")
             brands = it.body()!!.brands
 
             brandAdapter.setData(brands)

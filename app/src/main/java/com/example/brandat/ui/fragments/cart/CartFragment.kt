@@ -93,8 +93,8 @@ class CartFragment : Fragment(), CartOnClickListener {
     }
 
     override fun onPluseMinusClicked(count: Int, pId: Long, price: Int) {
-        Toast.makeText(requireContext(), "azzzaa $count / $pId   / $price", Toast.LENGTH_SHORT)
-            .show()
+//        Toast.makeText(requireContext(), "azzzaa $count / $pId   / $price", Toast.LENGTH_SHORT)
+//            .show()
         val _price = (count * price)
         val currentOrder = Cart(pQuantity = count, pPrice = _price, pId = pId)
 

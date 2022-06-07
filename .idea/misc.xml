@@ -21,6 +21,7 @@
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/cart_item.xml" value="0.33" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/category_bottom_sheet.xml" value="0.27545909849749584" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/category_bottom_sheet_type.xml" value="0.33" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_cart.xml" value="0.1" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_category.xml" value="0.171875" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_home.xml" value="0.171875" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_new_category.xml" value="0.25" />
@@ -57,23 +58,14 @@
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_home.xml" value="0.10606060606060606" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/recycler_home_item.xml" value="0.1" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/slider_category_item.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/cash_background.xml" value="0.1115" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/oval_shap.xml" value="0.1365" />
-        <entry key="app/src/main/res/drawable/paypal_background.xml" value="0.1115" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15217391304347827" />
         <entry key="app/src/main/res/layout/adderss_item.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/cart_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/d3d3.xml" value="0.165625" />
-        <entry key="app/src/main/res/layout/favourite_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_address.xml" value="0.165625" />
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.165625" />
-        <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_finsh_order_state.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/product_item.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/second_order_state.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/test.xml" value="0.5625" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.165625" />
       </map>
     </option>
