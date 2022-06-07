@@ -42,4 +42,5 @@ class CartViewModel @Inject constructor(private var repo: IProductsRepository) :
     fun addProductToCart(cart: Cart) = viewModelScope.launch {
         repo.addProductToCart(cart)
     }
+
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_alert_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="#F3F2F7"
+        android:focusableInTouchMode="false"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="15dp"
+        app:cardUseCompatPadding="true">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="21sp"
+        android:id="@+id/tv_ask"
+        android:padding="4dp"
+        android:fontFamily="serif"
+        android:textColor="@color/purple_700"
+        android:text="Delete This Product From Cart?"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="18sp"
+        android:id="@+id/tv_verify"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/tv_ask"
+        app:layout_constraintStart_toStartOf="@+id/tv_ask"
+        android:textColor="@color/purple_700"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ask"
+        android:text="Are you sure that you need to delete this product from cart?"
+        android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/shape"
+                android:text="Delete"
+                app:layout_constraintTop_toBottomOf="@+id/tv_verify"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/cancel_btn"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/delete_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/delete_btn"
+                android:background="@drawable/shape"
+                android:text="Cancel" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

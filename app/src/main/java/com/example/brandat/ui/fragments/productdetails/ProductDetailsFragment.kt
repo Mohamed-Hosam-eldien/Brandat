@@ -18,6 +18,8 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProductDetailsBinding
 import com.example.brandat.models.Product
 import com.example.brandat.ui.User
+import com.example.brandat.ui.fragments.cart.Cart
+import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.viewmodels.ProductDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +29,7 @@ class ProductDetailsFragment : Fragment() {
 
     private var random: Float = 4.5F
     private lateinit var mProduct: Product
+    private lateinit var productToCart: Cart
     private var user: List<User> = listOf(
         User("Mohamed", "this product is so beautiful wwooooww", 3),
         User("Ahmed", "I really liked this product so awesome", 4),
@@ -39,8 +42,9 @@ class ProductDetailsFragment : Fragment() {
     var soso = "7782820643045"
 
     private val viewModel: ProductDetailsViewModel by viewModels()
+    private val cartViewModel: CartViewModel by viewModels()
     private val mAdapter by lazy { UserAdapter() }
-    var id:Long = 0
+    var id: Long = 0
 
     private lateinit var _binding: FragmentProductDetailsBinding
     private val binding get() = _binding
@@ -79,14 +83,17 @@ class ProductDetailsFragment : Fragment() {
 
         binding.favoriteBtn.setOnClickListener {
 
+        }
+        binding.butAddToCart.setOnClickListener {
+            cartViewModel.addProductToCart(productToCart)
+            Toast.makeText(requireContext(), "Yeah! Added To Cart", Toast.LENGTH_SHORT).show()
 
         }
-
         //7782820643045
 
         setupRecyclerView()
 
-        var usersList : User? = user.asSequence().shuffled().find { true }
+        var usersList: User? = user.asSequence().shuffled().find { true }
         val numberOfElements = 3
 
         val randomElements = user.asSequence().shuffled().take(numberOfElements).toList()
@@ -147,26 +154,11 @@ class ProductDetailsFragment : Fragment() {
             imageList.add(SlideModel(body.productDetails.imageProducts[1].src))
             imageList.add(SlideModel(body.productDetails.imageProducts[2].src))
             binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
-
-
-//            binding.productNameTv.text = body.title
-//            binding.productPriceTv.text = body.variants?.get(0)!!.price
-//            binding.description.text = body.bodyHtml
-//            binding.oneSize.text = body.options[0].values[0]
-//            when (body.options[1].values[0]) {
-//                "blue" -> binding.colorView.setBackgroundColor(Color.BLUE)
-//                "red" -> binding.colorView.setBackgroundColor(Color.RED)
-//                "black" -> binding.colorView.setBackgroundColor(Color.BLACK)
-//                "yellow" -> binding.colorView.setBackgroundColor(Color.YELLOW)
-//            }
-//
-//
-//            val imageList = ArrayList<SlideModel>()
-//            imageList.add(SlideModel(body.imageProducts[0].src))
-//            imageList.add(SlideModel(body.imageProducts[1].src))
-//            imageList.add(SlideModel(body.imageProducts[2].src))
-//            binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
-
+            productToCart = Cart(
+                body.productDetails.title,
+                body.productDetails.variants[0].price,
+                body.productDetails.imageProducts[0].src
+            )
 
         }
 

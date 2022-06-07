@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.FavouriteItemBinding
 import com.example.brandat.models.Favourite
+import com.example.brandat.models.ProductDetails
+import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.FavouriteDiffUtil
 
 class FavouriteAdapter (var onClickedListener: OnclickListener) : RecyclerView.Adapter<FavouriteAdapter.ProductViewHolder>() {
@@ -36,6 +38,9 @@ class FavouriteAdapter (var onClickedListener: OnclickListener) : RecyclerView.A
                 onClickedListener.onRemoveClicked(currentProduct)
 
             }
+            holder.binding.ivCart.setOnClickListener {
+                onClickedListener.onCartClicked(setProductDataToCartModel(currentProduct))
+            }
         }
 
         override fun getItemCount():Int {
@@ -49,7 +54,15 @@ class FavouriteAdapter (var onClickedListener: OnclickListener) : RecyclerView.A
             favDiffUtilResult.dispatchUpdatesTo(this)
 
         }
-
+    private fun setProductDataToCartModel(favProduct: Favourite): Cart {
+        // Log.d("TAG", "setProductDataToCartModel: ${productDetails.variants[0].price.toInt()}")
+        return Cart(
+            favProduct.productName,
+            favProduct.productPrice,
+            pImage = favProduct.productImage.toString(),
+            pId = favProduct.productId
+        )
+    }
         //============================================================
         class ProductViewHolder(val binding: FavouriteItemBinding) :
             RecyclerView.ViewHolder(binding.root)

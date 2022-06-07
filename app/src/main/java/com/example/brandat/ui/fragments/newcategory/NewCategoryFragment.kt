@@ -23,6 +23,7 @@ import com.example.brandat.databinding.FragmentNewCategoryBinding
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.cart.Cart
+import com.example.brandat.ui.fragments.cart.CartViewModel
 
 import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
@@ -42,7 +43,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     private val viewModel: CategoryViewModel by viewModels()
     private val favouriteViewModel:FavouriteViewModel by viewModels()
-
+    private val cartViewModel: CartViewModel by viewModels()
     private lateinit var model: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -295,7 +296,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     }
 
     override fun onCartClicked(currentProduct: Cart) {
-        viewModel.addProductToCart(currentProduct)
+        cartViewModel.addProductToCart(currentProduct)
         //Log.e(TAG, "onCartClicked: $", )
         showSnackBar(currentProduct)
     }
@@ -311,11 +312,11 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     private fun showSnackBar(cart: Cart) {
         val snackbar = Snackbar.make(binding.newCat, "Added to Cart", Snackbar.LENGTH_LONG)
-        snackbar.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        snackbar.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.purple_700))
         snackbar.setAction("undo") {
-            viewModel.addProductToCart(cart)
+            cartViewModel.removeProductFromCart(cart)
             Toast.makeText(requireContext(), "Removed from Cart!", Toast.LENGTH_SHORT).show()
         }.show()
     }

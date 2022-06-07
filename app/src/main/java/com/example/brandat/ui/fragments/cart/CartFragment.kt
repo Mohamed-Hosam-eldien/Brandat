@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.cart
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.brandat.databinding.AlertDialogBinding
 import com.example.brandat.databinding.FragmentCartBinding
 import com.example.brandat.ui.OrderStatus
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +21,9 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     private lateinit var binding: FragmentCartBinding
     private lateinit var cartAdapter: CartRvAdapter
+    private lateinit var builder: AlertDialog.Builder
+    private lateinit var bindingDialog: AlertDialogBinding
+    private lateinit var dialog: AlertDialog
 
     //    private var cartList: ArrayList<Cart> = ArrayList()
     private val cartViewModel: CartViewModel by viewModels()
@@ -32,7 +37,8 @@ class CartFragment : Fragment(), CartOnClickListener {
     ): View {
         binding = FragmentCartBinding.inflate(LayoutInflater.from(context), container, false)
 
-
+        bindingDialog =
+            AlertDialogBinding.inflate(LayoutInflater.from(context), container, false)
         return binding.root
     }
 
@@ -60,7 +66,12 @@ class CartFragment : Fragment(), CartOnClickListener {
             binding.tvConut.text = "(${it.size} item)"
             cartAdapter.notifyDataSetChanged()
         }
-
+        bindingDialog.cancelBtn.setOnClickListener { dialog.dismiss() }
+        bindingDialog.deleteBtn.setOnClickListener {
+//            cartViewModel.removeProductFromCart(order)
+//            cartViewModel.getAllCartproduct()
+//            requireActivity().recreate()
+        }
     }
 
     private fun setUpRecyclerView() {
@@ -88,10 +99,11 @@ class CartFragment : Fragment(), CartOnClickListener {
     }
 
     override fun onClicked(order: Cart) {
-        //show dialog
-        cartViewModel.removeProductFromCart(order)
-        cartViewModel.getAllCartproduct()
-        requireActivity().recreate()
+       // showAddAlertDialoge()
+        showDialoge(order)
+//        cartViewModel.removeProductFromCart(order)
+//        cartViewModel.getAllCartproduct()
+//        requireActivity().recreate()
     }
 
     override fun onPluseMinusClicked(count: Int, pId: Long, price: String) {
@@ -125,6 +137,31 @@ class CartFragment : Fragment(), CartOnClickListener {
         super.onDestroyView()
         // binding = null
         cartAdapter.clearContextualActionMode()
+    }
+
+    //===============================================
+    private fun showAddAlertDialoge() {
+        builder = AlertDialog.Builder(requireContext())
+        builder.setCancelable(false)
+        builder.setView(bindingDialog.root)
+        dialog = builder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.setCancelable(false)
+    }
+
+    private fun showDialoge(products:Cart) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+          // cartViewModel.removeSelectedProductsFromCart(products)//list=========
+            requireActivity().recreate()
+        }
+        builder.setNegativeButton("No") { _, _ ->
+
+        }
+        builder.setTitle("Delete?")
+       // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
+        builder.create().show()
     }
 
 }

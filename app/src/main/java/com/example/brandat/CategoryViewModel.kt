@@ -34,8 +34,6 @@ class CategoryViewModel @Inject constructor(
     fun getAllProductsByType(type:String) = viewModelScope.launch {
         allProductResponse.postValue(repoInterface.getAllProductByType(type))
     }
-    fun addProductToCart(cart: Cart) = viewModelScope.launch {
-        repoInterface.addProductToCart(cart)
-    }
+
 
 }

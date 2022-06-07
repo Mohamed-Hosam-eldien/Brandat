@@ -296,6 +296,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
+            android:id="@+id/but_add_to_cart"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_add_shopping_cart"
             android:text="@string/add_to_cart"

@@ -5,20 +5,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.FragmentFavoriteBinding
 import com.example.brandat.models.Favourite
+import com.example.brandat.ui.fragments.cart.Cart
+import com.example.brandat.ui.fragments.cart.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.collections.ArrayList
+
 @AndroidEntryPoint
-class FavoriteFragment : Fragment(),OnclickListener {
+class FavoriteFragment : Fragment(), OnclickListener {
     private lateinit var favouriteAdapter: FavouriteAdapter
     private lateinit var binding: FragmentFavoriteBinding
     private val favourite: List<Favourite> = ArrayList()
-    private  val favouriteViewModel :FavouriteViewModel by viewModels()
+    private val favouriteViewModel: FavouriteViewModel by viewModels()
+    private val cartViewModel: CartViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,16 +46,15 @@ class FavoriteFragment : Fragment(),OnclickListener {
     }
 
 
-    private  fun observeShowData(){
+    private fun observeShowData() {
         favouriteViewModel.getFavouriteProducts()
         favouriteViewModel.getFavouriteProducts.observe(viewLifecycleOwner) {
-            it?.let{
-                if (it.isEmpty()){
+            it?.let {
+                if (it.isEmpty()) {
                     print(it.size)
                     binding.empty.visibility = View.VISIBLE
 
-                }
-                else{
+                } else {
                     binding.empty.visibility = View.GONE
                 }
                 favouriteAdapter.setData(it)
@@ -60,8 +63,9 @@ class FavoriteFragment : Fragment(),OnclickListener {
         }
 
     }
+
     private fun setupUi() {
-       favouriteAdapter = FavouriteAdapter(this)
+        favouriteAdapter = FavouriteAdapter(this)
         binding.rvFavorits.apply {
             val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
             setLayoutManager(layoutManager)
@@ -79,20 +83,25 @@ class FavoriteFragment : Fragment(),OnclickListener {
     }
 
     override fun onRemoveClicked(favourite: Favourite) {
-          print("doooooooooooooo")
-        val builder =AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes"){_,_,->
+        print("doooooooooooooo")
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
             favouriteViewModel.removeFavouriteProduct(favourite.productId)
 //            favouriteViewModel.getFavouriteProducts()
             requireActivity().recreate()
             showSnackbar()
         }
-        builder.setNegativeButton("No"){_,_,->
+        builder.setNegativeButton("No") { _, _ ->
 
         }
         builder.setTitle("Delete${favourite.productName.toLowerCase()}")
         builder.setMessage("Are you sure you want to delete ${favourite.productName} from favourite")
         builder.create().show()
+    }
+
+    override fun onCartClicked(product: Cart) {
+        cartViewModel.addProductToCart(product)
+        Toast.makeText(requireContext(), "Yeah! Added To Cart", Toast.LENGTH_SHORT).show()
     }
 
     private fun showSnackbar() {
