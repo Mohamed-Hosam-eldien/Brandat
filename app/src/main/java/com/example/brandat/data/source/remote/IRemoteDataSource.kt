@@ -1,10 +1,9 @@
 package com.example.brandat.data.source.remote
 
+import com.example.brandat.models.Brands
+import com.example.brandat.models.Customer
 import com.example.brandat.models.Product
 import com.example.brandat.models.Products
-
-import com.example.brandat.models.Brand
-import com.example.brandat.models.Brands
 import retrofit2.Response
 
 interface IRemoteDataSource {
@@ -14,5 +13,6 @@ interface IRemoteDataSource {
     suspend fun getAllProductsById(): Response<Products>
     suspend fun getProductDetails(productId: Long): Response<Product>
     suspend fun getAllProductsByProductType(product_type: String): Response<Products>
+    suspend fun registerCustomer(customer: Customer): Response<Customer>
 
 }

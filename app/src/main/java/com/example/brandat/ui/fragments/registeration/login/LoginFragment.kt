@@ -1,4 +1,4 @@
-package com.example.brandat.ui.fragments.registeration
+package com.example.brandat.ui.fragments.registeration.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
