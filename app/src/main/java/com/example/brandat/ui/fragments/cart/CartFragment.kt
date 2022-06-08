@@ -47,12 +47,6 @@ class CartFragment : Fragment(), CartOnClickListener {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
 
-        cartViewModel.getAllPrice()
-
-        cartViewModel.allPrice.observe(viewLifecycleOwner) {
-            binding.tvTprice.text = "$it $"
-        }
-
         binding.buyButn.setOnClickListener {
             //go to eng hossam
             startActivity(Intent(requireContext(), OrderStatus::class.java))
@@ -71,6 +65,12 @@ class CartFragment : Fragment(), CartOnClickListener {
 //            cartViewModel.removeProductFromCart(order)
 //            cartViewModel.getAllCartproduct()
 //            requireActivity().recreate()
+        }
+
+        cartViewModel.getAllPrice()
+
+        cartViewModel.allPrice.observe(viewLifecycleOwner) {
+            binding.tvTprice.text = "$it $"
         }
     }
 
@@ -100,10 +100,10 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     override fun onClicked(order: Cart) {
        // showAddAlertDialoge()
-        showDialoge(order)
-//        cartViewModel.removeProductFromCart(order)
-//        cartViewModel.getAllCartproduct()
-//        requireActivity().recreate()
+       // showDialoge(order)
+        cartViewModel.removeProductFromCart(order)
+        cartViewModel.getAllCartproduct()
+        requireActivity().recreate()
     }
 
     override fun onPluseMinusClicked(count: Int, pId: Long, price: String) {
