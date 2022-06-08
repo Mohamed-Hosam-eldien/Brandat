@@ -1,5 +1,7 @@
 package com.example.brandat.data.repos.user
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
 import com.example.brandat.models.Customer
@@ -28,7 +30,14 @@ class UserRepository @Inject constructor(
     }
 //=======================================================
     override suspend fun registerCustomer(customer: Customer): Response<Customer> {
-     return remoteDataSource.registerCustomer(customer)
+    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).body()} " )
+    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).errorBody()} "
+    )
+    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).code()} " )
+
+
+
+    return remoteDataSource.registerCustomer(customer)
     }
 
 

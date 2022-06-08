@@ -30,6 +30,7 @@ interface NetworkService {
     suspend fun getProductDetails(@Path("id") productId: Long): Response<Product>
 
     //==================================
+    @Headers("X-Shopify-Access-Token: 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")
     @POST("customers.json")
     suspend fun register(@Body customer: Customer):Response<Customer>
 

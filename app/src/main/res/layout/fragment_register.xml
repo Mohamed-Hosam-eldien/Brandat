@@ -39,7 +39,7 @@
             android:layout_marginTop="20dp"
             android:text="Register"
             android:fontFamily="serif"
-            android:textColor="#3F51B5"
+            android:textColor="@color/darkG"
             android:textSize="32sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/brandat" />

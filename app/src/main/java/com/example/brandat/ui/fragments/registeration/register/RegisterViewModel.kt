@@ -1,5 +1,7 @@
 package com.example.brandat.ui.fragments.registeration.register
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +17,8 @@ class RegisterViewModel @Inject constructor(private val IRepo: IUserRepository) 
     private val _signUpSuccess: MutableLiveData<Boolean> = MutableLiveData()
     var signUpSuccess: LiveData<Boolean> = _signUpSuccess
 
-    suspend fun registerCustomer(customer: Customer) = viewModelScope.launch {
+   fun registerCustomer(customer: Customer) = viewModelScope.launch {
+       Log.e(TAG, "registerCustomer: d3d3", )
         IRepo.registerCustomer(customer)
     }
 
