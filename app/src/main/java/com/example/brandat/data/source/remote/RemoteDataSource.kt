@@ -1,10 +1,7 @@
 package com.example.brandat.data.source.remote
 
 import android.util.Log
-import com.example.brandat.models.Brands
-import com.example.brandat.models.Customer
-import com.example.brandat.models.Product
-import com.example.brandat.models.Products
+import com.example.brandat.models.*
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -34,7 +31,7 @@ class RemoteDataSource @Inject constructor(
     }
 
     //=====================================================
-    override suspend fun registerCustomer(customer: Customer): Response<Customer> {
+    override suspend fun registerCustomer(customer: CustomerModel): Response<CustomerModel> {
        return networkService.register(customer)
     }
 

@@ -23,21 +23,67 @@ data class Customer(
     @SerializedName("id")
     val id: Long=0L,//==========================
     @SerializedName("last_name")
-    val lastName: String="",//====================
+    val lastName: String="aziza",//====================
     @SerializedName("last_order_id")
     val lastOrderId: Long=0L,
     @SerializedName("last_order_name")
     val lastOrderName: String="",
     @SerializedName("note")
-    val note: Any,//=============================
+    val note: Any="7",//=============================
     @SerializedName("orders_count")
     val ordersCount: Int=0,
     @SerializedName("phone")
-    val phone: String,//==========================
+    val phone: String="99",//==========================
     @SerializedName("total_spent")
     val totalSpent: String="",
     @SerializedName("updated_at")
     val updatedAt: String="",
     @SerializedName("verified_email")
     val verifiedEmail: Boolean=true//==========================
+
+
+
+/*
+
+    @SerializedName( "id")
+    val customerId: Long? = null,
+
+    @SerializedName( "email")
+    val email: String?,
+
+    @SerializedName( "phone")
+    val phone: String? = "",
+
+    @SerializedName( "first_name")
+    val firstName: String? = "",
+
+    @SerializedName( "last_name")
+    val lastName: String? = "",
+
+    @SerializedName( "orders_count")
+    val ordersCount: Int = 0,
+
+    @SerializedName( "state")
+    val state: String? = "",
+
+    @SerializedName( "currency")
+    val currency: String? = "EGP",
+
+    @SerializedName( "note")
+    val note: String? = "",
+
+    @SerializedName( "total_spent")
+    val totalSpent: String? = "",
+//
+//    @SerializedName( "addresses")
+//    val addresses: List<Address>? = listOf(),
+
+    @SerializedName( "password")
+    val password: String? = "",
+
+    @SerializedName( "password_confirmation")
+    val passwordConfirmation: String? = "",
+
+
+ */
 )

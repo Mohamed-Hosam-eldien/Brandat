@@ -1,9 +1,6 @@
 package com.example.brandat.data.source.remote
 
-import com.example.brandat.models.Brands
-import com.example.brandat.models.Customer
-import com.example.brandat.models.Product
-import com.example.brandat.models.Products
+import com.example.brandat.models.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -30,8 +27,9 @@ interface NetworkService {
     suspend fun getProductDetails(@Path("id") productId: Long): Response<Product>
 
     //==================================
-    @Headers("X-Shopify-Access-Token: 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")
+    @Headers("X-Shopify-Access-Token: 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",
+    "Content-Type:application/json")
     @POST("customers.json")
-    suspend fun register(@Body customer: Customer):Response<Customer>
+    suspend fun register(@Body customer: CustomerModel):Response<CustomerModel>
 
 }

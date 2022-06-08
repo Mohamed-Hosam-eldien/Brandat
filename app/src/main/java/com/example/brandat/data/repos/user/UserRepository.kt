@@ -6,6 +6,7 @@ import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
 import com.example.brandat.models.Customer
 import com.example.brandat.models.CustomerAddress
+import com.example.brandat.models.CustomerModel
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response
 import javax.inject.Inject
@@ -29,7 +30,7 @@ class UserRepository @Inject constructor(
         localDataSource.removeAddress(city)
     }
 //=======================================================
-    override suspend fun registerCustomer(customer: Customer): Response<Customer> {
+    override suspend fun registerCustomer(customer: CustomerModel): Response<CustomerModel> {
     Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).body()} " )
     Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).errorBody()} "
     )
