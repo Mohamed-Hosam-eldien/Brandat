@@ -11,4 +11,5 @@ interface IUserRepository {
     suspend fun getAllAddresses():List<CustomerAddress>
     suspend fun removeAddress(city:String)
     suspend fun registerCustomer(customer: CustomerModel): Response<CustomerModel>
+    suspend fun loginCustomer(email: String): Response<CustomerModel>
 }

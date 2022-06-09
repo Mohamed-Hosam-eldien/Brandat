@@ -3,6 +3,7 @@ package com.example.brandat.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import com.example.brandat.models.Customer
 import java.util.regex.Pattern
 
 class Constants {
@@ -22,6 +23,7 @@ class Constants {
                     ")+"
         )
 
+        lateinit var user:Customer
 
         const val BASE_URL = "https://${apiKey}:${password}@${hostName}/admin/api/2022-04/"
 

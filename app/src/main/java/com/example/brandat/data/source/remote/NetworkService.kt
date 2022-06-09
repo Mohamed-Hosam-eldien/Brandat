@@ -28,8 +28,11 @@ interface NetworkService {
 
     //==================================
     @Headers("X-Shopify-Access-Token: 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",
-    "Content-Type:application/json")
+        "Content-Type: application/json")
     @POST("customers.json")
     suspend fun register(@Body customer: CustomerModel):Response<CustomerModel>
 
+    @Headers("X-Shopify-Access-Token: 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")
+    @GET("customers.json?email=")
+    suspend fun login(@Query("email") email:String):Response<CustomerModel>
 }

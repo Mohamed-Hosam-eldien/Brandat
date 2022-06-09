@@ -6,11 +6,16 @@
     <data>
 
     </data>
+<ScrollView
+    android:layout_width="match_parent"
+    android:background="#AA8994"
+    android:layout_height="match_parent">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="200dp"
+        android:layout_height="wrap_content"
+
         tools:context=".ui.fragments.registeration.RegistrationActivity">
 
 
@@ -18,8 +23,9 @@
             android:id="@+id/brandat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="cursive"
+            android:textColor="@color/white"
             android:text="@string/brandat"
             android:textSize="64sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,36 +39,19 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="24dp"
             android:text="@string/login"
+            android:textColor="@color/white"
             android:textSize="32sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/brandat" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/register_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp"
-            android:backgroundTint="#00B6FF"
-            android:padding="8dp"
-            android:layout_marginBottom="12dp"
-            android:text="Signup"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            app:cornerRadius="16dp"
-            app:layout_constraintEnd_toEndOf="@id/view1"
-            app:layout_constraintStart_toStartOf="@id/view1"
-            tools:layout_editor_absoluteY="440dp" />
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_cv"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:backgroundTint="#AA8994"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
             android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
             android:elevation="16dp"
             app:cardCornerRadius="32dp"
             app:cardElevation="16dp"
@@ -72,17 +61,18 @@
             app:layout_constraintTop_toBottomOf="@id/register_tv">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="359dp"
+                android:layout_height="256dp"
+                android:background="#E3D6DA">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/first_name_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
+
                     android:layout_height="wrap_content"
                     android:layout_marginStart="48dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="28dp"
                     android:layout_marginEnd="48dp"
                     android:textColorHint="#000"
                     app:boxCornerRadiusBottomEnd="16dp"
@@ -90,15 +80,17 @@
                     app:boxCornerRadiusTopEnd="16dp"
                     app:boxCornerRadiusTopStart="16dp"
                     app:boxStrokeColor="#000"
+                    android:backgroundTint="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/first_name_et"
+                        android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Name"
+
+                        android:hint="Email"
                         android:inputType="textEmailAddress"
                         android:textColor="#000"
                         android:textSize="16sp" />
@@ -111,7 +103,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="20dp"
                     android:textColorHint="#000"
                     app:boxCornerRadiusBottomEnd="16dp"
                     app:boxCornerRadiusBottomStart="16dp"
@@ -123,10 +115,10 @@
                     app:layout_constraintTop_toBottomOf="@id/first_name_layout">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/email_et"
+                        android:id="@+id/et_pass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email"
+                        android:hint="Passward"
                         android:inputType="textEmailAddress"
                         android:textColor="#000"
                         android:textSize="16sp" />
@@ -139,6 +131,27 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/register_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="4dp"
+            app:backgroundTint="#E3D6DA"
+            android:padding="14dp"
+            android:layout_marginTop="16dp"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textColor="@color/darkG"
+            android:textSize="24sp"
+            app:cornerRadius="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/card_cv"
+            app:layout_constraintEnd_toEndOf="@id/view1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/view1" />
+
+
         <View
             android:id="@+id/view1"
             android:layout_width="wrap_content"
@@ -147,6 +160,20 @@
             app:layout_constraintStart_toStartOf="@id/card_cv"
             app:layout_constraintTop_toBottomOf="@id/card_cv" />
 
+        <TextView
+            android:id="@+id/tv_new_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create New Account"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/register_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 </layout>

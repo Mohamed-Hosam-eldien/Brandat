@@ -11,7 +11,7 @@ import com.example.brandat.databinding.ActivityProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Profile : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
 
@@ -29,6 +29,7 @@ class Profile : AppCompatActivity() {
         val navController = findNavController(R.id.navProfileHostFragment)
         val appConfig = AppBarConfiguration(navController.graph)
         findViewById<Toolbar>(R.id.toolbar).setupWithNavController(navController,appConfig)
+
     }
 
 }

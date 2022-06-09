@@ -31,14 +31,18 @@ class UserRepository @Inject constructor(
     }
 //=======================================================
     override suspend fun registerCustomer(customer: CustomerModel): Response<CustomerModel> {
-    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).body()} " )
-    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).errorBody()} "
-    )
-    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).code()} " )
+//    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).body()} " )
+//    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).errorBody()} "
+//    )
+//    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).code()} " )
 
 
 
     return remoteDataSource.registerCustomer(customer)
+    }
+
+    override suspend fun loginCustomer(email: String): Response<CustomerModel> {
+        return remoteDataSource.loginCustomer(email)
     }
 
 

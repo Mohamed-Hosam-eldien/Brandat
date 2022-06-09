@@ -1,89 +1,56 @@
 package com.example.brandat.models
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Customer(
     @SerializedName("accepts_marketing")
-    val acceptsMarketing: Boolean=true,
+    val acceptsMarketing: Boolean = true,
     @SerializedName("accepts_marketing_updated_at")
-    val acceptsMarketingUpdatedAt: String="",
+    val acceptsMarketingUpdatedAt: String = "2022-06-08T19:56:03+02:00",
     @SerializedName("admin_graphql_api_id")
-    val adminGraphqlApiId: String="",
+    val adminGraphqlApiId: String = "",
     @SerializedName("created_at")
-    val createdAt: String="",
+    val createdAt: String = "2022-06-08T19:56:03+02:00",
     @SerializedName("currency")
-    val currency: String="",
-//    @SerializedName("default_address")
-//    val defaultAddress: DefaultAddress,
+    val currency: String = "EGP",
+    @SerializedName("default_address")
+    val defaultAddress: DefaultAddress,
     @SerializedName("email")
     val email: String,//=========================
     @SerializedName("first_name")
     val firstName: String,//=====================
     @SerializedName("id")
-    val id: Long=0L,//==========================
+    val id: Long = 0L,//==========================
     @SerializedName("last_name")
-    val lastName: String="aziza",//====================
+    val lastName: String,//====================
     @SerializedName("last_order_id")
-    val lastOrderId: Long=0L,
+    val lastOrderId: Any? = null,
     @SerializedName("last_order_name")
-    val lastOrderName: String="",
+    val lastOrderName: Any? = null,
     @SerializedName("note")
-    val note: Any="7",//=============================
+    val note: Any? = null,
     @SerializedName("orders_count")
-    val ordersCount: Int=0,
-    @SerializedName("phone")
-    val phone: String="99",//==========================
-    @SerializedName("total_spent")
-    val totalSpent: String="",
-    @SerializedName("updated_at")
-    val updatedAt: String="",
-    @SerializedName("verified_email")
-    val verifiedEmail: Boolean=true//==========================
-
-
-
-/*
-
-    @SerializedName( "id")
-    val customerId: Long? = null,
-
-    @SerializedName( "email")
-    val email: String?,
-
-    @SerializedName( "phone")
-    val phone: String? = "",
-
-    @SerializedName( "first_name")
-    val firstName: String? = "",
-
-    @SerializedName( "last_name")
-    val lastName: String? = "",
-
-    @SerializedName( "orders_count")
     val ordersCount: Int = 0,
-
-    @SerializedName( "state")
-    val state: String? = "",
-
-    @SerializedName( "currency")
-    val currency: String? = "EGP",
-
-    @SerializedName( "note")
-    val note: String? = "",
-
-    @SerializedName( "total_spent")
-    val totalSpent: String? = "",
-//
-//    @SerializedName( "addresses")
-//    val addresses: List<Address>? = listOf(),
-
-    @SerializedName( "password")
-    val password: String? = "",
-
-    @SerializedName( "password_confirmation")
-    val passwordConfirmation: String? = "",
-
-
- */
+    @SerializedName("phone")
+    val phone: Any? = null,//==========================
+    @SerializedName("total_spent")
+    val totalSpent: String = "0.00",
+    @SerializedName("updated_at")
+    val updatedAt: String = "2022-06-08T19:56:03+02:00",
+    @SerializedName("verified_email")
+    val verifiedEmail: Boolean = true,
+    @SerializedName("state")
+    val state: String = "disabled",
+    @SerializedName("multipass_identifier")
+    val multipass_identifier: Any? = null,
+    @SerializedName("tax_exempt")
+    val tax_exempt: Boolean = false,
+    @SerializedName("tags")
+    val tags: String,
+    @SerializedName("addresses")
+    val addresses: List<DefaultAddress>? = listOf(),
+    @SerializedName("marketing_opt_in_level")
+    val marketing_opt_in_level: Any? = null,
+    @SerializedName("sms_marketing_consent")
+    val sms_marketing_consent: Any? = null
 )

@@ -1,5 +1,4 @@
 package com.example.brandat.ui.fragments.registeration.register
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +10,9 @@ import androidx.fragment.app.viewModels
 import com.example.brandat.databinding.FragmentRegisterBinding
 import com.example.brandat.models.Customer
 import com.example.brandat.models.CustomerModel
+import com.example.brandat.models.DefaultAddress
 import com.example.brandat.utils.Constants.Companion.EMAIL_PATTERN
+import com.example.brandat.utils.Constants.Companion.user
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,19 +44,31 @@ class RegisterFragment : Fragment() {
 
         binding.registerBtn.setOnClickListener {
 
-          if( cheackEmpty()) {
+          //if( cheackEmpty()) {
               Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
-              val customer = Customer(email = email, firstName = name, lastName = "aziza")
-              val model = CustomerModel(customer)
+              val address =
+                  DefaultAddress(address1 = "elmanshia", city = "alexandria", country = "egypt")
+
+            val customer = Customer(
+                email = "ana.zege2t@gmail.com",
+                firstName = "Doaa",
+                lastName = "Essam",
+                state = "enabled",
+                tags = "123456",
+                defaultAddress = address
+            )
+            val model = CustomerModel(customer)
               registerViewModel.registerCustomer(model)
+
               registerViewModel.signUpSuccess.observe(viewLifecycleOwner) {
-                  Log.e("TAG", "=======:$it")
-                  if (it == true) {
-                      Toast.makeText(requireContext(), "Successfully", Toast.LENGTH_SHORT).show()
+                  Log.e("TAG", "=======> :$it")
+                  if (it != null) {
+                      user = it.customer!!
+                      Toast.makeText(requireContext(), "Succesully", Toast.LENGTH_SHORT).show()
                   } else {
                       Toast.makeText(requireContext(), "Try Again", Toast.LENGTH_SHORT).show()
 
-                  }
+               //   }
               }
           }
 

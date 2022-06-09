@@ -15,12 +15,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(private val IRepo: IUserRepository) : ViewModel() {
-    private val _signUpSuccess: MutableLiveData<Boolean> = MutableLiveData()
-    var signUpSuccess: LiveData<Boolean> = _signUpSuccess
+    private val _signUpSuccess: MutableLiveData<CustomerModel> = MutableLiveData()
+    var signUpSuccess: LiveData<CustomerModel> = _signUpSuccess
 
    fun registerCustomer(customer: CustomerModel) = viewModelScope.launch {
-       Log.e(TAG, "registerCustomer: d3d3", )
-        IRepo.registerCustomer(customer)
+        _signUpSuccess.postValue(IRepo.registerCustomer(customer).body())
     }
 
 
