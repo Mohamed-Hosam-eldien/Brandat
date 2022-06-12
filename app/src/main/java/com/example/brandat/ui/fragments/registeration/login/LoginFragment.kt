@@ -43,10 +43,10 @@ class LoginFragment : Fragment() {
         }
         binding.registerBtn.setOnClickListener {
             if (checkEmpty()) {
-                loginViewModel.loginCustomer("ana.zege2t@gmail.com")
+                loginViewModel.loginCustomer(binding.etEmail.text.toString())
                 loginViewModel.signInSuccess.observe(viewLifecycleOwner){
-                    Toast.makeText(requireContext(), "ops!$it", Toast.LENGTH_SHORT).show()
-                    Log.e("TAG", "aziza '((((( ${it.customer}) ", )
+                    Toast.makeText(requireContext(), "congratulation", Toast.LENGTH_SHORT).show()
+                    Log.e("TAG", "aziza '((((( ${it.customer[0]}) ", )
 //                    if(it.customer!!.email!=""){
 //                        findNavController().navigate(R.id.action_loginFragment_to_profileDataFragment)
 //                    }

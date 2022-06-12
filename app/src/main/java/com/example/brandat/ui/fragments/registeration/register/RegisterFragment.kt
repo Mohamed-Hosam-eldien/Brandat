@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.brandat.R
 import com.example.brandat.databinding.FragmentRegisterBinding
 import com.example.brandat.models.Customer
 import com.example.brandat.models.CustomerModel
+import com.example.brandat.models.CustomerRegisterModel
 import com.example.brandat.models.DefaultAddress
 import com.example.brandat.utils.Constants.Companion.EMAIL_PATTERN
 import com.example.brandat.utils.Constants.Companion.user
@@ -25,16 +27,12 @@ class RegisterFragment : Fragment() {
     private lateinit var pass: String
     private lateinit var confirmPass: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentRegisterBinding.inflate(layoutInflater, container, false)
+    ): View {
+        val view = LayoutInflater.from(requireContext()).inflate(R.layout.fragment_register,null)
+        binding = FragmentRegisterBinding.bind(view)
 
         return binding.root
     }
@@ -42,28 +40,37 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        email = binding.emailLayout.editText?.text.toString()
+        name = binding.firstNameEt.text.toString()
+        pass = binding.passwordEt.text.toString()
+
+        val address =
+            DefaultAddress(address1 = "elmanshia", city = "alexandria", country = "egypt")
+
+
+
         binding.registerBtn.setOnClickListener {
 
-          //if( cheackEmpty()) {
-              Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
-              val address =
-                  DefaultAddress(address1 = "elmanshia", city = "alexandria", country = "egypt")
-
             val customer = Customer(
-                email = "ana.zege2t@gmail.com",
-                firstName = "Doaa",
-                lastName = "Essam",
+                email = email,
+                firstName = name,
+                lastName = "ooo",
                 state = "enabled",
-                tags = "123456",
+                tags = pass,
                 defaultAddress = address
             )
-            val model = CustomerModel(customer)
-              registerViewModel.registerCustomer(model)
+            val model = CustomerRegisterModel(customer)
+            registerViewModel.registerCustomer(model)
+            Log.d("TAG", "onViewCreated: email $email")
+
+            //if( cheackEmpty()) {
+              Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
+
 
               registerViewModel.signUpSuccess.observe(viewLifecycleOwner) {
                   Log.e("TAG", "=======> :$it")
                   if (it != null) {
-                      user = it.customer!!
+                      user = it.customer
                       Toast.makeText(requireContext(), "Succesully", Toast.LENGTH_SHORT).show()
                   } else {
                       Toast.makeText(requireContext(), "Try Again", Toast.LENGTH_SHORT).show()
