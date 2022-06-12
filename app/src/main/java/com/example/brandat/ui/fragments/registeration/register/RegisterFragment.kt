@@ -40,9 +40,6 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        email = binding.emailLayout.editText?.text.toString()
-        name = binding.firstNameEt.text.toString()
-        pass = binding.passwordEt.text.toString()
 
         val address =
             DefaultAddress(address1 = "elmanshia", city = "alexandria", country = "egypt")
@@ -50,7 +47,10 @@ class RegisterFragment : Fragment() {
 
 
         binding.registerBtn.setOnClickListener {
-
+            email = binding.emailEt.text.toString()
+            name = binding.firstNameEt.text.toString()
+            pass = binding.passwordEt.text.toString()
+            Log.d("TAG", "onViewCreated: email $email")
             val customer = Customer(
                 email = email,
                 firstName = name,
@@ -61,7 +61,7 @@ class RegisterFragment : Fragment() {
             )
             val model = CustomerRegisterModel(customer)
             registerViewModel.registerCustomer(model)
-            Log.d("TAG", "onViewCreated: email $email")
+
 
             //if( cheackEmpty()) {
               Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
