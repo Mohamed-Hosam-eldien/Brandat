@@ -48,6 +48,7 @@ class AddressFragment : Fragment() ,OnClickListener{
 
         binding.btnAddAddress.setOnClickListener {
             //  replace with code navigation to add address screen
+            findNavController().navigate(R.id.action_addressFragment_to_addAddressFragment)
         }
 
         binding.btnOpenMao.setOnClickListener {

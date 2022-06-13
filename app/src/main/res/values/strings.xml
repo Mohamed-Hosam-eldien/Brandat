@@ -53,4 +53,43 @@
     <string name="add">Add</string>
     <string name="add_to_cart">Add to cart</string>
 
+    <string-array name="country_list">
+        <item>Egypt</item>
+        <item>Algeria</item>
+        <item>Iraq</item>
+        <item>Jordan</item>
+        <item>Lebanon</item>
+        <item>Libya</item>
+    </string-array>
+    <string-array name="city_list">
+        <item>Cairo</item>
+        <item>Alexandria</item>
+        <item>Aswan</item>
+        <item>Asyut</item>
+        <item>Damanhur</item>
+        <item>Beni Suef</item>
+        <item>Mansoura</item>
+        <item>Damietta</item>
+        <item>Faiyum</item>
+        <item>Tanta</item>
+        <item>Giza</item>
+        <item>Ismailia</item>
+        <item>Kafr El Sheikh</item>
+        <item>Luxor</item>
+        <item>Marsa Matruh</item>
+        <item>Minya</item>
+        <item>Shibin El Kom</item>
+        <item>Kharga</item>
+        <item>Arish</item>
+        <item>Port Said</item>
+        <item>Banha</item>
+        <item>Qena</item>
+        <item>Hurghada</item>
+        <item>Zagazig</item>
+        <item>Sohag</item>
+        <item>El Tor</item>
+        <item>Suez</item>
+    </string-array>
+
+
 </resources>

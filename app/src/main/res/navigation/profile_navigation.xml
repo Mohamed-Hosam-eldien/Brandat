@@ -24,20 +24,31 @@
     <fragment
         android:id="@+id/addressFragment"
         android:name="com.example.brandat.ui.fragments.address.AddressFragment"
-        android:label="AddressFragment" >
+        android:label="Addresses">
         <action
             android:id="@+id/action_addressFragment_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_addressFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.brandat.ui.fragments.map.MapsFragment"
-        android:label="MapsFragment" >
+        android:label="Maps">
         <argument
             android:name="addressItem"
             app:argType="com.example.brandat.models.DefaultAddress" />
         <action
             android:id="@+id/action_mapsFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAddressFragment"
+        android:name="com.example.brandat.ui.fragments.address.AddAddressFragment"
+        android:label="Add Address">
+        <action
+            android:id="@+id/action_addAddressFragment_to_addressFragment"
             app:destination="@id/addressFragment" />
     </fragment>
 </navigation>
