@@ -97,7 +97,8 @@ class AddressFragment : Fragment() ,OnClickListener{
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes"){_,_,->
             viewModel.removeAddress(customerAddress.city)
-            showObservedData()
+            viewModel.getAllAddress()
+            activity?.recreate()
         }
         builder.setNegativeButton("Cancel"){_,_,->
 
@@ -106,9 +107,6 @@ class AddressFragment : Fragment() ,OnClickListener{
         builder.setTitle("Delete This Address")
         builder.setMessage("Are you sure you want to delete ${customerAddress.address1} address")
         builder.create().show()
-
-
-
 
     }
 }

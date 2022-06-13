@@ -16,7 +16,11 @@ data class CustomerAddress(
     val city: String,
     @SerializedName("country")
     val country: String
-)
+){
+    fun printAddress():String{
+        return "$address1, $city, $country"
+    }
+}
 
 
 //    @SerializedName("latitude")
