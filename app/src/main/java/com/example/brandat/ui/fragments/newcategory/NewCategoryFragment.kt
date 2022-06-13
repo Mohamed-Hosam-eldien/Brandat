@@ -1,5 +1,7 @@
 package com.example.brandat.ui.fragments.newcategory
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -22,6 +24,7 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentNewCategoryBinding
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
+import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
 
@@ -31,6 +34,7 @@ import com.example.brandat.ui.fragments.category.SharedViewModel
 import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import io.paperdb.Paper
 
 @AndroidEntryPoint
 class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
@@ -42,7 +46,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     private lateinit var brandName: String
 
     private val viewModel: CategoryViewModel by viewModels()
-    private val favouriteViewModel:FavouriteViewModel by viewModels()
+    private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
     private lateinit var model: SharedViewModel
 
@@ -131,8 +135,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 Log.e("TAG", "onViewCategoryCreated:${it} ")
 
                 for (product in it.body()?.products!!) {
-                    if(product.productType == binding.chipCatSub.text.toString().toUpperCase())
-                    products.add(product)
+                    if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
+                        products.add(product)
                 }
 
 
@@ -287,8 +291,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     }
 
     override fun onFavClicked(favourite: Favourite, ivImage: ImageView) {
-           favouriteViewModel.insertFavouriteProduct(favourite)
-
+        favouriteViewModel.insertFavouriteProduct(favourite)
     }
 
     override fun deleteFavourite(favouriteId: Long) {
@@ -296,15 +299,30 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     }
 
     override fun onCartClicked(currentProduct: Cart) {
-        cartViewModel.addProductToCart(currentProduct)
-        //Log.e(TAG, "onCartClicked: $", )
-        showSnackBar(currentProduct)
+        if (Paper.book().read<String>("email") == null) {
+            showDialog()
+        } else {
+            cartViewModel.addProductToCart(currentProduct)
+            showSnackBar(currentProduct)
+        }
     }
 
-    private  fun observeOnFavourite(){
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Login Now") { _, _ ->
+            startActivity(Intent(requireActivity(), ProfileActivity::class.java))
+        }
+        builder.setNegativeButton("cancel") { _, _ ->
+        }
+        builder.setTitle("please register or login to add item in cart")
+        // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
+        builder.create().show()
+    }
+
+    private fun observeOnFavourite() {
         favouriteViewModel.getFavouriteProducts()
-        favouriteViewModel.getFavouriteProducts.observe(viewLifecycleOwner){
-            if (it!= null){
+        favouriteViewModel.getFavouriteProducts.observe(viewLifecycleOwner) {
+            if (it != null) {
                 productRvAdapter.setFavData(it)
             }
         }

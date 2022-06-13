@@ -10,6 +10,7 @@
         android:name="com.example.brandat.ui.fragments.currency.CurrencyFragment"
         android:label="Currency"
         tools:layout="@layout/fragment_currency" />
+
     <fragment
         android:id="@+id/profileDataFragment"
         android:name="com.example.brandat.ui.fragments.profile.ProfileDataFragment"
@@ -43,11 +44,11 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.brandat.ui.fragments.registeration.register.RegisterFragment"
-        android:label="RegisterFragment" />
+        android:label="Register" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.brandat.ui.fragments.registeration.login.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="Login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />

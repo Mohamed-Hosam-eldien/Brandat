@@ -12,7 +12,4 @@ import javax.inject.Inject
 class CategoryViewModel @Inject constructor
     (private  var repository: IProductsRepository):ViewModel() {
 
-
-
-
    }

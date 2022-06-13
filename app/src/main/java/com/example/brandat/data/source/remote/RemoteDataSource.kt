@@ -35,9 +35,9 @@ class RemoteDataSource @Inject constructor(
        return networkService.register(customer)
     }
 
-    override suspend fun loginCustomer(email:String): Response<CustomerModel> {
+    override suspend fun loginCustomer(email:String, tags:String): Response<CustomerModel> {
 //        Log.e("TAG", "Eng Hossam: ${networkService.login(email)}", )
-        return networkService.login(email)
+        return networkService.login(email, tags)
     }
 
 

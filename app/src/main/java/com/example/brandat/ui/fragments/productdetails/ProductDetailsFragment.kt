@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.productdetails
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -17,11 +18,13 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProductDetailsBinding
 import com.example.brandat.models.Product
+import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.User
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.viewmodels.ProductDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.paperdb.Paper
 
 
 @AndroidEntryPoint
@@ -63,6 +66,7 @@ class ProductDetailsFragment : Fragment() {
         _binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_product_details, container, false)
 
+        Paper.init(requireContext())
 
         return binding.root
     }
@@ -85,11 +89,14 @@ class ProductDetailsFragment : Fragment() {
 
         }
         binding.butAddToCart.setOnClickListener {
-            cartViewModel.addProductToCart(productToCart)
-            Toast.makeText(requireContext(), "Yeah! Added To Cart", Toast.LENGTH_SHORT).show()
-
+            if (Paper.book().read<String>("email") == null) {
+                showDialog()
+            } else {
+                cartViewModel.addProductToCart(productToCart)
+                Toast.makeText(requireContext(), "Added To Cart", Toast.LENGTH_SHORT).show()
+            }
         }
-        //7782820643045
+
 
         setupRecyclerView()
 
@@ -103,6 +110,19 @@ class ProductDetailsFragment : Fragment() {
 
         observeShowData()
 
+    }
+
+
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Login Now") { _, _ ->
+            startActivity(Intent(requireActivity(), ProfileActivity::class.java))
+        }
+        builder.setNegativeButton("cancel") { _, _ ->
+        }
+        builder.setTitle("please register or login to add item in cart")
+        // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
+        builder.create().show()
     }
 
     private fun setupRecyclerView() {

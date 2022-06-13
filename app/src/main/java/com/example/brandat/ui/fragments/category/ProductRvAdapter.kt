@@ -42,6 +42,7 @@ import com.example.brandat.utils.ProductDiffUtil
         Glide.with(holder.binding.root)
             .load(currentProduct.imageProduct.src)
             .into(holder.binding.ivProduct)
+
         for (i in 0..favorites.size.minus(1)) {
             if (currentProduct.title == favorites[i].productName) {
                 holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
@@ -54,6 +55,7 @@ import com.example.brandat.utils.ProductDiffUtil
             }
 
         }
+
         holder.binding.ivFavorite.setOnClickListener {
             if (holder.binding.ivFavorite.tag != "favorite") {
                 holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
@@ -129,7 +131,5 @@ import com.example.brandat.utils.ProductDiffUtil
             productName = product.title, productPrice = "88", isFav = 1
         )
     }
-
-
 
 }

@@ -11,6 +11,6 @@ interface IRemoteDataSource {
     suspend fun getProductDetails(productId: Long): Response<Product>
     suspend fun getAllProductsByProductType(product_type: String): Response<Products>
     suspend fun registerCustomer(customer: CustomerRegisterModel): Response<CustomerRegisterModel>
-    suspend fun loginCustomer(email:String): Response<CustomerModel>
+    suspend fun loginCustomer(email:String, tags:String): Response<CustomerModel>
 
 }

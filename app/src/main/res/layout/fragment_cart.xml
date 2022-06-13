@@ -29,12 +29,13 @@
             android:id="@+id/tv_total"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginStart="37dp"
             android:gravity="center"
-            android:text="Total"
+            android:layout_marginStart="18sp"
+            android:text="@string/total"
             android:fontFamily="monospace"
             android:textColor="@color/black"
-            android:textSize="23sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/buy_butn"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -46,18 +47,19 @@
             android:layout_marginStart="13dp"
             android:text="(2 item)"
             android:textColor="@color/black"
-            android:textSize="23sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/buy_butn"
             app:layout_constraintStart_toEndOf="@+id/tv_total" />
 
         <TextView
             android:id="@+id/tv_tprice"
-            android:layout_width="105dp"
+            android:layout_width="wrap_content"
             android:layout_height="36dp"
+            android:layout_marginEnd="24dp"
             android:fontFamily="monospace"
             android:text="0 $"
             android:textColor="@color/black"
-            android:textSize="23sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/buy_butn"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -68,7 +70,7 @@
             android:layout_height="63dp"
             android:layout_margin="17dp"
             android:text="Proceed To Buy"
-            android:textSize="21sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

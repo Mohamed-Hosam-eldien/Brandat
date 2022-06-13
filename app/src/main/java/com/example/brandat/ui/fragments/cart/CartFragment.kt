@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.AlertDialogBinding
 import com.example.brandat.databinding.FragmentCartBinding
 import com.example.brandat.ui.OrderStatus
+import com.example.brandat.ui.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
+import io.paperdb.Paper
 
 @AndroidEntryPoint
 class CartFragment : Fragment(), CartOnClickListener {
@@ -25,11 +27,7 @@ class CartFragment : Fragment(), CartOnClickListener {
     private lateinit var bindingDialog: AlertDialogBinding
     private lateinit var dialog: AlertDialog
 
-    //    private var cartList: ArrayList<Cart> = ArrayList()
     private val cartViewModel: CartViewModel by viewModels()
-    private val totalPrice = 0
-
-    //private val args by navArgs<CartFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +43,17 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setUpRecyclerView()
 
+        Paper.init(requireContext())
+
         binding.buyButn.setOnClickListener {
-            //go to eng hossam
-            startActivity(Intent(requireContext(), OrderStatus::class.java))
+            if(Paper.book().read<String>("email") == null) {
+                showDialog()
+            } else {
+                startActivity(Intent(requireContext(), OrderStatus::class.java))
+            }
         }
         cartViewModel.getAllCartProduct()
 
@@ -74,6 +78,19 @@ class CartFragment : Fragment(), CartOnClickListener {
         }
     }
 
+
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Login Now") { _, _ ->
+            startActivity(Intent(requireActivity(), ProfileActivity::class.java))
+        }
+        builder.setNegativeButton("cancel") { _, _ ->
+        }
+        builder.setTitle("please register or login to add item in cart")
+        // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
+        builder.create().show()
+    }
+
     private fun setUpRecyclerView() {
         cartAdapter = CartRvAdapter(requireContext(), requireActivity(), this)
         binding.rvCart.apply {
@@ -84,10 +101,6 @@ class CartFragment : Fragment(), CartOnClickListener {
 
             adapter = cartAdapter
         }
-    }
-
-    private fun setRvItemSwipe() {
-
     }
 
     override fun onLongClicked(order: ArrayList<Cart>) {

@@ -72,7 +72,6 @@ class CartRvAdapter(
             holder.binding.tvProductPrice.text = currentCart.tPrice.toString()
         }
 
-
         holder.binding.tvProductName.text = currentCart.pName.lowercase()
 
 //        if (position == carts.size - 1)
@@ -116,7 +115,7 @@ class CartRvAdapter(
 
     override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
         if (item?.itemId == R.id.delete_item_order_menue) {
-            Toast.makeText(requireActivity, "${selectedOrders.size}", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireActivity, "${selectedOrders.size}", Toast.LENGTH_SHORT).show()
             selectedOrders.forEach {
                 onClickListener.onClicked(it)
             }

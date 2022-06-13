@@ -1,6 +1,7 @@
 package com.example.brandat.ui.fragments.favorite
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +13,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.FragmentFavoriteBinding
 import com.example.brandat.models.Favourite
+import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.paperdb.Paper
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment(), OnclickListener {
@@ -83,7 +86,6 @@ class FavoriteFragment : Fragment(), OnclickListener {
     }
 
     override fun onRemoveClicked(favourite: Favourite) {
-        print("doooooooooooooo")
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
             favouriteViewModel.removeFavouriteProduct(favourite.productId)
@@ -100,8 +102,24 @@ class FavoriteFragment : Fragment(), OnclickListener {
     }
 
     override fun onCartClicked(product: Cart) {
-        cartViewModel.addProductToCart(product)
-        Toast.makeText(requireContext(), "Yeah! Added To Cart", Toast.LENGTH_SHORT).show()
+        if (Paper.book().read<String>("email") == null) {
+            showDialog()
+        } else {
+            cartViewModel.addProductToCart(product)
+            Toast.makeText(requireContext(), "Added To Cart", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Login Now") { _, _ ->
+            startActivity(Intent(requireActivity(), ProfileActivity::class.java))
+        }
+        builder.setNegativeButton("cancel") { _, _ ->
+        }
+        builder.setTitle("please register or login to add item in cart")
+        // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
+        builder.create().show()
     }
 
     private fun showSnackbar() {

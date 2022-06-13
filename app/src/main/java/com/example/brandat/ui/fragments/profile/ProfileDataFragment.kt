@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.profile
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProfileDataBinding
+import com.example.brandat.ui.fragments.cart.Cart
+import io.paperdb.Paper
 
 class ProfileDataFragment : Fragment() {
 
@@ -20,14 +23,19 @@ class ProfileDataFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_profile_data, container, false)
-
         binding = FragmentProfileDataBinding.bind(view)
+
+        Paper.init(requireContext())
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.txtName.text = Paper.book().read("name")
+        binding.txtDefaultAddress.text = Paper.book().read("email")
+
 
         binding.orderLayout.setOnClickListener{
             // navigate to orders fragment
@@ -44,8 +52,26 @@ class ProfileDataFragment : Fragment() {
             it.findNavController().navigate(R.id.action_profileDataFragment_to_currencyFragment)
         }
 
+        binding.btnSignOut.setOnClickListener{
+            showDialog()
+        }
+
     }
 
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            Paper.book().delete("email")
+            Paper.book().delete("name")
+            Paper.book().destroy()
+            requireActivity().finish()
+        }
+        builder.setNegativeButton("No") { _, _ ->
+        }
+        builder.setTitle("Are You Sure?")
+        // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
+        builder.create().show()
+    }
 
 
 }

@@ -34,5 +34,5 @@ interface NetworkService {
 
     @Headers("X-Shopify-Access-Token: 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")
     @GET("customers.json")
-    suspend fun login(@Query("email") email: String):Response<CustomerModel>
+    suspend fun login(@Query("email") email: String,@Query("tags") tags: String):Response<CustomerModel>
 }

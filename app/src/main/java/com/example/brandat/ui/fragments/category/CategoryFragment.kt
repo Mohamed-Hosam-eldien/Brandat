@@ -194,9 +194,4 @@ class CategoryFragment : Fragment() {
         viewPager2.adapter = sliderAdapter
     }
 
-    
-
-
-
-
 }

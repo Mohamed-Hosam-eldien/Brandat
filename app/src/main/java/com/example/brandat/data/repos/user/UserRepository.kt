@@ -42,8 +42,8 @@ class UserRepository @Inject constructor(
     return remoteDataSource.registerCustomer(customer)
     }
 
-    override suspend fun loginCustomer(email: String): Response<CustomerModel> {
-        return remoteDataSource.loginCustomer(email)
+    override suspend fun loginCustomer(email: String, tags:String): Response<CustomerModel> {
+        return remoteDataSource.loginCustomer(email,tags)
     }
 
 
