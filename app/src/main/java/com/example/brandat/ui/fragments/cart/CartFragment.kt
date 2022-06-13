@@ -51,7 +51,7 @@ class CartFragment : Fragment(), CartOnClickListener {
             //go to eng hossam
             startActivity(Intent(requireContext(), OrderStatus::class.java))
         }
-        cartViewModel.getAllCartproduct()
+        cartViewModel.getAllCartProduct()
 
         cartViewModel.cartProduct.observe(viewLifecycleOwner) {
             Log.e("Cart", "============${it.size} ")
@@ -93,33 +93,26 @@ class CartFragment : Fragment(), CartOnClickListener {
     override fun onLongClicked(order: ArrayList<Cart>) {
         Log.d("TAG", "size before delete: ${order.size}")
         cartViewModel.removeSelectedProductsFromCart(order)
-        cartViewModel.getAllCartproduct()
+        cartViewModel.getAllCartProduct()
         Log.d("TAG", "size after delete: ${order.size}")
 
     }
 
     override fun onClicked(order: Cart) {
-       // showAddAlertDialoge()
-       // showDialoge(order)
         cartViewModel.removeProductFromCart(order)
-        cartViewModel.getAllCartproduct()
+        cartViewModel.getAllCartProduct()
         requireActivity().recreate()
     }
 
     override fun onPluseMinusClicked(count: Int, pId: Long, price: String) {
-
         val priceChange = price.toDouble()
         val _price = (count * priceChange)
-
+//        Log.d("TAG", "onPluseMinusClicked: count---> $_price")
         val currentOrder = Cart(pQuantity = count, pId = pId, tPrice = _price)
-
         cartViewModel.updateOrder(currentOrder)
-
-        cartViewModel.getAllCartproduct()
+        cartViewModel.getAllCartProduct()
         cartViewModel.getAllPrice()
         cartAdapter.notifyDataSetChanged()
-
-        //requireActivity().recreate()
     }
 
     private fun checkEmptyList(list: List<Cart>) {
@@ -150,17 +143,17 @@ class CartFragment : Fragment(), CartOnClickListener {
         dialog.setCancelable(false)
     }
 
-    private fun showDialoge(products:Cart) {
+    private fun showDialoge(products: Cart) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
-          // cartViewModel.removeSelectedProductsFromCart(products)//list=========
+            // cartViewModel.removeSelectedProductsFromCart(products)//list=========
             requireActivity().recreate()
         }
         builder.setNegativeButton("No") { _, _ ->
 
         }
         builder.setTitle("Delete?")
-       // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
+        // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }
 
