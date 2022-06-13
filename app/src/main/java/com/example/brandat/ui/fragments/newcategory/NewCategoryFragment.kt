@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,10 +24,11 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentNewCategoryBinding
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
+import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
-
+import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.ui.fragments.category.SharedViewModel
@@ -44,11 +45,14 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     private var productID: Long = 0
     private var type: String = ""
     private lateinit var brandName: String
+    private lateinit var bageCountI: IBadgeCount
 
     private val viewModel: CategoryViewModel by viewModels()
     private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
     private lateinit var model: SharedViewModel
+    private lateinit var notificationsBadges: View
+    private var count: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +73,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         val view = inflater.inflate(R.layout.fragment_new_category, container, false)
 
         binding = FragmentNewCategoryBinding.bind(view)
+        Paper.init(requireContext())
+        bageCountI = MainActivity()
 
         return binding.root
     }
@@ -303,7 +309,9 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             showDialog()
         } else {
             cartViewModel.addProductToCart(currentProduct)
-            showSnackBar(currentProduct)
+          //  bageCountI.updateBadgeCount(count++)
+
+            //showSnackBar(currentProduct)
         }
     }
 

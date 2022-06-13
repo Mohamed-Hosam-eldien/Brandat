@@ -105,7 +105,8 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     override fun onLongClicked(order: ArrayList<Cart>) {
         Log.d("TAG", "size before delete: ${order.size}")
-        cartViewModel.removeSelectedProductsFromCart(order)
+        showDialoge(order)
+       // cartViewModel.removeSelectedProductsFromCart(order)
         cartViewModel.getAllCartProduct()
         Log.d("TAG", "size after delete: ${order.size}")
 
@@ -156,10 +157,10 @@ class CartFragment : Fragment(), CartOnClickListener {
         dialog.setCancelable(false)
     }
 
-    private fun showDialoge(products: Cart) {
+    private fun showDialoge(order: ArrayList<Cart>) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
-            // cartViewModel.removeSelectedProductsFromCart(products)//list=========
+             cartViewModel.removeSelectedProductsFromCart(order)//list=========
             requireActivity().recreate()
         }
         builder.setNegativeButton("No") { _, _ ->
