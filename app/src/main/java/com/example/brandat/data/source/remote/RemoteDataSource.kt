@@ -1,9 +1,7 @@
 package com.example.brandat.data.source.remote
 
 import android.util.Log
-import com.example.brandat.models.Brands
-import com.example.brandat.models.Product
-import com.example.brandat.models.Products
+import com.example.brandat.models.*
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -28,12 +26,19 @@ class RemoteDataSource @Inject constructor(
     override suspend fun getAllProductsByProductType(product_type: String): Response<Products> {
         return networkService.getProductsBySubCategory(product_type)
     }
-
-
     override suspend fun getCategories(productId: Long): Response<Products> {
         return networkService.getCategoryByTag(productId)
     }
 
+    //=====================================================
+    override suspend fun registerCustomer(customer: CustomerRegisterModel): Response<CustomerRegisterModel> {
+       return networkService.register(customer)
+    }
+
+    override suspend fun loginCustomer(email:String): Response<CustomerModel> {
+//        Log.e("TAG", "Eng Hossam: ${networkService.login(email)}", )
+        return networkService.login(email)
+    }
 
 
 }

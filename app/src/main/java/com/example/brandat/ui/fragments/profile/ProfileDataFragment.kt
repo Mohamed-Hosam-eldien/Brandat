@@ -1,19 +1,13 @@
 package com.example.brandat.ui.fragments.profile
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProfileDataBinding
-import com.example.brandat.ui.OrderStatus
-import com.example.brandat.ui.Profile
 
 class ProfileDataFragment : Fragment() {
 
