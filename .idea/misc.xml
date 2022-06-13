@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/city_dropdown_item.xml" value="0.176" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_add_address.xml" value="0.1160081053698075" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_address.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.134" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/drawable/rounded_background.xml" value="0.1135" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/font/courgette.xml" value="0.2216796875" />
@@ -60,8 +63,27 @@
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/reviewer_row_layout.xml" value="0.171875" />
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/second_order_state.xml" value="0.1" />
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/slider_category_item.xml" value="0.171875" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout-v28/fragment_product_details.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/activity_order_status.xml" value="0.190625" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/activity_product.xml" value="0.190625" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/activity_profile.xml" value="0.190625" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/activity_registration.xml" value="0.190625" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/adderss_item.xml" value="0.190625" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/bottom_sheet.xml" value="0.190625" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/brands_item_shimmer.xml" value="0.190625" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/cart_item.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/data_not_found.xml" value="0.190625" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/first_order_status.xml" value="0.190625" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_address.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_category.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_favorite.xml" value="0.190625" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_home.xml" value="0.10606060606060606" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_product_details.xml" value="0.22" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/placeholder_product.xml" value="0.15833333333333333" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/product_item.xml" value="0.1" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/recycler_home_item.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/reviewer_row_layout.xml" value="0.190625" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/slider_category_item.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1365" />
