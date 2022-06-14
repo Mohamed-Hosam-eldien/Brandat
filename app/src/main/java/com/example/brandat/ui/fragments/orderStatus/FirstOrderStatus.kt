@@ -31,10 +31,10 @@ class FirstOrderStatus: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.btnNext.setOnClickListener{
-//            // nav to second screen
-//            findNavController().navigate(R.id.action_firstOrderStatus_to_secondOrderStatus)
-//        }
+        binding.next.setOnClickListener{
+            // nav to second screen
+            findNavController().navigate(R.id.action_firstOrderStatus_to_secondOrderStatus)
+        }
 
     }
 

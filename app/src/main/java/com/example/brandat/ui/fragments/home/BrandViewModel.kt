@@ -6,14 +6,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.brandat.NetworkResult
 import com.example.brandat.data.repos.products.IProductsRepository
-import com.example.brandat.data.repos.products.ProductsRepository
-import com.example.brandat.models.Brand
 import com.example.brandat.models.Brands
-import com.example.brandat.utils.NetworkResult
-import dagger.hilt.android.internal.Contexts.getApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response

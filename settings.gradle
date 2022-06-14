@@ -20,6 +20,14 @@ dependencyResolutionManagement {
     repositories {
         jcenter()
         maven { url 'https://jitpack.io' }
+        maven {
+            url  "https://cardinalcommerceprod.jfrog.io/artifactory/android"
+            credentials {
+
+                username mavenUsername
+                password mavenPassword
+            }
+        }
     }
 }
 rootProject.name = "Brandat"

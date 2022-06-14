@@ -15,5 +15,13 @@
     <fragment
         android:id="@+id/secondOrderStatus"
         android:name="com.example.brandat.ui.fragments.orderStatus.SecondOrderStatus"
-        android:label="SecondOrderStatus" />
+        android:label="SecondOrderStatus" >
+        <action
+            android:id="@+id/action_secondOrderStatus_to_finishOrderStateFragment"
+            app:destination="@id/finishOrderStateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/finishOrderStateFragment"
+        android:name="com.example.brandat.ui.fragments.orderStatus.checkOutOrder.FinishOrderStateFragment"
+        android:label="FinishOrderStateFragment" />
 </navigation>

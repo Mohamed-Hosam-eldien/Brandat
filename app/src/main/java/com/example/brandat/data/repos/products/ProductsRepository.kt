@@ -10,7 +10,6 @@ import com.example.brandat.models.Products
 import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
 import com.example.brandat.ui.fragments.cart.Cart
-import com.example.brandat.utils.NetworkResult
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response

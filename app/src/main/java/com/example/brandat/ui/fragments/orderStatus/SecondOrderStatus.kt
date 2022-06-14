@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.SecondOrderStateBinding
 
@@ -30,8 +31,10 @@ class SecondOrderStatus: Fragment() {
 
         binding.btnNext.setOnClickListener{
             // nav to second screen
+            findNavController().navigate(R.id.action_secondOrderStatus_to_finishOrderStateFragment)
 
         }
+
 
     }
 

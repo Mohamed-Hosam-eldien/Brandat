@@ -1,8 +1,9 @@
 package com.example.brandat.utils
 
-sealed class NetworkResult<T>(val data: T? = null, val message: String? = null) {
 
-    class Success<T>(data: T) : NetworkResult<T>(data)
-    class Error<T>(message: String?, data: T? = null) : NetworkResult<T>(data, message)
-    class Loading<T> : NetworkResult<T>()
+sealed class ResponseResult<S,E> {
+
+    data class Success<S,E>(val  data:S) : ResponseResult<S, E>()
+    data class Error<S,E>(val errorCode:E,val message:String?=null) :ResponseResult<S, E>()
 }
+
