@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName
 @Entity
 data class CustomerAddress(
 
+    var isSelected:Boolean,
     @SerializedName("address1")
     val address1: String,
     @PrimaryKey
@@ -20,6 +21,7 @@ data class CustomerAddress(
     fun printAddress():String{
         return "$address1, $city, $country"
     }
+
 }
 
 

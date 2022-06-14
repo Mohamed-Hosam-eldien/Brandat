@@ -67,7 +67,7 @@ class AddAddressFragment : Fragment() {
                 val street = binding.streerAddress.text.toString().trim()
                 val city = binding.autoCompleteCityTextView.text.toString().trim()
 
-                viewModel.insertAddress(CustomerAddress(street, city, country))
+                viewModel.insertAddress(CustomerAddress(false,street, city, country))
                findNavController().popBackStack()
 
             } else {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,12 +19,12 @@ import com.example.brandat.ui.fragments.address.OnClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FirstOrderStatus : Fragment(), OnClickListener {
+class FirstOrderStatus : Fragment(), OnRadioClickListener {
 
     private var _binding: FirstOrderStatusBinding? = null
     private val binding get() = _binding!!
     private val viewModel:AddressViewModel by viewModels()
-    private val mAdapter by lazy { AddressAdapter(this) }
+    private val mAdapter by lazy { AddressPaymentAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +43,13 @@ class FirstOrderStatus : Fragment(), OnClickListener {
 
         showObservedData()
 
+        binding.mapBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_firstOrderStatus_to_mapsFragment2)
+        }
+        binding.addAddressBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_firstOrderStatus_to_addAddressFragment2)
+        }
+
         binding.animationView.setOnClickListener {
             findNavController().navigate(R.id.action_firstOrderStatus_to_addAddressFragment2)
         }
@@ -58,7 +66,9 @@ class FirstOrderStatus : Fragment(), OnClickListener {
 
     private fun initView(addresses:List<CustomerAddress>) {
         if (addresses.isNotEmpty()){
-            binding.animationView.visibility = View.INVISIBLE
+            binding.animationView.visibility = View.GONE
+            binding.recyclerviewAddress.visibility = View.VISIBLE
+            binding.fabMenu.visibility = View.VISIBLE
             mAdapter.setDatat(addresses)
             //addressAdapter = AddressAdapter(this)
             binding.recyclerviewAddress.apply {
@@ -70,8 +80,8 @@ class FirstOrderStatus : Fragment(), OnClickListener {
 
     }
 
-    override fun onClick(city: CustomerAddress) {
-        TODO("Not yet implemented")
+    override fun onItemClick(city: CustomerAddress) {
+        Toast.makeText(context, "${city.printAddress()} ..selected", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {
