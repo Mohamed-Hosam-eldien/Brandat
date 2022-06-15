@@ -2,16 +2,16 @@ package com.example.brandat.data.source.remote
 
 import android.util.Log
 import com.example.brandat.models.*
+import com.example.brandat.models.draftOrder.DraftOrder
+import com.example.brandat.models.draftOrder.DraftOrderModel
 import retrofit2.Response
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
     private val networkService: NetworkService
 ) : IRemoteDataSource {
-    override suspend fun getProductDetails(productId: Long): Response<Product> {
-        Log.d("TAG", "getProductDetails: ${networkService.getProductDetails(productId).body()}")
-        Log.d("TAG", "getProductDetails id: $productId")
 
+    override suspend fun getProductDetails(productId: Long): Response<Product> {
         return networkService.getProductDetails(productId)
     }
 
@@ -36,10 +36,13 @@ class RemoteDataSource @Inject constructor(
     }
 
     override suspend fun loginCustomer(email:String, tags:String): Response<CustomerModel> {
-//        Log.e("TAG", "Eng Hossam: ${networkService.login(email)}", )
         return networkService.login(email, tags)
     }
 
+    override suspend fun postFavDraft(draftModel: DraftOrderModel): Response<DraftOrder> {
+        Log.e("TAG", "postFavDraft: ssss --> ${networkService.draftFavorite(draftModel)} ")
+        return networkService.draftFavorite(draftModel)
+    }
 
 }
 

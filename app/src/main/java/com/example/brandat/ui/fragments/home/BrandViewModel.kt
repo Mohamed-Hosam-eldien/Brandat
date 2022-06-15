@@ -6,14 +6,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.brandat.data.repos.products.IProductsRepository
-import com.example.brandat.data.repos.products.ProductsRepository
-import com.example.brandat.models.Brand
 import com.example.brandat.models.Brands
 import com.example.brandat.utils.NetworkResult
-import dagger.hilt.android.internal.Contexts.getApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -24,13 +20,11 @@ class BrandViewModel @Inject constructor(
     private var brandRepository: IProductsRepository,application: Application
 ) : AndroidViewModel(application) {
 
-
-
     private var _brandResponse = MutableLiveData<Response<Brands>>()
     var brandResponse = _brandResponse
 
     fun getBrands() = viewModelScope.launch {
-        var result = brandRepository.getbrand()
+        val result = brandRepository.getbrand()
 
        // brandResponse.postValue()//loading
         if (result is NetworkResult.Success<*>) {

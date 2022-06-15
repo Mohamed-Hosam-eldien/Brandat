@@ -24,6 +24,9 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentNewCategoryBinding
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
+import com.example.brandat.models.draftOrder.DraftOrderModel
+import com.example.brandat.models.draftOrder.DraftOrder
+import com.example.brandat.models.draftOrder.LineItem
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
@@ -52,6 +55,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Paper.init(requireActivity())
 
         val pressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -98,6 +103,9 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                     }
                 }
 
+
+                saveDraft(products[0])
+
                 if (products.size > 0)
                     binding.imgEmpty.visibility = View.GONE
                 else
@@ -139,6 +147,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                         products.add(product)
                 }
 
+                saveDraft(products[0])
 
                 if (products.size > 0)
                     binding.imgEmpty.visibility = View.GONE
@@ -183,6 +192,52 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 )
             }
 
+        }
+
+    }
+
+    private fun saveDraft(productDetails: ProductDetails) {
+
+        val lineItem = LineItem(
+            title =  productDetails.title,
+            vendor = productDetails.vendor,
+            price = productDetails.variants[0].price,
+            quantity = 5
+        )
+
+        val customer = com.example.brandat.models.draftOrder.Customer(
+            email = "test@gmail.com",
+            firstName = "test",
+            lastName = "test2",
+            id = 6260313555202,
+            tags = "11"
+        )
+
+//        val order = CustomerOrder(
+//            line_items = listOf(lineItem),
+//            email = "hosam@gmail.com",
+//            customer = customer
+//        )
+
+//        val orderModel = OrderModel(
+//            order
+//        )
+
+        val draft = DraftOrder(
+            line_items = listOf(lineItem),
+            customer = customer,
+            email = "test@gmail.com"
+        )
+
+        val response = DraftOrderModel(
+            draft
+        )
+
+        favouriteViewModel.postDatToApi(response)
+        favouriteViewModel.getFavouriteDraftModel.observe(viewLifecycleOwner) {
+            Log.e("TAG", "saveDraft: ---> responce $it")
+            Log.e("TAG", "saveDraft: ---> body ${it.body()}")
+            Log.e("TAG", "saveDraft: ---> code ${it.code()}")
         }
 
     }

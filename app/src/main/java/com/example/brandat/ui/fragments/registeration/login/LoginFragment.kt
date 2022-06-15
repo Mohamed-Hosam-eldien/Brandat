@@ -1,7 +1,6 @@
 package com.example.brandat.ui.fragments.registeration.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,22 +42,26 @@ class LoginFragment : Fragment() {
             if (checkEmpty()) {
                 binding.loginBtn.visibility = View.GONE
                 binding.prog.visibility = View.VISIBLE
-                loginViewModel.loginCustomer(binding.etEmail.text.toString(),binding.etPass.text.toString())
+                loginViewModel.loginCustomer(binding.etEmail.text.toString(),"")
             }
         }
 
         loginViewModel.signInSuccess.observe(viewLifecycleOwner){
             if(it.customer.isNotEmpty()) {
-                Toast.makeText(requireContext(), "congratulation", Toast.LENGTH_SHORT)
-                    .show()
+                if(it.customer[0].tags == binding.etPass.text.toString()) {
 
-                Paper.book().write("email", it.customer[0].email)
-                Paper.book().write("name", it.customer[0].firstName + " " + it.customer[0].lastName)
+                    Paper.book().write("email", it.customer[0].email)
+                    Paper.book().write("name", it.customer[0].firstName + " " + it.customer[0].lastName)
 
-                requireActivity().finish()
-                Toast.makeText(requireContext(), "User logged Successfully", Toast.LENGTH_SHORT).show()
-//                    Log.e("TAG", "aziza '((((( ${it.customer[0]}) ", )
-//
+                    requireActivity().finish()
+                    Toast.makeText(requireContext(), "User logged Successfully", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    binding.loginBtn.visibility = View.VISIBLE
+                    binding.prog.visibility = View.GONE
+                    binding.etPass.error = "not correct"
+                }
+
             } else {
                 Toast.makeText(requireContext(), "this user is not exist", Toast.LENGTH_SHORT)
                     .show()

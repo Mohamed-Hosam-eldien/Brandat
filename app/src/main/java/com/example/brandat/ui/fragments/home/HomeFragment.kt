@@ -1,10 +1,15 @@
 package com.example.brandat.ui.fragments.home
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(),BrandOnClickListner {
+class HomeFragment : Fragment(), BrandOnClickListner {
 
     lateinit var binding: FragmentHomeBinding
     lateinit var brandAdapter: BrandAdapter
@@ -38,10 +43,11 @@ class HomeFragment : Fragment(),BrandOnClickListner {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, pressedCallback)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         initView()
@@ -54,23 +60,45 @@ class HomeFragment : Fragment(),BrandOnClickListner {
 
         brandViewModel.getBrands()
         brandViewModel.brandResponse.observe(requireActivity()) {
-//           Log.e("TAG", "onViewCreated:${it} ")
             brands = it.body()!!.brands
-
             brandAdapter.setData(brands)
         }
         imageSlider()
 
+        discountInit()
 
+        binding.imgCopy.setOnClickListener {
+            val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("text", binding.txtCode.text)
+            clipboardManager.setPrimaryClip(clipData)
+            cardAnimation()
+            Toast.makeText(requireContext(), "Text copied to clipboard", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    private fun discountInit() {
+        binding.imgGift.setOnClickListener {
+            cardAnimation()
+        }
+    }
+
+    private fun cardAnimation() {
+        TransitionManager.beginDelayedTransition(binding.giftCard, AutoTransition())
+        binding.layoutCode.visibility = if (binding.layoutCode.visibility == View.GONE) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     private fun imageSlider() {
         val imageList = ArrayList<SlideModel>()
-        imageList.add(SlideModel(R.drawable.img_1,ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.img_2,ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.img_3,ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.sh2,ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.shose_image,ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.img_1, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.img_2, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.img_3, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.sh2, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.shose_image, ScaleTypes.CENTER_CROP))
 
 
         binding.imageSlider.setImageList(imageList)
@@ -79,7 +107,7 @@ class HomeFragment : Fragment(),BrandOnClickListner {
 
     private fun initView() {
 
-        brandAdapter = BrandAdapter(requireContext(),this)
+        brandAdapter = BrandAdapter(requireContext(), this)
 
         binding.brandsRecycler.apply {
             val layoutManager = GridLayoutManager(context, 2)
@@ -88,6 +116,7 @@ class HomeFragment : Fragment(),BrandOnClickListner {
 
         }
     }
+
     private fun showShimmerEffect() {
         binding.shimmerRecycle.showShimmerAdapter()
         binding.shimmerRecycle.visibility = View.VISIBLE
@@ -103,7 +132,7 @@ class HomeFragment : Fragment(),BrandOnClickListner {
     override fun onBrandClick(brandId: String) {
         bundle = Bundle()
         bundle.putString("brandId", brandId)
-        findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment,bundle)
+        findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment, bundle)
     }
 
 }

@@ -119,6 +119,7 @@ class CartRvAdapter(
             selectedOrders.forEach {
                 onClickListener.onClicked(it)
             }
+
             multiSelection = false
             selectedOrders.clear()
             mode?.finish()

@@ -1,6 +1,8 @@
 package com.example.brandat.data.source.remote
 
 import com.example.brandat.models.*
+import com.example.brandat.models.draftOrder.DraftOrder
+import com.example.brandat.models.draftOrder.DraftOrderModel
 import retrofit2.Response
 
 interface IRemoteDataSource {
@@ -13,4 +15,5 @@ interface IRemoteDataSource {
     suspend fun registerCustomer(customer: CustomerRegisterModel): Response<CustomerRegisterModel>
     suspend fun loginCustomer(email:String, tags:String): Response<CustomerModel>
 
+    suspend fun postFavDraft(draftModel: DraftOrderModel): Response<DraftOrder>
 }
