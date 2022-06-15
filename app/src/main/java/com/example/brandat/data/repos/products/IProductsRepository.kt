@@ -31,5 +31,5 @@ interface IProductsRepository {
     suspend fun getFavouriteProducts():List<Favourite>
     suspend fun  searchInFavouriteProducts(productName:String):Favourite
     suspend fun getCategories(productId: Long): Response<Products>
-
+    suspend fun isAdded(productName: String): Cart
 }

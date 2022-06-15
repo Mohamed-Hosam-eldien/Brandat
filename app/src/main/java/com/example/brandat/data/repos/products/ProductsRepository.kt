@@ -1,18 +1,12 @@
 package com.example.brandat.data.repos.products
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
-import com.example.brandat.models.CustomerAddress
-import com.example.brandat.models.Product
-import com.example.brandat.models.Products
 import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
+import com.example.brandat.models.Product
+import com.example.brandat.models.Products
 import com.example.brandat.ui.fragments.cart.Cart
-import com.example.brandat.utils.NetworkResult
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -22,7 +16,7 @@ import javax.inject.Inject
 class ProductsRepository @Inject constructor(
     private var localDataSource: ILocalDataSource,
     private var remoteDataSource: IRemoteDataSource
-    ) :IProductsRepository{
+) : IProductsRepository {
     override suspend fun insertFavouriteProduct(favourite: Favourite) {
         localDataSource.insertFavouriteProduct(favourite)
     }
@@ -44,10 +38,17 @@ class ProductsRepository @Inject constructor(
         return remoteDataSource.getCategories(productId)
     }
 
-    override suspend fun getbrand():Response<Brands> {
+
+    override suspend fun getbrand(): Response<Brands> {
         return remoteDataSource.getBrands()
     }
-//=============================Cart=========================
+
+    //=============================Cart=========================
+    override suspend fun isAdded(productName: String): Cart {
+        return localDataSource.isAdded(productName)
+        println("result from repo=====${localDataSource.isAdded(productName)}")
+    }
+
     override suspend fun addProductToCart(cartProduct: Cart) {
         localDataSource.addProductToCart(cartProduct)
     }
@@ -61,7 +62,7 @@ class ProductsRepository @Inject constructor(
     }
 
     override suspend fun getAllCartProducts(): List<Cart> {
-       return localDataSource.getAllCartProducts()
+        return localDataSource.getAllCartProducts()
     }
 
     override suspend fun updateOrder(product: Cart) {
@@ -73,7 +74,7 @@ class ProductsRepository @Inject constructor(
     }
 
     override suspend fun getProductDetails(productId: Long): Response<Product> {
-        return  remoteDataSource.getProductDetails(productId)
+        return remoteDataSource.getProductDetails(productId)
     }
 
     override suspend fun getAllProduct(): Response<Products> {

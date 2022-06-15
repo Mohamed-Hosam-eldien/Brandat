@@ -12,7 +12,7 @@ data class Favourite(
     var productId:Long,
     var productName:String,
     var productPrice:String,
-    val productImage:Bitmap,
+    val productImage:String,
     var isFav:Int
 
    ){

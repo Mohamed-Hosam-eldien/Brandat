@@ -1,16 +1,18 @@
 package com.example.brandat.ui.fragments.favorite
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.brandat.databinding.FavouriteItemBinding
 import com.example.brandat.models.Favourite
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.FavouriteDiffUtil
 
-class FavouriteAdapter(var onClickedListener: OnclickListener) :
+class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListener) :
     RecyclerView.Adapter<FavouriteAdapter.ProductViewHolder>() {
 
     private var fav_products = emptyList<Favourite>()
@@ -28,7 +30,8 @@ class FavouriteAdapter(var onClickedListener: OnclickListener) :
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val currentProduct = fav_products[position]
 
-        holder.binding.ivProductFav.setImageBitmap(currentProduct.productImage)
+        //holder.binding.ivProductFav.setImageBitmap(currentProduct.productImage)
+        Glide.with(context).load(currentProduct.productImage).into(holder.binding.ivProductFav)
         holder.binding.tvProductName.text = currentProduct.productName
         holder.binding.tvProductPrice.text = currentProduct.productPrice
 
@@ -62,7 +65,7 @@ class FavouriteAdapter(var onClickedListener: OnclickListener) :
         return Cart(
             favProduct.productName,
             favProduct.productPrice,
-            pImageFav = favProduct.productImage,
+            favProduct.productImage,
             pId = favProduct.productId
         )
     }

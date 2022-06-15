@@ -33,9 +33,12 @@ import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.ui.fragments.category.SharedViewModel
 import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
+import com.example.brandat.utils.Constants.Companion.count
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
@@ -46,13 +49,12 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     private var type: String = ""
     private lateinit var brandName: String
     private lateinit var bageCountI: IBadgeCount
-
+    private var isClicked: Boolean = false
     private val viewModel: CategoryViewModel by viewModels()
     private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
+
     private lateinit var model: SharedViewModel
-    private lateinit var notificationsBadges: View
-    private var count: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,13 +76,14 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
         binding = FragmentNewCategoryBinding.bind(view)
         Paper.init(requireContext())
-        bageCountI = MainActivity()
-
+        //  Paper.book().read<Int>("countFromCart")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        bageCountI = requireActivity() as MainActivity
 
         brandName = requireArguments().getString("brandId").toString()
 
@@ -96,6 +99,13 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             viewModel.getAllProductsByName()
             filterProducts()
 
+            Toast.makeText(requireContext(), "==$productID", Toast.LENGTH_SHORT).show()
+
+//            viewModel.isOrderd.observe(viewLifecycleOwner) {
+//                if(it != null) {
+//                    isClicked=true
+//                }
+//            }
             viewModel.productsLive.observe(viewLifecycleOwner) {
                 val products: ArrayList<ProductDetails> = ArrayList()
                 for (product in it.body()?.products!!) {
@@ -305,15 +315,54 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     }
 
     override fun onCartClicked(currentProduct: Cart) {
+        // isClicked=true
+        println("===id===${currentProduct.pId}")
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
+            // print("==========$isClicked")
             cartViewModel.addProductToCart(currentProduct)
-          //  bageCountI.updateBadgeCount(count++)
+            cartViewModel.isAdded(currentProduct.pName)
+            GlobalScope.launch {
 
-            //showSnackBar(currentProduct)
+            }
+            if (!isClicked) {
+                print("======clicked====$isClicked")
+                bageCountI.updateBadgeCount(count++)
+                Paper.book().write("CountfromHome", count)
+                isClicked = true
+            }
+//            if (!isClicked) {
+//
+//                isClicked=true
+//            }
         }
     }
+    //======================
+    // viewModel.isOrderd(currentProduct.pId)
+//            if (!isClicked){
+//                print("======clicked====$isClicked")
+//                cartViewModel.addProductToCart(currentProduct)
+//                Paper.book().write("CountfromHome", count++)
+//                bageCountI.updateBadgeCount(count)
+//                isClicked = true
+//            }
+//            else{
+//                isClicked=true
+//            }
+
+
+//            Toast.makeText(requireContext(), "Added to cart", Toast.LENGTH_SHORT).show()
+    // viewModel.isOrderd(currentProduct.pId)
+    // print("d3d3$isClicked")
+//            if (!isClicked) {//false
+//                Paper.book().write("CountfromHome", ++count)
+//                bageCountI.updateBadgeCount(count)
+//               // isClicked = true
+//            }
+
+    //showSnackBar(currentProduct)
+
 
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())

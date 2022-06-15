@@ -60,9 +60,9 @@ import com.example.brandat.utils.ProductDiffUtil
             if (holder.binding.ivFavorite.tag != "favorite") {
                 holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
                 holder.binding.ivFavorite.tag = "favorite"
-                val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
+              //  val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
                 onImageFavClickedListener.onFavClicked(
-                    setFavDataFake(currentProduct, bm), holder.binding.ivFavorite)
+                    setFavDataFake(currentProduct ), holder.binding.ivFavorite)
             } else {
                   onImageFavClickedListener.deleteFavourite(currentProduct.id)
                 holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
@@ -106,7 +106,6 @@ import com.example.brandat.utils.ProductDiffUtil
             productDetails.title,
             productDetails.variants[0].price,
             pImage = productDetails.imageProduct.src,
-            null,
             pId = productDetails.id,
             tPrice = productDetails.variants[0].price.toDouble()
         )
@@ -125,10 +124,10 @@ import com.example.brandat.utils.ProductDiffUtil
     }
 
 
-    private fun setFavDataFake(product :ProductDetails,imageView: Bitmap):Favourite{
+    private fun setFavDataFake(product :ProductDetails):Favourite{
         return Favourite(
             productId = product.id,
-            productImage = imageView,
+            productImage =product.imageProduct.src,
             productName = product.title, productPrice = "88", isFav = 1
         )
     }

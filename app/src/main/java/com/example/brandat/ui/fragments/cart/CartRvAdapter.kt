@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.cart
 
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -62,7 +63,6 @@ class CartRvAdapter(
         rootView = holder.itemView.rootView
         val currentCart = carts[position]
         holder.bind(currentCart)
-       // currentCart.
 
         totalPrice += currentCart.pPrice.toDouble()
 
@@ -85,16 +85,7 @@ class CartRvAdapter(
             onClickListener.onPluseMinusClicked(newValue, currentCart.pId, currentCart.pPrice)
         }
 
-        Log.d("TAG", "onBindViewHolder: --> image ${currentCart.pImage}")
-        //val bm = (currentCart.pImage as BitmapDrawable).bitmap
-
-        if(currentCart.pImage == "") {
-            holder.binding.imgProduct.setImageBitmap(currentCart.pImageFav)
-        } else {
             Glide.with(context).load(currentCart.pImage).into(holder.binding.imgProduct)
-        }
-
-
         holder.itemView.setOnClickListener {
             if (multiSelection) {
                 applySelection(holder, currentCart)
@@ -137,7 +128,14 @@ class CartRvAdapter(
 
     override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
         if (item?.itemId == R.id.delete_item_order_menue) {
-//            Toast.makeText(requireActivity, "${selectedOrders.size}", Toast.LENGTH_SHORT).show()
+            showDialog(mode)
+        }
+        return true
+    }
+
+    private fun showDialog(mode: ActionMode?) {
+        val builder = AlertDialog.Builder(context)
+        builder.setPositiveButton("Yes") { _, _ ->
             selectedOrders.forEach {
                 onClickListener.onClicked(it)
             }
@@ -145,8 +143,12 @@ class CartRvAdapter(
             selectedOrders.clear()
             mode?.finish()
         }
+        builder.setNegativeButton("No") { _, _ ->
 
-        return true
+        }
+        builder.setTitle("Delete?")
+         builder.setMessage("Are you sure you want to delete this item from Cart?")
+        builder.create().show()
     }
 
     override fun onDestroyActionMode(mode: ActionMode?) {
@@ -199,15 +201,6 @@ class CartRvAdapter(
         if (this::mActionMode.isInitialized) {
             mActionMode.finish()
         }
-    }
-
-    private fun showSnackBar(message: String) {
-        Snackbar.make(
-            rootView,
-            message,
-            Snackbar.LENGTH_SHORT
-        ).setAction("Okay") {}
-            .show()
     }
 
 }
