@@ -14,34 +14,81 @@
         android:layout_height="match_parent"
         tools:context=".ui.OrderStatus">
 
-
-        <params.com.stepview.StatusViewScroller
-            android:id="@+id/stepView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:stepCount="3"
-            app:currentCount="1"
-            app:drawLabels="true"
-            app:currentStepZoom="0.3"
-            app:lineGap="10dp"
-            app:lineWidth="3dp"
-            app:lineColor="#0A3EA0"
-            app:lineColorIncomplete="#5F80FC"
-            app:lineColorCurrent="#91A8D0"
-            app:circleColor="#0A3EA0"
-            app:circleRadius="14dp"
-            app:circleColorCurrent="#4A68FF"
-            app:circleColorIncomplete="#BCBCBE"
-            app:textColorLabels="@android:color/white"
-            app:textColorLabelsCurrent="@android:color/white"
-            app:textColorLabelsIncomplete="@android:color/black"
-            app:circleStrokeColorCurrent="#91A8D0"
-            app:textSizeLabels="14sp"
-            android:layout_marginTop="12dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:completeDrawable="@drawable/ic_done" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@color/purple_700">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="start"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/dimen_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imgBack"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_back"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/checkout"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <params.com.stepview.StatusViewScroller
+                    android:id="@+id/stepView"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:stepCount="3"
+                    app:currentCount="1"
+                    app:drawLabels="true"
+                    app:currentStepZoom="0.3"
+                    app:lineGap="10dp"
+                    app:lineWidth="3dp"
+                    app:lineColor="#A4A4A5"
+                    app:lineColorIncomplete="@color/lightGray"
+                    app:lineColorCurrent="#91A8D0"
+                    app:circleColor="@color/green"
+                    app:circleRadius="12dp"
+                    app:textColorStatus="@color/white"
+                    app:textSizeStatus="12dp"
+                    app:circleColorCurrent="@color/blue"
+                    app:circleColorIncomplete="@color/lightGray"
+                    app:textColorLabels="@android:color/white"
+                    app:textColorLabelsCurrent="@android:color/white"
+                    app:textColorLabelsIncomplete="@android:color/darker_gray"
+                    app:circleStrokeColorCurrent="#91A8D0"
+                    app:textSizeLabels="12sp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/toolbar"
+                    app:completeDrawable="@drawable/ic_done" />
+
+            </LinearLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
 
 
         <fragment
@@ -54,7 +101,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/stepView"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:navGraph="@navigation/order_navigation" />
 
 

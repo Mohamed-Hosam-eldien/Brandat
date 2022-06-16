@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FirstOrderStatusBinding
 import com.example.brandat.models.CustomerAddress
-import com.example.brandat.ui.fragments.address.AddressAdapter
+import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.fragments.address.AddressViewModel
-import com.example.brandat.ui.fragments.address.OnClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +22,8 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
 
     private var _binding: FirstOrderStatusBinding? = null
     private val binding get() = _binding!!
-    private val viewModel:AddressViewModel by viewModels()
+    lateinit var iChangeOrderStatus:IChangeOrderStatus
+    private val viewModel: AddressViewModel by viewModels()
     private val mAdapter by lazy { AddressPaymentAdapter(this) }
 
     override fun onCreateView(
@@ -33,6 +33,7 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
     ): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.first_order_status, container, false)
 
+        iChangeOrderStatus = requireActivity() as OrderStatus
 
         return binding.root
     }
@@ -53,28 +54,34 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
         binding.animationView.setOnClickListener {
             findNavController().navigate(R.id.action_firstOrderStatus_to_addAddressFragment2)
         }
+
+        binding.btnNext.setOnClickListener {
+            findNavController().navigate(R.id.action_firstOrderStatus_to_secondOrderStatus)
+            iChangeOrderStatus.changeStatus(1)
+        }
+
     }
 
-    fun showObservedData(){
+    private fun showObservedData() {
         viewModel.getAllAddress()
-        viewModel.getAddresses.observe(viewLifecycleOwner){
-
+        viewModel.getAddresses.observe(viewLifecycleOwner) {
             initView(it)
         }
 
     }
 
-    private fun initView(addresses:List<CustomerAddress>) {
-        if (addresses.isNotEmpty()){
+    private fun initView(addresses: List<CustomerAddress>) {
+        if (addresses.isNotEmpty()) {
             binding.animationView.visibility = View.GONE
+            binding.txt.visibility = View.GONE
             binding.recyclerviewAddress.visibility = View.VISIBLE
             binding.fabMenu.visibility = View.VISIBLE
             mAdapter.setDatat(addresses)
             //addressAdapter = AddressAdapter(this)
             binding.recyclerviewAddress.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-                adapter=mAdapter
-        }
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                adapter = mAdapter
+            }
 
         }
 
