@@ -88,8 +88,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         bageCountI = requireActivity() as MainActivity
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
            showShimmerEffect()
-//            viewModel.getAllProductsByName()
-//                   filterProducts()
+            viewModel.getAllProductsByName()
+                   filterProducts()
 //            Timer("SettingUp", false).schedule(10000) {
 //                requireActivity().runOnUiThread {
 //
@@ -220,8 +220,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     }
 
     private fun hideShimmerEffect() {
-        binding.shimmerRecycle.showShimmerAdapter()
-        binding.shimmerRecycle.visibility = View.VISIBLE
+        binding.shimmerRecycle.hideShimmerAdapter()
+        binding.shimmerRecycle.visibility = View.GONE
         binding.recyclerCategory.visibility=View.VISIBLE
     }
 
@@ -241,8 +241,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     }
 
     private fun showShimmerEffect() {
-        binding.shimmerRecycle.hideShimmerAdapter()
-        binding.shimmerRecycle.visibility = View.GONE
+        binding.shimmerRecycle.showShimmerAdapter()
+        binding.shimmerRecycle.visibility = View.VISIBLE
         binding.recyclerCategory.visibility = View.GONE
     }
 
