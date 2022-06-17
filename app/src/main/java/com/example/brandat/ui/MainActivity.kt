@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigationView.visibility = View.VISIBLE
             }
 
-    }
+        }
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }

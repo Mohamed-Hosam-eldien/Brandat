@@ -17,6 +17,7 @@ class SecondOrderStatus: Fragment() {
 
     lateinit var binding : SecondOrderStateBinding
     lateinit var iChangeOrderStatus:IChangeOrderStatus
+    private var checkout = ""
 
 
     override fun onCreateView(
@@ -38,13 +39,24 @@ class SecondOrderStatus: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.layoutCash.setOnClickListener {
-            Toast.makeText(requireContext(), "cash", Toast.LENGTH_SHORT).show()
+            binding.rdbCash.isChecked = true
+            binding.rdbCredit.isChecked = false
+            binding.rdbPay.isChecked = false
+            checkout = "cash"
         }
+
         binding.layoutCreditCard.setOnClickListener {
-            Toast.makeText(requireContext(), "credit", Toast.LENGTH_SHORT).show()
+            binding.rdbCash.isChecked = false
+            binding.rdbCredit.isChecked = true
+            binding.rdbPay.isChecked = false
+            checkout = "credit"
         }
+
         binding.layoutPaypal.setOnClickListener {
-            Toast.makeText(requireContext(), "paypal", Toast.LENGTH_SHORT).show()
+            binding.rdbCash.isChecked = false
+            binding.rdbCredit.isChecked = false
+            binding.rdbPay.isChecked = true
+            checkout = "paypal"
         }
 
         binding.btnApply.setOnClickListener {

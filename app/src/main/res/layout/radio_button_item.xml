@@ -11,18 +11,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/radio_btn"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:padding="12dp"
-            android:text="mohamed"
-            android:textColor="@color/black"
-            android:textSize="18sp"
+            app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <RadioButton
+                android:id="@+id/radio_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:padding="16dp"
+                android:text="mohamed"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

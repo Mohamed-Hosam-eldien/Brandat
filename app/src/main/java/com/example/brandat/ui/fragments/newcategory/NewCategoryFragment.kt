@@ -201,7 +201,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         val lineItem = LineItem(
             title =  productDetails.title,
             vendor = productDetails.vendor,
-            price = productDetails.variants[0].price,
+            //price = productDetails.variants[0].price,
+            price = "6",
             quantity = 5
         )
 

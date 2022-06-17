@@ -274,14 +274,14 @@
                                 android:layout_toEndOf="@id/cardImg"
                                 android:text="@string/credit_card" />
 
-                            <ImageView
-                                android:id="@+id/rdbCard"
+                            <RadioButton
+                                android:id="@+id/rdbCredit"
+                                android:clickable="false"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:gravity="end|center"
-                                android:src="@drawable/ic_arrow_right" />
+                                android:gravity="end|center" />
 
                         </RelativeLayout>
 
@@ -325,13 +325,14 @@
                                 android:layout_toEndOf="@id/imgCash"
                                 android:text="@string/paypal" />
 
-                            <ImageView
+                            <RadioButton
+                                android:id="@+id/rdbPay"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:gravity="end|center"
-                                android:src="@drawable/ic_arrow_right" />
+                                android:clickable="false"
+                                android:gravity="end|center" />
 
                         </RelativeLayout>
 
@@ -374,13 +375,15 @@
                                 android:layout_toEndOf="@id/imgPayball"
                                 android:text="@string/cash" />
 
-                            <ImageView
+                            <RadioButton
+                                android:id="@+id/rdbCash"
+                                android:clickable="false"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:gravity="end|center"
-                                android:src="@drawable/ic_arrow_right" />
+                                android:gravity="end|center" />
+
                         </RelativeLayout>
 
 
