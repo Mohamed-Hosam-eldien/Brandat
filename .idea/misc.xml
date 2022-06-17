@@ -64,9 +64,13 @@
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/drawable/shape.xml" value="0.146" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/alert_dialog.xml" value="0.20416666666666666" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/badge_text.xml" value="0.25" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/brands_item_shimmer.xml" value="0.1" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_home.xml" value="0.10606060606060606" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_new_category.xml" value="0.1" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_product_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/placeholder_product.xml" value="0.1" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/recycler_home_item.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/shimmer_product.xml" value="0.20416666666666666" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/slider_category_item.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1365" />

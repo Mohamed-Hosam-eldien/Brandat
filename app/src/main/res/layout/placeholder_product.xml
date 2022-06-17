@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="220dp"
+        android:layout_width="193dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         app:cardCornerRadius="21dp"
@@ -14,14 +14,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#504C4C">
+            android:background="@color/darkGray">
 
             <ImageView
                 android:id="@+id/iv_product"
                 android:layout_width="wrap_content"
-                android:layout_height="160dp"
-                android:scaleType="centerCrop"
+                android:layout_height="164dp"
                 android:background="@color/purple_700"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -31,23 +31,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
+                android:background="@color/darkGray"
                 android:padding="3dp"
-                android:background="@color/purple_700"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_product" />
 
             <TextView
                 android:id="@+id/tv_product_price"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="11dp"
+                android:background="#97918E"
                 android:fontFamily="serif-monospace"
-                android:padding="1dp"
-
-             android:background="@color/purple_700"
+                android:padding="9dp"
                 android:textSize="21sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/tv_product_name"
@@ -59,11 +59,12 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="19dp"
+                android:backgroundTint="@color/purple_700"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/tv_product_price"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_product_price"
                 app:layout_constraintTop_toTopOf="@id/tv_product_price"
-               android:backgroundTint="@color/purple_700"
                 app:tint="#C12E23" />
 
             <ImageView
@@ -71,11 +72,12 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="16dp"
-                android:padding="7dp"
                 android:background="@drawable/cart_shape_back"
+                android:backgroundTint="@color/purple_700"
+                android:padding="7dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/tv_product_name"
                 app:layout_constraintStart_toStartOf="parent"
-               android:backgroundTint="@color/purple_700"
                 app:tint="@color/white" />
 
 

@@ -1,6 +1,6 @@
 package com.example.brandat.data.repos.products
 
-import androidx.lifecycle.LiveData
+import com.example.brandat.utils.NetworkResult
 import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.Product
@@ -12,11 +12,11 @@ interface IProductsRepository {
 
     suspend fun getProductDetails(productId:Long):Response<Product>
 
-    suspend fun getAllProduct(): Response<Products>
+    suspend fun getAllProduct(): NetworkResult<Products?>
 
-    suspend fun getAllProductByType(type:String): Response<Products>
+    suspend fun getAllProductByType(type:String): NetworkResult<Products?>
 
-    suspend fun getbrand(): Response<Brands>
+    suspend fun getbrand(): NetworkResult<Brands?>
 
     //Cart
     suspend fun addProductToCart(cartProduct: Cart)
@@ -30,6 +30,6 @@ interface IProductsRepository {
     suspend fun removeFavouriteProduct(productId: Long)
     suspend fun getFavouriteProducts():List<Favourite>
     suspend fun  searchInFavouriteProducts(productName:String):Favourite
-    suspend fun getCategories(productId: Long): Response<Products>
+    suspend fun getCategories(productId: Long): NetworkResult<Products?>
     suspend fun isAdded(productName: String): Cart
 }

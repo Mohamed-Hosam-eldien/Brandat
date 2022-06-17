@@ -33,12 +33,14 @@ import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.ui.fragments.category.SharedViewModel
 import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
+import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants.Companion.count
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.concurrent.schedule
 
 @AndroidEntryPoint
 class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
@@ -84,9 +86,23 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         super.onViewCreated(view, savedInstanceState)
 
         bageCountI = requireActivity() as MainActivity
+        if (ConnectionUtil.isNetworkAvailable(requireContext())) {
+           showShimmerEffect()
+//            viewModel.getAllProductsByName()
+//                   filterProducts()
+//            Timer("SettingUp", false).schedule(10000) {
+//                requireActivity().runOnUiThread {
+//
+//                }
+//            }
+
+        }else{
+            showMessage("no Connection")
+            hideShimmerEffect()
+
+        }
 
         brandName = requireArguments().getString("brandId").toString()
-
         setUpRecyclerView()
         observeOnFavourite()
 
@@ -96,8 +112,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             binding.chipCatSub.text = "All"
             binding.groupChip.visibility = View.VISIBLE
 
-            viewModel.getAllProductsByName()
-            filterProducts()
+
 
             Toast.makeText(requireContext(), "==$productID", Toast.LENGTH_SHORT).show()
 
@@ -108,7 +123,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 //            }
             viewModel.productsLive.observe(viewLifecycleOwner) {
                 val products: ArrayList<ProductDetails> = ArrayList()
-                for (product in it.body()?.products!!) {
+                for (product in it) {
                     if (product.vendor == brandName.uppercase()) {
                         products.add(product)
                     }
@@ -150,7 +165,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 val products: ArrayList<ProductDetails> = ArrayList()
                 Log.e("TAG", "onViewCategoryCreated:${it} ")
 
-                for (product in it.body()?.products!!) {
+                for (product in it) {
                     if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
                         products.add(product)
                 }
@@ -200,7 +215,35 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             }
 
         }
+        ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(),viewModel, requireActivity())
 
+    }
+
+    private fun hideShimmerEffect() {
+        binding.shimmerRecycle.showShimmerAdapter()
+        binding.shimmerRecycle.visibility = View.VISIBLE
+        binding.recyclerCategory.visibility=View.VISIBLE
+    }
+
+    private fun showMessage(it: String) {
+
+        //  snackbar = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE).
+        setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+            resources.getColor(
+                R.color.black2
+            )
+        )
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
+
+
+    }
+
+    private fun showShimmerEffect() {
+        binding.shimmerRecycle.hideShimmerAdapter()
+        binding.shimmerRecycle.visibility = View.GONE
+        binding.recyclerCategory.visibility = View.GONE
     }
 
 
@@ -322,16 +365,14 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         } else {
             // print("==========$isClicked")
             cartViewModel.addProductToCart(currentProduct)
-            cartViewModel.isAdded(currentProduct.pName)
-            GlobalScope.launch {
-
-            }
-            if (!isClicked) {
-                print("======clicked====$isClicked")
-                bageCountI.updateBadgeCount(count++)
-                Paper.book().write("CountfromHome", count)
-                isClicked = true
-            }
+            bageCountI.updateBadgeCount(count++)
+            Paper.book().write("CountfromHome", count)
+            //cartViewModel.isAdded(currentProduct.pName)
+//            if (!isClicked) {
+//                print("======clicked====$isClicked")
+//
+//                isClicked = true
+//            }
 //            if (!isClicked) {
 //
 //                isClicked=true
@@ -388,11 +429,11 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     private fun showSnackBar(cart: Cart) {
         val snackbar = Snackbar.make(binding.newCat, "Added to Cart", Snackbar.LENGTH_LONG)
         snackbar.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.purple_700))
-        snackbar.setAction("undo") {
-            cartViewModel.removeProductFromCart(cart)
-            Toast.makeText(requireContext(), "Removed from Cart!", Toast.LENGTH_SHORT).show()
-        }.show()
+        snackbar.setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
+            .setBackgroundTint(resources.getColor(R.color.black2))
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Undo") {
+                cartViewModel.removeProductFromCart(cart)
+                Toast.makeText(requireContext(), "Removed from Cart!", Toast.LENGTH_SHORT).show()
+            }.show()
     }
 }

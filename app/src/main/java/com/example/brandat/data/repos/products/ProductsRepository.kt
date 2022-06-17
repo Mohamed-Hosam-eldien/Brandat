@@ -1,5 +1,7 @@
 package com.example.brandat.data.repos.products
 
+import android.util.Log
+import com.example.brandat.utils.NetworkResult
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
 import com.example.brandat.models.Brands
@@ -34,13 +36,50 @@ class ProductsRepository @Inject constructor(
         return localDataSource.searchInFavouriteProducts(productName)
     }
 
-    override suspend fun getCategories(productId: Long): Response<Products> {
-        return remoteDataSource.getCategories(productId)
+    override suspend fun getCategories(productId: Long): NetworkResult<Products?> {
+        val result: NetworkResult<Products?>
+        val response=remoteDataSource.getCategories(productId)
+        if(response.isSuccessful){
+            result=NetworkResult.Success(response.body())
+        }else{
+            result=NetworkResult.Error(Exception("error${response.code()}"))
+        }
+        return result
     }
 
+    override suspend fun getAllProduct(): NetworkResult<Products?> {
+        val result:NetworkResult<Products?>
+        val response=remoteDataSource.getAllProductsById()
+        if(response.isSuccessful){
+            result=NetworkResult.Success(response.body())
+        }else{
+            result=NetworkResult.Error(java.lang.Exception("error${response.code()}"))
+        }
+        return result
+    }
 
-    override suspend fun getbrand(): Response<Brands> {
-        return remoteDataSource.getBrands()
+    override suspend fun getAllProductByType(type: String): NetworkResult<Products?> {
+        val result:NetworkResult<Products?>
+        val response=remoteDataSource.getAllProductsByProductType(type)
+        if(response.isSuccessful){
+            result=NetworkResult.Success(response.body())
+        }else{
+            result=NetworkResult.Error(Exception("error${response.code()}"))
+        }
+        return result
+    }
+
+    override suspend fun getbrand(): NetworkResult<Brands?> {
+        val result: NetworkResult<Brands?>
+        val response = remoteDataSource.getBrands()
+        if (response.isSuccessful) {
+            Log.e("TAG", "==from repo:success ", )
+            result = NetworkResult.Success(response.body())
+        } else {
+            Log.e("TAG", "==from repo:error ", )
+            result = NetworkResult.Error(Exception("error${response.code()}"))
+        }
+        return result
     }
 
     //=============================Cart=========================
@@ -77,13 +116,6 @@ class ProductsRepository @Inject constructor(
         return remoteDataSource.getProductDetails(productId)
     }
 
-    override suspend fun getAllProduct(): Response<Products> {
-        return remoteDataSource.getAllProductsById()
-    }
-
-    override suspend fun getAllProductByType(type: String): Response<Products> {
-        return remoteDataSource.getAllProductsByProductType(type)
-    }
 
 
 }
