@@ -14,15 +14,15 @@ data class Customer(
     @SerializedName("currency")
     val currency: String = "EGP",
     @SerializedName("default_address")
-    val defaultAddress: DefaultAddress,
+    val defaultAddress: DefaultAddress?=null,
     @SerializedName("email")
-    val email: String,//=========================
+    val email: String="",//=========================
     @SerializedName("first_name")
-    val firstName: String,//=====================
+    val firstName: String="",//=====================
     @SerializedName("id")
     val id: Long = 0L,//==========================
     @SerializedName("last_name")
-    val lastName: String,//====================
+    val lastName: String="",//====================
     @SerializedName("last_order_id")
     val lastOrderId: Any? = null,
     @SerializedName("last_order_name")

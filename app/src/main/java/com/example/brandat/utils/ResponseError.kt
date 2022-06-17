@@ -6,5 +6,6 @@ enum class ResponseError {
     EmptyBody,
     NullValue,
     NoLoginCustomer,
+    EmailAlreadyExist
 
 }

@@ -97,6 +97,8 @@
         <entry key="app/src/main/res/layout/fragment_address.xml" value="0.165625" />
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.165625" />
         <entry key="app/src/main/res/layout/fragment_finsh_order_state.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_pay_pal.xml" value="0.1644021739130435" />
+        <entry key="app/src/main/res/layout/fragment_payment.xml" value="0.1644021739130435" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.165625" />
       </map>
     </option>

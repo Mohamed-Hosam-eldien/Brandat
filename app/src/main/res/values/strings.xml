@@ -67,6 +67,9 @@
     <string name="password">Password</string>
     <string name="total">Total</string>
     <string name="message_order_don">ok</string>
+    <string name="operation_succeeded">operation  succeeded</string>
+    <string name="operation_faild">operation Faild</string>
+    <string name="someThing_wrong_happened">error</string>
 
     <string-array name="country_list">
         <item>Egypt</item>

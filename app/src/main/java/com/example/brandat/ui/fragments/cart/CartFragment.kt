@@ -49,11 +49,11 @@ class CartFragment : Fragment(), CartOnClickListener {
         Paper.init(requireContext())
 
         binding.buyButn.setOnClickListener {
-            if(Paper.book().read<String>("email") == null) {
-                showDialog()
-            } else {
+//            if(Paper.book().read<String>("email") == null) {
+//                showDialog()
+//            } else {
                 startActivity(Intent(requireContext(), OrderStatus::class.java))
-            }
+           // }
         }
         cartViewModel.getAllCartProduct()
 

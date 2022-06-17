@@ -18,10 +18,10 @@
         android:label="SecondOrderStatus" >
         <action
             android:id="@+id/action_secondOrderStatus_to_finishOrderStateFragment"
-            app:destination="@id/finishOrderStateFragment" />
+            app:destination="@id/checkOutOrderFragment" />
     </fragment>
     <fragment
-        android:id="@+id/finishOrderStateFragment"
-        android:name="com.example.brandat.ui.fragments.orderStatus.checkOutOrder.FinishOrderStateFragment"
+        android:id="@+id/checkOutOrderFragment"
+        android:name="com.example.brandat.ui.fragments.orderStatus.checkOutOrder.CheckOutOrderFragment"
         android:label="FinishOrderStateFragment" />
 </navigation>

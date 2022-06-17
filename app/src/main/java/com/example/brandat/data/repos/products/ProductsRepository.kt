@@ -1,17 +1,17 @@
 package com.example.brandat.data.repos.products
 
-import android.util.Log
-import androidx.lifecycle.LiveData
+
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
-import com.example.brandat.models.CustomerAddress
 import com.example.brandat.models.Product
 import com.example.brandat.models.Products
 import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
+import com.example.brandat.models.OrderModel.OrderModel
+import com.example.brandat.models.OrderModel.OrderResponse
 import com.example.brandat.ui.fragments.cart.Cart
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import dagger.hilt.android.scopes.ViewModelScoped
+import com.example.brandat.utils.ResponseError
+import com.example.brandat.utils.ResponseResult
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -42,6 +42,7 @@ class ProductsRepository @Inject constructor(
     override suspend fun getCategories(productId: Long): Response<Products> {
         return remoteDataSource.getCategories(productId)
     }
+
 
     override suspend fun getbrand():Response<Brands> {
         return remoteDataSource.getBrands()
@@ -83,5 +84,24 @@ class ProductsRepository @Inject constructor(
         return remoteDataSource.getAllProductsByProductType(type)
     }
 
+    override suspend fun createOrder(order: OrderModel): ResponseResult<OrderResponse> {
+        return try {
+            val res = remoteDataSource.createOrder(order)
+            if (res.isSuccessful) {
+                val body = res.body()
+                if (body != null) {
+                    ResponseResult.Success(body)
+                } else {
+                    ResponseResult.Error(res.message())
+                }
+            } else {
+                ResponseResult.Error(res.message())
+            }
 
-}
+        } catch (t: Throwable) {
+            ResponseResult.Error(t.message)
+        }
+    }
+    }
+
+

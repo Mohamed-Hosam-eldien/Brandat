@@ -1,5 +1,6 @@
 package com.example.brandat.utils
 
+import com.example.brandat.models.OrderModel.LineItem
 import com.example.brandat.ui.fragments.cart.Cart
 
 fun List<Cart>.getPrice() :Double{
@@ -12,11 +13,11 @@ fun List<Cart>.getPrice() :Double{
 
 
 
-//fun List<Cart>.toLineItem(): List<LineItem> {
-//    return map {
-//        LineItem(
-//            quantity = it.pQuantity,
-//            variant_id= it.variantId!!
-//            )
-//    }
-//}
+fun List<Cart>.toLineItem(): List<LineItem> {
+    return map {
+        LineItem(
+            quantity = it.pQuantity,
+            variant_id= it.variantId!!
+            )
+    }
+}
