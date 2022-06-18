@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.ActivityMainBinding
+import com.example.brandat.ui.fragments.serach.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,16 +34,24 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
             }
-
         }
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
         binding.imgProfile.setOnClickListener {
-            //
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
+        binding.search.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.bottomNavigationView.visibility = View.VISIBLE
+        binding.toolbar.visibility = View.VISIBLE
     }
 
     override fun onSupportNavigateUp(): Boolean {

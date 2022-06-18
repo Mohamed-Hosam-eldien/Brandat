@@ -34,4 +34,5 @@ data class BillingAddress(
     val provinceCode: Any,
     @SerializedName("zip")
     val zip: String
+
 )

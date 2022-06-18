@@ -2,7 +2,6 @@ package com.example.brandat.ui.fragments.category
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -16,8 +15,8 @@ import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.FavouriteDiffUtil
 import com.example.brandat.utils.ProductDiffUtil
 
-
- class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener) : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
+ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener)
+     : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
 
    // private var products = emptyList<Product>()
     private var product = emptyList<ProductDetails>()

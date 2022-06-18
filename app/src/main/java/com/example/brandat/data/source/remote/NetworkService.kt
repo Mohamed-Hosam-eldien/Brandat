@@ -24,6 +24,7 @@ interface NetworkService {
     @GET("products.json?product_type=")
     suspend fun getProductsBySubCategory(@Query("product_type") product_type: String): Response<Products>
 
+
     @Headers("X-Shopify-Access-Token: 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")
     @GET("products/{id}.json")
     suspend fun getProductDetails(@Path("id") productId: Long): Response<Product>

@@ -235,11 +235,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         )
 
         favouriteViewModel.postDatToApi(response)
-        favouriteViewModel.getFavouriteDraftModel.observe(viewLifecycleOwner) {
-            Log.e("TAG", "saveDraft: ---> responce $it")
-            Log.e("TAG", "saveDraft: ---> body ${it.body()}")
-            Log.e("TAG", "saveDraft: ---> code ${it.code()}")
-        }
+
 
     }
 

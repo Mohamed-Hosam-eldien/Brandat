@@ -175,4 +175,9 @@ class CartFragment : Fragment(), CartOnClickListener {
         builder.create().show()
     }
 
+    override fun onResume() {
+        super.onResume()
+        cartViewModel.getAllCartProduct()
+    }
+
 }

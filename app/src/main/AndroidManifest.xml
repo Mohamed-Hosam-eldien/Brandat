@@ -5,8 +5,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".MyApplication"
@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Brandat"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
+        <activity
+            android:name=".ui.fragments.serach.SearchActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -31,11 +34,10 @@
             android:exported="false" />
         <activity
             android:name=".ui.ProductActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".ui.fragments.registeration.RegistrationActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
@@ -44,7 +46,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

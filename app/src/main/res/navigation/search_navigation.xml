@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_navigation"
+    app:startDestination="@id/searchFragment2">
+
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.brandat.ui.fragments.serach.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment2_to_productDetailsFragment2"
+            app:destination="@id/productDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment2"
+        android:name="com.example.brandat.ui.fragments.productdetails.ProductDetailsFragment"
+        android:label="ProductDetailsFragment" />
+</navigation>

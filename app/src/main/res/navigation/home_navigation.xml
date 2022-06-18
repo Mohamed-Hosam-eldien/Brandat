@@ -20,6 +20,9 @@
             app:destination="@id/newCategoryFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -99,4 +102,8 @@
             android:id="@+id/action_categoryBottomSheetType_to_newCategoryFragment"
             app:destination="@id/newCategoryFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.brandat.ui.fragments.serach.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

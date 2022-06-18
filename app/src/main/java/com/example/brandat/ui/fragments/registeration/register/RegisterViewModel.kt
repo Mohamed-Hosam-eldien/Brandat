@@ -20,8 +20,6 @@ class RegisterViewModel @Inject constructor(private val IRepo: IUserRepository) 
     var signUpSuccess: LiveData<CustomerRegisterModel> = _signUpSuccess
 
    fun registerCustomer(customer: CustomerRegisterModel) = viewModelScope.launch {
-       Log.e("TAG", "===CODE====> :${IRepo.registerCustomer(customer).code()}")
-
        _signUpSuccess.postValue(IRepo.registerCustomer(customer).body())
     }
 
