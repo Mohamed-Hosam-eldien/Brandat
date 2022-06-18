@@ -70,6 +70,10 @@
     <string name="operation_succeeded">operation  succeeded</string>
     <string name="operation_faild">operation Faild</string>
     <string name="someThing_wrong_happened">error</string>
+    <string name="checkout">Checkout</string>
+    <string name="click_to_add_your_address">Click to add your address</string>
+    <string name="send_order">Send Order</string>
+    <string name="promo_code">Promo Code</string>
 
     <string-array name="country_list">
         <item>Egypt</item>

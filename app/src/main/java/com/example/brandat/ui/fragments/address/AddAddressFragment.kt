@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -66,15 +67,11 @@ class AddAddressFragment : Fragment() {
                 val street = binding.streerAddress.text.toString().trim()
                 val city = binding.autoCompleteCityTextView.text.toString().trim()
 
-                viewModel.insertAddress(CustomerAddress(street, city, country))
+                viewModel.insertAddress(CustomerAddress(false,street, city, country))
                findNavController().popBackStack()
 
             } else {
-                Snackbar.make(
-                    binding.root,
-                    "ALL Fields end with * Reqiured please fill its .",
-                    Snackbar.LENGTH_LONG
-                ).show()
+                Toast.makeText(context ,"There is an empty field" , Toast.LENGTH_SHORT).show()
             }
 
         }

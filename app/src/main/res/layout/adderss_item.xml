@@ -4,6 +4,10 @@
 
     <data>
 
+        <variable
+            name="address"
+            type="com.example.brandat.models.CustomerAddress" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -38,7 +42,7 @@
                 android:maxLines="1"
                 android:padding="8dp"
                 android:paddingStart="16dp"
-                android:text="iti , ismailia , cairo"
+                android:text=""
                 android:textAlignment="textStart"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"

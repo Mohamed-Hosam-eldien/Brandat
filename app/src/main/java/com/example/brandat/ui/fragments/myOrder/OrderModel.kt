@@ -12,7 +12,6 @@ data class OrderModel(
     var orderImage:Int?,
     val itemsNumber: String?,
 
-
     ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),

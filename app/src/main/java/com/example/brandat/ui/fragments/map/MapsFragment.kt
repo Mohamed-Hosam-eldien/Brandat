@@ -57,6 +57,7 @@ class MapsFragment : Fragment() {
          */
 
         googleMap.setOnMapClickListener { latLng ->
+
             latAndLong = latLng
             val options = MarkerOptions()
             options.position(latAndLong)
@@ -95,15 +96,20 @@ class MapsFragment : Fragment() {
 
 
         binding.btnLocation.setOnClickListener {
+            if (latitude>0 && longitude>0){
 
-            customerAddress = getTimeZone(latitude, longitude)
+                customerAddress = getTimeZone(latitude, longitude)
 
-            viewModel.insertAddress(customerAddress)
+                viewModel.insertAddress(customerAddress)
 
-            Toast.makeText(requireContext(), "this country saved successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "this country saved successfully", Toast.LENGTH_SHORT).show()
 
-            findNavController().popBackStack()
-            //navController.popBackStack()
+                findNavController().popBackStack()
+                //navController.popBackStack()
+            }else{
+                Toast.makeText(context, "Please select your address", Toast.LENGTH_SHORT).show()
+            }
+
 
         }
     }
@@ -125,7 +131,6 @@ class MapsFragment : Fragment() {
                 val address = addresses[0]
                 //street = address.locality
 
-
                 state = address.locality ?: address.featureName
                 city = address.adminArea ?: "Suez"
                 country = address.countryName ?: "Egypt"
@@ -137,6 +142,6 @@ class MapsFragment : Fragment() {
 
         }
 
-        return CustomerAddress(state, city, country)
+        return CustomerAddress(false,state, city, country)
     }
 }

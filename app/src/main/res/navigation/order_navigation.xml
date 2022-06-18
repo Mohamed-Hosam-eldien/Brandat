@@ -11,10 +11,17 @@
         <action
             android:id="@+id/action_firstOrderStatus_to_secondOrderStatus"
             app:destination="@id/secondOrderStatus" />
+        <action
+            android:id="@+id/action_firstOrderStatus_to_addAddressFragment2"
+            app:destination="@id/addAddressFragment2" />
+        <action
+            android:id="@+id/action_firstOrderStatus_to_mapsFragment2"
+            app:destination="@id/mapsFragment2" />
+
     </fragment>
     <fragment
         android:id="@+id/secondOrderStatus"
-        android:name="com.example.brandat.ui.fragments.orderStatus.SecondOrderStatus"
+        android:name="com.example.brandat.ui.fragments.orderStatus.secondState.SecondOrderStatus"
         android:label="SecondOrderStatus" >
         <action
             android:id="@+id/action_secondOrderStatus_to_finishOrderStateFragment"
@@ -24,4 +31,20 @@
         android:id="@+id/checkOutOrderFragment"
         android:name="com.example.brandat.ui.fragments.orderStatus.checkOutOrder.CheckOutOrderFragment"
         android:label="FinishOrderStateFragment" />
+    <fragment
+        android:id="@+id/addAddressFragment2"
+        android:name="com.example.brandat.ui.fragments.address.AddAddressFragment"
+        android:label="AddAddressFragment" >
+        <action
+            android:id="@+id/action_addAddressFragment2_to_firstOrderStatus"
+            app:destination="@id/firstOrderStatus" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment2"
+        android:name="com.example.brandat.ui.fragments.map.MapsFragment"
+        android:label="MapsFragment" >
+        <action
+            android:id="@+id/action_mapsFragment2_to_firstOrderStatus"
+            app:destination="@id/firstOrderStatus" />
+    </fragment>
 </navigation>

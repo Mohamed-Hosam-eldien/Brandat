@@ -1,6 +1,6 @@
 package com.example.brandat.utils
 
-import com.example.brandat.models.OrderModel.LineItem
+import com.example.brandat.models.orderModel.LineItem
 import com.example.brandat.ui.fragments.cart.Cart
 
 fun List<Cart>.getPrice() :Double{

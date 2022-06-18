@@ -1,14 +1,16 @@
 package com.example.brandat.data.repos.products
 
-import androidx.lifecycle.LiveData
+import com.example.brandat.models.draftOrder.DraftOrder
+import com.example.brandat.models.draftOrder.DraftOrderModel
 import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
-import com.example.brandat.models.OrderModel.OrderModel
-import com.example.brandat.models.OrderModel.OrderResponse
+import com.example.brandat.models.orderModel.OrderModel
+import com.example.brandat.models.orderModel.OrderResponse
 import com.example.brandat.models.Product
 import com.example.brandat.models.Products
+import com.example.brandat.models.orderModel.DiscountCodes
+import com.example.brandat.models.orderModel.discount.PriceRules
 import com.example.brandat.ui.fragments.cart.Cart
-import com.example.brandat.utils.ResponseError
 import com.example.brandat.utils.ResponseResult
 import retrofit2.Response
 
@@ -39,5 +41,11 @@ interface IProductsRepository {
 
     // post order
     suspend fun createOrder(orders: OrderModel): ResponseResult<OrderResponse>
+
+    suspend fun postFavDraft(draftModel: DraftOrderModel) : Response<DraftOrder>
+
+    //discount code
+    suspend fun  getDiscountCodes():ResponseResult<PriceRules>
+
 
 }

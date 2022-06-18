@@ -5,12 +5,17 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brandat.NetworkResult
 import com.example.brandat.data.repos.products.IProductsRepository
 import com.example.brandat.models.Brands
+import com.example.brandat.models.orderModel.DiscountCodes
+import com.example.brandat.models.orderModel.discount.PriceRules
+import com.example.brandat.utils.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -24,6 +29,8 @@ class BrandViewModel @Inject constructor(
 
     private var _brandResponse = MutableLiveData<Response<Brands>>()
     var brandResponse = _brandResponse
+    private var _discountCodes = MutableLiveData<ResponseResult<PriceRules>>()
+    val discountCodes : LiveData<ResponseResult<PriceRules>> = _discountCodes
 
     fun getBrands() = viewModelScope.launch {
         var result = brandRepository.getbrand()
@@ -75,6 +82,13 @@ class BrandViewModel @Inject constructor(
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
             else -> false
+        }
+    }
+
+    fun getDiscountCode(){
+        viewModelScope.launch(Dispatchers.IO) {
+         val res =   brandRepository.getDiscountCodes()
+            _discountCodes.postValue(res)
         }
     }
 

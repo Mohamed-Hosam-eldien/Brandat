@@ -80,7 +80,7 @@ class AddressFragment : Fragment() ,OnClickListener{
     private fun fakeData(): ArrayList<CustomerAddress> {
       var addressList = ArrayList<CustomerAddress>()
         for (i in 1 .. 10) {
-            addressList.add(CustomerAddress("ismalia ,  ", "egypt","mmm"))
+            addressList.add(CustomerAddress(false,"ismalia ,  ", "egypt","mmm"))
         }
         return  addressList
 
@@ -93,11 +93,11 @@ class AddressFragment : Fragment() ,OnClickListener{
     override fun onClick(customerAddress: CustomerAddress) {
         // remove address form recycler
         // dont forget to ask user berfor remove
-        makeText(context, "deleted", Toast.LENGTH_SHORT).show()
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes"){_,_,->
             viewModel.removeAddress(customerAddress.city)
-            showObservedData()
+            viewModel.getAllAddress()
+            //activity?.recreate()
         }
         builder.setNegativeButton("Cancel"){_,_,->
 
@@ -106,9 +106,6 @@ class AddressFragment : Fragment() ,OnClickListener{
         builder.setTitle("Delete This Address")
         builder.setMessage("Are you sure you want to delete ${customerAddress.address1} address")
         builder.create().show()
-
-
-
 
     }
 }

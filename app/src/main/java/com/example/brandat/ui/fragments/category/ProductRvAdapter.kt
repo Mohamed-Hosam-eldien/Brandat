@@ -108,7 +108,7 @@ import com.example.brandat.utils.ProductDiffUtil
             pImage = productDetails.imageProduct.src,
             pId = productDetails.id,
             tPrice = productDetails.variants[0].price.toDouble(),
-            variantId = productDetails.
+            variantId = productDetails.variants[0].id
         )
     }
 

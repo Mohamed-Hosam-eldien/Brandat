@@ -52,7 +52,9 @@ class CartFragment : Fragment(), CartOnClickListener {
 //            if(Paper.book().read<String>("email") == null) {
 //                showDialog()
 //            } else {
-                startActivity(Intent(requireContext(), OrderStatus::class.java))
+            var intent =Intent(requireContext(), OrderStatus::class.java)
+            intent.putExtra("total",binding.tvTotal.text)
+             startActivity(intent)
            // }
         }
         cartViewModel.getAllCartProduct()
