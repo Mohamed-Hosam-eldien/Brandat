@@ -1,16 +1,11 @@
 package com.example.brandat.ui.fragments.home
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkRequest
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -34,8 +29,9 @@ class HomeFragment : Fragment(), BrandOnClickListner {
     lateinit var brandAdapter: BrandAdapter
     private lateinit var brands: List<Brand>
     private lateinit var bundle: Bundle
-    private lateinit var snackbar: Snackbar
+    var snack: Snackbar? = null
     private val brandViewModel: BrandViewModel by viewModels()
+    private lateinit var observer: Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,11 +55,15 @@ class HomeFragment : Fragment(), BrandOnClickListner {
         //showShimmerEffect()
         return binding.root
     }
- //==================================================
+
+    //==================================================
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         imageSlider()
         Log.e("TAG", "==from home: ")
+
+
+
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
             showShimmerEffect()
             //brandViewModel.getBrands()
@@ -73,41 +73,59 @@ class HomeFragment : Fragment(), BrandOnClickListner {
             Handler().postDelayed({
                 brandViewModel.getBrands()
             }, 10000)
+
+
         } else {
             //brandViewModel.getBrandsFromDB()//cashing
-            showMessage("no connection")
+//            brandViewModel.brandResponse.removeObserver{
+//                Toast.makeText(requireContext(), "remove", Toast.LENGTH_SHORT).show()
+//            }
+
+           // ConnectionUtil.showMessage(requireParentFragment())
+               showMessage("No Connection")
             hideShimmerEffect()
             binding.animationView.visibility = View.VISIBLE
         }
-        brandViewModel.brandResponse.observe(requireActivity()) {
+        observer = brandViewModel.brandResponse.observe(requireActivity()) {
             if (it != null) {
                 binding.animationView.visibility = View.GONE
                 //hide snake bar
-                // snackbar.dismiss()
+                //  snack?.dismiss()
+                //ConnectionUtil.snack?.dismiss()
                 brands = it
                 brandAdapter.setData(brands)
                 hideShimmerEffect()
+
+
             } else {
                 //showShimmerEffect()
             }
         }
-        ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(),brandViewModel,requireActivity())
+        ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(), brandViewModel, requireActivity())
     }
 
-    //==================================================
     private fun showMessage(it: String) {
 
-       //  snackbar = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
-        Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE).
-            setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+        //snack = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
                 resources.getColor(
                     R.color.black2
                 )
             )
-                .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
-                }.show()
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
+//        snack?.apply {
+//            setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+//                resources.getColor(
+//                    R.color.black2
+//                )
+//            )
+//                .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+//                }.show()
+//        }
     }
-    //==================================================
+
     private fun imageSlider() {
         val imageList = ArrayList<SlideModel>()
         imageList.add(SlideModel(R.drawable.img_1, ScaleTypes.CENTER_CROP))
@@ -150,5 +168,6 @@ class HomeFragment : Fragment(), BrandOnClickListner {
         bundle.putString("brandId", brandId)
         findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment, bundle)
     }
+
 
 }

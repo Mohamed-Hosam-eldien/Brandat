@@ -10,7 +10,7 @@ import retrofit2.Response
 
 interface IProductsRepository {
 
-    suspend fun getProductDetails(productId:Long):Response<Product>
+    suspend fun getProductDetails(productId:Long):NetworkResult<Product?>
 
     suspend fun getAllProduct(): NetworkResult<Products?>
 

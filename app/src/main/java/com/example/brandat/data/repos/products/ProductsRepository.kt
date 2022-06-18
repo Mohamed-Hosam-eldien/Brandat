@@ -19,22 +19,6 @@ class ProductsRepository @Inject constructor(
     private var localDataSource: ILocalDataSource,
     private var remoteDataSource: IRemoteDataSource
 ) : IProductsRepository {
-    override suspend fun insertFavouriteProduct(favourite: Favourite) {
-        localDataSource.insertFavouriteProduct(favourite)
-    }
-
-    override suspend fun removeFavouriteProduct(productId: Long) {
-        localDataSource.removeFavouriteProduct(productId)
-
-    }
-
-    override suspend fun getFavouriteProducts(): List<Favourite> {
-        return localDataSource.getFavouriteProducts()
-    }
-
-    override suspend fun searchInFavouriteProducts(productName: String): Favourite {
-        return localDataSource.searchInFavouriteProducts(productName)
-    }
 
     override suspend fun getCategories(productId: Long): NetworkResult<Products?> {
         val result: NetworkResult<Products?>
@@ -81,8 +65,17 @@ class ProductsRepository @Inject constructor(
         }
         return result
     }
+    override suspend fun getProductDetails(productId: Long): NetworkResult<Product?> {
+        val result:NetworkResult<Product?>
+        val response=remoteDataSource.getProductDetails(productId)
+        if(response.isSuccessful){
+            result=NetworkResult.Success(response.body())
+        }else{
+            result=NetworkResult.Error(java.lang.Exception("error${response.code()}"))
+        }
+        return result
+    }
 
-    //=============================Cart=========================
     override suspend fun isAdded(productName: String): Cart {
         return localDataSource.isAdded(productName)
         println("result from repo=====${localDataSource.isAdded(productName)}")
@@ -111,10 +104,24 @@ class ProductsRepository @Inject constructor(
     override suspend fun getAllPrice(): Double {
         return localDataSource.getAllPrice()
     }
-
-    override suspend fun getProductDetails(productId: Long): Response<Product> {
-        return remoteDataSource.getProductDetails(productId)
+    override suspend fun insertFavouriteProduct(favourite: Favourite) {
+        localDataSource.insertFavouriteProduct(favourite)
     }
+
+    override suspend fun removeFavouriteProduct(productId: Long) {
+        localDataSource.removeFavouriteProduct(productId)
+
+    }
+
+    override suspend fun getFavouriteProducts(): List<Favourite> {
+        return localDataSource.getFavouriteProducts()
+    }
+
+    override suspend fun searchInFavouriteProducts(productName: String): Favourite {
+        return localDataSource.searchInFavouriteProducts(productName)
+    }
+
+
 
 
 

@@ -24,7 +24,7 @@ class BrandViewModel @Inject constructor(
     private var _setError = MutableLiveData<String>()
     private var _setLoad = MutableLiveData<Int>()
 
-    var brandResponse = _brandResponse
+    var brandResponse:LiveData<List<Brand>> = _brandResponse
     var getError: LiveData<String> =_setError
     var getLoad: LiveData<Int> =_setLoad
 

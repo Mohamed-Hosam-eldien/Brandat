@@ -49,7 +49,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     private lateinit var productRvAdapter: ProductRvAdapter
     private var productID: Long = 0
     private var type: String = ""
-    private lateinit var brandName: String
+    private var brandName: String = "null"
     private lateinit var bageCountI: IBadgeCount
     private var isClicked: Boolean = false
     private val viewModel: CategoryViewModel by viewModels()
@@ -88,13 +88,125 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         bageCountI = requireActivity() as MainActivity
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
            showShimmerEffect()
+
             viewModel.getAllProductsByName()
-                   filterProducts()
+            filterProducts()
 //            Timer("SettingUp", false).schedule(10000) {
 //                requireActivity().runOnUiThread {
 //
 //                }
 //            }
+
+            brandName = requireArguments().getString("brandId").toString()
+            setUpRecyclerView()
+            observeOnFavourite()
+
+            if (brandName != "null") {
+
+                binding.chipCat.text = brandName
+                binding.chipCatSub.text = "All"
+                binding.groupChip.visibility = View.VISIBLE
+
+
+//            viewModel.isOrderd.observe(viewLifecycleOwner) {
+//                if(it != null) {
+//                    isClicked=true
+//                }
+//            }
+                viewModel.productsLive.observe(viewLifecycleOwner) {
+                    val products: ArrayList<ProductDetails> = ArrayList()
+                    for (product in it) {
+                        if (product.vendor == brandName.uppercase()) {
+                            products.add(product)
+                        }
+                    }
+                    hideShimmerEffect()
+                    if (products.size > 0)
+                        binding.imgEmpty.visibility = View.GONE
+                    else
+                        binding.imgEmpty.visibility = View.VISIBLE
+
+                    productRvAdapter.setData(products)
+                }
+
+            } else {
+
+                binding.chipCat.text = "Men"
+                binding.chipCatSub.text = "Shoes"
+                binding.groupChip.visibility = View.VISIBLE
+
+                when (binding.chipCat.text) {
+                    "Men" -> {
+                        productID = 395964875010L
+                    }
+                    "Women" -> {
+                        productID = 395963629826L
+                    }
+                    "Kids" -> {
+                        productID = 395963662594L
+                    }
+                    "Sale" -> {
+                        productID = 395963695362L
+                    }
+                }
+
+                filterCategories()
+
+                viewModel.getCategory(productID)
+                viewModel.categoryResponse.observe(requireActivity()) {
+                    val products: ArrayList<ProductDetails> = ArrayList()
+                    Log.e("TAG", "onViewCategoryCreated:${it} ")
+
+                    for (product in it) {
+                        if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
+                            products.add(product)
+                    }
+                    hideShimmerEffect()
+
+                    if (products.size > 0)
+                        binding.imgEmpty.visibility = View.GONE
+                    else
+                        binding.imgEmpty.visibility = View.VISIBLE
+
+                    productRvAdapter.setData(products)
+                }
+
+            }
+
+            binding.imgFilter.setOnClickListener {
+
+                if (brandName != "null") {
+
+                    val bundle = Bundle()
+                    if (binding.chipCatSub.text.toString().isNotEmpty()) {
+                        bundle.putString("type", binding.chipCatSub.text.toString())
+                    }
+
+                    findNavController().navigate(
+                        R.id.action_newCategoryFragment_to_categoryBottomSheetType,
+                        bundle
+                    )
+
+                } else {
+
+                    val bundle = Bundle()
+                    val list = ArrayList<String>()
+
+                    if (binding.chipCat.text.toString()
+                            .isNotEmpty() && binding.chipCatSub.text.toString().isNotEmpty()
+                    ) {
+                        list.add(binding.chipCat.text.toString())
+                        list.add(binding.chipCatSub.text.toString())
+                        bundle.putStringArrayList("chipList", list)
+                    }
+
+                    findNavController().navigate(
+                        R.id.action_newCategoryFragment_to_categoryBottomSheet,
+                        bundle
+                    )
+                }
+
+            }
 
         }else{
             showMessage("no Connection")
@@ -102,119 +214,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
         }
 
-        brandName = requireArguments().getString("brandId").toString()
-        setUpRecyclerView()
-        observeOnFavourite()
-
-        if (brandName != "null") {
-
-            binding.chipCat.text = brandName
-            binding.chipCatSub.text = "All"
-            binding.groupChip.visibility = View.VISIBLE
-
-
-
-            Toast.makeText(requireContext(), "==$productID", Toast.LENGTH_SHORT).show()
-
-//            viewModel.isOrderd.observe(viewLifecycleOwner) {
-//                if(it != null) {
-//                    isClicked=true
-//                }
-//            }
-            viewModel.productsLive.observe(viewLifecycleOwner) {
-                val products: ArrayList<ProductDetails> = ArrayList()
-                for (product in it) {
-                    if (product.vendor == brandName.uppercase()) {
-                        products.add(product)
-                    }
-                }
-
-                if (products.size > 0)
-                    binding.imgEmpty.visibility = View.GONE
-                else
-                    binding.imgEmpty.visibility = View.VISIBLE
-
-                productRvAdapter.setData(products)
-            }
-
-        } else {
-
-            binding.chipCat.text = "Men"
-            binding.chipCatSub.text = "Shoes"
-            binding.groupChip.visibility = View.VISIBLE
-
-            when (binding.chipCat.text) {
-                "Men" -> {
-                    productID = 395964875010L
-                }
-                "Women" -> {
-                    productID = 395963629826L
-                }
-                "Kids" -> {
-                    productID = 395963662594L
-                }
-                "Sale" -> {
-                    productID = 395963695362L
-                }
-            }
-
-            filterCategories()
-
-            viewModel.getCategory(productID)
-            viewModel.categoryResponse.observe(requireActivity()) {
-                val products: ArrayList<ProductDetails> = ArrayList()
-                Log.e("TAG", "onViewCategoryCreated:${it} ")
-
-                for (product in it) {
-                    if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
-                        products.add(product)
-                }
-
-
-                if (products.size > 0)
-                    binding.imgEmpty.visibility = View.GONE
-                else
-                    binding.imgEmpty.visibility = View.VISIBLE
-
-                productRvAdapter.setData(products)
-            }
-
-        }
-
-        binding.imgFilter.setOnClickListener {
-
-            if (brandName != "null") {
-
-                val bundle = Bundle()
-                if (binding.chipCatSub.text.toString().isNotEmpty()) {
-                    bundle.putString("type", binding.chipCatSub.text.toString())
-                }
-
-                findNavController().navigate(
-                    R.id.action_newCategoryFragment_to_categoryBottomSheetType,
-                    bundle
-                )
-
-            } else {
-
-                val bundle = Bundle()
-                val list = ArrayList<String>()
-
-                if (binding.chipCat.text.toString()
-                        .isNotEmpty() && binding.chipCatSub.text.toString().isNotEmpty()
-                ) {
-                    list.add(binding.chipCat.text.toString())
-                    list.add(binding.chipCatSub.text.toString())
-                    bundle.putStringArrayList("chipList", list)
-                }
-
-                findNavController().navigate(
-                    R.id.action_newCategoryFragment_to_categoryBottomSheet,
-                    bundle
-                )
-            }
-
-        }
         ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(),viewModel, requireActivity())
 
     }
