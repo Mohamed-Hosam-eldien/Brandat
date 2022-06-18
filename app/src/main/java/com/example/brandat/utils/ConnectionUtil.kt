@@ -12,7 +12,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.example.brandat.CategoryViewModel
 import com.example.brandat.R
+import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.fragments.home.BrandViewModel
+import com.example.brandat.ui.fragments.home.HomeFragment
 import com.example.brandat.viewmodels.ProductDetailsViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -22,6 +24,7 @@ class ConnectionUtil {
         var snack: Snackbar? = null
         var dialog: AlertDialog? = null
         var id: Long = 0
+        var isShow = false
         fun isNetworkAvailable(context: Context): Boolean {
             val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -92,7 +95,25 @@ class ConnectionUtil {
                             super.onLost(network)
                             if (activity != null) {
 
-                                    showDialoge(context)
+
+
+                                for(i in 0..1) {
+                                    if(!isShow) {
+                                        showDialoge(context)
+                                        isShow = true
+                                        break
+                                    }
+                                }
+
+//                                if(context.toString().contains("6892997") && !isShow) {
+//                                    isShow = true
+//                                } else if (context.toString().contains("cb5fb41") && !isShow) {
+//                                    showDialoge(context)
+//                                    isShow = true
+//                                } else if(context.toString().contains("ecbb5dd") && !isShow){
+//                                    showDialoge(context)
+//                                    isShow = true
+//                                }
 
                             }
                         }
@@ -118,6 +139,7 @@ class ConnectionUtil {
                 )
                     .setActionTextColor(activity.resources.getColor(R.color.white))
                     .setAction("OK") {
+                        isShow = false
                     }.show()
             }
 
@@ -129,8 +151,10 @@ class ConnectionUtil {
             dialog.apply {
                 setIcon(R.drawable.ic_no_internet)
                 setTitle("Worning")
+                setCancelable(false)
                 setMessage("it seems you lost your Internet'( ")
                 setPositiveButton("Ok") { _, _ ->
+                    isShow = false
                 }
                 show()
             }
