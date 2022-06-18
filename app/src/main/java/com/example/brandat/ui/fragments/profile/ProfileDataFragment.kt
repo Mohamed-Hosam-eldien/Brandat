@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProfileDataBinding
 import com.example.brandat.ui.fragments.cart.Cart
@@ -39,6 +40,7 @@ class ProfileDataFragment : Fragment() {
 
         binding.orderLayout.setOnClickListener{
             // navigate to orders fragment
+            findNavController().navigate(R.id.action_profileDataFragment_to_myOrderFragment)
         }
         binding.languageLayout.setOnClickListener{
             // navigate to language fragment

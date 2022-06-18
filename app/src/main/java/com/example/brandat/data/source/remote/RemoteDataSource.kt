@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.brandat.models.*
 import com.example.brandat.models.draftOrder.DraftOrder
 import com.example.brandat.models.draftOrder.DraftOrderModel
+import com.example.brandat.models.orderModel.Order
+import com.example.brandat.models.orderModel.Orders
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -37,6 +39,10 @@ class RemoteDataSource @Inject constructor(
 
     override suspend fun loginCustomer(email:String, tags:String): Response<CustomerModel> {
         return networkService.login(email, tags)
+    }
+
+    override suspend fun getAllOrders(email: String?): Response<Orders> {
+        return networkService.getAllOrders(email)
     }
 
     override suspend fun postFavDraft(draftModel: DraftOrderModel): Response<DraftOrder> {

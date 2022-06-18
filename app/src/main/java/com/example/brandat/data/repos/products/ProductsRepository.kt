@@ -8,6 +8,8 @@ import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.Product
 import com.example.brandat.models.Products
+import com.example.brandat.models.orderModel.Order
+import com.example.brandat.models.orderModel.Orders
 import com.example.brandat.ui.fragments.cart.Cart
 import retrofit2.Response
 import javax.inject.Inject
@@ -81,6 +83,10 @@ class ProductsRepository @Inject constructor(
         println("result from repo=====${localDataSource.isAdded(productName)}")
     override suspend fun postFavDraft(draftModel: DraftOrderModel): Response<DraftOrder> {
         return remoteDataSource.postFavDraft(draftModel)
+    }
+
+    override suspend fun getAllOrders(email:String?): Response<Orders> {
+        return remoteDataSource.getAllOrders(email)
     }
 
     override suspend fun getbrand():Response<Brands> {
