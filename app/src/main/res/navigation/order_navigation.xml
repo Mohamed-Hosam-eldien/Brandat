@@ -22,8 +22,7 @@
     <fragment
         android:id="@+id/secondOrderStatus"
         android:name="com.example.brandat.ui.fragments.orderStatus.SecondOrderStatus"
-        android:label="Second Order Status" />
-        android:label="SecondOrderStatus" >
+        android:label="Second Order Status" >
         <action
             android:id="@+id/action_secondOrderStatus_to_thirdOrderState"
             app:destination="@id/thirdOrderState" />

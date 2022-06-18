@@ -6,7 +6,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.brandat.utils.NetworkResult
 import com.example.brandat.data.repos.products.IProductsRepository
 import com.example.brandat.models.Brand
 import com.example.brandat.models.Brands

@@ -10,6 +10,8 @@ import com.example.brandat.models.Product
 import com.example.brandat.models.Products
 import com.example.brandat.models.orderModel.Order
 import com.example.brandat.models.orderModel.Orders
+import com.example.brandat.models.draftOrder.DraftOrder
+import com.example.brandat.models.draftOrder.DraftOrderModel
 import com.example.brandat.ui.fragments.cart.Cart
 import retrofit2.Response
 import javax.inject.Inject
@@ -81,6 +83,7 @@ class ProductsRepository @Inject constructor(
     override suspend fun isAdded(productName: String): Cart {
         return localDataSource.isAdded(productName)
         println("result from repo=====${localDataSource.isAdded(productName)}")
+    }
     override suspend fun postFavDraft(draftModel: DraftOrderModel): Response<DraftOrder> {
         return remoteDataSource.postFavDraft(draftModel)
     }
@@ -89,9 +92,6 @@ class ProductsRepository @Inject constructor(
         return remoteDataSource.getAllOrders(email)
     }
 
-    override suspend fun getbrand():Response<Brands> {
-        return remoteDataSource.getBrands()
-    }
 
     override suspend fun addProductToCart(cartProduct: Cart) {
         localDataSource.addProductToCart(cartProduct)

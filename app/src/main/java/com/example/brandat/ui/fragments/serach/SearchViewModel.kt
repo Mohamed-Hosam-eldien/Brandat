@@ -19,7 +19,8 @@ class SearchViewModel @Inject constructor(private val iRepo: IProductsRepository
     val liveSearch = mutableSearch
 
     fun getAllProduct() = viewModelScope.launch {
-        mutableSearch.postValue(iRepo.getAllProduct().body()?.products)
+        //mutableSearch.postValue(iRepo.getAllProduct().body()?.products)
+       // mutableSearch.postValue(iRepo.getAllProduct())
     }
 
 }

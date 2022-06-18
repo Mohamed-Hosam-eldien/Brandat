@@ -117,7 +117,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
             viewModel.productsLive.observe(viewLifecycleOwner) {
                 val products: ArrayList<ProductDetails> = ArrayList()
-                for (product in it.body()?.products!!) {
+                for (product in it) {
                     if (product.vendor == brandName.uppercase()) {
                         products.add(product)
                     }
@@ -167,7 +167,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                             products.add(product)
                     }
                     hideShimmerEffect()
-                for (product in it.body()?.products!!) {
+                for (product in it) {
                     if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
                         products.add(product)
                 }

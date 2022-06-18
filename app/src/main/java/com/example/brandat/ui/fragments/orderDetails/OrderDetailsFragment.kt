@@ -70,20 +70,6 @@ class OrderDetailsFragment : Fragment() {
 
     }
 
-    private fun fakeData(): ArrayList<OrderItemModel> {
-        var myOrderList = ArrayList<OrderItemModel>()
-        myOrderList.add(OrderItemModel(R.drawable.t_shirt_image3, "shoes", 3, "500$"))
-        myOrderList.add(OrderItemModel(R.drawable.shose_image3, "shoes", 3, "500$"))
-        myOrderList.add(OrderItemModel(R.drawable.t_shirt_image4, "shoes", 3, "500$"))
-        myOrderList.add(OrderItemModel(R.drawable.shose_image3, "shoes", 3, "500$"))
-        myOrderList.add(OrderItemModel(R.drawable.t_shirt_image3, "shoes", 3, "500$"))
-        myOrderList.add(OrderItemModel(R.drawable.shose_image3, "shoes", 3, "500$"))
-        myOrderList.add(OrderItemModel(R.drawable.shose_image3, "shoes", 3, "500$"))
-        myOrderList.add(OrderItemModel(R.drawable.shose_image3, "shoes", 3, "500$"))
-
-
-        return myOrderList
-    }
 
     fun showData(){
         binding.orderNumber.text = order.orderNumber.toString()
