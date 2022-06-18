@@ -9,6 +9,8 @@ import com.example.brandat.models.Product
 import com.example.brandat.models.Products
 import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
+import com.example.brandat.models.orderModel.Order
+import com.example.brandat.models.orderModel.Orders
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.NetworkResult
 import dagger.hilt.android.scopes.ActivityRetainedScoped
@@ -42,6 +44,10 @@ class ProductsRepository @Inject constructor(
 
     override suspend fun getCategories(productId: Long): Response<Products> {
         return remoteDataSource.getCategories(productId)
+    }
+
+    override suspend fun getAllOrders(): Response<Orders> {
+        return remoteDataSource.getAllOrders()
     }
 
     override suspend fun getbrand():Response<Brands> {

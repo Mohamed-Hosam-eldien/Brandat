@@ -1,7 +1,6 @@
 package com.example.brandat.ui.fragments.address
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +9,10 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentAddAddressBinding
 import com.example.brandat.models.CustomerAddress
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +21,6 @@ class AddAddressFragment : Fragment() {
     private var _binding : FragmentAddAddressBinding? = null
     private val binding get() = _binding!!
     private val viewModel:AddressViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

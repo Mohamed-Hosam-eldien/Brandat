@@ -2,6 +2,8 @@ package com.example.brandat.data.source.remote
 
 import android.util.Log
 import com.example.brandat.models.*
+import com.example.brandat.models.orderModel.Order
+import com.example.brandat.models.orderModel.Orders
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -38,6 +40,10 @@ class RemoteDataSource @Inject constructor(
     override suspend fun loginCustomer(email:String, tags:String): Response<CustomerModel> {
 //        Log.e("TAG", "Eng Hossam: ${networkService.login(email)}", )
         return networkService.login(email, tags)
+    }
+
+    override suspend fun getAllOrders(): Response<Orders> {
+        return networkService.getAllOrders()
     }
 
 

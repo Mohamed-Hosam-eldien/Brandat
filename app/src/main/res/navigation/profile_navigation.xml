@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_profileDataFragment_to_addressFragment"
             app:destination="@id/addressFragment" />
+        <action
+            android:id="@+id/action_profileDataFragment_to_myOrderFragment"
+            app:destination="@id/myOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/addressFragment"
@@ -64,6 +67,14 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_profileDataFragment"
+            app:destination="@id/profileDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myOrderFragment"
+        android:name="com.example.brandat.ui.fragments.myOrder.MyOrderFragment"
+        android:label="My Orders">
+        <action
+            android:id="@+id/action_myOrderFragment_to_profileDataFragment"
             app:destination="@id/profileDataFragment" />
     </fragment>
 </navigation>
