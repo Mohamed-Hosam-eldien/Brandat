@@ -122,6 +122,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
 
     // Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'//Azza
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.todkars:shimmer-recyclerview:0.4.1'
     implementation 'com.github.mike14u:shimmer-recyclerview-x:1.0.0'

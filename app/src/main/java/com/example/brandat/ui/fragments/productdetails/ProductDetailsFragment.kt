@@ -22,7 +22,9 @@ import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.User
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
+import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.viewmodels.ProductDetailsViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -55,7 +57,7 @@ class ProductDetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         id = requireArguments().getLong("productId")
-
+        ConnectionUtil.id = id
     }
 
     override fun onCreateView(
@@ -74,17 +76,20 @@ class ProductDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (ConnectionUtil.isNetworkAvailable(requireContext())) {
+            //loading
+            viewModel.getProductDetailsFromDatabase(id)
+        } else {
+            showMessage("No Connection")
+        }
         random = (3..5).random().toFloat()
         binding.ratingBar.rating = random
-
         binding.shareBtn.setOnClickListener {
             shareProduct()
         }
-
         binding.backBtn.setOnClickListener {
             requireActivity().finish()
         }
-
         binding.favoriteBtn.setOnClickListener {
 
         }
@@ -96,20 +101,25 @@ class ProductDetailsFragment : Fragment() {
                 Toast.makeText(requireContext(), "Added To Cart", Toast.LENGTH_SHORT).show()
             }
         }
-
-
         setupRecyclerView()
-
         var usersList: User? = user.asSequence().shuffled().find { true }
         val numberOfElements = 3
-
         val randomElements = user.asSequence().shuffled().take(numberOfElements).toList()
         mAdapter.setDatat(randomElements)
-
-
-
         observeShowData()
+        ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(), viewModel, requireActivity())
 
+    }
+
+    private fun showMessage(it: String) {
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                resources.getColor(
+                    R.color.black2
+                )
+            )
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
     }
 
 
@@ -144,10 +154,10 @@ class ProductDetailsFragment : Fragment() {
         Log.i("TAG", "observeShowData: ")
 
         //7782820708581L
-        viewModel.getProductDetailsFromDatabase(id)
+
         viewModel.getProduct.observe(viewLifecycleOwner) {
             if (it != null) {
-                showData(it.body())
+                showData(it)
             }
         }
 

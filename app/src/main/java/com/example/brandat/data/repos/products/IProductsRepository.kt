@@ -1,5 +1,10 @@
 package com.example.brandat.data.repos.products
 
+import com.example.brandat.utils.NetworkResult
+import com.example.brandat.models.Brands
+import com.example.brandat.models.Favourite
+import com.example.brandat.models.Product
+import com.example.brandat.models.Products
 import com.example.brandat.models.*
 import com.example.brandat.models.draftOrder.DraftOrder
 import com.example.brandat.models.draftOrder.DraftOrderModel
@@ -8,13 +13,13 @@ import retrofit2.Response
 
 interface IProductsRepository {
 
-    suspend fun getProductDetails(productId:Long):Response<Product>
+    suspend fun getProductDetails(productId:Long):NetworkResult<Product?>
 
-    suspend fun getAllProduct(): Response<Products>
+    suspend fun getAllProduct(): NetworkResult<Products?>
 
-    suspend fun getAllProductByType(type:String): Response<Products>
+    suspend fun getAllProductByType(type:String): NetworkResult<Products?>
 
-    suspend fun getbrand(): Response<Brands>
+    suspend fun getbrand(): NetworkResult<Brands?>
 
     //Cart
     suspend fun addProductToCart(cartProduct: Cart)
@@ -28,8 +33,8 @@ interface IProductsRepository {
     suspend fun removeFavouriteProduct(productId: Long)
     suspend fun getFavouriteProducts():List<Favourite>
     suspend fun  searchInFavouriteProducts(productName:String):Favourite
-    suspend fun getCategories(productId: Long): Response<Products>
-
+    suspend fun getCategories(productId: Long): NetworkResult<Products?>
+    suspend fun isAdded(productName: String): Cart
     suspend fun postFavDraft(draftModel: DraftOrderModel) : Response<DraftOrder>
 
 

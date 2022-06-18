@@ -68,7 +68,7 @@ class FavoriteFragment : Fragment(), OnclickListener {
     }
 
     private fun setupUi() {
-        favouriteAdapter = FavouriteAdapter(this)
+        favouriteAdapter = FavouriteAdapter(requireContext(),this)
         binding.rvFavorits.apply {
             val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
             setLayoutManager(layoutManager)

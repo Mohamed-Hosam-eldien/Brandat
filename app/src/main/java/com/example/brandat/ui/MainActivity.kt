@@ -1,31 +1,43 @@
 package com.example.brandat.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.ActivityMainBinding
+import com.example.brandat.ui.fragments.cart.IBadgeCount
+import com.google.android.material.badge.BadgeDrawable
 import com.example.brandat.ui.fragments.serach.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
+import io.paperdb.Paper
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IBadgeCount {
 
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var badgeDrawable: BadgeDrawable
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Paper.init(this)
+        badgeDrawable = binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment);
+        badgeDrawable.isVisible = true
+        if(Paper.book().read<Int>("countFromCart")!=null) {
+            badgeDrawable.number = Paper.book().read<Int>("countFromCart")!!
+        }
+        if (badgeDrawable.number == 0) {
+            badgeDrawable.isVisible = false
+        }
 
         navController = findNavController(R.id.navHostFragment)
-
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if (destination.id == R.id.productDetailsFragment
             ) {
@@ -37,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.bottomNavigationView.setupWithNavController(navController)
-
         binding.imgProfile.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
@@ -54,8 +65,19 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.visibility = View.VISIBLE
     }
 
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun updateBadgeCount(count: Int) {
+        Toast.makeText(this, "$count", Toast.LENGTH_SHORT).show()
+        badgeDrawable = binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment);
+        badgeDrawable.isVisible = true
+        badgeDrawable.number = count
+        if (badgeDrawable.number == 0) {
+            badgeDrawable.isVisible = false
+        }
     }
 
 }

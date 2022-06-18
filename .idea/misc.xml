@@ -17,6 +17,8 @@
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/layout/fragment_register.xml" value="0.2" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/layout/reviewer_row_layout.xml" value="0.2" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/menu/home_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/cart_item.xml" value="0.33" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/drawable/ic_add_location.xml" value="0.1845" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/activity_order_status.xml" value="0.2" />
@@ -25,11 +27,13 @@
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/cart_item.xml" value="0.25" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/category_bottom_sheet.xml" value="0.27545909849749584" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/category_bottom_sheet_type.xml" value="0.33" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_cart.xml" value="0.1" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/data_not_found.xml" value="0.1" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/first_order_status.xml" value="0.22" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_add_address.xml" value="0.171875" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_cart.xml" value="0.25" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_category.xml" value="0.171875" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_home.xml" value="0.171875" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_login.xml" value="0.22" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_new_category.xml" value="0.25" />
@@ -71,8 +75,22 @@
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/reviewer_row_layout.xml" value="0.171875" />
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/second_order_state.xml" value="0.1" />
         <entry key="..\:/android_studio_projects/Brandat2/app/src/main/res/layout/slider_category_item.xml" value="0.171875" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/drawable/cart_shape_back.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/drawable/ic_shopping_cart.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/drawable/rounded_background.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/drawable/rounded_button.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/drawable/rounded_shap.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/drawable/rounded_shape.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/drawable/shape.xml" value="0.146" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/alert_dialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/badge_text.xml" value="0.25" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/brands_item_shimmer.xml" value="0.1" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_home.xml" value="0.10606060606060606" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_new_category.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_product_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/placeholder_product.xml" value="0.1" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/recycler_home_item.xml" value="0.1" />
+        <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/shimmer_product.xml" value="0.20416666666666666" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/slider_category_item.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1365" />

@@ -31,9 +31,7 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:elevation="16dp"
                 android:fitsSystemWindows="true"
-                android:textSize="16dp"
                 app:contentScrim="#5A7480"
                 app:expandedTitleGravity="bottom"
                 app:expandedTitleMarginEnd="8dp"
@@ -64,9 +62,7 @@
                     app:popupTheme="@style/ThemeOverlay.AppCompat" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
-
         </com.google.android.material.appbar.AppBarLayout>
-
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="250dp"
@@ -82,35 +78,26 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/no_coneection" />
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/brands_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-
-            >
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/brands_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                tools:listitem="@layout/recycler_home_item" />
-
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            tools:listitem="@layout/recycler_home_item" />
 
         <com.mikelau.views.shimmer.ShimmerRecyclerView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/shimmer_recycle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:splitMotionEvents="false"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:shimmer_demo_angle="4"
             app:shimmer_demo_child_count="16"
             app:shimmer_demo_grid_child_count="2"
-            app:shimmer_demo_layout="@layout/brands_item_shimmer"
+            app:shimmer_demo_layout="@layout/placeholder_product"
             app:shimmer_demo_layout_manager_type="grid"
 
             app:shimmer_demo_mask_width=".5"
@@ -174,6 +161,9 @@
 
         </androidx.cardview.widget.CardView>
 
+            app:shimmer_demo_mask_width=".5"
+            app:shimmer_demo_reverse_animation="false"
+            app:shimmer_recycler_direction="top_to_bottom" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

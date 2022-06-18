@@ -44,6 +44,9 @@ interface BrandatDao {
     @Query("SELECT SUM(tPrice) FROM cart_table")
     suspend fun getAllPrice(): Double
 
+    @Query("SELECT * FROM cart_table WHERE pName=:productName")
+    fun isOrderd(productName: String?): Cart
+
     @Query("SELECT * FROM Favourite WHERE productName = :productName ")
     suspend fun searchInFavouriteProducts(productName: String): Favourite
 //    @Query("SELECT EXISTS(SELECT * FROM favourite WHERE productName = :productName)")

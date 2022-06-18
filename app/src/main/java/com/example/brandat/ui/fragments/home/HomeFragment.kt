@@ -6,6 +6,8 @@ import android.content.Context
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +23,8 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentHomeBinding
 import com.example.brandat.models.Brand
+import com.example.brandat.utils.ConnectionUtil
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -31,7 +35,9 @@ class HomeFragment : Fragment(), BrandOnClickListner {
     lateinit var brandAdapter: BrandAdapter
     private lateinit var brands: List<Brand>
     private lateinit var bundle: Bundle
+    var snack: Snackbar? = null
     private val brandViewModel: BrandViewModel by viewModels()
+    private lateinit var observer: Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,20 +57,63 @@ class HomeFragment : Fragment(), BrandOnClickListner {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         initView()
+        // snackbar = Snackbar.make(requireView(), "it", Snackbar.LENGTH_INDEFINITE)
         //showShimmerEffect()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        imageSlider()
+        Log.e("TAG", "==from home: ")
 
+
+
+        if (ConnectionUtil.isNetworkAvailable(requireContext())) {
+            showShimmerEffect()
+            //brandViewModel.getBrands()
+//            runBlocking {
+//                delay(10000)
+//            }
+            Handler().postDelayed({
+                brandViewModel.getBrands()
+            }, 10000)
+
+
+        } else {
+            //brandViewModel.getBrandsFromDB()//cashing
+//            brandViewModel.brandResponse.removeObserver{
+//                Toast.makeText(requireContext(), "remove", Toast.LENGTH_SHORT).show()
+//            }
+
+           // ConnectionUtil.showMessage(requireParentFragment())
+               showMessage("No Connection")
+            hideShimmerEffect()
+            binding.animationView.visibility = View.VISIBLE
+        }
+        observer = brandViewModel.brandResponse.observe(requireActivity()) {
+            if (it != null) {
+                binding.animationView.visibility = View.GONE
+                //hide snake bar
+                //  snack?.dismiss()
+                //ConnectionUtil.snack?.dismiss()
+                brands = it
+                brandAdapter.setData(brands)
+                hideShimmerEffect()
+
+
+            } else {
+                //showShimmerEffect()
+            }
         brandViewModel.getBrands()
         brandViewModel.brandResponse.observe(requireActivity()) {
             brands = it.body()!!.brands
             brandAdapter.setData(brands)
         }
-        imageSlider()
+        ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(), brandViewModel, requireActivity())
+    }
 
+    private fun showMessage(it: String) {
         discountInit()
 
         binding.imgCopy.setOnClickListener {
@@ -75,6 +124,24 @@ class HomeFragment : Fragment(), BrandOnClickListner {
             Toast.makeText(requireContext(), "Text copied to clipboard", Toast.LENGTH_SHORT).show()
         }
 
+        //snack = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                resources.getColor(
+                    R.color.black2
+                )
+            )
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
+//        snack?.apply {
+//            setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+//                resources.getColor(
+//                    R.color.black2
+//                )
+//            )
+//                .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+//                }.show()
+//        }
     }
 
     private fun discountInit() {
@@ -116,7 +183,6 @@ class HomeFragment : Fragment(), BrandOnClickListner {
 
         }
     }
-
     private fun showShimmerEffect() {
         binding.shimmerRecycle.showShimmerAdapter()
         binding.shimmerRecycle.visibility = View.VISIBLE

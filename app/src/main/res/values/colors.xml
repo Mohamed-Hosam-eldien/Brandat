@@ -22,6 +22,7 @@
 
     <color name="checkedChipTextColor">@color/white</color>
     <color name="chipTextColor">@color/darkG</color>
+    <color name="black2">#1F1D1D</color>
     <color name="blue">#2196F3</color>
 
 </resources>

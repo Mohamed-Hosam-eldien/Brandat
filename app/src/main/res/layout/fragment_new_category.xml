@@ -10,10 +10,10 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/newCat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:id="@+id/newCat"
         tools:context=".ui.fragments.newcategory.NewCategoryFragment">
 
         <androidx.appcompat.widget.Toolbar
@@ -55,12 +55,12 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipCat"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipCatSub"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
 
                     </com.google.android.material.chip.ChipGroup>
 
@@ -68,8 +68,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginEnd="18dp"
                         android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="18dp"
                         android:background="@color/darkGray" />
 
                 </RelativeLayout>
@@ -80,20 +80,39 @@
 
         <ImageView
             android:id="@+id/imgEmpty"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/empty_bag"/>
+            android:src="@drawable/empty_bag"
+            android:visibility="gone" />
+
+        <com.mikelau.views.shimmer.ShimmerRecyclerView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/shimmer_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:shimmer_demo_reverse_animation="false"
+            android:splitMotionEvents="false"
+            app:shimmer_demo_mask_width=".5"
+            app:shimmer_demo_child_count="16"
+            app:shimmer_demo_grid_child_count="2"
+            app:shimmer_demo_angle="4"
+            android:visibility="visible"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:shimmer_recycler_direction="top_to_bottom"
+            app:shimmer_demo_layout="@layout/placeholder_product"
+            app:shimmer_demo_layout_manager_type="grid"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:shimmer_demo_layout="@layout/shimmer_product"
-            app:shimmer_recycler_layout="@layout/shimmer_product"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:shimmer_demo_layout="@layout/shimmer_product"
+            app:shimmer_recycler_layout="@layout/shimmer_product" />
 
     </LinearLayout>
 

@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.AlertDialogBinding
 import com.example.brandat.databinding.FragmentCartBinding
+import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.ProfileActivity
+import com.example.brandat.utils.Constants.Companion.count
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -27,6 +29,7 @@ class CartFragment : Fragment(), CartOnClickListener {
     private lateinit var builder: AlertDialog.Builder
     private lateinit var bindingDialog: AlertDialogBinding
     private lateinit var dialog: AlertDialog
+    private lateinit var bageCountI: IBadgeCount
 
     private val cartViewModel: CartViewModel by viewModels()
 
@@ -44,14 +47,15 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setUpRecyclerView()
-
         Paper.init(requireContext())
+        setUpRecyclerView()
+        cartViewModel.getAllCartProduct()
+        cartViewModel.getAllPrice()
+        bageCountI = requireActivity() as MainActivity
 
         binding.buyButn.setOnClickListener {
-            if(Paper.book().read<String>("email") == null) {
-                showDialog()
+            if (Paper.book().read<String>("email") == null) {
+                //  showDialog()
             } else {
                 if(binding.ivPlaceholder.visibility == View.VISIBLE) {
                     Toast.makeText(requireContext(), "cart is empty", Toast.LENGTH_SHORT).show()
@@ -67,17 +71,12 @@ class CartFragment : Fragment(), CartOnClickListener {
             cartAdapter.setData(it)
             checkEmptyList(it)
             binding.tvConut.text = "(${it.size} item)"
+            bageCountI.updateBadgeCount(it.size)
             cartAdapter.notifyDataSetChanged()
-        }
-        bindingDialog.cancelBtn.setOnClickListener { dialog.dismiss() }
-        bindingDialog.deleteBtn.setOnClickListener {
-//            cartViewModel.removeProductFromCart(order)
-//            cartViewModel.getAllCartproduct()
-//            requireActivity().recreate()
-        }
+            count = it.size
+            Paper.book().write("countFromCart", count)
 
-        cartViewModel.getAllPrice()
-
+        }
         cartViewModel.allPrice.observe(viewLifecycleOwner) {
             binding.tvTprice.text = "$it $"
         }
@@ -108,24 +107,16 @@ class CartFragment : Fragment(), CartOnClickListener {
         }
     }
 
-    override fun onLongClicked(order: ArrayList<Cart>) {
-        Log.d("TAG", "size before delete: ${order.size}")
-        cartViewModel.removeSelectedProductsFromCart(order)
-        cartViewModel.getAllCartProduct()
-        Log.d("TAG", "size after delete: ${order.size}")
-
-    }
-
     override fun onClicked(order: Cart) {
+       // showDialoge(order)
         cartViewModel.removeProductFromCart(order)
         cartViewModel.getAllCartProduct()
-        requireActivity().recreate()
+          requireActivity().recreate()
     }
 
     override fun onPluseMinusClicked(count: Int, pId: Long, price: String) {
         val priceChange = price.toDouble()
         val _price = (count * priceChange)
-//        Log.d("TAG", "onPluseMinusClicked: count---> $_price")
         val currentOrder = Cart(pQuantity = count, pId = pId, tPrice = _price)
         cartViewModel.updateOrder(currentOrder)
         cartViewModel.getAllCartProduct()

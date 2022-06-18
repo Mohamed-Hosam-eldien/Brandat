@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -27,17 +27,23 @@ import com.example.brandat.models.ProductDetails
 import com.example.brandat.models.draftOrder.DraftOrderModel
 import com.example.brandat.models.draftOrder.DraftOrder
 import com.example.brandat.models.draftOrder.LineItem
+import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
-
+import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.ui.fragments.category.SharedViewModel
 import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
+import com.example.brandat.utils.ConnectionUtil
+import com.example.brandat.utils.Constants.Companion.count
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.concurrent.schedule
 
 @AndroidEntryPoint
 class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
@@ -46,11 +52,13 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     private lateinit var productRvAdapter: ProductRvAdapter
     private var productID: Long = 0
     private var type: String = ""
-    private lateinit var brandName: String
-
+    private var brandName: String = "null"
+    private lateinit var bageCountI: IBadgeCount
+    private var isClicked: Boolean = false
     private val viewModel: CategoryViewModel by viewModels()
     private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
+
     private lateinit var model: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,23 +82,35 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         val view = inflater.inflate(R.layout.fragment_new_category, container, false)
 
         binding = FragmentNewCategoryBinding.bind(view)
-
+        Paper.init(requireContext())
+        //  Paper.book().read<Int>("countFromCart")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        brandName = requireArguments().getString("brandId").toString()
+        bageCountI = requireActivity() as MainActivity
+        if (ConnectionUtil.isNetworkAvailable(requireContext())) {
+           showShimmerEffect()
 
-        setUpRecyclerView()
-        observeOnFavourite()
+            viewModel.getAllProductsByName()
+            filterProducts()
+//            Timer("SettingUp", false).schedule(10000) {
+//                requireActivity().runOnUiThread {
+//
+//                }
+//            }
 
-        if (brandName != "null") {
+            brandName = requireArguments().getString("brandId").toString()
+            setUpRecyclerView()
+            observeOnFavourite()
 
-            binding.chipCat.text = brandName
-            binding.chipCatSub.text = "All"
-            binding.groupChip.visibility = View.VISIBLE
+            if (brandName != "null") {
+
+                binding.chipCat.text = brandName
+                binding.chipCatSub.text = "All"
+                binding.groupChip.visibility = View.VISIBLE
 
             viewModel.getAllProductsByName()
             filterProducts()
@@ -105,43 +125,48 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
 
                 saveDraft(products[0])
-
+                hideShimmerEffect()
                 if (products.size > 0)
                     binding.imgEmpty.visibility = View.GONE
                 else
                     binding.imgEmpty.visibility = View.VISIBLE
 
-                productRvAdapter.setData(products)
-            }
-
-        } else {
-
-            binding.chipCat.text = "Men"
-            binding.chipCatSub.text = "Shoes"
-            binding.groupChip.visibility = View.VISIBLE
-
-            when (binding.chipCat.text) {
-                "Men" -> {
-                    productID = 395964875010L
+                    productRvAdapter.setData(products)
                 }
-                "Women" -> {
-                    productID = 395963629826L
-                }
-                "Kids" -> {
-                    productID = 395963662594L
-                }
-                "Sale" -> {
-                    productID = 395963695362L
-                }
-            }
 
-            filterCategories()
+            } else {
 
-            viewModel.getCategory(productID)
-            viewModel.categoryResponse.observe(requireActivity()) {
-                val products: ArrayList<ProductDetails> = ArrayList()
-                Log.e("TAG", "onViewCategoryCreated:${it} ")
+                binding.chipCat.text = "Men"
+                binding.chipCatSub.text = "Shoes"
+                binding.groupChip.visibility = View.VISIBLE
 
+                when (binding.chipCat.text) {
+                    "Men" -> {
+                        productID = 395964875010L
+                    }
+                    "Women" -> {
+                        productID = 395963629826L
+                    }
+                    "Kids" -> {
+                        productID = 395963662594L
+                    }
+                    "Sale" -> {
+                        productID = 395963695362L
+                    }
+                }
+
+                filterCategories()
+
+                viewModel.getCategory(productID)
+                viewModel.categoryResponse.observe(requireActivity()) {
+                    val products: ArrayList<ProductDetails> = ArrayList()
+                    Log.e("TAG", "onViewCategoryCreated:${it} ")
+
+                    for (product in it) {
+                        if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
+                            products.add(product)
+                    }
+                    hideShimmerEffect()
                 for (product in it.body()?.products!!) {
                     if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
                         products.add(product)
@@ -149,51 +174,86 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
                 saveDraft(products[0])
 
-                if (products.size > 0)
-                    binding.imgEmpty.visibility = View.GONE
-                else
-                    binding.imgEmpty.visibility = View.VISIBLE
+                    if (products.size > 0)
+                        binding.imgEmpty.visibility = View.GONE
+                    else
+                        binding.imgEmpty.visibility = View.VISIBLE
 
-                productRvAdapter.setData(products)
+                    productRvAdapter.setData(products)
+                }
+
             }
+
+            binding.imgFilter.setOnClickListener {
+
+                if (brandName != "null") {
+
+                    val bundle = Bundle()
+                    if (binding.chipCatSub.text.toString().isNotEmpty()) {
+                        bundle.putString("type", binding.chipCatSub.text.toString())
+                    }
+
+                    findNavController().navigate(
+                        R.id.action_newCategoryFragment_to_categoryBottomSheetType,
+                        bundle
+                    )
+
+                } else {
+
+                    val bundle = Bundle()
+                    val list = ArrayList<String>()
+
+                    if (binding.chipCat.text.toString()
+                            .isNotEmpty() && binding.chipCatSub.text.toString().isNotEmpty()
+                    ) {
+                        list.add(binding.chipCat.text.toString())
+                        list.add(binding.chipCatSub.text.toString())
+                        bundle.putStringArrayList("chipList", list)
+                    }
+
+                    findNavController().navigate(
+                        R.id.action_newCategoryFragment_to_categoryBottomSheet,
+                        bundle
+                    )
+                }
+
+            }
+
+        }else{
+            showMessage("no Connection")
+            hideShimmerEffect()
 
         }
 
-        binding.imgFilter.setOnClickListener {
+        ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(),viewModel, requireActivity())
 
-            if (brandName != "null") {
+    }
 
-                val bundle = Bundle()
-                if (binding.chipCatSub.text.toString().isNotEmpty()) {
-                    bundle.putString("type", binding.chipCatSub.text.toString())
-                }
+    private fun hideShimmerEffect() {
+        binding.shimmerRecycle.hideShimmerAdapter()
+        binding.shimmerRecycle.visibility = View.GONE
+        binding.recyclerCategory.visibility=View.VISIBLE
+    }
 
-                findNavController().navigate(
-                    R.id.action_newCategoryFragment_to_categoryBottomSheetType,
-                    bundle
-                )
+    private fun showMessage(it: String) {
 
-            } else {
+        //  snackbar = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE).
+        setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+            resources.getColor(
+                R.color.black2
+            )
+        )
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
 
-                val bundle = Bundle()
-                val list = ArrayList<String>()
 
-                if (binding.chipCat.text.toString()
-                        .isNotEmpty() && binding.chipCatSub.text.toString().isNotEmpty()
-                ) {
-                    list.add(binding.chipCat.text.toString())
-                    list.add(binding.chipCatSub.text.toString())
-                    bundle.putStringArrayList("chipList", list)
-                }
+    }
 
-                findNavController().navigate(
-                    R.id.action_newCategoryFragment_to_categoryBottomSheet,
-                    bundle
-                )
-            }
-
-        }
-
+    private fun showShimmerEffect() {
+        binding.shimmerRecycle.showShimmerAdapter()
+        binding.shimmerRecycle.visibility = View.VISIBLE
+        binding.recyclerCategory.visibility = View.GONE
     }
 
     private fun saveDraft(productDetails: ProductDetails) {
@@ -351,11 +411,25 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     }
 
     override fun onCartClicked(currentProduct: Cart) {
+        // isClicked=true
+        println("===id===${currentProduct.pId}")
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
+            // print("==========$isClicked")
             cartViewModel.addProductToCart(currentProduct)
-            showSnackBar(currentProduct)
+            bageCountI.updateBadgeCount(count++)
+            Paper.book().write("CountfromHome", count)
+            //cartViewModel.isAdded(currentProduct.pName)
+//            if (!isClicked) {
+//                print("======clicked====$isClicked")
+//
+//                isClicked = true
+//            }
+//            if (!isClicked) {
+//
+//                isClicked=true
+//            }
         }
     }
 
@@ -383,11 +457,11 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     private fun showSnackBar(cart: Cart) {
         val snackbar = Snackbar.make(binding.newCat, "Added to Cart", Snackbar.LENGTH_LONG)
         snackbar.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.purple_700))
-        snackbar.setAction("undo") {
-            cartViewModel.removeProductFromCart(cart)
-            Toast.makeText(requireContext(), "Removed from Cart!", Toast.LENGTH_SHORT).show()
-        }.show()
+        snackbar.setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
+            .setBackgroundTint(resources.getColor(R.color.black2))
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Undo") {
+                cartViewModel.removeProductFromCart(cart)
+                Toast.makeText(requireContext(), "Removed from Cart!", Toast.LENGTH_SHORT).show()
+            }.show()
     }
 }
