@@ -42,8 +42,8 @@ class RemoteDataSource @Inject constructor(
         return networkService.login(email, tags)
     }
 
-    override suspend fun getAllOrders(): Response<Orders> {
-        return networkService.getAllOrders()
+    override suspend fun getAllOrders(email: String?): Response<Orders> {
+        return networkService.getAllOrders(email)
     }
 
 

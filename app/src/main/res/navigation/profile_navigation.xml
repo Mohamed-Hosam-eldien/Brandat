@@ -76,5 +76,19 @@
         <action
             android:id="@+id/action_myOrderFragment_to_profileDataFragment"
             app:destination="@id/profileDataFragment" />
+        <action
+            android:id="@+id/action_myOrderFragment_to_orderDetailsFragment22"
+            app:destination="@id/orderDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment2"
+        android:name="com.example.brandat.ui.fragments.orderDetails.OrderDetailsFragment"
+        android:label="Order Details">
+        <action
+            android:id="@+id/action_orderDetailsFragment2_to_myOrderFragment"
+            app:destination="@id/myOrderFragment" />
+        <argument
+            android:name="currentOrder"
+            app:argType="com.example.brandat.models.orderModel.Order" />
     </fragment>
 </navigation>

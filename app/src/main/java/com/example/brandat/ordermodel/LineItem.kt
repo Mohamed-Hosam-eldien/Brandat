@@ -1,5 +1,9 @@
 package com.example.brandat.models.orderModel
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class LineItem(
 //    val admin_graphql_api_id: String = "",
 //    val discount_allocations: List<Any> = listOf(),
@@ -10,8 +14,8 @@ data class LineItem(
 //    val gift_card: Boolean = false,
 //    val grams: Int = 0,
 //    val id: Long = 0,
-//    val name: String = "",
-//    val price: String = "",
+      val name: String = "",
+      val price: String = "",
 //    val price_set: PriceSet = PriceSet(),
 //    val product_exists: Boolean = false,
 //    val product_id: Long = 0,
@@ -29,4 +33,4 @@ data class LineItem(
 //    val variant_inventory_management: String = "",
 //    val variant_title: String = "",
 //    val vendor: String = ""
-)
+):Parcelable

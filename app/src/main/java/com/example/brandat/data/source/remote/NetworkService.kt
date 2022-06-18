@@ -39,6 +39,6 @@ interface NetworkService {
     suspend fun login(@Query("email") email: String,@Query("tags") tags: String):Response<CustomerModel>
 
     @Headers("X-Shopify-Access-Token: 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")
-    @GET("orders.json?email=doaaessam@gmail.com")
-    suspend fun getAllOrders(): Response<Orders>
+    @GET("orders.json")
+    suspend fun getAllOrders(@Query("email") email: String?): Response<Orders>
 }

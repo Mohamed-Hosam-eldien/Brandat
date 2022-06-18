@@ -9,37 +9,34 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-
+        android:layout_height="match_parent">
 
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/oval_shap"
-            app:layout_constraintTop_toTopOf="parent"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:elevation="16dp"
                 android:fitsSystemWindows="true"
+                android:textSize="16dp"
+                app:collapsedTitleGravity="start"
                 app:contentScrim="#5A7480"
                 app:expandedTitleGravity="center"
                 app:expandedTitleMarginEnd="8dp"
                 app:expandedTitleMarginStart="8dp"
-                android:elevation="16dp"
-                app:collapsedTitleGravity="start"
-                android:textSize="16dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                 app:title="@string/order_details"
+                app:title="@string/order_details"
 
                 >
 
@@ -62,8 +59,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:background="#FFFFFF"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 app:layout_constraintTop_toTopOf="parent"
 
                 tools:context=".ui.fragments.myOrder.MyOrderFragment">
@@ -72,104 +69,77 @@
                     android:id="@+id/order_details_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardElevation="10dp"
-                    app:cardCornerRadius="20dp"
-
                     android:layout_margin="10dp"
                     app:cardBackgroundColor="@color/white"
+
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
                     app:cardMaxElevation="12dp"
 
                     app:cardPreventCornerOverlap="true"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="16dp"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginBottom="32dp">
+
                         <TextView
                             android:id="@+id/text_order_umber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:text="@string/order_number"
                             android:layout_margin="16dp"
+                            android:text="@string/order_number"
                             android:textColor="@color/black"
-                            />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                         <TextView
                             android:id="@+id/orderNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="@id/text_order_umber"
-                            app:layout_constraintStart_toEndOf="@id/text_customer_name"
+                            android:layout_marginEnd="12dp"
                             android:text="1283847"
-                            android:layout_marginStart="32dp"
                             android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_order_umber"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/text_order_umber" />
 
-
-                            />
-
-                        <TextView
-                            android:id="@+id/text_customer_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-
-                            app:layout_constraintTop_toBottomOf="@id/text_order_umber"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:text="@string/customer_name"
-
-                            android:layout_margin="16dp"                    />
-                        <TextView
-                            android:id="@+id/customer_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="@id/text_customer_name"
-                            app:layout_constraintStart_toEndOf="@id/text_customer_name"
-                            android:text="d3d3"
-                            android:gravity="center"
-                            android:layout_marginStart="32dp"
-
-                            />
 
                         <TextView
                             android:id="@+id/text_customer_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/text_customer_name"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:text="@string/address"
                             android:layout_margin="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="52dp"
+                            android:text="@string/address"
                             android:textColor="@color/black"
 
 
-                            />
-
-
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_order_umber" />
 
                         <TextView
                             android:id="@+id/customer_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="@id/text_customer_address"
-                            app:layout_constraintStart_toEndOf="@id/text_customer_name"
                             android:text="El sharkia"
-                            android:layout_marginStart="32dp"
-
-                            />
-
+                            android:layout_marginEnd="12dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_customer_address"
+                            app:layout_constraintEnd_toEndOf="parent" />
 
                         <TextView
                             android:id="@+id/text_customer_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/text_customer_address"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:text="@string/phone"
                             android:layout_margin="16dp"
+                            android:text="Total Price"
                             android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_customer_address"
 
 
                             />
@@ -178,24 +148,23 @@
                             android:id="@+id/customer_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="@id/text_customer_phone"
-                            app:layout_constraintStart_toEndOf="@id/text_customer_name"
-                            android:text="01028269540"
                             android:gravity="center"
-                            android:layout_marginStart="32dp"
-
-                            />
+                            android:text="01028269540"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_customer_phone"
+                            android:layout_marginEnd="12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/text_customer_phone" />
 
 
                         <TextView
                             android:id="@+id/text_order_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/text_customer_phone"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:text="@string/order_date"
                             android:layout_margin="16dp"
+                            android:text="@string/order_date"
                             android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_customer_phone"
 
                             />
 
@@ -204,42 +173,37 @@
                             android:id="@+id/order_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="@id/text_order_date"
-                            app:layout_constraintStart_toEndOf="@id/text_customer_name"
-                            android:text="23 -5 2022"
                             android:gravity="center"
-                            android:layout_marginStart="32dp"
+                            android:text="23 -5 2022"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_order_date"
+                            android:layout_marginEnd="12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/text_order_date" />
 
-                            />
                         <TextView
                             android:id="@+id/text_payment_method"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/text_order_date"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:text="@string/payment_method"
                             android:layout_margin="16dp"
+                            android:layout_marginBottom="18dp"
+                            android:text="@string/payment_method"
                             android:textColor="@color/black"
-
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_order_date"
 
                             />
-
 
 
                         <TextView
                             android:id="@+id/payment_method"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="@id/text_payment_method"
-                            app:layout_constraintStart_toEndOf="@id/text_payment_method"
-                            android:text=" d3d3"
                             android:gravity="center"
-
-                            android:layout_marginStart="32dp"
-
-                            />
-
-
+                            android:text=" d3d3"
+                            android:layout_marginEnd="12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/text_payment_method" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -251,34 +215,29 @@
                     android:id="@+id/text_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/order_details_card"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_margin="8dp"
-                    android:textStyle="bold"
                     android:fontFamily="casual"
-                    android:textSize="16sp"
                     android:text="@string/order_item"
-                    />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/order_details_card" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/my_order_recycler"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_item"
                     android:layout_marginBottom="4dp"
-                       tools:listitem="@layout/items_in_order"
                     app:layout_constraintStart_toStartOf="parent"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/text_item"
+                    tools:listitem="@layout/items_in_order" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
         </androidx.core.widget.NestedScrollView>
-
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

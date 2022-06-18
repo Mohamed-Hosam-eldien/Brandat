@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentOrderDetailsBinding
 import com.example.brandat.databinding.ItemsInOrderBinding
+import com.example.brandat.models.orderModel.Order
 import com.example.brandat.ui.fragments.myOrder.MyOrderAdapter
 import com.example.brandat.ui.fragments.myOrder.OrderModel
 
@@ -20,15 +22,18 @@ import com.example.brandat.ui.fragments.myOrder.OrderModel
 class OrderDetailsFragment : Fragment() {
     lateinit var binding: FragmentOrderDetailsBinding
     lateinit var itemAdapter: OrderItemAdapter
+    private val args by navArgs<OrderDetailsFragmentArgs>()
+    lateinit var order:Order
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
 
-        val args: Bundle = requireArguments()
-        val brandId = args.getLong("productId")
-        Log.d("TAG", "onCreateView ppppppp: ${brandId}")
-        Toast.makeText(requireContext(), "productId $brandId", Toast.LENGTH_SHORT).show()
+//        val args: Bundle = requireArguments()
+//        val brandId = args.getLong("productId")
+//        Log.d("TAG", "onCreateView ppppppp: ${brandId}")
+//        Toast.makeText(requireContext(), "productId $brandId", Toast.LENGTH_SHORT).show()
 
 
     }
@@ -40,21 +45,27 @@ class OrderDetailsFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_order_details, container, false)
 
+        order = args.currentOrder
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecycler()
+        initRecycler(order)
+        showData()
     }
 
-    private fun initRecycler() {
-        itemAdapter = OrderItemAdapter(fakeData())
-        binding.myOrderRecycler.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            //layoutManager = GridLayoutManager(context,2)
-            adapter = itemAdapter
+    private fun initRecycler(order:Order?) {
+        if(order?.items?.isNotEmpty() == true){
+            itemAdapter = OrderItemAdapter(order?.items)
+            binding.myOrderRecycler.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                //layoutManager = GridLayoutManager(context,2)
+                adapter = itemAdapter
+            }
         }
+
     }
 
     private fun fakeData(): ArrayList<OrderItemModel> {
@@ -72,7 +83,12 @@ class OrderDetailsFragment : Fragment() {
         return myOrderList
     }
 
-    companion object {
+    fun showData(){
+        binding.orderNumber.text = order.orderNumber.toString()
+        binding.paymentMethod.text = order.gateway
+        var date = order.createdAt?.substring(0,10)
+        binding.orderDate.text = date
+        binding.customerPhone.text = order.finalPrice
 
     }
 }

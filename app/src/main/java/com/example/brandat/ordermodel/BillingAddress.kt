@@ -1,10 +1,14 @@
-package com.example.brandat.models.orderModel
+package com.example.brandat.ordermodel
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class BillingAddress(
     val address1: String = "",
-    val address2: Any = Any(),
+   // val address2: Any = Any(),
     val city: String = "",
-    val company: Any = Any(),
+    //val company: Any = Any(),
     val country: String = "",
     val country_code: String = "",
     val first_name: String = "",
@@ -16,4 +20,4 @@ data class BillingAddress(
     val province: String = "",
     val province_code: String = "",
     val zip: String = ""
-)
+):Parcelable

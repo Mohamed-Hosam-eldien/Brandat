@@ -19,9 +19,9 @@ class MyOrderViewModel @Inject constructor(
     private var _getOrder : MutableLiveData<Response<Orders>> = MutableLiveData()
     var getOrder: LiveData<Response<Orders>> = _getOrder
 
-    fun getOrdersFromApi() =
+    fun getOrdersFromApi(email:String?) =
         viewModelScope.launch {
-            val result= iProductsRepository.getAllOrders()
+            val result= iProductsRepository.getAllOrders(email)
             _getOrder.postValue(result)
         }
 

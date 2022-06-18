@@ -46,8 +46,8 @@ class ProductsRepository @Inject constructor(
         return remoteDataSource.getCategories(productId)
     }
 
-    override suspend fun getAllOrders(): Response<Orders> {
-        return remoteDataSource.getAllOrders()
+    override suspend fun getAllOrders(email:String?): Response<Orders> {
+        return remoteDataSource.getAllOrders(email)
     }
 
     override suspend fun getbrand():Response<Brands> {

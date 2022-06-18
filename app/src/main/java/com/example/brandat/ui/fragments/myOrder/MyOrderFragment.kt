@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentMyOrderBinding
 import com.example.brandat.models.orderModel.Order
 import dagger.hilt.android.AndroidEntryPoint
+import io.paperdb.Paper
 
 @AndroidEntryPoint
 class MyOrderFragment : Fragment(), OnItemClickLinter {
@@ -26,6 +28,7 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
     lateinit var navController: NavController
     private val viewModel: MyOrderViewModel by viewModels()
     private val myOrderAdapter by lazy { MyOrderAdapter(this) }
+     var email:String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +47,9 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
+        Paper.init(requireContext())
+        email =Paper.book().read<String>("email")
+        Toast.makeText(context, "${email}", Toast.LENGTH_SHORT).show()
         initRecycler()
         showObservedData()
     }
@@ -78,10 +84,12 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
     }
 
     fun showObservedData() {
-        viewModel.getOrdersFromApi()
+        viewModel.getOrdersFromApi(email)
         viewModel.getOrder.observe(viewLifecycleOwner) {
 
-                Toast.makeText(context, "${it.body()}", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "${it.body()}", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "${it.body()}", Toast.LENGTH_SHORT).show()
+            if (it.isSuccessful)
                 initView(it.body()!!.orders)
 
         }
@@ -100,7 +108,8 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
 
 
     override fun onClick(orderItem: Order) {
-        findNavController().navigate(R.id.action_orderFragment_to_orderDetailsFragment)
+        val direct : NavDirections = MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22(orderItem)
+        findNavController().navigate(direct)
     }
 
 }

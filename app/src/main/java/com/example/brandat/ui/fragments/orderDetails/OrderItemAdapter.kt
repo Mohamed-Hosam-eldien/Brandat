@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.ItemsInOrderBinding
 import com.example.brandat.databinding.MyOrderItemBinding
+import com.example.brandat.models.orderModel.LineItem
 
-class OrderItemAdapter(var itemList:ArrayList<OrderItemModel>):RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder>() {
+class OrderItemAdapter(var itemList:List<LineItem>?):RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemViewHolder {
@@ -16,15 +17,16 @@ class OrderItemAdapter(var itemList:ArrayList<OrderItemModel>):RecyclerView.Adap
 
     override fun onBindViewHolder(holder: OrderItemViewHolder, position: Int) {
 
-        var orderItem = itemList[position]
-        holder.view.orderImage.setImageResource(orderItem.itemImage)
-        holder.view.numberOfItem.text= orderItem.itemNumber.toString()
-        holder.view.itemPrice.text=orderItem.itemPrice
+        var orderItem = itemList?.get(position)
+       // holder.view.orderImage.setImageResource(orderItem.itemImage)
+        holder.view.numberOfItem.text = orderItem?.quantity.toString()
+        holder.view.itemPrice.text = orderItem?.price
+        holder.view.itemName.text = orderItem?.name
 
     }
 
     override fun getItemCount(): Int {
-        return  itemList.size
+        return  itemList!!.size
 
     }
 
