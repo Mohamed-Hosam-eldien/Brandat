@@ -41,145 +41,125 @@
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
+                    android:layout_margin="12dp"
                     android:text="@string/order_details"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView4"
+                    android:id="@+id/card_view4"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cardCopon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="12sp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="12sp"
+                    android:backgroundTint="@color/lightGray"
+                    app:cardCornerRadius="12dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="8sp">
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:paddingVertical="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24sp"
+                            android:layout_marginEnd="24sp">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="orders cost"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tvTotalProductsPrice"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end"
-                                tools:text="0"
-                                android:textSize="26sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:paddingVertical="5dp">
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/price"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:text="120 E.G"
+                                android:textSize="16sp" />
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="24sp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
                                 android:text="@string/delivery"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tvDelivary"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end"
-                                tools:text="0"
-                                android:textSize="26sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/rowDiscount"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:paddingVertical="5dp"
-                            android:visibility="gone"
-                            tools:visibility="visible">
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="discount"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:text="25 E.G"
+                                android:textSize="16sp" />
 
-                            <TextView
-                                android:id="@+id/tvDiscount"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end"
-                                tools:text="0"
-                                android:textSize="26sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
 
-                        <View
-                            android:id="@+id/view2"
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="@color/black" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:paddingVertical="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24sp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="24sp">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="@string/total_price"
-                                android:textSize="16sp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/total"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/tvTotal"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="end"
-                                tools:text="0"
-                                android:textSize="26sp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:text="145 E.G"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
-                        </LinearLayout>
+
+
+                        </RelativeLayout>
+
 
                     </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
                     android:layout_marginTop="15dp"
                     android:text="payment_method"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:layout_margin="12dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -192,34 +172,20 @@
                     app:cardCornerRadius="15dp">
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/paypal_background">
 
-                        <LinearLayout
+
+                        <ImageView
+                            android:id="@+id/imageView5"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:weightSum="3"
-                            android:background="@drawable/paypal_background"
-                            >
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/paypal" />
 
-                            <TextView
-                                android:id="@+id/rbCash"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="2"
-                                android:gravity="center"
-                                android:text="cash with paypal"
-                                android:textColor="#FFFFFF"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:id="@+id/imageView5"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-
-                                app:srcCompat="@drawable/paypal" />
-
-                        </LinearLayout>
+                    </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
@@ -268,12 +234,11 @@
                     android:id="@+id/textView8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_marginTop="15dp"
-                    android:text="address"
+                    android:text="Address"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
-                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:layout_margin="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -305,6 +270,7 @@
               android:layout_height="wrap_content"
                android:layout_margin="16dp"
                android:text="confirm orders"
+              android:backgroundTint="#2B5EB5"
               />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

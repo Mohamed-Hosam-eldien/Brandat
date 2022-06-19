@@ -74,7 +74,9 @@
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_shopping_cart.xml" value="0.1065" />
         <entry key="app/src/main/res/drawable/oval_shap.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/paypal_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15217391304347827" />
+        <entry key="app/src/main/res/layout/activity_order_status.xml" value="0.1" />
         <entry key="app/src/main/res/layout/adderss_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/city_dropdown_item.xml" value="0.1644021739130435" />
         <entry key="app/src/main/res/layout/d3d3.xml" value="0.165625" />

@@ -57,7 +57,7 @@
             android:layout_height="36dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="monospace"
-            android:text="0 $"
+            android:text="0"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"

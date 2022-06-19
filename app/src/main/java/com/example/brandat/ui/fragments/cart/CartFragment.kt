@@ -1,6 +1,7 @@
 package com.example.brandat.ui.fragments.cart
 
 import android.app.AlertDialog
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -53,7 +54,8 @@ class CartFragment : Fragment(), CartOnClickListener {
 //                showDialog()
 //            } else {
             var intent =Intent(requireContext(), OrderStatus::class.java)
-            intent.putExtra("total",binding.tvTotal.text)
+            intent.putExtra("total",binding.tvTprice.text.toString())
+            Log.e(TAG, "onViewCreated: ${binding.tvTotal.text.toString()}" )
              startActivity(intent)
            // }
         }
@@ -76,7 +78,7 @@ class CartFragment : Fragment(), CartOnClickListener {
         cartViewModel.getAllPrice()
 
         cartViewModel.allPrice.observe(viewLifecycleOwner) {
-            binding.tvTprice.text = "$it $"
+            binding.tvTprice.text = "$it"
         }
     }
 

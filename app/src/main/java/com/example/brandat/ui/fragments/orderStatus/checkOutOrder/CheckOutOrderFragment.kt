@@ -1,6 +1,7 @@
 package com.example.brandat.ui.fragments.orderStatus.checkOutOrder
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -17,6 +18,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFinshOrderStateBinding
+import com.example.brandat.models.CustomerAddress
+import com.example.brandat.models.orderModel.ShippingAddress
 import com.example.brandat.ui.fragments.orderStatus.OrderStateViewModel
 import com.example.brandat.utils.ResponseResult
 import com.google.android.material.snackbar.Snackbar
@@ -62,9 +65,16 @@ class CheckOutOrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-               initUi()
+        arguments?.let {
+           checkOutOrderViewModel.selectedAddress = arguments?.getParcelable<CustomerAddress>("address")!!
+           checkOutOrderViewModel.selectedPaymentMethods = arguments?.getString("paymentMethod")!!
+            Log.e(TAG, "onViewCreatedthree:${arguments?.getString("paymentMethod")!!} " )
+            Log.e(TAG, "onViewCreatedthree:${arguments?.getParcelable<CustomerAddress>("address")!!.address1} " )
+
+        }
+
+        initUi()
                setUpPayPal()
-//               paypal()
         checkOutOrderViewModel.createOrderResponse.observe(viewLifecycleOwner){
 
                   when(it){
@@ -75,6 +85,7 @@ class CheckOutOrderFragment : Fragment() {
                          runBlocking {
                              delay(300)
                              requireActivity().finish()
+
                          }
                      }
 
@@ -128,16 +139,16 @@ class CheckOutOrderFragment : Fragment() {
     private fun initUi() {
          showPaymentMethod()
          showSelectedAddress()
-        binding.tvTotalProductsPrice.text = "200"
-        binding.tvDelivary.text = "100"
-       binding.tvDiscount.text = "20"
-        binding.tvTotal.text = "320"
+//        binding.tvTotalProductsPrice.text ="99"
+//        binding.tvDelivary.text = "100"
+//       binding.tvDiscount.text = "20"
+//        binding.tvTotal.text = "320"
     }
 
     private fun showSelectedAddress() {
         binding.run {
             mainStateOrderViewModel.run {
-               address.text= selectedAddress.toString()
+               address.text=  checkOutOrderViewModel.selectedAddress.toString()
             }
         }
 
@@ -253,17 +264,23 @@ class CheckOutOrderFragment : Fragment() {
 
         }
 
-    private fun showDiscount(value: String? = null): Double? {
-        binding.run {
-            return if (value == null) {
-                rowDiscount.visibility = View.GONE
-                null
-            } else {
-                rowDiscount.visibility = View.VISIBLE
-                value.toDouble()
-            }
-        }
-    }
+//    private fun showDiscount(value: String? = null): Double? {
+//        binding.run {
+//            return if (value == null) {
+//                rowDiscount.visibility = View.GONE
+//                null
+//            } else {
+//                rowDiscount.visibility = View.VISIBLE
+//                value.toDouble()
+//            }
+//        }
+//    }
+
+
+
+
+
+
 
 }
 

@@ -10,7 +10,8 @@ import java.util.regex.Pattern
 class Constants {
 
     companion object {
-        var discountList: List<PriceRule>? = null
+        var totalPrice: Double? = 0.0
+        var discounCde: List<PriceRule>? = null
         const val PAYPAL_CLIENT_ID = "Aab9pWmlaqabofcahFzc-e1zxOzjqQqrY1YREcrpdIWR6pHJWJF3SfhtZ0rnZq4iahcfu6xG8AFBP1hL"
 
         private const val apiKey = "54e7ce1d28a9d3b395830ea17be70ae1"

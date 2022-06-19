@@ -5,19 +5,21 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Entity
+@Parcelize
 data class CustomerAddress(
 
-    var isSelected:Boolean,
+    var isSelected:Boolean=false,
     @SerializedName("address1")
-    val address1: String,
+    val address1: String="",
     @PrimaryKey
     @SerializedName("city")
-    val city: String,
+    val city: String="",
     @SerializedName("country")
-    val country: String
-){
+    val country: String=""
+) : Parcelable {
     fun printAddress():String{
         return "$address1, $city, $country"
     }

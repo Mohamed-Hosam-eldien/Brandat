@@ -18,6 +18,7 @@
             android:id="@+id/action_firstOrderStatus_to_mapsFragment2"
             app:destination="@id/mapsFragment2" />
 
+
     </fragment>
     <fragment
         android:id="@+id/secondOrderStatus"
