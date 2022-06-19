@@ -111,6 +111,20 @@
     <string name="worning">هل انت متأكد من حذف هذه العناصر من سلة الشراء؟</string>
     <string name="item_selected">عنصر محدد</string>
     <string name="items_selected">عناصر محددة</string>
+    <string name="added_to_cart">تم اضافته الي السلة</string>
+    <string name="saved_successfully">تم اضافه البلد بنجاح</string>
+    <string name="select_your_address">من فضلك ادخل العنوان</string>
+    <string name="no_connection">لا يوجد انترنت</string>
+    <string name="close">اغلاق</string>
+    <string name="are_you_sure">هل انت متأكد؟</string>
+    <string name="user_logged_successfully">User logged Successfully</string>
+    <string name="this_user_is_not_exist">هذا اليوزر ليس موجود</string>
+    <string name="required">مطلوب</string>
+    <string name="not_correct">ليس صحيح</string>
+    <string name="User_Created_Successfully">User Created Successfully</string>
+    <string name="not_valid_email">البريد الالكتروني غير صالح</string>
+    <string name="passward_doesnot_match">كلمة السر ليست مطابقه</string>
+    <string name="removed_from_cart">تم المسح من سلة المشتريات</string>
 
 
     <string name="product_details_fragment">ProductDetailsFragment</string>

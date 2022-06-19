@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFavoriteBinding
 import com.example.brandat.models.Favourite
 import com.example.brandat.ui.MainActivity
@@ -91,13 +92,13 @@ class FavoriteFragment : Fragment(), OnclickListener {
 
     override fun onRemoveClicked(favourite: Favourite) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton(context?.getString(R.string.yes)) { _, _ ->
             favouriteViewModel.removeFavouriteProduct(favourite.productId)
 //            favouriteViewModel.getFavouriteProducts()
             requireActivity().recreate()
             showSnackbar()
         }
-        builder.setNegativeButton("No") { _, _ ->
+        builder.setNegativeButton(context?.getString(R.string.no)) { _, _ ->
 
         }
         builder.setTitle("Delete${favourite.productName.toLowerCase()}")
@@ -112,18 +113,18 @@ class FavoriteFragment : Fragment(), OnclickListener {
             cartViewModel.addProductToCart(product)
             bageCountI.updateBadgeCount(Constants.count++)
             Paper.book().write("CountfromFav", Constants.count)
-            Toast.makeText(requireContext(), "Added To Cart", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.added_to_cart), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Login Now") { _, _ ->
+        builder.setPositiveButton(context?.getString(R.string.login_now)) { _, _ ->
             startActivity(Intent(requireActivity(), ProfileActivity::class.java))
         }
-        builder.setNegativeButton("cancel") { _, _ ->
+        builder.setNegativeButton(context?.getString(R.string.cancel)) { _, _ ->
         }
-        builder.setTitle("please register or login to add item in cart")
+        builder.setTitle(context?.getString(R.string.worning_msg))
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }

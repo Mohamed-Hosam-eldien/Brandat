@@ -17,9 +17,6 @@ class SearchActivity : AppCompatActivity() , ISnackBar{
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
-
     }
 
     override fun showSnack() {
@@ -27,13 +24,13 @@ class SearchActivity : AppCompatActivity() , ISnackBar{
     }
 
     private fun showMessage() {
-        Snackbar.make(binding.cons, "No Connection", Snackbar.LENGTH_LONG)
+        Snackbar.make(binding.cons, getString(R.string.no_connection), Snackbar.LENGTH_LONG)
             .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
                 resources.getColor(
                     R.color.black2
                 )
             )
-            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            .setActionTextColor(resources.getColor(R.color.white)).setAction(getString(R.string.close)) {
             }.show()
     }
 

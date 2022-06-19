@@ -44,7 +44,6 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
         }
         holder.binding.ivCart.setOnClickListener {
             onClickedListener.onCartClicked(setProductDataToCartModel(currentProduct))
-            Log.e("TAG", "onBindViewHolder:${setProductDataToCartModel(currentProduct).pImage} ")
         }
     }
 
@@ -61,7 +60,6 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
     }
 
     private fun setProductDataToCartModel(favProduct: Favourite): Cart {
-        // Log.d("TAG", "setProductDataToCartModel: ${productDetails.variants[0].price.toInt()}")
         return Cart(
             favProduct.productName,
             favProduct.productPrice,
@@ -69,8 +67,6 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
             pId = favProduct.productId
         )
     }
-
-    //============================================================
     class ProductViewHolder(val binding: FavouriteItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 

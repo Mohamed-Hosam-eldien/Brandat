@@ -24,8 +24,8 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentNewCategoryBinding
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
-import com.example.brandat.models.draftOrder.DraftOrderModel
 import com.example.brandat.models.draftOrder.DraftOrder
+import com.example.brandat.models.draftOrder.DraftOrderModel
 import com.example.brandat.models.draftOrder.LineItem
 import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.ProfileActivity
@@ -41,9 +41,6 @@ import com.example.brandat.utils.Constants.Companion.count
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.concurrent.schedule
 
 @AndroidEntryPoint
 class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
@@ -54,11 +51,11 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     private var type: String = ""
     private var brandName: String = "null"
     private lateinit var bageCountI: IBadgeCount
-    private var isClicked: Boolean = false
+    private var isClicked: Boolean = true
     private val viewModel: CategoryViewModel by viewModels()
     private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
-
+private var mCount=0
     private lateinit var model: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +89,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
         bageCountI = requireActivity() as MainActivity
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
-           showShimmerEffect()
+            showShimmerEffect()
 
             viewModel.getAllProductsByName()
             filterProducts()
@@ -112,23 +109,23 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 binding.chipCatSub.text = "All"
                 binding.groupChip.visibility = View.VISIBLE
 
-            viewModel.getAllProductsByName()
-            filterProducts()
+                viewModel.getAllProductsByName()
+                filterProducts()
 
-            viewModel.productsLive.observe(viewLifecycleOwner) {
-                val products: ArrayList<ProductDetails> = ArrayList()
-                for (product in it) {
-                    if (product.vendor == brandName.uppercase()) {
-                        products.add(product)
+                viewModel.productsLive.observe(viewLifecycleOwner) {
+                    val products: ArrayList<ProductDetails> = ArrayList()
+                    for (product in it) {
+                        if (product.vendor == brandName.uppercase()) {
+                            products.add(product)
+                        }
                     }
-                }
 
 
-                hideShimmerEffect()
-                if (products.size > 0)
-                    binding.imgEmpty.visibility = View.GONE
-                else
-                    binding.imgEmpty.visibility = View.VISIBLE
+                    hideShimmerEffect()
+                    if (products.size > 0)
+                        binding.imgEmpty.visibility = View.GONE
+                    else
+                        binding.imgEmpty.visibility = View.VISIBLE
 
                     productRvAdapter.setData(products)
                 }
@@ -166,10 +163,10 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                             products.add(product)
                     }
                     hideShimmerEffect()
-                for (product in it) {
-                    if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
-                        products.add(product)
-                }
+                    for (product in it) {
+                        if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
+                            products.add(product)
+                    }
 
                     if (products.size > 0)
                         binding.imgEmpty.visibility = View.GONE
@@ -216,31 +213,35 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
             }
 
-        }else{
+        } else {
             showMessage("no Connection")
             hideShimmerEffect()
 
         }
 
-        ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(),viewModel, requireActivity())
+        ConnectionUtil.registerConnectivityNetworkMonitor(
+            requireContext(),
+            viewModel,
+            requireActivity()
+        )
 
     }
 
     private fun hideShimmerEffect() {
         binding.shimmerRecycle.hideShimmerAdapter()
         binding.shimmerRecycle.visibility = View.GONE
-        binding.recyclerCategory.visibility=View.VISIBLE
+        binding.recyclerCategory.visibility = View.VISIBLE
     }
 
     private fun showMessage(it: String) {
 
         //  snackbar = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
-        Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE).
-        setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
-            resources.getColor(
-                R.color.black2
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                resources.getColor(
+                    R.color.black2
+                )
             )
-        )
             .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
             }.show()
 
@@ -256,7 +257,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     private fun saveDraft(productDetails: ProductDetails) {
 
         val lineItem = LineItem(
-            title =  productDetails.title,
+            title = productDetails.title,
             vendor = productDetails.vendor,
             //price = productDetails.variants[0].price,
             price = "6",
@@ -408,25 +409,19 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     }
 
     override fun onCartClicked(currentProduct: Cart) {
-        // isClicked=true
+       // isClicked = true
         println("===id===${currentProduct.pId}")
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
-            // print("==========$isClicked")
-            cartViewModel.addProductToCart(currentProduct)
-            bageCountI.updateBadgeCount(count++)
-            Paper.book().write("CountfromHome", count)
-            //cartViewModel.isAdded(currentProduct.pName)
-//            if (!isClicked) {
-//                print("======clicked====$isClicked")
-//
-//                isClicked = true
-//            }
-//            if (!isClicked) {
-//
-//                isClicked=true
-//            }
+
+            cartViewModel.getAllCartProduct()
+            cartViewModel.cartProduct.observe(viewLifecycleOwner){
+                count=it.size
+                cartViewModel.addProductToCart(currentProduct)
+                Toast.makeText(requireContext(), "yeahhh!", Toast.LENGTH_SHORT).show()
+                bageCountI.updateBadgeCount(count)
+            }
         }
     }
 
@@ -461,4 +456,5 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 Toast.makeText(requireContext(), "Removed from Cart!", Toast.LENGTH_SHORT).show()
             }.show()
     }
+
 }

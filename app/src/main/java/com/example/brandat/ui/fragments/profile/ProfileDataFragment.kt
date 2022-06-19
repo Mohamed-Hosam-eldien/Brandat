@@ -62,15 +62,15 @@ class ProfileDataFragment : Fragment() {
 
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton(context?.getString(R.string.yes)) { _, _ ->
             Paper.book().delete("email")
             Paper.book().delete("name")
             Paper.book().destroy()
             requireActivity().finish()
         }
-        builder.setNegativeButton("No") { _, _ ->
+        builder.setNegativeButton(context?.getString(R.string.no)) { _, _ ->
         }
-        builder.setTitle("Are You Sure?")
+        builder.setTitle(context?.getString(R.string.are_you_sure))
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }

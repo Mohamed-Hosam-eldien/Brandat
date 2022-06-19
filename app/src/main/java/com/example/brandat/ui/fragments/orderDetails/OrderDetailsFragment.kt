@@ -25,18 +25,12 @@ class OrderDetailsFragment : Fragment() {
     private val args by navArgs<OrderDetailsFragmentArgs>()
     lateinit var order:Order
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         val args: Bundle = requireArguments()
         val brandId = args.getLong("productId")
-        Log.d("TAG", "onCreateView ppppppp: ${brandId}")
         Toast.makeText(requireContext(), "productId $brandId", Toast.LENGTH_SHORT).show()
-
 
     }
 

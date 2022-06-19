@@ -90,7 +90,6 @@ class CartRvAdapter(
             if (multiSelection) {
                 applySelection(holder, currentCart)
             } else {
-                Log.e("TAG", "onBindViewHolder: ")
             }
         }
         holder.itemView.setOnLongClickListener {

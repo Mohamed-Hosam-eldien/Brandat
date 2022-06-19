@@ -30,7 +30,6 @@ class BrandViewModel @Inject constructor(
 
     fun getBrands() = viewModelScope.launch {
         val result = brandRepository.getbrand()
-        Log.e("TAG", "====result====$result ", )
         when (result) {
             is NetworkResult.Success -> {
                 _brandResponse.postValue(result.data?.brands)
@@ -38,9 +37,7 @@ class BrandViewModel @Inject constructor(
             is NetworkResult.Error -> {
                 _setError.postValue(result.exception.message)
             }
-
             else -> {
-                Log.e("TAG", "wheen========:", )
             }
         }
     }

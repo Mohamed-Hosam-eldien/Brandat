@@ -68,18 +68,13 @@ class HomeFragment : Fragment(), BrandOnClickListner {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         imageSlider()
-        Log.e("TAG", "==from home: ")
         ShowDescountCopune()
         discountInit()
-
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
             showShimmerEffect()
-
             Handler().postDelayed({
                 brandViewModel.getBrands()
             }, 3000)
-
-
         } else {
             //brandViewModel.getBrandsFromDB()//cashing
             // ConnectionUtil.showMessage(requireParentFragment())
@@ -110,8 +105,6 @@ class HomeFragment : Fragment(), BrandOnClickListner {
         }
 
     private fun ShowDescountCopune() {
-
-
         binding.imgCopy.setOnClickListener {
             val clipboardManager =
                 requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -125,8 +118,6 @@ class HomeFragment : Fragment(), BrandOnClickListner {
 
 
     private fun showMessage(it: String) {
-
-
             //snack = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
             Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)
                 .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
@@ -170,15 +161,12 @@ class HomeFragment : Fragment(), BrandOnClickListner {
             imageList.add(SlideModel(R.drawable.sh2, ScaleTypes.CENTER_CROP))
             imageList.add(SlideModel(R.drawable.shose_image, ScaleTypes.CENTER_CROP))
 
-
             binding.imageSlider.setImageList(imageList)
             binding.imageSlider.setImageList(imageList)
         }
 
         private fun initView() {
-
             brandAdapter = BrandAdapter(requireContext(), this)
-
             binding.brandsRecycler.apply {
                 val layoutManager = GridLayoutManager(context, 2)
                 setLayoutManager(layoutManager)

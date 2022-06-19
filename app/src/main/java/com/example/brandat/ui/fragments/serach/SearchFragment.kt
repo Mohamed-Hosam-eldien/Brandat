@@ -158,29 +158,29 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
 
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Login Now") { _, _ ->
+        builder.setPositiveButton(getString(R.string.login_now)) { _, _ ->
             startActivity(Intent(requireActivity(), ProfileActivity::class.java))
         }
-        builder.setNegativeButton("cancel") { _, _ ->
+        builder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
         }
-        builder.setTitle("please register or login to add item in cart")
+        builder.setTitle(getString(R.string.worning_msg))
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }
 
     private fun showSnackBar(cart: Cart) {
-        val snackbar = Snackbar.make(binding.recyclerSearch, "Added to Cart", Snackbar.LENGTH_LONG)
+        val snackbar = Snackbar.make(binding.recyclerSearch, getString(R.string.added_to_cart), Snackbar.LENGTH_LONG)
         snackbar.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.purple_700))
         snackbar.setAction("undo") {
             cartViewModel.removeProductFromCart(cart)
-            Toast.makeText(requireContext(), "Removed from Cart!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.removed_from_cart), Toast.LENGTH_SHORT).show()
         }.show()
     }
 
     private fun showMessage() {
-        Snackbar.make(requireView(), "No Connection", Snackbar.LENGTH_LONG)
+        Snackbar.make(requireView(), getString(R.string.no_connection), Snackbar.LENGTH_LONG)
             .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
                 requireActivity().resources.getColor(
                     R.color.black2

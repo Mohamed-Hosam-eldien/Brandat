@@ -80,7 +80,7 @@ class ProductDetailsFragment : Fragment() {
             //loading
             viewModel.getProductDetailsFromDatabase(id)
         } else {
-            showMessage("No Connection")
+            showMessage(requireContext().getString(R.string.no_connection))
         }
         random = (3..5).random().toFloat()
         binding.ratingBar.rating = random
@@ -98,7 +98,7 @@ class ProductDetailsFragment : Fragment() {
                 showDialog()
             } else {
                 cartViewModel.addProductToCart(productToCart)
-                Toast.makeText(requireContext(), "Added To Cart", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), context?.getString(R.string.added_to_cart), Toast.LENGTH_SHORT).show()
             }
         }
         setupRecyclerView()
@@ -118,19 +118,19 @@ class ProductDetailsFragment : Fragment() {
                     R.color.black2
                 )
             )
-            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            .setActionTextColor(resources.getColor(R.color.white)).setAction(context?.getString(R.string.close)) {
             }.show()
     }
 
 
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Login Now") { _, _ ->
+        builder.setPositiveButton(context?.getString(R.string.login_now)) { _, _ ->
             startActivity(Intent(requireActivity(), ProfileActivity::class.java))
         }
-        builder.setNegativeButton("cancel") { _, _ ->
+        builder.setNegativeButton(context?.getString(R.string.cancel)) { _, _ ->
         }
-        builder.setTitle("please register or login to add item in cart")
+        builder.setTitle(context?.getString(R.string.worning_msg))
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }
@@ -151,10 +151,7 @@ class ProductDetailsFragment : Fragment() {
     }
 
     private fun observeShowData() {
-        Log.i("TAG", "observeShowData: ")
-
         //7782820708581L
-
         viewModel.getProduct.observe(viewLifecycleOwner) {
             if (it != null) {
                 showData(it)

@@ -18,8 +18,7 @@ import com.example.brandat.databinding.FragmentCartBinding
 import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.ProfileActivity
-import com.example.brandat.utils.Constants
-import com.example.brandat.utils.Constants.Companion.count
+import com.example.brandat.ui.fragments.newcategory.NewCategoryFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -32,7 +31,8 @@ class CartFragment : Fragment(), CartOnClickListener {
     private lateinit var bindingDialog: AlertDialogBinding
     private lateinit var dialog: AlertDialog
     private lateinit var bageCountI: IBadgeCount
-    private var badgeCount:Int=0
+    private lateinit var iCount: Count
+    private var badgeCount: Int = 0
     private val cartViewModel: CartViewModel by viewModels()
 
     override fun onCreateView(
@@ -55,13 +55,17 @@ class CartFragment : Fragment(), CartOnClickListener {
         cartViewModel.getAllCartProduct()
         cartViewModel.getAllPrice()
         bageCountI = requireActivity() as MainActivity
-
+        iCount = NewCategoryFragment()
         binding.buyButn.setOnClickListener {
             if (Paper.book().read<String>("email") == null) {
-                 showDialog()
+                showDialog()
             } else {
                 if (binding.ivPlaceholder.visibility == View.VISIBLE) {
-                    Toast.makeText(requireContext(), getString(R.string.cart_is_empty), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.cart_is_empty),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     startActivity(Intent(requireContext(), OrderStatus::class.java))
                 }
@@ -77,8 +81,9 @@ class CartFragment : Fragment(), CartOnClickListener {
             bageCountI.updateBadgeCount(it.size)
             cartAdapter.notifyDataSetChanged()
             badgeCount = it.size
-            Constants.count = badgeCount
-            Paper.book().write("countFromCart", count)
+            //Constants.count = badgeCount
+            iCount.sendCount(badgeCount)
+            Paper.book().write("countFromCart", badgeCount)
 
         }
         cartViewModel.allPrice.observe(viewLifecycleOwner) {
@@ -154,6 +159,7 @@ class CartFragment : Fragment(), CartOnClickListener {
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setCancelable(false)
     }
+
     override fun onResume() {
         super.onResume()
         cartViewModel.getAllCartProduct()
