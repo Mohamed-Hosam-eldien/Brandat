@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_profileDataFragment_to_myOrderFragment"
             app:destination="@id/myOrderFragment" />
+        <action
+            android:id="@+id/action_profileDataFragment_to_termsOfServiceFragment"
+            app:destination="@id/termsOfServiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/addressFragment"
@@ -90,5 +93,14 @@
         <argument
             android:name="currentOrder"
             app:argType="com.example.brandat.models.orderModel.Order" />
+    </fragment>
+    <fragment
+        android:id="@+id/termsOfServiceFragment"
+        android:name="com.example.brandat.ui.fragments.TermsOfServiceFragment"
+        android:label="Terms of Service"
+        tools:layout="@layout/fragment_terms_of_service">
+        <action
+            android:id="@+id/action_termsOfServiceFragment_to_profileDataFragment"
+            app:destination="@id/profileDataFragment" />
     </fragment>
 </navigation>

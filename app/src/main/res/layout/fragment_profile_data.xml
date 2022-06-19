@@ -75,10 +75,10 @@
 
 
             <LinearLayout
+                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/orderLayout"

@@ -65,6 +65,12 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="password">Password</string>
     <string name="total">Total</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="street_address">Street Address</string>
+    <string name="city">City</string>
+    <string name="country">Country</string>
+    <string name="many_offers">Many Offers</string>
+    <string name="desc1_tv">A lot of offers wait you with many coupons just for you</string>
     <string name="checkout">Checkout</string>
     <string name="click_to_add_your_address">Click to add your address</string>
     <string name="send_order">Send Order</string>

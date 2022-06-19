@@ -3,10 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/drawable/btn_shape.xml" value="0.19" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/drawable/ic_location.xml" value="0.134" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/drawable/selected_item.xml" value="0.19" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/drawable/unselected_item.xml" value="0.19" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/activity_order_status.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/activity_product.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/activity_profile.xml" value="0.22509057971014493" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/activity_registration.xml" value="0.25416666666666665" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/activity_slider.xml" value="0.25416666666666665" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/adderss_item.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/bottom_sheet.xml" value="0.18333333333333332" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/brands_item_shimmer.xml" value="0.22509057971014493" />
@@ -22,7 +27,10 @@
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_my_order.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_order_details.xml" value="0.24609178013111446" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_product_details.xml" value="0.12360688956433637" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_profile_data.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_search.xml" value="0.22509057971014493" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_slider.xml" value="0.25416666666666665" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_terms_of_service.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/items_in_order.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/main_toolbar.xml" value="0.18333333333333332" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/my_order_item.xml" value="0.22509057971014493" />
@@ -30,6 +38,7 @@
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/placeholder_product.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/radio_button_item.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/reviewer_row_layout.xml" value="0.22509057971014493" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/slider_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.134" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/drawable/rounded_background.xml" value="0.1135" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/font/courgette.xml" value="0.2216796875" />
