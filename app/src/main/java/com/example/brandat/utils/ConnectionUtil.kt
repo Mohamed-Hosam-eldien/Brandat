@@ -15,6 +15,8 @@ import com.example.brandat.R
 import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.fragments.home.BrandViewModel
 import com.example.brandat.ui.fragments.home.HomeFragment
+import com.example.brandat.ui.fragments.myOrder.MyOrderViewModel
+import com.example.brandat.ui.fragments.serach.SearchViewModel
 import com.example.brandat.viewmodels.ProductDetailsViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -25,6 +27,7 @@ class ConnectionUtil {
         var dialog: AlertDialog? = null
         var id: Long = 0
         var isShow = false
+        var email:String=""
         fun isNetworkAvailable(context: Context): Boolean {
             val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -84,6 +87,10 @@ class ConnectionUtil {
                                     } else if (viewModel is ProductDetailsViewModel) {
                                         Log.d("TAG", "onAvailable: id -->$id")
                                         viewModel.getProductDetailsFromDatabase(id)
+                                    }else if(viewModel is SearchViewModel){
+                                        viewModel.getAllProduct()
+                                    }else if(viewModel is MyOrderViewModel){
+                                        viewModel.getOrdersFromApi(email)
                                     }
                                     //snack?.dismiss()
                                     //showMessage(activity)/neeed
@@ -97,7 +104,7 @@ class ConnectionUtil {
 
 
 
-                                for(i in 0..1) {
+                                for(i in 0..4) {
                                     if(!isShow) {
                                         showDialoge(context)
                                         isShow = true

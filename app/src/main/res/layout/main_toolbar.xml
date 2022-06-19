@@ -22,7 +22,6 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
     <include layout="@layout/activity_main" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

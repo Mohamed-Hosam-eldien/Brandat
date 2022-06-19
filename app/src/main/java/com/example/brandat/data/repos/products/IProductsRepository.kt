@@ -37,6 +37,6 @@ interface IProductsRepository {
     suspend fun getCategories(productId: Long): NetworkResult<Products?>
     suspend fun isAdded(productName: String): Cart
     suspend fun postFavDraft(draftModel: DraftOrderModel) : Response<DraftOrder>
-    suspend fun getAllOrders(email:String?): Response<Orders>
+    suspend fun getAllOrders(email:String?): NetworkResult<Orders?>
 
 }

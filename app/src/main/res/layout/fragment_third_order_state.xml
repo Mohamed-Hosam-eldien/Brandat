@@ -30,6 +30,10 @@
                 android:layout_marginRight="@dimen/dimen_16"
                 android:text="@string/send_order"
                 android:textAllCaps="false"
+                android:padding="8dp"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/black2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

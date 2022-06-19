@@ -99,8 +99,8 @@
             app:shimmer_demo_grid_child_count="2"
             app:shimmer_demo_layout="@layout/placeholder_product"
             app:shimmer_demo_layout_manager_type="grid"
-
             app:shimmer_demo_mask_width=".5"
+            app:shimmer_recycler_direction="top_to_bottom"
             app:shimmer_demo_reverse_animation="false" />
 
         <androidx.cardview.widget.CardView
@@ -143,7 +143,7 @@
                         android:id="@+id/txtCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="agste54st"
+                        android:text="@string/copunCode"
                         android:textStyle="bold" />
 
 
@@ -161,9 +161,6 @@
 
         </androidx.cardview.widget.CardView>
 
-            app:shimmer_demo_mask_width=".5"
-            app:shimmer_demo_reverse_animation="false"
-            app:shimmer_recycler_direction="top_to_bottom" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

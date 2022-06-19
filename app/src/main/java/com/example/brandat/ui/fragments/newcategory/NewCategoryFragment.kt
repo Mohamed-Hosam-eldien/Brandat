@@ -124,7 +124,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 }
 
 
-                saveDraft(products[0])
                 hideShimmerEffect()
                 if (products.size > 0)
                     binding.imgEmpty.visibility = View.GONE
@@ -171,8 +170,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                     if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
                         products.add(product)
                 }
-
-                saveDraft(products[0])
 
                     if (products.size > 0)
                         binding.imgEmpty.visibility = View.GONE
@@ -382,11 +379,11 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     override fun onResume() {
         super.onResume()
         if (brandName == "null") {
-            binding.chipCat.text = "Men"
-            binding.chipCatSub.text = "Shoes"
+            binding.chipCat.text = getString(R.string.men)
+            binding.chipCatSub.text = getString(R.string.shoes)
         } else {
             binding.chipCat.text = brandName
-            binding.chipCatSub.text = "All"
+            binding.chipCatSub.text = getString(R.string.all)
         }
     }
 

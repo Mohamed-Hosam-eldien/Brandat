@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentMyOrderBinding
 import com.example.brandat.models.orderModel.Order
+import com.example.brandat.utils.ConnectionUtil
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -49,9 +51,22 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
 
         Paper.init(requireContext())
         email =Paper.book().read<String>("email")
+        ConnectionUtil.email= email.toString()
         Toast.makeText(context, "${email}", Toast.LENGTH_SHORT).show()
+        if(ConnectionUtil.isNetworkAvailable(requireContext())){
+            //shimmer / loading
+            viewModel.getOrdersFromApi(email)
+        }else{
+          showMessage("No Connection")
+            binding.animationView.visibility = View.VISIBLE
+        }
         initRecycler()
         showObservedData()
+        ConnectionUtil.registerConnectivityNetworkMonitor(
+            requireContext(),
+            viewModel,
+            requireActivity()
+        )
     }
 
     private fun initRecycler() {
@@ -84,13 +99,13 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
     }
 
     fun showObservedData() {
-        viewModel.getOrdersFromApi(email)
+
         viewModel.getOrder.observe(viewLifecycleOwner) {
 
                 //Toast.makeText(context, "${it.body()}", Toast.LENGTH_SHORT).show()
                 //Toast.makeText(context, "${it.body()}", Toast.LENGTH_SHORT).show()
-            if (it.isSuccessful)
-                initView(it.body()!!.orders)
+            if (it!=null)
+                initView(it)
 
         }
 
@@ -110,6 +125,17 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
     override fun onClick(orderItem: Order) {
         val direct : NavDirections = MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22(orderItem)
         findNavController().navigate(direct)
+    }
+    private fun showMessage(it: String) {
+
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                resources.getColor(
+                    R.color.black2
+                )
+            )
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
     }
 
 }

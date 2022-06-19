@@ -100,7 +100,7 @@
                   android:id="@+id/price"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="items"
+                  android:text="@string/items"
                   android:gravity="center"
                   android:layout_gravity="center"
                   android:textColor="@color/white"
@@ -130,9 +130,9 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:text="Active"
+                    android:text="@string/active"
                     android:textColor="@color/white"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
 
 
                     />

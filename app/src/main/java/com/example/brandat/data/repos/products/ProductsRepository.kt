@@ -88,8 +88,15 @@ class ProductsRepository @Inject constructor(
         return remoteDataSource.postFavDraft(draftModel)
     }
 
-    override suspend fun getAllOrders(email:String?): Response<Orders> {
-        return remoteDataSource.getAllOrders(email)
+    override suspend fun getAllOrders(email:String?): NetworkResult<Orders?> {
+        val result:NetworkResult<Orders?>
+        val response=remoteDataSource.getAllOrders(email)
+        if(response.isSuccessful){
+            result=NetworkResult.Success(response.body())
+        }else{
+            result=NetworkResult.Error(Exception("error${response.code()}"))
+        }
+        return result
     }
 
 

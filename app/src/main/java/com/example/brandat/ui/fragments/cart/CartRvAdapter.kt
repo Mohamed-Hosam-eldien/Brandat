@@ -135,7 +135,7 @@ class CartRvAdapter(
 
     private fun showDialog(mode: ActionMode?) {
         val builder = AlertDialog.Builder(context)
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton(context.getString(R.string.yes)) { _, _ ->
             selectedOrders.forEach {
                 onClickListener.onClicked(it)
             }
@@ -144,11 +144,11 @@ class CartRvAdapter(
             selectedOrders.clear()
             mode?.finish()
         }
-        builder.setNegativeButton("No") { _, _ ->
+        builder.setNegativeButton(context.getString(R.string.no)) { _, _ ->
 
         }
-        builder.setTitle("Delete?")
-         builder.setMessage("Are you sure you want to delete this item from Cart?")
+        builder.setTitle(context.getString(R.string.delet))
+         builder.setMessage(context.getString(R.string.worning))
         builder.create().show()
     }
 
@@ -167,12 +167,11 @@ class CartRvAdapter(
                 multiSelection = false
             }
             1 -> {
-                mActionMode.title = "${selectedOrders.size} item selected"
+                mActionMode.title =" ${selectedOrders.size}${context.getString(R.string.item_selected)}"
 
-                //  mActionMode.title= R.font.m
             }
             else -> {
-                mActionMode.title = "${selectedOrders.size} items selected"
+                mActionMode.title = "${selectedOrders.size}${context.getString(R.string.items_selected)}"
             }
         }
     }
@@ -187,7 +186,6 @@ class CartRvAdapter(
             changeCardStyle(holder, R.color.red, R.color.green)
             applyActionModeTitle()
         }
-        Log.d("TAG", "applySelection adapter ${selectedOrders.size}: ")
     }
 
     private fun changeCardStyle(holder: CartViewHolder, backgroundColor: Int, strokeColor: Int) {

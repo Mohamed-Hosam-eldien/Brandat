@@ -36,7 +36,6 @@
                 fab:menu_colorPressed="#9C27B0"
                 fab:menu_colorRipple="#99FFFFFF"
                 fab:menu_fab_size="normal"
-
                 fab:menu_icon="@drawable/ic_location"
                 fab:menu_labels_colorNormal="#333333"
                 fab:menu_labels_colorPressed="#444444"
@@ -92,9 +91,6 @@
                     android:background="#94C9E1" />
 
             </com.github.clans.fab.FloatingActionMenu>
-
-
-
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"

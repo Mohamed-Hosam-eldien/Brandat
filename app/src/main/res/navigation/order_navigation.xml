@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/firstOrderStatus"
         android:name="com.example.brandat.ui.fragments.orderStatus.FirstOrderStatus"
-        android:label="First Order Status">
+        android:label="@string/first_step">
         <action
             android:id="@+id/action_firstOrderStatus_to_secondOrderStatus"
             app:destination="@id/secondOrderStatus" />
@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/secondOrderStatus"
         android:name="com.example.brandat.ui.fragments.orderStatus.SecondOrderStatus"
-        android:label="Second Order Status" >
+        android:label="@string/second_step" >
         <action
             android:id="@+id/action_secondOrderStatus_to_thirdOrderState"
             app:destination="@id/thirdOrderState" />
@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/addAddressFragment2"
         android:name="com.example.brandat.ui.fragments.address.AddAddressFragment"
-        android:label="Add Address">
+        android:label="@string/add_address">
         <action
             android:id="@+id/action_addAddressFragment2_to_firstOrderStatus"
             app:destination="@id/firstOrderStatus" />
@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/mapsFragment2"
         android:name="com.example.brandat.ui.fragments.map.MapsFragment"
-        android:label="Maps">
+        android:label="@string/maps">
         <action
             android:id="@+id/action_mapsFragment2_to_firstOrderStatus"
             app:destination="@id/firstOrderStatus" />
@@ -46,5 +46,5 @@
     <fragment
         android:id="@+id/thirdOrderState"
         android:name="com.example.brandat.ui.fragments.orderStatus.ThirdOrderState"
-        android:label="ThirdOrderState" />
+        android:label="@string/third_step" />
 </navigation>

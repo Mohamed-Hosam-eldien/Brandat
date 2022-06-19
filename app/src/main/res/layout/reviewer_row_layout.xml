@@ -63,7 +63,7 @@
                 <RatingBar
                     android:id="@+id/ratingBar2"
                     android:layout_width="240dp"
-                    android:layout_height="43dp"
+                    android:layout_height="40dp"
                     android:isIndicator="true"
                     android:rating="@{user.rating}"
                     android:progressTint="#ECA800"

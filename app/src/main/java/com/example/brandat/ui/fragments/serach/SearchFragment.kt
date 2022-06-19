@@ -1,10 +1,13 @@
 package com.example.brandat.ui.fragments.serach
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -23,16 +26,17 @@ import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
+import com.example.brandat.utils.ConnectionUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), OnImageFavClickedListener {
 
     private val viewModel: SearchViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
+    private lateinit var iSnackBar: ISnackBar
 
     private lateinit var binding: FragmentSearchBinding
     private var itemList = emptyList<ProductDetails>()
@@ -43,16 +47,25 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSearchBinding.bind(inflater.inflate(R.layout.fragment_search, container, false))
+        binding =
+            FragmentSearchBinding.bind(inflater.inflate(R.layout.fragment_search, container, false))
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (ConnectionUtil.isNetworkAvailable(requireContext())) {
 
-        viewModel.getAllProduct()
-        viewModel.liveSearch.observe(viewLifecycleOwner) {
-            itemList = it
+            viewModel.getAllProduct()
+            viewModel.liveSearch.observe(viewLifecycleOwner) {
+                itemList = it
+            }
+
+        } else {
+
+            iSnackBar = requireActivity() as SearchActivity
+            iSnackBar.showSnack()
+            binding.animationView.visibility = View.VISIBLE
         }
 
         binding.imgBack.setOnClickListener { requireActivity().finish() }
@@ -64,15 +77,16 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
                 val list: MutableList<ProductDetails> = ArrayList()
                 if (query != null) {
                     itemList.forEach {
-                        if(it.title.contains(query.uppercase())
+                        if (it.title.contains(query.uppercase())
                             || it.handle.contains(query.uppercase())
                             || it.productType.contains(binding.search.query.toString().uppercase())
                             || it.vendor.contains(query.uppercase())
-                            || it.variants[0].price.contains(query.uppercase())) {
+                            || it.variants[0].price.contains(query.uppercase())
+                        ) {
                             list.add(it)
                         }
                     }
-                    requireActivity().runOnUiThread{
+                    requireActivity().runOnUiThread {
                         setDataToAdapter(list)
                     }
                 }
@@ -85,6 +99,12 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
             }
 
         })
+
+        ConnectionUtil.registerConnectivityNetworkMonitor(
+            requireContext(),
+            viewModel,
+            requireActivity()
+        )
     }
 
     private fun setDataToAdapter(items: List<ProductDetails>) {
@@ -100,7 +120,7 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
     }
 
     private fun checkEmpty(items: List<ProductDetails>) {
-        if(items.isNotEmpty()) {
+        if (items.isNotEmpty()) {
             binding.recyclerSearch.visibility = View.VISIBLE
             binding.imgEmpty.visibility = View.GONE
         } else {
@@ -159,17 +179,29 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
         }.show()
     }
 
+    private fun showMessage() {
+        Snackbar.make(requireView(), "No Connection", Snackbar.LENGTH_LONG)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                requireActivity().resources.getColor(
+                    R.color.black2
+                )
+            )
+            .setActionTextColor(requireActivity().resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
+    }
+
     override fun onResume() {
         super.onResume()
-        if(binding.search.query != null) {
+        if (binding.search.query != null) {
             val list: MutableList<ProductDetails> = ArrayList()
             itemList.forEach {
-                Log.e("TAG", "onResume: type --> ${it.productType}", )
+                Log.e("TAG", "onResume: type --> ${it.productType}")
                 if (it.title.contains(binding.search.query.toString().uppercase())
                     || it.handle.contains(binding.search.query.toString().uppercase())
                     || it.vendor.contains(binding.search.query.toString().uppercase())
                     || it.productType.contains(binding.search.query.toString().uppercase())
-                    || it.variants[0].price.contains(binding.search.query.toString().uppercase())) {
+                    || it.variants[0].price.contains(binding.search.query.toString().uppercase())
+                ) {
 
                     list.add(it)
                 }

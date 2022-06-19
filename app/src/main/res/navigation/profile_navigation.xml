@@ -8,12 +8,12 @@
     <fragment
         android:id="@+id/currencyFragment"
         android:name="com.example.brandat.ui.fragments.currency.CurrencyFragment"
-        android:label="Currency"
+        android:label="@string/currency"
         tools:layout="@layout/fragment_currency" />
     <fragment
         android:id="@+id/profileDataFragment"
         android:name="com.example.brandat.ui.fragments.profile.ProfileDataFragment"
-        android:label="Profile" >
+        android:label="@string/profile" >
         <action
             android:id="@+id/action_profileDataFragment_to_currencyFragment"
             app:destination="@id/currencyFragment" />
@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/addressFragment"
         android:name="com.example.brandat.ui.fragments.address.AddressFragment"
-        android:label="Addresses">
+        android:label="@string/addresess">
         <action
             android:id="@+id/action_addressFragment_to_mapsFragment"
             app:destination="@id/mapsFragment" />
@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.brandat.ui.fragments.map.MapsFragment"
-        android:label="Maps">
+        android:label="@string/maps">
         <argument
             android:name="addressItem"
             app:argType="com.example.brandat.models.DefaultAddress" />
@@ -49,7 +49,7 @@
     <fragment
         android:id="@+id/addAddressFragment"
         android:name="com.example.brandat.ui.fragments.address.AddAddressFragment"
-        android:label="Add Address">
+        android:label="@string/add_address">
         <action
             android:id="@+id/action_addAddressFragment_to_addressFragment"
             app:destination="@id/addressFragment" />
@@ -57,11 +57,11 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.brandat.ui.fragments.registeration.register.RegisterFragment"
-        android:label="Register" />
+        android:label="@string/register" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.brandat.ui.fragments.registeration.login.LoginFragment"
-        android:label="Login">
+        android:label="@string/login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -72,7 +72,7 @@
     <fragment
         android:id="@+id/myOrderFragment"
         android:name="com.example.brandat.ui.fragments.myOrder.MyOrderFragment"
-        android:label="My Orders">
+        android:label="@string/my_orders">
         <action
             android:id="@+id/action_myOrderFragment_to_profileDataFragment"
             app:destination="@id/profileDataFragment" />
@@ -83,7 +83,7 @@
     <fragment
         android:id="@+id/orderDetailsFragment2"
         android:name="com.example.brandat.ui.fragments.orderDetails.OrderDetailsFragment"
-        android:label="Order Details">
+        android:label="@string/order_details">
         <action
             android:id="@+id/action_orderDetailsFragment2_to_myOrderFragment"
             app:destination="@id/myOrderFragment" />

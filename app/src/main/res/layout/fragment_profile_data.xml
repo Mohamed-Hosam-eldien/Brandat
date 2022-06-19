@@ -16,6 +16,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
+            android:layout_margin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -62,28 +63,28 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card"
-            android:layout_width="280dp"
-            app:cardElevation="12dp"
-            android:layout_height="wrap_content"
+            android:layout_width="338dp"
+            android:layout_height="318dp"
             android:layout_marginTop="16sp"
             app:cardCornerRadius="16dp"
+            app:cardElevation="12dp"
             app:cardUseCompatPadding="true"
-            app:layout_constraintTop_toBottomOf="@id/txt_default_address"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_default_address">
 
 
             <LinearLayout
-                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp">
 
                 <RelativeLayout
                     android:id="@+id/orderLayout"
-                    android:padding="12dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
 
 
                     <TextView
@@ -110,10 +111,10 @@
 
                 <RelativeLayout
                     android:id="@+id/addressLayout"
-                    android:padding="12dp"
-                    android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:padding="12dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -136,10 +137,10 @@
 
                 <RelativeLayout
                     android:id="@+id/languageLayout"
-                    android:padding="12dp"
-                    android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:padding="12dp">
 
 
                     <TextView
@@ -164,10 +165,10 @@
 
                 <RelativeLayout
                     android:id="@+id/currencyLayout"
-                    android:padding="12dp"
-                    android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:padding="12dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -199,6 +200,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/red"
             android:text="@string/sign_out"
+            android:padding="8dp"
             app:layout_constraintEnd_toEndOf="@id/card"
             app:layout_constraintStart_toStartOf="@id/card"
             app:layout_constraintTop_toBottomOf="@+id/card" />

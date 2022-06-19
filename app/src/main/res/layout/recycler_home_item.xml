@@ -24,8 +24,9 @@
             android:outlineAmbientShadowColor="#DFD8D8"
             android:outlineSpotShadowColor="#DFD8D8"
             android:shadowColor="#DFD8D8"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
+
             app:cardUseCompatPadding="false"
 
             >
@@ -43,7 +44,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:scaleType="centerInside"
-                    android:src="@drawable/slider_image_1" />
+                    android:src="@drawable/bag" />
 
                 <TextView
                     android:id="@+id/brand_name"

@@ -13,9 +13,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.FragmentFavoriteBinding
 import com.example.brandat.models.Favourite
+import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
+import com.example.brandat.ui.fragments.cart.IBadgeCount
+import com.example.brandat.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -23,6 +26,7 @@ import io.paperdb.Paper
 class FavoriteFragment : Fragment(), OnclickListener {
     private lateinit var favouriteAdapter: FavouriteAdapter
     private lateinit var binding: FragmentFavoriteBinding
+    private lateinit var bageCountI: IBadgeCount
     private val favourite: List<Favourite> = ArrayList()
     private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
@@ -45,7 +49,7 @@ class FavoriteFragment : Fragment(), OnclickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        bageCountI = requireActivity() as MainActivity
     }
 
 
@@ -106,6 +110,8 @@ class FavoriteFragment : Fragment(), OnclickListener {
             showDialog()
         } else {
             cartViewModel.addProductToCart(product)
+            bageCountI.updateBadgeCount(Constants.count++)
+            Paper.book().write("CountfromFav", Constants.count)
             Toast.makeText(requireContext(), "Added To Cart", Toast.LENGTH_SHORT).show()
         }
     }
