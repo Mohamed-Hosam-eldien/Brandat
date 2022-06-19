@@ -5,8 +5,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".MyApplication"
@@ -18,6 +18,15 @@
         android:theme="@style/Theme.Brandat"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
+        <activity
+            android:name=".welcomescreen.SliderActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -33,8 +42,6 @@
              project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
              "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
         -->
-
-
         <activity
             android:name=".ui.ProfileActivity"
             android:exported="false" />
@@ -43,19 +50,13 @@
             android:exported="false" />
         <activity
             android:name=".ui.ProductActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".ui.fragments.registeration.RegistrationActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
     </application>

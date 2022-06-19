@@ -96,7 +96,7 @@ class MapsFragment : Fragment() {
 
 
         binding.btnLocation.setOnClickListener {
-            if (latitude>0 && longitude>0){
+            if (latitude!=0.0 && longitude!=0.0){
 
                 customerAddress = getTimeZone(latitude, longitude)
 
