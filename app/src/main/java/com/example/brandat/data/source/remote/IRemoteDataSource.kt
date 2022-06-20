@@ -9,6 +9,12 @@ import com.example.brandat.ordermodel.OrderModel
 import com.example.brandat.test.OrderDraft
 import com.example.brandat.test.OrderResponse
 import com.example.brandat.ui.fragments.orderDetails.OrderItemModel
+import com.example.brandat.models.orderModel.OrderModel
+import com.example.brandat.models.orderModel.OrderResponse
+import com.example.brandat.models.draftOrder.DraftOrder
+import com.example.brandat.models.draftOrder.DraftOrderModel
+import com.example.brandat.models.orderModel.DiscountCodes
+import com.example.brandat.models.orderModel.discount.PriceRules
 import retrofit2.Response
 
 interface IRemoteDataSource {
@@ -23,4 +29,7 @@ interface IRemoteDataSource {
     suspend fun getAllOrders(email: String?):Response<com.example.brandat.ordermodel.Orders>
 
     suspend fun postFavDraft(draftModel: com.example.brandat.models.draft.OrderModel): Response<com.example.brandat.ordermodel.OrderResponse>
+    suspend fun createOrder(orders: OrderModel):Response<OrderResponse>
+    suspend fun postFavDraft(draftModel: DraftOrderModel): Response<DraftOrder>
+    suspend fun  getDiscountCodes():Response<PriceRules>
 }

@@ -30,7 +30,6 @@ class CartViewModel @Inject constructor(private var repo: IProductsRepository) :
     fun removeProductFromCart(product: Cart) = viewModelScope.launch {
         repo.removeProductFromCart(product)
     }
-
     fun removeSelectedProductsFromCart(product: ArrayList<Cart>) = viewModelScope.launch {
         repo.removeSelectedProductsFromCart(product)
     }
@@ -46,7 +45,6 @@ class CartViewModel @Inject constructor(private var repo: IProductsRepository) :
 
     fun addProductToCart(cart: Cart) = viewModelScope.launch {
         repo.addProductToCart(cart)
-
     }
 
     fun isAdded(productName: String) = viewModelScope.launch(Dispatchers.IO) {

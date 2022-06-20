@@ -44,7 +44,6 @@
     <string name="cash">Cash</string>
     <string name="paypal">Paypal</string>
     <string name="copon">copon</string>
-    <string name="price">Price</string>
     <string name="apply">Apply</string>
     <string name="delivery">Delivery</string>
     <string name="next">Next</string>
@@ -66,10 +65,20 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="password">Password</string>
     <string name="total">Total</string>
+    <string name="message_order_don">ok</string>
+    <string name="operation_succeeded">operation  succeeded</string>
+    <string name="operation_faild">operation Faild</string>
+    <string name="someThing_wrong_happened">error</string>
     <string name="checkout">Checkout</string>
     <string name="click_to_add_your_address">Click to add your address</string>
     <string name="send_order">Send Order</string>
     <string name="promo_code">Promo Code</string>
+    <string name="retry">retry</string>
+    <string name="price">price</string>
+    <string name="pay_on_cash">pay on cash</string>
+    <string name="invalid_data">invalid data</string>
+    <string name="cancel">Cancel</string>
+    <string name="Discount">Discount</string>
     <string name="search">search</string>
 
     <string-array name="country_list">

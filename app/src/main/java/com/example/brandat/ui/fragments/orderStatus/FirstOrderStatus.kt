@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FirstOrderStatusBinding
 import com.example.brandat.models.CustomerAddress
+import com.example.brandat.models.orderModel.ShippingAddress
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.fragments.address.AddressViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +25,9 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
     private var _binding: FirstOrderStatusBinding? = null
     private val binding get() = _binding!!
     lateinit var iChangeOrderStatus:IChangeOrderStatus
-    private val viewModel: AddressViewModel by viewModels()
+    private val viewModel: AddressViewModel by  viewModels()
+
+      var selectedAddress: CustomerAddress? = null
     private val mAdapter by lazy { AddressPaymentAdapter(this) }
 
     override fun onCreateView(
@@ -56,8 +60,16 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
         }
 
         binding.btnNext.setOnClickListener {
-            findNavController().navigate(R.id.action_firstOrderStatus_to_secondOrderStatus)
-            iChangeOrderStatus.changeStatus(1)
+
+            var bundle = Bundle()
+            if (selectedAddress!= null) {
+                bundle.putParcelable("address", selectedAddress)
+                findNavController().navigate(R.id.action_firstOrderStatus_to_secondOrderStatus,bundle)
+                iChangeOrderStatus.changeStatus(1)
+             }
+            else{
+                Toast.makeText(context, "please select Address", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
@@ -66,6 +78,7 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
         viewModel.getAllAddress()
         viewModel.getAddresses.observe(viewLifecycleOwner) {
             initView(it)
+            selectedAddress=it[0]
         }
 
     }
@@ -87,8 +100,9 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
 
     }
 
-    override fun onItemClick(city: CustomerAddress) {
-        Toast.makeText(context, "${city.printAddress()} ..selected", Toast.LENGTH_SHORT).show()
+    override fun onItemClick(address: CustomerAddress) {
+        Toast.makeText(context, "${address.address1} ..selected", Toast.LENGTH_SHORT).show()
+        selectedAddress = address
     }
 
     override fun onDestroy() {

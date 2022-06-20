@@ -14,7 +14,7 @@ data class Customer(
     @SerializedName("currency")
     val currency: String = "EGP",
     @SerializedName("default_address")
-    val defaultAddress: DefaultAddress? = null,
+    val defaultAddress: DefaultAddress?=null,
     @SerializedName("email")
     var email: String = "",//=========================
     @SerializedName("first_name")

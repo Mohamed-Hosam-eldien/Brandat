@@ -4,11 +4,15 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.example.brandat.models.Customer
+import com.example.brandat.models.orderModel.discount.PriceRule
 import java.util.regex.Pattern
 
 class Constants {
 
     companion object {
+        var totalPrice: Double? = 0.0
+        var discounCde: List<PriceRule>? = null
+        const val PAYPAL_CLIENT_ID = "Aab9pWmlaqabofcahFzc-e1zxOzjqQqrY1YREcrpdIWR6pHJWJF3SfhtZ0rnZq4iahcfu6xG8AFBP1hL"
 
         private const val apiKey = "54e7ce1d28a9d3b395830ea17be70ae1"
         private const val hostName = "mad-ism2022.myshopify.com"

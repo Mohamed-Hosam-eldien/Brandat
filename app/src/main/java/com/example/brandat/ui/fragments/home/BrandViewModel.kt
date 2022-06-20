@@ -12,11 +12,12 @@ import com.example.brandat.models.Brands
 import com.example.brandat.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class BrandViewModel @Inject constructor(
-    private var brandRepository: IProductsRepository, application: Application
+    private var brandRepository: IProductsRepository,application: Application
 ) : AndroidViewModel(application) {
 
 
@@ -46,8 +47,38 @@ class BrandViewModel @Inject constructor(
     }
 
     private fun offlineCacheBrands(brand: Brands) {
-        // val brandEntity = BrandsEntity(brand)
+       // val brandEntity = BrandsEntity(brand)
         //insertBrand(brandEntity)
     }
+
+    private fun handleBrandsResponse(response: Response<Brands>): NetworkResult<Brands> {
+        when {
+            response.message().toString().contains("timeout") -> {
+                return NetworkResult.Error("Timeout")
+            }
+            response.code() == 402 -> {
+                return NetworkResult.Error("API Key Limited.")
+            }
+            response.body()!!.brands.isNullOrEmpty() -> {
+                return NetworkResult.Error("Recipes not found.")
+            }
+            response.isSuccessful -> {
+                val foodRecipes = response.body()
+                return NetworkResult.Success(foodRecipes!!)
+            }
+            else -> {
+                return NetworkResult.Error(response.message())
+            }
+        }
+    }
+
+
+    fun getDiscountCode(){
+        viewModelScope.launch(Dispatchers.IO) {
+         val res =   brandRepository.getDiscountCodes()
+            _discountCodes.postValue(res)
+        }
+    }
+
 
 }

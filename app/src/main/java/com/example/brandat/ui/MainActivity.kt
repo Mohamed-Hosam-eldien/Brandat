@@ -6,6 +6,7 @@ import android.provider.SyncStateContract
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -15,6 +16,7 @@ import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.google.android.material.badge.BadgeDrawable
 import com.example.brandat.ui.fragments.serach.SearchActivity
 import com.example.brandat.utils.Constants
+import com.example.brandat.ui.fragments.orderStatus.checkOutOrder.OnOkClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
         }
 
         navController = findNavController(R.id.navHostFragment)
+
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if (destination.id == R.id.productDetailsFragment
             ) {
@@ -51,10 +54,13 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
             }
-        }
+
+    }
 
         binding.bottomNavigationView.setupWithNavController(navController)
+
         binding.imgProfile.setOnClickListener {
+            //
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
