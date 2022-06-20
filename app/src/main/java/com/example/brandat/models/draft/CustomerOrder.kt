@@ -1,6 +1,6 @@
 package com.example.brandat.models.draft
 
-import com.example.brandat.ordermodel.LineItem
+import com.example.brandat.models.orderModel.LineItem
 import com.google.gson.annotations.SerializedName
 
 data class OrderModel(

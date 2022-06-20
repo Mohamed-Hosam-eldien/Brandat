@@ -169,8 +169,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.5'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+
+
    //paypal
     implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
+
     implementation 'com.paypal.checkout:android-sdk:0.6.2'
 
     //Increase and Decrease dependency

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.SyncStateContract
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.navigation.NavController

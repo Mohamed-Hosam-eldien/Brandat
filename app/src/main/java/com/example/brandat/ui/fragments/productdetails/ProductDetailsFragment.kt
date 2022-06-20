@@ -178,7 +178,6 @@ class ProductDetailsFragment : Fragment() {
                 "yellow" -> binding.colorView.setBackgroundColor(Color.YELLOW)
             }
 
-
             val imageList = ArrayList<SlideModel>()
             imageList.add(SlideModel(body.productDetails.imageProducts[0].src))
             imageList.add(SlideModel(body.productDetails.imageProducts[1].src))
@@ -186,6 +185,7 @@ class ProductDetailsFragment : Fragment() {
             binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
             productToCart = Cart(
                 body.productDetails.title,
+                variant_id = body.productDetails.variants[0].id,
                 body.productDetails.variants[0].price,
                 body.productDetails.imageProducts[0].src
             )

@@ -1,6 +1,6 @@
 package com.example.brandat.ui.fragments.myOrder
 
-import com.example.brandat.ordermodel.Order
+import com.example.brandat.models.orderModel.Order
 
 
 interface OnItemClickLinter {

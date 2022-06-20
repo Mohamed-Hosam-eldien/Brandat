@@ -58,7 +58,7 @@ data class Order(
 //    val current_total_discounts_set: CurrentTotalDiscountsSet = CurrentTotalDiscountsSet(),
 //    val current_total_duties_set: Any = Any(),
 //    val current_total_price: String = "",
-//    val current_total_price_set: CurrentTotalPriceSet = CurrentTotalPriceSet(),
+//    val current_total_price_set: com.example.brandat.models.orderModel.CurrentTotalPriceSet = com.example.brandat.models.orderModel.CurrentTotalPriceSet(),
 //    val current_total_tax: String = "",
 //    val current_total_tax_set: CurrentTotalTaxSet = CurrentTotalTaxSet(),
 //    val customer: Customer = Customer(),

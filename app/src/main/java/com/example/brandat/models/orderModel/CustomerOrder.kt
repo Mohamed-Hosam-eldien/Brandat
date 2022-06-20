@@ -14,12 +14,14 @@ data class CustomerOrder(
     @SerializedName( "line_items")
     val line_items: List<LineItem>? = listOf(),
     @SerializedName("gateway")
-   val gateway: String = "",
+    val gateway: String = "",
     @SerializedName("billing_address")
     val billing_address: Address? = null,
     @SerializedName( "total_price")
     val total_price: String = "",
     @SerializedName( "current_total_discounts")
     val totalDiscount: String? = "",
+    @SerializedName("source_name")
+    val sourceName: String,
 
     )

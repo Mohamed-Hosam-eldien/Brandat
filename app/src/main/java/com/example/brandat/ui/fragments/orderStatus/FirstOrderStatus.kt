@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.orderStatus
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,10 +25,10 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
 
     private var _binding: FirstOrderStatusBinding? = null
     private val binding get() = _binding!!
-    lateinit var iChangeOrderStatus:IChangeOrderStatus
-    private val viewModel: AddressViewModel by  viewModels()
+    lateinit var iChangeOrderStatus: IChangeOrderStatus
+    private val viewModel: AddressViewModel by viewModels()
 
-      var selectedAddress: CustomerAddress? = null
+    var selectedAddress: CustomerAddress? = null
     private val mAdapter by lazy { AddressPaymentAdapter(this) }
 
     override fun onCreateView(
@@ -62,12 +63,14 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
         binding.btnNext.setOnClickListener {
 
             var bundle = Bundle()
-            if (selectedAddress!= null) {
+            if (selectedAddress != null) {
                 bundle.putParcelable("address", selectedAddress)
-                findNavController().navigate(R.id.action_firstOrderStatus_to_secondOrderStatus,bundle)
+                findNavController().navigate(
+                    R.id.action_firstOrderStatus_to_secondOrderStatus,
+                    bundle
+                )
                 iChangeOrderStatus.changeStatus(1)
-             }
-            else{
+            } else {
                 Toast.makeText(context, "please select Address", Toast.LENGTH_SHORT).show()
             }
         }
@@ -77,8 +80,10 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
     private fun showObservedData() {
         viewModel.getAllAddress()
         viewModel.getAddresses.observe(viewLifecycleOwner) {
-            initView(it)
-            selectedAddress=it[0]
+            if (it.isNotEmpty()) {
+                initView(it)
+                selectedAddress = it[0]
+            }
         }
 
     }
@@ -89,6 +94,7 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
             binding.txt.visibility = View.GONE
             binding.recyclerviewAddress.visibility = View.VISIBLE
             binding.fabMenu.visibility = View.VISIBLE
+            binding.btnNext.visibility = View.VISIBLE
             mAdapter.setDatat(addresses)
             //addressAdapter = AddressAdapter(this)
             binding.recyclerviewAddress.apply {

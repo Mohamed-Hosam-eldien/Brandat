@@ -38,7 +38,7 @@ class ProfileActivity : AppCompatActivity() {
 
         val navGraph = navController.navInflater.inflate(R.navigation.profile_navigation)
 
-        if(Paper.book().read<String>("email") == null) {
+        if (Paper.book().read<String>("email") == null) {
             navGraph.setStartDestination(R.id.loginFragment)
         } else {
             navGraph.setStartDestination(R.id.profileDataFragment)

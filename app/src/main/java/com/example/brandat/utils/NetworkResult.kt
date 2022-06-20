@@ -4,7 +4,7 @@ package com.example.brandat.utils
 sealed class NetworkResult<T> {
 
     data class Success<T>(val data: T) : NetworkResult<T>()
-    data class Error<T>(val exception: Exception) : NetworkResult<T>()
+    data class Error<T>(val exception: String) : NetworkResult<T>()
     object Loading : NetworkResult<Nothing>()
 
     override fun toString(): String {

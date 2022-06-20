@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentMyOrderBinding
-import com.example.brandat.ordermodel.Order
+import com.example.brandat.models.orderModel.Order
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -49,7 +49,6 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
 
         Paper.init(requireContext())
         email =Paper.book().read<String>("email")
-        Toast.makeText(context, "${email}", Toast.LENGTH_SHORT).show()
         initRecycler()
         showObservedData()
     }
@@ -108,7 +107,7 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
 
 
     override fun onClick(orderItem: Order) {
-        val direct : NavDirections = MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22(orderItem)
+        val direct : NavDirections = MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment2(orderItem)
         findNavController().navigate(direct)
     }
 

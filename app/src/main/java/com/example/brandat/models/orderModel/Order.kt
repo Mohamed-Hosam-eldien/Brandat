@@ -1,9 +1,11 @@
 package com.example.brandat.models.orderModel
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Order(
-
 
     @SerializedName( "id")
     val id: Long? = 0,
@@ -38,6 +40,9 @@ data class Order(
     @SerializedName( "line_items")
     val items: List<LineItem>? = listOf(),
 
+    @SerializedName( "gateway")
+    val gateway: String = ""
+
 
 //    val admin_graphql_api_id: String = "",
 //    val app_id: Int = 1,
@@ -60,7 +65,7 @@ data class Order(
 //    val current_total_discounts_set: CurrentTotalDiscountsSet = CurrentTotalDiscountsSet(),
 //    val current_total_duties_set: Any = Any(),
 //    val current_total_price: String = "",
-//    val current_total_price_set: CurrentTotalPriceSet = CurrentTotalPriceSet(),
+//    val current_total_price_set: com.example.brandat.models.orderModel.CurrentTotalPriceSet = com.example.brandat.models.orderModel.CurrentTotalPriceSet(),
 //    val current_total_tax: String = "",
 //    val current_total_tax_set: CurrentTotalTaxSet = CurrentTotalTaxSet(),
 //    val customer: Customer = Customer(),
@@ -121,4 +126,4 @@ data class Order(
 //    val total_weight: Int = 0,
 //    val updated_at: String = "",
 //    val user_id: Any = Any()
-)
+) : Parcelable

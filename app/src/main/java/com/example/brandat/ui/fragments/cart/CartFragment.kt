@@ -67,13 +67,23 @@ class CartFragment : Fragment(), CartOnClickListener {
                 if(binding.ivPlaceholder.visibility == View.VISIBLE) {
                     Toast.makeText(requireContext(), "cart is empty", Toast.LENGTH_SHORT).show()
                 } else {
-                    startActivity(Intent(requireContext(), OrderStatus::class.java))
+                    val intent =Intent(requireContext(), OrderStatus::class.java)
+                    intent.putExtra("total",binding.tvTprice.text.toString())
+                    startActivity(intent)
                 }
             }
         }
 
         getAllCartFromDraft()
 
+        cartViewModel.cartProduct.observe(viewLifecycleOwner) {
+            if(it.isEmpty()) {
+                binding.ivPlaceholder.visibility = View.VISIBLE
+                binding.rvCart.visibility = View.GONE
+                binding.tvTprice.text = "0"
+                binding.tvConut.text = "0 item"
+            }
+        }
 
 //        cartViewModel.getAllCartProduct()
 //
@@ -86,7 +96,6 @@ class CartFragment : Fragment(), CartOnClickListener {
 //            cartAdapter.notifyDataSetChanged()
 //            count = it.size
 //            Paper.book().write("countFromCart", count)
-//
 //        }
 //        cartViewModel.allPrice.observe(viewLifecycleOwner) {
 //            binding.tvTprice.text = "$it $"
@@ -177,8 +186,8 @@ class CartFragment : Fragment(), CartOnClickListener {
     }
 
     override fun onPluseMinusClicked(count: Int, currentCart: Cart) {
-        val priceChange = currentCart.pPrice?.toDouble()
-        val _price = (count * priceChange!!)
+        val priceChange = currentCart.pPrice.toDouble()
+        val _price = (count * priceChange)
 //        val currentOrder = Cart(pQuantity = count, pId = pId, tPrice = _price)
 
         currentCart.tPrice = _price
@@ -251,7 +260,10 @@ class CartFragment : Fragment(), CartOnClickListener {
         if(Constants.user.id <= 0) {
             binding.ivPlaceholder.visibility = View.VISIBLE
             binding.rvCart.visibility = View.GONE
+            binding.tvTprice.text = "0"
+            binding.tvConut.text = "0 item"
         }
+        cartViewModel.getAllCartProduct()
     }
 
 }

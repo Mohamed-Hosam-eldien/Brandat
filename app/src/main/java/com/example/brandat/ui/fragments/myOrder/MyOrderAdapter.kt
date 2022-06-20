@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.MyOrderItemBinding
-import com.example.brandat.test.Order
+import com.example.brandat.models.orderModel.Order
+
 
 class MyOrderAdapter(var onItemClickLinter: OnItemClickLinter) :
     RecyclerView.Adapter<MyOrderAdapter.MyOrderViewHolder>() {
 
-    var orders = emptyList<com.example.brandat.ordermodel.Order>()
+    var orders = emptyList<Order>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyOrderViewHolder {
         var view = MyOrderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -38,7 +39,7 @@ class MyOrderAdapter(var onItemClickLinter: OnItemClickLinter) :
     }
 
 
-    fun setDatat(OrderList: List<com.example.brandat.ordermodel.Order>) {
+    fun setDatat(OrderList: List<Order>) {
         orders = OrderList
         notifyDataSetChanged()
     }

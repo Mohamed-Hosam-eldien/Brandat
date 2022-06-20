@@ -73,6 +73,7 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
         // Log.d("TAG", "setProductDataToCartModel: ${productDetails.variants[0].price.toInt()}")
         return Cart(
             favProduct.title,
+            variant_id = favProduct.variants[0].id,
             favProduct.variants[0].price,
             favProduct.imageProduct.src,
             pId = favProduct.id

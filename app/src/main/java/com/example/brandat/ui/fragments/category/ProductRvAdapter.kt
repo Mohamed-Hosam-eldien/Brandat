@@ -11,6 +11,7 @@ import com.example.brandat.databinding.ProductItemBinding
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.cart.Cart
+import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ProductDiffUtil
 import com.google.firebase.database.*
 
@@ -45,7 +46,7 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener)
 //        checkFavExist(currentProduct.id, holder.binding.ivFavorite)
 
         FirebaseDatabase.getInstance()
-            .getReference("123456")
+            .getReference(Constants.user.id.toString())
             .child("fav")
             .addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -93,22 +94,6 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener)
         }
     }
 
-    private fun checkFavExist(id: Long, image: ImageView) {
-        val test: DatabaseReference = FirebaseDatabase.getInstance()
-            .getReference("123456")
-            .child("fav")
-
-        test.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.hasChild(id.toString())) {
-                    image.setImageResource(R.drawable.ic_favorite_filled)
-                } else {
-                    image.setImageResource(R.drawable.ic_favorite_fill)
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {}
-        })
-    }
 
     override fun getItemCount(): Int {
         return product.size
@@ -135,6 +120,7 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener)
         productDetails.variants[0].price.let {
             return Cart(
                 productDetails.title,
+                variant_id = productDetails.variants[0].id,
                 productDetails.variants[0].price,
                 pImage = productDetails.imageProduct.src,
                 pId = productDetails.id,

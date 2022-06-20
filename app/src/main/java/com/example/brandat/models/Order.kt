@@ -33,7 +33,12 @@ data class Order(
     val financialStatus: String? = "",
 
     @SerializedName( "line_items")
-    val line_items: List<LineItem>? = listOf()
+    val line_items: List<LineItem>? = listOf(),
+
+    @SerializedName("gateway")
+    val gateway: String = "",
+        @SerializedName("source_name")
+        val sourceName: String="",
 
 //    @SerializedName("admin_graphql_api_id")
 //    val adminGraphqlApiId: String,
@@ -72,7 +77,7 @@ data class Order(
 //    @SerializedName("current_total_price")
 //    val currentTotalPrice: String,
 ////    @SerializedName("current_total_price_set")
-////    val currentTotalPriceSet: CurrentTotalPriceSet,
+////    val currentTotalPriceSet: com.example.brandat.models.orderModel.CurrentTotalPriceSet,
 //    @SerializedName("current_total_tax")
 //    val currentTotalTax: String,
 //    @SerializedName("current_total_tax_set")

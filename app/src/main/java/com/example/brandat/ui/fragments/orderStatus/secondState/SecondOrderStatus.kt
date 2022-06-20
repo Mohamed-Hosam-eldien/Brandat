@@ -51,13 +51,17 @@ class SecondOrderStatus: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.totalPrice.text=Constants.totalPrice.toString()
+
+        Log.e(TAG, "onViewCreated: ---> ${Constants.totalPrice}", )
+
+        binding.totalPrice.text = Constants.totalPrice.toString()
+        binding.finalPrice.text = Constants.totalPrice.toString()
+
+
         arguments?.let {
-            selectedAddress = arguments?.getParcelable<CustomerAddress>("address")!!
-
-
+            selectedAddress = arguments?.getParcelable("address")!!
         }
-
+        
         binding.layoutCash.setOnClickListener {
             binding.rdbCash.isChecked = true
             binding.rdbPay.isChecked = false
@@ -79,7 +83,7 @@ class SecondOrderStatus: Fragment() {
 
                 Timer("SettingUp", false).schedule(3000) {
                     requireActivity().runOnUiThread {
-                        var discountValue = isCorrectCoupon(binding.edtCopon.text.toString())
+                        val discountValue = isCorrectCoupon(binding.edtCopon.text.toString())
                         if (discountValue == "") {
                             it.visibility = View.VISIBLE
                             binding.progress.visibility = View.GONE
@@ -123,12 +127,16 @@ class SecondOrderStatus: Fragment() {
     }
 
     private fun calacDiscount(discountValue: String) {
+
         Constants.totalPrice?.let {
              discount = it * discountValue.toDouble() / 100
             Constants.totalPrice = it - discount
-            binding.finalPrice.text = Constants.totalPrice.toString()
             binding.discount.text=discount.toString()
+            binding.finalPrice.text = Constants.totalPrice.toString()
+
+            Log.e(TAG, "calacDiscount: ${ Constants.totalPrice.toString()}", )
         }
+
     }
 
 }

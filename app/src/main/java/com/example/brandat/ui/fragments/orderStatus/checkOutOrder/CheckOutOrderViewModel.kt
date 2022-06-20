@@ -15,6 +15,7 @@ import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ResponseResult
 import com.example.brandat.utils.convertToBillingAddress
 import com.example.brandat.utils.toLineItem
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,49 +23,48 @@ import javax.inject.Inject
 import kotlin.math.log
 
 @HiltViewModel
-class CheckOutOrderViewModel @Inject constructor(private val repository: IProductsRepository) :ViewModel() {
-    var orderProduct :List<Cart> = emptyList()
+class CheckOutOrderViewModel @Inject constructor(private val repository: IProductsRepository) :
+    ViewModel() {
+    var orderProduct: List<Cart> = emptyList()
     val loading = MutableLiveData<Boolean>()
-    private val _createOrderResponse= MutableLiveData<ResponseResult<OrderResponse>>()
+    private val _createOrderResponse = MutableLiveData<ResponseResult<OrderResponse>>()
     val createOrderResponse: LiveData<ResponseResult<OrderResponse>?> = _createOrderResponse
-    var selectedPaymentMethods:String = "Paypal"
+    var selectedPaymentMethods: String = "Paypal"
     var selectedAddress: CustomerAddress? = null
     var discount = 0.0
 
     //fun getTotalPrice() = (discount ?: 0.0) + orderProduct.getPrice() + deliveryCoast
 
     fun createOrder() {
+        Log.e(TAG, "createOrder: items --> ${orderProduct.toLineItem()}")
         val order = CustomerOrder(
-              billing_address= convertToBillingAddress(selectedAddress!!),
-              email = "d3d3@gmail.com" ,
-              line_items=orderProduct.toLineItem(),
-               gateway= selectedPaymentMethods ,
-               total_price = Constants.totalPrice.toString(),
-               totalDiscount = discount.toString(),
-              customer = Constants.user
-
+            billing_address = convertToBillingAddress(selectedAddress!!),
+            email = Constants.user.email,
+            line_items = orderProduct.toLineItem(),
+            gateway = selectedPaymentMethods,
+            total_price = Constants.totalPrice.toString(),
+            totalDiscount = discount.toString(),
+            customer = Constants.user,
+            sourceName = selectedAddress!!.printAddress()
         )
 
-        viewModelScope.launch (Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             var res = repository.createOrder(OrderModel(order = order))
-                    _createOrderResponse.postValue(res)
-                }
+            _createOrderResponse.postValue(res)
+        }
 
     }
 
 
     init {
         viewModelScope.launch {
-            var result =  repository.getAllCartProducts()
+            var result = repository.getAllCartProducts()
             orderProduct = result
 
         }
 
 
-
     }
-
-
 
 
 }

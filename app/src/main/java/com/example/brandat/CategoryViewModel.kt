@@ -34,7 +34,7 @@ class CategoryViewModel @Inject constructor(
         val result = repoInterface.getCategories(productId)
         when (result) {
             is NetworkResult.Success -> categoryResponse.postValue(result.data?.products)
-            is NetworkResult.Error -> _setError.postValue(result.exception.message)
+            is NetworkResult.Error -> _setError.postValue(result.exception)
             else -> {
 
             }
@@ -46,7 +46,7 @@ class CategoryViewModel @Inject constructor(
         val result = repoInterface.getAllProduct()
         when (result) {
             is NetworkResult.Success -> allProductResponse.postValue(result.data?.products)
-            is NetworkResult.Error -> _setError.postValue(result.exception.message)
+            is NetworkResult.Error -> _setError.postValue(result.exception)
             else -> {
 
             }
@@ -58,7 +58,7 @@ class CategoryViewModel @Inject constructor(
         val result = repoInterface.getAllProductByType(type)
         when (result) {
             is NetworkResult.Success -> allProductResponse.postValue(result.data?.products)
-            is NetworkResult.Error -> _setError.postValue(result.exception.message)
+            is NetworkResult.Error -> _setError.postValue(result.exception)
             else -> {
 
             }

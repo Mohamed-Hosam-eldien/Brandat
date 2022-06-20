@@ -18,8 +18,8 @@ class OrderStatus : AppCompatActivity(), IChangeOrderStatus {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var  intent =intent
+
         if (intent!=null) {
-            Log.e(TAG, "onCreateppppppppp: ${intent.getStringExtra("total")?.toDouble()}")
             Constants.totalPrice = intent.getStringExtra("total")?.toDouble()
         }
         binding = ActivityOrderStatusBinding.inflate(layoutInflater)

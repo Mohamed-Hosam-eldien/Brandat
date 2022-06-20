@@ -1,5 +1,9 @@
 package com.example.brandat.models.orderModel
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class LineItem(
     val variant_id: Long ,
     val quantity: Int,
@@ -31,4 +35,4 @@ data class LineItem(
 //    val variant_inventory_management: String = "",
 //    val variant_title: String = "",
 //    val vendor: String = ""
-)
+) : Parcelable

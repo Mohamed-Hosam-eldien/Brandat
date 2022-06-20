@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentOrderDetailsBinding
-import com.example.brandat.ordermodel.Order
+import com.example.brandat.models.orderModel.Order
 
 
 class OrderDetailsFragment : Fragment() {
@@ -20,7 +19,6 @@ class OrderDetailsFragment : Fragment() {
     lateinit var itemAdapter: OrderItemAdapter
     private val args by navArgs<OrderDetailsFragmentArgs>()
     lateinit var order: Order
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,8 +49,8 @@ class OrderDetailsFragment : Fragment() {
     }
 
     private fun initRecycler(order: Order?) {
-        if(order?.items?.isNotEmpty() == true){
-            itemAdapter = OrderItemAdapter(order?.items)
+        if (order?.items?.isNotEmpty() == true) {
+            itemAdapter = OrderItemAdapter(order.items)
             binding.myOrderRecycler.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 //layoutManager = GridLayoutManager(context,2)
@@ -63,10 +61,10 @@ class OrderDetailsFragment : Fragment() {
     }
 
 
-    fun showData(){
+    fun showData() {
         binding.orderNumber.text = order.orderNumber.toString()
         binding.paymentMethod.text = order.gateway
-        var date = order.createdAt?.substring(0,10)
+        var date = order.createdAt?.substring(0, 10)
         binding.orderDate.text = date
         binding.customerPhone.text = order.finalPrice
 

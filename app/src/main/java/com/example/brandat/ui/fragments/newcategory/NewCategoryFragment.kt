@@ -25,7 +25,6 @@ import com.example.brandat.databinding.FragmentNewCategoryBinding
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.models.draft.CustomerOrder
 import com.example.brandat.models.draft.OrderModel
-import com.example.brandat.ordermodel.LineItem
 import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
@@ -253,40 +252,40 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         binding.recyclerCategory.visibility = View.GONE
     }
 
-    private fun saveToDraft(productDetails: ProductDetails) {
-
-        Log.d("TAG", "saveToDraft: ---> image ${productDetails.imageProduct.src}")
-        val hash = HashMap<String, String>()
-        hash["image"] = productDetails.imageProduct.src
-
-        val lineItem = LineItem(
-            variant_id = productDetails.variants[0].id,
-            quantity = 3,
-            sku = productDetails.imageProduct.src,
-            title = productDetails.title,
-            price = productDetails.variants[0].price
-        )
-
-        favouriteViewModel.postDatToApi(
-            OrderModel(
-                CustomerOrder(
-                    line_items = listOf(lineItem),
-                    email = "hosam22@gmail.com",
-                    note = "fav"
-                )
-            )
-        )
-
-//        favouriteViewModel.getFavouriteDraftModel.observe(viewLifecycleOwner) {
-//            Toast.makeText(
-//                requireContext(),
-//                "${it.body()?.order?.items?.get(0)?.title}",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
-
-
-    }
+//    private fun saveToDraft(productDetails: ProductDetails) {
+//
+//        Log.d("TAG", "saveToDraft: ---> image ${productDetails.imageProduct.src}")
+//        val hash = HashMap<String, String>()
+//        hash["image"] = productDetails.imageProduct.src
+//
+//        val lineItem = LineItem(
+//            variant_id = productDetails.variants[0].id,
+//            quantity = 3,
+//            sku = productDetails.imageProduct.src,
+//            title = productDetails.title,
+//            price = productDetails.variants[0].price
+//        )
+//
+//        favouriteViewModel.postDatToApi(
+//            OrderModel(
+//                CustomerOrder(
+//                    line_items = listOf(lineItem),
+//                    email = "hosam22@gmail.com",
+//                    note = "fav"
+//                )
+//            )
+//        )
+//
+////        favouriteViewModel.getFavouriteDraftModel.observe(viewLifecycleOwner) {
+////            Toast.makeText(
+////                requireContext(),
+////                "${it.body()?.order?.items?.get(0)?.title}",
+////                Toast.LENGTH_SHORT
+////            ).show()
+////        }
+//
+//
+//    }
 
 
     private fun setUpRecyclerView() {
@@ -423,7 +422,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
-//            cartViewModel.addProductToCart(currentProduct)
+            cartViewModel.addProductToCart(currentProduct)
 //            bageCountI.updateBadgeCount(count++)
 
             addCartToDraft(currentProduct)

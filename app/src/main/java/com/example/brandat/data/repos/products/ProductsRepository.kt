@@ -1,27 +1,21 @@
 package com.example.brandat.data.repos.products
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.brandat.utils.NetworkResult
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
-import com.example.brandat.models.Product
-import com.example.brandat.models.Products
 import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
+import com.example.brandat.models.Product
+import com.example.brandat.models.Products
+import com.example.brandat.models.Orders
+import com.example.brandat.models.orderModel.AllOrderResponse
 import com.example.brandat.models.orderModel.OrderModel
 import com.example.brandat.models.orderModel.OrderResponse
-import com.example.brandat.models.draftOrder.DraftOrder
-import com.example.brandat.models.draftOrder.DraftOrderModel
 import com.example.brandat.models.orderModel.discount.PriceRules
-import com.example.brandat.models.*
-import com.example.brandat.models.draft.CustomerOrder
-import com.example.brandat.models.draftOrder.CustomerDraftOrder
-import com.example.brandat.models.draftOrder.DraftOrderResponse
-import com.example.brandat.ordermodel.Order
-import com.example.brandat.ordermodel.OrderModel
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.ResponseResult
-import com.example.brandat.ui.fragments.orderDetails.OrderItemModel
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -36,7 +30,7 @@ class ProductsRepository @Inject constructor(
         if(response.isSuccessful){
             result=NetworkResult.Success(response.body())
         }else{
-            result=NetworkResult.Error(Exception("error${response.code()}"))
+            result=NetworkResult.Error("error${response.code()}")
         }
         return result
     }
@@ -47,7 +41,7 @@ class ProductsRepository @Inject constructor(
         if(response.isSuccessful){
             result=NetworkResult.Success(response.body())
         }else{
-            result=NetworkResult.Error(java.lang.Exception("error${response.code()}"))
+            result=NetworkResult.Error("error${response.code()}")
         }
         return result
     }
@@ -58,7 +52,7 @@ class ProductsRepository @Inject constructor(
         if(response.isSuccessful){
             result=NetworkResult.Success(response.body())
         }else{
-            result=NetworkResult.Error(Exception("error${response.code()}"))
+            result=NetworkResult.Error("error${response.code()}")
         }
         return result
     }
@@ -71,7 +65,7 @@ class ProductsRepository @Inject constructor(
             result = NetworkResult.Success(response.body())
         } else {
             Log.e("TAG", "==from repo:error ", )
-            result = NetworkResult.Error(Exception("error${response.code()}"))
+            result = NetworkResult.Error("error${response.code()}")
         }
         return result
     }
@@ -81,7 +75,7 @@ class ProductsRepository @Inject constructor(
         if(response.isSuccessful){
             result=NetworkResult.Success(response.body())
         }else{
-            result=NetworkResult.Error(java.lang.Exception("error${response.code()}"))
+            result=NetworkResult.Error("error${response.code()}")
         }
         return result
     }
@@ -90,9 +84,13 @@ class ProductsRepository @Inject constructor(
         return localDataSource.isAdded(productName)
     }
 
-    override suspend fun postFavDraft(draftModel: com.example.brandat.models.draft.OrderModel): Response<com.example.brandat.ordermodel.OrderResponse> {
-        return remoteDataSource.postFavDraft(draftModel)
+    override suspend fun getAllOrders(email: String?): Response<AllOrderResponse> {
+        return remoteDataSource.getAllOrders(email)
     }
+
+//    override suspend fun postFavDraft(draftModel: com.example.brandat.models.draft.OrderModel): Response<com.example.brandat.ordermodel.OrderResponse> {
+//        return remoteDataSource.postFavDraft(draftModel)
+//    }
 
     override suspend fun getDiscountCodes(): ResponseResult<PriceRules> {
        return try {
@@ -117,10 +115,6 @@ class ProductsRepository @Inject constructor(
 
     }
 
-
-    override suspend fun getbrand():Response<Brands> {
-        return remoteDataSource.getBrands()
-    }
 //=============================Cart=========================
     override suspend fun addProductToCart(cartProduct: Cart) {
         localDataSource.addProductToCart(cartProduct)
@@ -130,7 +124,7 @@ class ProductsRepository @Inject constructor(
         localDataSource.removeProductFromCart(product)
     }
 
-    override suspend fun removeSelectedProductsFromCart(product: ArrayList<Cart>) {
+    override suspend fun removeSelectedProductsFromCart(product: List<Cart>) {
         localDataSource.removeSelectedProductsFromCart(product)
     }
 
@@ -165,8 +159,7 @@ class ProductsRepository @Inject constructor(
     override suspend fun createOrder(order: OrderModel): ResponseResult<OrderResponse> {
         return try {
             val res = remoteDataSource.createOrder(order)
-            Log.e(TAG, "createOrder: .${res.errorBody()}" )
-            Log.e(TAG, "createOrder: .${res.code()}" )
+            Log.e(TAG, "createOrder: ${res}", )
             if (res.isSuccessful) {
                 val responseBody = res.body()
                 if (responseBody != null) {
@@ -175,13 +168,17 @@ class ProductsRepository @Inject constructor(
                     ResponseResult.Error(res.errorBody().toString())
                 }
             } else {
+                Log.e(TAG, "createOrdercode: ${res.code()}", )
                 ResponseResult.Error(res.message())
             }
 
         } catch (t: Throwable) {
+            Log.e(TAG, "createOrder: ${t.localizedMessage}", )
             ResponseResult.Error(t.message)
         }
     }
-    }
+
+
+}
 
 

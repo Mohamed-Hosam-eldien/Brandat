@@ -9,7 +9,6 @@ import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -82,8 +81,9 @@ class HomeFragment : Fragment(), BrandOnClickListner {
         }
         brandViewModel.getBrands()
         brandViewModel.brandResponse.observe(requireActivity()) {
-            brands = it.body()!!.brands
+            brands = it
             brandAdapter.setData(brands)
+        }
         imageSlider()
         Log.e("TAG", "==from home: ")
         ShowDescountCopune()
@@ -201,6 +201,27 @@ class HomeFragment : Fragment(), BrandOnClickListner {
         bundle = Bundle()
         bundle.putString("brandId", brandId)
         findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment, bundle)
+    }
+
+    private fun showMessage(it: String) {
+        //snack = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                resources.getColor(
+                    R.color.black2
+                )
+            )
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
+//        snack?.apply {
+//            setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+//                resources.getColor(
+//                    R.color.black2
+//                )
+//            )
+//                .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+//                }.show()
+//        }
     }
 
 }

@@ -3,20 +3,10 @@ package com.example.brandat.data.source.remote
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.brandat.models.*
+import com.example.brandat.models.orderModel.AllOrderResponse
 import com.example.brandat.models.orderModel.OrderModel
 import com.example.brandat.models.orderModel.OrderResponse
-import com.example.brandat.models.draftOrder.DraftOrder
-import com.example.brandat.models.draftOrder.DraftOrderModel
-import com.example.brandat.models.orderModel.DiscountCodes
 import com.example.brandat.models.orderModel.discount.PriceRules
-import com.example.brandat.models.draft.CustomerOrder
-import com.example.brandat.models.draftOrder.CustomerDraftOrder
-import com.example.brandat.models.draftOrder.DraftOrderResponse
-import com.example.brandat.ordermodel.Order
-import com.example.brandat.ordermodel.OrderModel
-import com.example.brandat.test.OrderDraft
-import com.example.brandat.test.OrderResponse
-import com.example.brandat.ui.fragments.orderDetails.OrderItemModel
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -52,14 +42,15 @@ class RemoteDataSource @Inject constructor(
         return networkService.login(email, tags)
     }
 
-    override suspend fun getAllOrders(email: String?): Response<com.example.brandat.ordermodel.Orders> {
+    override suspend fun getAllOrders(email: String?): Response<AllOrderResponse> {
         return networkService.getAllOrders(email)
     }
 
-    override suspend fun postFavDraft(draftModel: com.example.brandat.models.draft.OrderModel): Response<com.example.brandat.ordermodel.OrderResponse> {
-        Log.e("TAG", "postFavDraft: ssss --> ${networkService.draftFavorite(draftModel)} ")
-        return networkService.draftFavorite(draftModel)
-    }
+
+//    override suspend fun postFavDraft(draftModel: com.example.brandat.models.draft.OrderModel): Response<com.example.brandat.ordermodel.OrderResponse> {
+//        Log.e("TAG", "postFavDraft: ssss --> ${networkService.draftFavorite(draftModel)} ")
+//        return networkService.draftFavorite(draftModel)
+//    }
 
     override suspend fun getDiscountCodes(): Response<PriceRules> {
         Log.e(TAG, "getDiscountCodes: ${networkService.getDiscountCodes().body()}")

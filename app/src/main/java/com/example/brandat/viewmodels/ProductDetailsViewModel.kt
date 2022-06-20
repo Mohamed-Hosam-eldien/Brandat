@@ -33,7 +33,7 @@ class ProductDetailsViewModel @Inject constructor(
             val result= iProductsRepository.getProductDetails(productId)
             when(result){
                 is NetworkResult.Success->  _getProduct.postValue(result.data!!)
-                is NetworkResult.Error-> _setError.postValue(result.exception.message)
+                is NetworkResult.Error-> _setError.postValue(result.exception)
                 else -> {
 
                 }
