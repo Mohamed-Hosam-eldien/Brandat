@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
 
         navController = findNavController(R.id.navHostFragment)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.id == R.id.productDetailsFragment||destination.id==R.id.splashFragment
+            if (destination.id == R.id.productDetailsFragment
             ) {
                 binding.bottomNavigationView.visibility = View.GONE
 

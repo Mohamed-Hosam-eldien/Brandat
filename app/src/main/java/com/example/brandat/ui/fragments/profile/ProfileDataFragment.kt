@@ -42,10 +42,10 @@ class ProfileDataFragment : Fragment() {
             // navigate to orders fragment
             findNavController().navigate(R.id.action_profileDataFragment_to_myOrderFragment)
         }
-        binding.termsLayout.setOnClickListener{
-            // navigate to language fragment
-            it.findNavController().navigate(R.id.action_profileDataFragment_to_termsOfServiceFragment)
-        }
+//        binding.termsLayout.setOnClickListener{
+//            // navigate to language fragment
+//            it.findNavController().navigate(R.id.action_profileDataFragment_to_termsOfServiceFragment)
+//        }
         binding.addressLayout.setOnClickListener{
             // navigate to addresses fragment
             it.findNavController().navigate(R.id.action_profileDataFragment_to_addressFragment)

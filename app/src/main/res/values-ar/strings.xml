@@ -125,7 +125,9 @@
     <string name="not_valid_email">البريد الالكتروني غير صالح</string>
     <string name="passward_doesnot_match">كلمة السر ليست مطابقه</string>
     <string name="removed_from_cart">تم المسح من سلة المشتريات</string>
-
+    <string name="terms_of_service">شروط الخدمات</string>
+    <string name="many_offers">Many Offers</string>
+    <string name="desc1_tv">A lot of offers wait you with many coupons just for you</string>
 
     <string name="product_details_fragment">ProductDetailsFragment</string>
 

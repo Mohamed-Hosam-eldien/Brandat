@@ -112,8 +112,8 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
         }
     }
     override fun onClick(orderItem: Order) {
-        val direct : NavDirections = MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22(orderItem)
-        findNavController().navigate(direct)
+//        val direct : NavDirections = MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22(orderItem)
+//        findNavController().navigate(direct)
     }
     private fun showMessage(it: String) {
         Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)

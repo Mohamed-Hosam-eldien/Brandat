@@ -31,7 +31,6 @@ class CartFragment : Fragment(), CartOnClickListener {
     private lateinit var bindingDialog: AlertDialogBinding
     private lateinit var dialog: AlertDialog
     private lateinit var bageCountI: IBadgeCount
-    private lateinit var iCount: Count
     private var badgeCount: Int = 0
     private val cartViewModel: CartViewModel by viewModels()
 
@@ -55,7 +54,6 @@ class CartFragment : Fragment(), CartOnClickListener {
         cartViewModel.getAllCartProduct()
         cartViewModel.getAllPrice()
         bageCountI = requireActivity() as MainActivity
-        iCount = NewCategoryFragment()
         binding.buyButn.setOnClickListener {
             if (Paper.book().read<String>("email") == null) {
                 showDialog()
@@ -82,7 +80,6 @@ class CartFragment : Fragment(), CartOnClickListener {
             cartAdapter.notifyDataSetChanged()
             badgeCount = it.size
             //Constants.count = badgeCount
-            iCount.sendCount(badgeCount)
             Paper.book().write("countFromCart", badgeCount)
 
         }
