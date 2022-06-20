@@ -17,6 +17,8 @@
         tools:layout="@layout/fragment_splashy" >
         <action
             android:id="@+id/action_splashyFragment_to_sliderFragment"
-            app:destination="@id/sliderFragment" />
+            app:destination="@id/sliderFragment"
+            app:popUpTo="@id/splashyFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

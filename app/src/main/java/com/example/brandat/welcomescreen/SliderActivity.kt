@@ -24,7 +24,7 @@ class SliderActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_splash)
+        setContentView(R.layout.activity_slider)
 //
 //        _binding = ActivitySliderBinding.inflate(layoutInflater)
 //        val view = binding.root

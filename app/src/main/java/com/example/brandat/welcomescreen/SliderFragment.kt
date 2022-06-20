@@ -39,7 +39,7 @@ class SliderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Paper.book().write<Boolean>("slider", true)
+        //Paper.book().write<Boolean>("slider", true)
         viewPager = view.findViewById(R.id.view_pager_vp)
         adapter = context?.let { SliderPagerAdapter(it) }!!
         viewPager.adapter = adapter

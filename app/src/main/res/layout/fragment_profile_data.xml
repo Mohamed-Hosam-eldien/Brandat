@@ -136,7 +136,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/languageLayout"
+                    android:id="@+id/currencyLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -148,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerInParent="true"
-                        android:text="@string/language"
+                        android:text="@string/currency"
                         android:textSize="18sp" />
 
                     <ImageView
@@ -164,7 +164,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/currencyLayout"
+                    android:id="@+id/termsLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -175,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerInParent="true"
-                        android:text="@string/currency"
+                        android:text="@string/terms_of_service"
                         android:textSize="18sp" />
 
                     <ImageView

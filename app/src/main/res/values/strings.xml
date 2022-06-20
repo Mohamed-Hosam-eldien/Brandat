@@ -65,7 +65,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="password">Password</string>
     <string name="total">Total</string>
-    <string name="terms_of_service">Terms of Service</string>
     <string name="street_address">Street Address</string>
     <string name="city">City</string>
     <string name="country">Country</string>
@@ -129,6 +128,7 @@
     <string name="not_valid_email">Not valid Email</string>
     <string name="passward_doesnot_match">password doesn\'t match</string>
     <string name="removed_from_cart">Removed from Cart!</string>
+    <string name="terms_of_service">Terms of Service</string>
 
     <string-array name="country_list">
         <item>Egypt</item>

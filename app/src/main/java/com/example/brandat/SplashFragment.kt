@@ -27,7 +27,7 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Handler(Looper.myLooper()!!).postDelayed({
-            Navigation.findNavController(view).navigate(R.id.action_splashFragment2_to_sliderFragment)
+           // Navigation.findNavController(view).navigate(R.id.action_splashFragment2_to_sliderFragment)
         },3000)
     }
 
