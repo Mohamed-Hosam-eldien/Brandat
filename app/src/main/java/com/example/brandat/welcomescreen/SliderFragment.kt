@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.brandat.R
 import com.example.brandat.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import io.paperdb.Paper
 
 @AndroidEntryPoint
 class SliderFragment : Fragment() {
@@ -38,25 +39,27 @@ class SliderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Paper.book().write<Boolean>("slider", true)
         viewPager = view.findViewById(R.id.view_pager_vp)
         adapter = context?.let { SliderPagerAdapter(it) }!!
         viewPager.adapter = adapter
-        if (isOpenAlread()) {
 
-            val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
 
-        } else {
-
-            val editor = context?.getSharedPreferences("slide", AppCompatActivity.MODE_PRIVATE)?.edit()
-            editor?.putBoolean("slide", true)
-            editor?.commit()
-        }
+//        if (isOpenAlread()) {
+//
+//            val intent = Intent(context, MainActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//            startActivity(intent)
+//
+//        } else {
+//
+//            val editor = context?.getSharedPreferences("slide", AppCompatActivity.MODE_PRIVATE)?.edit()
+//            editor?.putBoolean("slide", true)
+//            editor?.commit()
+//        }
     }
-    private fun isOpenAlread(): Boolean {
-        val sharedPreferences =
-            context?.getSharedPreferences("slide", AppCompatActivity.MODE_PRIVATE)
-        return sharedPreferences!!.getBoolean("slide", false)
-    }
+//    private fun isOpenAlread(): Boolean {
+//
+//        val f=  Paper.book().write<Boolean>("slider", true)
+//    }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/welcome_navigation"
-    app:startDestination="@id/splashFragment2">
+    app:startDestination="@id/splashyFragment">
 
     <fragment
         android:id="@+id/sliderFragment"
@@ -11,12 +11,12 @@
         android:label="fragment_slider"
         tools:layout="@layout/fragment_slider" />
     <fragment
-        android:id="@+id/splashFragment2"
-        android:name="com.example.brandat.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        android:id="@+id/splashyFragment"
+        android:name="com.example.brandat.welcomescreen.SplashyFragment"
+        android:label="fragment_splashy"
+        tools:layout="@layout/fragment_splashy" >
         <action
-            android:id="@+id/action_splashFragment2_to_sliderFragment"
+            android:id="@+id/action_splashyFragment_to_sliderFragment"
             app:destination="@id/sliderFragment" />
     </fragment>
 </navigation>
