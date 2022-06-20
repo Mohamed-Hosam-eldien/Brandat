@@ -26,11 +26,12 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
 
     private val TAG: String = "Main"
     lateinit var binding: FragmentMyOrderBinding
+
     //lateinit var myOrdrAdapter: MyOrderAdapter
     lateinit var navController: NavController
     private val viewModel: MyOrderViewModel by viewModels()
     private val myOrderAdapter by lazy { MyOrderAdapter(this) }
-     var email:String?=null
+    var email: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,14 +51,14 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
         navController = Navigation.findNavController(view)
 
         Paper.init(requireContext())
-        email =Paper.book().read<String>("email")
-        ConnectionUtil.email= email.toString()
+        email = Paper.book().read<String>("email")
+        ConnectionUtil.email = email.toString()
         Toast.makeText(context, "${email}", Toast.LENGTH_SHORT).show()
-        if(ConnectionUtil.isNetworkAvailable(requireContext())){
+        if (ConnectionUtil.isNetworkAvailable(requireContext())) {
             //shimmer / loading
             viewModel.getOrdersFromApi(email)
-        }else{
-          showMessage(requireContext().getString(R.string.no_connection))
+        } else {
+            showMessage(requireContext().getString(R.string.no_connection))
             binding.animationView.visibility = View.VISIBLE
         }
         initRecycler()
@@ -99,7 +100,7 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
     fun showObservedData() {
 
         viewModel.getOrder.observe(viewLifecycleOwner) {
-            if (it!=null)
+            if (it != null)
                 initView(it)
         }
     }
@@ -111,10 +112,14 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
             adapter = myOrderAdapter
         }
     }
+
     override fun onClick(orderItem: Order) {
-//        val direct : NavDirections = MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22(orderItem)
-//        findNavController().navigate(direct)
+
+        val direct:NavDirections=MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22(orderItem)
+        findNavController().navigate(direct)
+
     }
+
     private fun showMessage(it: String) {
         Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)
             .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
