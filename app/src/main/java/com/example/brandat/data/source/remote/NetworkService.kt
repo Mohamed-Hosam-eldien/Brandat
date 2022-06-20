@@ -1,11 +1,9 @@
 package com.example.brandat.data.source.remote
 
 import com.example.brandat.models.*
-
+import com.example.brandat.models.orderModel.AllOrderResponse
 import com.example.brandat.models.orderModel.OrderResponse
 import com.example.brandat.models.orderModel.discount.PriceRules
-import com.example.brandat.models.draft.CustomerOrder
-import com.example.brandat.models.orderModel.AllOrderResponse
 import retrofit2.Response
 import retrofit2.http.*
 

@@ -50,7 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        app:defaultQueryHint="search in products.."
+                        app:defaultQueryHint="@string/searchin"
                         app:iconifiedByDefault="true" />
 
                 </androidx.cardview.widget.CardView>
@@ -60,7 +60,19 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="151dp"
+            android:layout_height="189dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/no_coneection" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerSearch"
             android:layout_width="match_parent"
@@ -70,7 +82,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             tools:listitem="@layout/recycler_home_item" />
-
         <ImageView
             android:id="@+id/imgEmpty"
             android:layout_width="wrap_content"

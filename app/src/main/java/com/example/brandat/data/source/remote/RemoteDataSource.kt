@@ -1,7 +1,5 @@
 package com.example.brandat.data.source.remote
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import com.example.brandat.models.*
 import com.example.brandat.models.orderModel.AllOrderResponse
 import com.example.brandat.models.orderModel.OrderModel
@@ -23,22 +21,23 @@ class RemoteDataSource @Inject constructor(
     }
 
     override suspend fun getAllProductsById(): Response<Products> {
-       return networkService.getProductsById()
+        return networkService.getProductsById()
     }
 
     override suspend fun getAllProductsByProductType(product_type: String): Response<Products> {
         return networkService.getProductsBySubCategory(product_type)
     }
+
     override suspend fun getCategories(productId: Long): Response<Products> {
         return networkService.getCategoryByTag(productId)
     }
 
     //=====================================================
     override suspend fun registerCustomer(customer: CustomerRegisterModel): Response<CustomerRegisterModel> {
-       return networkService.register(customer)
+        return networkService.register(customer)
     }
 
-    override suspend fun loginCustomer(email:String, tags:String): Response<CustomerModel> {
+    override suspend fun loginCustomer(email: String, tags: String): Response<CustomerModel> {
         return networkService.login(email, tags)
     }
 
@@ -53,14 +52,13 @@ class RemoteDataSource @Inject constructor(
 //    }
 
     override suspend fun getDiscountCodes(): Response<PriceRules> {
-        Log.e(TAG, "getDiscountCodes: ${networkService.getDiscountCodes().body()}")
-      return networkService.getDiscountCodes()
+//        Log.e(TAG, "getDiscountCodes: ${networkService.getDiscountCodes().body()}")
+        return networkService.getDiscountCodes()
 
     }
 
     override suspend fun createOrder(orders: OrderModel): Response<OrderResponse> {
-
-    return networkService.createOrder(orders)
+        return networkService.createOrder(orders)
     }
 
 

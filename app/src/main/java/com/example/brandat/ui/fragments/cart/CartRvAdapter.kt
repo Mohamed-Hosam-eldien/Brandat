@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.brandat.R
 import com.example.brandat.databinding.CartItemBinding
 import com.example.brandat.utils.CartDiffUtil
+import com.google.android.material.snackbar.Snackbar
 
 
 class CartRvAdapter(
@@ -60,7 +61,6 @@ class CartRvAdapter(
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         myViewHolders.add(holder)
         rootView = holder.itemView.rootView
-
         val currentCart = carts[position]
         holder.bind(currentCart)
 
@@ -78,6 +78,9 @@ class CartRvAdapter(
         }
 
         holder.binding.tvProductName.text = currentCart.pName.lowercase()
+
+//        if (position == carts.size - 1)
+//            Log.d("TAG", "onBindViewHolder: $totalPrice")
 
         holder.binding.numberButton.setOnValueChangeListener { _, _, newValue ->
             onClickListener.onPluseMinusClicked(newValue, currentCart)
@@ -135,7 +138,7 @@ class CartRvAdapter(
 
     private fun showDialog(mode: ActionMode?) {
         val builder = AlertDialog.Builder(context)
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton(context.getString(R.string.yes)) { _, _ ->
             selectedOrders.forEach {
                 onClickListener.onClicked(it)
             }
@@ -144,11 +147,11 @@ class CartRvAdapter(
             selectedOrders.clear()
             mode?.finish()
         }
-        builder.setNegativeButton("No") { _, _ ->
+        builder.setNegativeButton(context.getString(R.string.no)) { _, _ ->
 
         }
-        builder.setTitle("Delete?")
-        builder.setMessage("Are you sure you want to delete this item from Cart?")
+        builder.setTitle(context.getString(R.string.delet))
+         builder.setMessage(context.getString(R.string.worning))
         builder.create().show()
     }
 
@@ -167,12 +170,12 @@ class CartRvAdapter(
                 multiSelection = false
             }
             1 -> {
-                mActionMode.title = "${selectedOrders.size} item selected"
+                mActionMode.title =" ${selectedOrders.size}${context.getString(R.string.item_selected)}"
 
                 //  mActionMode.title= R.font.m
             }
             else -> {
-                mActionMode.title = "${selectedOrders.size} items selected"
+                mActionMode.title = "${selectedOrders.size}${context.getString(R.string.items_selected)}"
             }
         }
     }

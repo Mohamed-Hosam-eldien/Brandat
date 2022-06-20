@@ -2,14 +2,13 @@ package com.example.brandat.utils
 
 import com.example.brandat.models.CustomerAddress
 import com.example.brandat.models.orderModel.Address
-import com.example.brandat.models.orderModel.CustomerOrder
 import com.example.brandat.models.orderModel.LineItem
 import com.example.brandat.ui.fragments.cart.Cart
 
 fun List<Cart>.getPrice(): Double {
     var price = 0.0
     this.forEach {
-        price += it.pQuantity * (it.pPrice.toDouble() ?: 1.0)
+        price += it.pQuantity * (it.pPrice?.toDouble() ?: 1.0)
     }
     return price
 }

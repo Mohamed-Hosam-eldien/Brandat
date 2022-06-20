@@ -1,6 +1,5 @@
 package com.example.brandat.data.repos.products
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.brandat.utils.NetworkResult
 import com.example.brandat.data.source.local.ILocalDataSource
@@ -9,20 +8,20 @@ import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.Product
 import com.example.brandat.models.Products
-import com.example.brandat.models.Orders
-import com.example.brandat.models.orderModel.AllOrderResponse
-import com.example.brandat.models.orderModel.OrderModel
-import com.example.brandat.models.orderModel.OrderResponse
+import com.example.brandat.models.orderModel.*
 import com.example.brandat.models.orderModel.discount.PriceRules
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.ResponseResult
 import retrofit2.Response
 import javax.inject.Inject
 
+//@ActivityRetainedScoped
+//@ViewModelScoped
+
 class ProductsRepository @Inject constructor(
     private var localDataSource: ILocalDataSource,
     private var remoteDataSource: IRemoteDataSource
-    ) :IProductsRepository{
+) : IProductsRepository {
 
     override suspend fun getCategories(productId: Long): NetworkResult<Products?> {
         val result: NetworkResult<Products?>
@@ -84,8 +83,15 @@ class ProductsRepository @Inject constructor(
         return localDataSource.isAdded(productName)
     }
 
-    override suspend fun getAllOrders(email: String?): Response<AllOrderResponse> {
-        return remoteDataSource.getAllOrders(email)
+    override suspend fun getAllOrders(email:String?): NetworkResult<AllOrderResponse?> {
+        val result:NetworkResult<AllOrderResponse?>
+        val response=remoteDataSource.getAllOrders(email)
+        if(response.isSuccessful){
+            result=NetworkResult.Success(response.body())
+        }else{
+            result=NetworkResult.Error("error${response.code()}")
+        }
+        return result
     }
 
 //    override suspend fun postFavDraft(draftModel: com.example.brandat.models.draft.OrderModel): Response<com.example.brandat.ordermodel.OrderResponse> {
@@ -159,7 +165,7 @@ class ProductsRepository @Inject constructor(
     override suspend fun createOrder(order: OrderModel): ResponseResult<OrderResponse> {
         return try {
             val res = remoteDataSource.createOrder(order)
-            Log.e(TAG, "createOrder: ${res}", )
+            Log.e("TAG", "createOrder: ${res}", )
             if (res.isSuccessful) {
                 val responseBody = res.body()
                 if (responseBody != null) {
@@ -168,12 +174,12 @@ class ProductsRepository @Inject constructor(
                     ResponseResult.Error(res.errorBody().toString())
                 }
             } else {
-                Log.e(TAG, "createOrdercode: ${res.code()}", )
+                Log.e("TAG", "createOrdercode: ${res.code()}", )
                 ResponseResult.Error(res.message())
             }
 
         } catch (t: Throwable) {
-            Log.e(TAG, "createOrder: ${t.localizedMessage}", )
+            Log.e("TAG", "createOrder: ${t.localizedMessage}", )
             ResponseResult.Error(t.message)
         }
     }

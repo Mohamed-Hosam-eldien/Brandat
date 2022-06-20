@@ -38,8 +38,7 @@ data class ProductDetails(
     @SerializedName("updated_at")
     val updatedAt: String = "",
     @SerializedName("variants")
-    val variants: List<Variant> = listOf(),
+    var variants: MutableList<Variant>? = null,
     @SerializedName("vendor")
     val vendor: String=""
-
 ):Serializable

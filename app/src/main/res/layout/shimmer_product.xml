@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
     </data>
-
     <androidx.cardview.widget.CardView
         android:layout_width="180dp"
         android:layout_height="wrap_content"

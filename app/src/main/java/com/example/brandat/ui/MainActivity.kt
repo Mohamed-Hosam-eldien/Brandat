@@ -1,23 +1,27 @@
 package com.example.brandat.ui
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.provider.SyncStateContract
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.example.brandat.R
 import com.example.brandat.databinding.ActivityMainBinding
 import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.google.android.material.badge.BadgeDrawable
 import com.example.brandat.ui.fragments.serach.SearchActivity
+import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
-import com.example.brandat.ui.fragments.orderStatus.checkOutOrder.OnOkClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), IBadgeCount {
@@ -25,6 +29,7 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
     private lateinit var binding: ActivityMainBinding
     private lateinit var badgeDrawable: BadgeDrawable
     private lateinit var navController: NavController
+    private var mCurrentLocale: Locale? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +41,7 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
 
         badgeDrawable = binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment);
         badgeDrawable.isVisible = true
-        if(Paper.book().read<Int>("countFromCart")!=null) {
+        if (Paper.book().read<Int>("countFromCart") != null) {
             badgeDrawable.number = Paper.book().read<Int>("countFromCart")!!
         }
         if (badgeDrawable.number == 0) {
@@ -54,7 +59,7 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
                 binding.bottomNavigationView.visibility = View.VISIBLE
             }
 
-    }
+        }
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
@@ -70,10 +75,25 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
     }
 
     private fun initUser() {
-        if(Paper.book().read<String>("id") != null ) {
+        if (Paper.book().read<String>("id") != null) {
             Constants.user.id = Paper.book().read<Long>("id")?.toLong()!!
             Constants.user.email = Paper.book().read<String>("email").toString()
             Constants.user.firstName = Paper.book().read<String>("name").toString()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mCurrentLocale = getResources().getConfiguration().locale;
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        val locale = getLocale(this)
+
+        if (!locale!!.equals(mCurrentLocale)) {
+            mCurrentLocale = locale
+            recreate()
         }
     }
 
@@ -98,4 +118,14 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
         }
     }
 
+    fun getLocale(context: Context?): Locale? {
+        val sharedPreferences: SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(context!!)
+        var lang = sharedPreferences.getString("language", "en")
+        when (lang) {
+            "English" -> lang = "en"
+            "Arabic" -> lang = "ar"
+        }
+        return Locale(lang)
+    }
 }

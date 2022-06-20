@@ -24,7 +24,7 @@
             android:layout_centerInParent="true"
             android:layout_marginBottom="24dp"
             android:backgroundTint="@color/darkGray"
-            android:text="Save Location" />
+            android:text="@string/save_location" />
 
 
     </RelativeLayout>

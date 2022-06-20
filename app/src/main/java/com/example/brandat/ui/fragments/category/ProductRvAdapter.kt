@@ -1,8 +1,8 @@
 package com.example.brandat.ui.fragments.category
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -43,21 +43,26 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener)
             .load(currentProduct.imageProduct.src)
             .into(holder.binding.ivProduct)
 
+        Log.e("TAG", "onBindViewHolder: price adapter ${currentProduct.variants?.get(0)?.price}", )
+
+        holder.binding.tvProductPrice.text = currentProduct.variants?.get(0)?.price
+
 //        checkFavExist(currentProduct.id, holder.binding.ivFavorite)
 
         FirebaseDatabase.getInstance()
             .getReference(Constants.user.id.toString())
             .child("fav")
             .addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.hasChild(currentProduct.id.toString())) {
-                    holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
-                } else {
-                    holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.hasChild(currentProduct.id.toString())) {
+                        holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                    } else {
+                        holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
+                    }
                 }
-            }
-            override fun onCancelled(error: DatabaseError) {}
-        })
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
 
 //        for (i in 0..favorites.size.minus(1)) {
 //            if (currentProduct.title == favorites[i].productName) {
@@ -117,14 +122,15 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener)
 
     fun setProductDataToCartModel(productDetails: ProductDetails): Cart {
         // Log.d("TAG", "setProductDataToCartModel: ${productDetails.variants[0].price.toInt()}")
-        productDetails.variants[0].price.let {
+//        if(productDetails.variants.isNotEmpty()) {
+        productDetails.variants?.get(0)?.price.let {
             return Cart(
                 productDetails.title,
-                variant_id = productDetails.variants[0].id,
-                productDetails.variants[0].price,
+                variant_id = productDetails.variants?.get(0)?.id,
+                productDetails.variants?.get(0)?.price,
                 pImage = productDetails.imageProduct.src,
                 pId = productDetails.id,
-                tPrice = productDetails.variants[0].price.toDouble()
+                tPrice = productDetails.variants?.get(0)?.price?.toDouble()
             )
         }
 

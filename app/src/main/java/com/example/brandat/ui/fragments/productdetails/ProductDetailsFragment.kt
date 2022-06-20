@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,7 +79,7 @@ class ProductDetailsFragment : Fragment() {
             //loading
             viewModel.getProductDetailsFromDatabase(id)
         } else {
-            showMessage("No Connection")
+            showMessage(requireContext().getString(R.string.no_connection))
         }
         random = (3..5).random().toFloat()
         binding.ratingBar.rating = random
@@ -98,7 +97,7 @@ class ProductDetailsFragment : Fragment() {
                 showDialog()
             } else {
                 cartViewModel.addProductToCart(productToCart)
-                Toast.makeText(requireContext(), "Added To Cart", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), context?.getString(R.string.added_to_cart), Toast.LENGTH_SHORT).show()
             }
         }
         setupRecyclerView()
@@ -118,19 +117,19 @@ class ProductDetailsFragment : Fragment() {
                     R.color.black2
                 )
             )
-            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            .setActionTextColor(resources.getColor(R.color.white)).setAction(context?.getString(R.string.close)) {
             }.show()
     }
 
 
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Login Now") { _, _ ->
+        builder.setPositiveButton(context?.getString(R.string.login_now)) { _, _ ->
             startActivity(Intent(requireActivity(), ProfileActivity::class.java))
         }
-        builder.setNegativeButton("cancel") { _, _ ->
+        builder.setNegativeButton(context?.getString(R.string.cancel)) { _, _ ->
         }
-        builder.setTitle("please register or login to add item in cart")
+        builder.setTitle(context?.getString(R.string.worning_msg))
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }
@@ -151,16 +150,12 @@ class ProductDetailsFragment : Fragment() {
     }
 
     private fun observeShowData() {
-        Log.i("TAG", "observeShowData: ")
-
         //7782820708581L
-
         viewModel.getProduct.observe(viewLifecycleOwner) {
             if (it != null) {
                 showData(it)
             }
         }
-
 
     }
 
@@ -168,7 +163,7 @@ class ProductDetailsFragment : Fragment() {
         if (body != null) {
 
             binding.productNameTv.text = body.productDetails.title
-            binding.productPriceTv.text = body.productDetails.variants[0].price
+            binding.productPriceTv.text = body.productDetails.variants?.get(0)?.price
             binding.description.text = body.productDetails.bodyHtml
             binding.oneSize.text = body.productDetails.options[0].values[0]
             when (body.productDetails.options[1].values[0]) {
@@ -179,19 +174,22 @@ class ProductDetailsFragment : Fragment() {
             }
 
             val imageList = ArrayList<SlideModel>()
-            imageList.add(SlideModel(body.productDetails.imageProducts[0].src))
-            imageList.add(SlideModel(body.productDetails.imageProducts[1].src))
-            imageList.add(SlideModel(body.productDetails.imageProducts[2].src))
+            for(image in body.productDetails.imageProducts) {
+                imageList.add(SlideModel(image.src))
+            }
+
+//            imageList.add(SlideModel(body.productDetails.imageProducts[0].src))
+//            imageList.add(SlideModel(body.productDetails.imageProducts[1].src))
+//            imageList.add(SlideModel(body.productDetails.imageProducts[2].src))
+
             binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
             productToCart = Cart(
                 body.productDetails.title,
-                variant_id = body.productDetails.variants[0].id,
-                body.productDetails.variants[0].price,
+                variant_id = body.productDetails.variants?.get(0)?.id,
+                body.productDetails.variants?.get(0)?.price,
                 body.productDetails.imageProducts[0].src
             )
 
         }
-
-
     }
 }

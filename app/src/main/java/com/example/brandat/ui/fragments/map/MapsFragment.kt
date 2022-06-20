@@ -29,8 +29,6 @@ import java.util.*
 
 @AndroidEntryPoint
 class MapsFragment : Fragment() {
-
-
     private lateinit var latAndLong: LatLng
     lateinit var sharedPreferences: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
@@ -96,18 +94,18 @@ class MapsFragment : Fragment() {
 
 
         binding.btnLocation.setOnClickListener {
-            if (latitude>0 && longitude>0){
+            if (latitude!=0.0 && longitude!=0.0){
 
                 customerAddress = getTimeZone(latitude, longitude)
 
                 viewModel.insertAddress(customerAddress)
 
-                Toast.makeText(requireContext(), "this country saved successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.saved_successfully), Toast.LENGTH_SHORT).show()
 
                 findNavController().popBackStack()
                 //navController.popBackStack()
             }else{
-                Toast.makeText(context, "Please select your address", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.select_your_address), Toast.LENGTH_SHORT).show()
             }
 
 

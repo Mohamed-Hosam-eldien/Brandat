@@ -115,5 +115,4 @@
             app:shimmer_recycler_layout="@layout/shimmer_product" />
 
     </LinearLayout>
-
 </layout>

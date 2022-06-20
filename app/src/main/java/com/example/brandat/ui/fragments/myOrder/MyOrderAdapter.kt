@@ -28,7 +28,6 @@ class MyOrderAdapter(var onItemClickLinter: OnItemClickLinter) :
 //        holder.view.itemsNumber.text=orderItem.itemsNumber
         holder.view.orderStatus.text = orderItem.financialStatus
         holder.view.cardView.setOnClickListener {
-            Log.e(TAG, "onBindViewHolder: ")
             onItemClickLinter.onClick(orderItem)
         }
     }

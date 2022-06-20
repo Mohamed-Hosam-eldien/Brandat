@@ -50,7 +50,6 @@ class CartViewModel @Inject constructor(private var repo: IProductsRepository) :
     fun isAdded(productName: String) = viewModelScope.launch(Dispatchers.IO) {
         val result = repo.isAdded(productName)
         _isAdded.postValue(result)
-        Log.e("TAG", "---------isAdded:$result ")
     }
 
 

@@ -67,7 +67,6 @@ class LocalDataSource @Inject constructor(private var brandatDao:BrandatDao) :IL
 
     override suspend fun isAdded(productName: String?): Cart {
         return brandatDao.isOrderd(productName)
-        println("result====${brandatDao.isOrderd(productName)}")
     }
 
 }

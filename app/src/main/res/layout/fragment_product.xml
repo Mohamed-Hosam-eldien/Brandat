@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragments.category.ProductFragment">
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/rv_products"

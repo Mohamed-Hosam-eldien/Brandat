@@ -5,11 +5,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class LineItem(
-    val variant_id: Long ,
+    val variant_id: Long?,
     val quantity: Int,
     val name: String = "",
     val sku: String = "",
-    val price: String = "",
+    val price: String? = "",
 //    val admin_graphql_api_id: String = "",
 //    val discount_allocations: List<Any> = listOf(),
 //    val duties: List<Any> = listOf(),

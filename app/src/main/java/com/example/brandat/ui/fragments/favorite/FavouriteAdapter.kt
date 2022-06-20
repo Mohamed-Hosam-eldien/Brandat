@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.brandat.databinding.FavouriteItemBinding
-import com.example.brandat.models.Favourite
-import com.example.brandat.models.OrderResponse
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.FavouriteDiffUtil
@@ -35,7 +33,7 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
         //holder.binding.ivProductFav.setImageBitmap(currentProduct.productImage)
         Glide.with(context).load(currentProduct.imageProduct.src).into(holder.binding.ivProductFav)
         holder.binding.tvProductName.text = currentProduct.title.lowercase()
-        holder.binding.tvProductPrice.text = currentProduct.variants[0].price
+        holder.binding.tvProductPrice.text = currentProduct.variants?.get(0)?.price
 
         holder.itemView.setOnClickListener {
             onClickedListener.onItemClicked(currentProduct.id)
@@ -73,8 +71,8 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
         // Log.d("TAG", "setProductDataToCartModel: ${productDetails.variants[0].price.toInt()}")
         return Cart(
             favProduct.title,
-            variant_id = favProduct.variants[0].id,
-            favProduct.variants[0].price,
+            variant_id = favProduct.variants?.get(0)?.id,
+            favProduct.variants?.get(0)?.price,
             favProduct.imageProduct.src,
             pId = favProduct.id
         )

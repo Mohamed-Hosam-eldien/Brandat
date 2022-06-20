@@ -42,7 +42,7 @@
                     android:scaleType="center"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/t_shirt_image3"
+                    android:src="@drawable/dress_kid"
 
                     />
 
@@ -52,6 +52,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@id/order_image"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +71,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:text="2 items"
                     android:layout_margin="8dp"
-
                     app:layout_constraintStart_toEndOf="@id/order_image"
 
                     />
@@ -82,14 +83,8 @@
                     android:text="300$"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="8dp"
-
                     app:layout_constraintEnd_toEndOf="parent"
                     />
-
-
-
-
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

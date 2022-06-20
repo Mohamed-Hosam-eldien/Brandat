@@ -55,16 +55,16 @@ class LoginFragment : Fragment() {
                     Paper.book().write("name", it.customer[0].firstName + " " + it.customer[0].lastName)
                     initUser()
                     requireActivity().finish()
-                    Toast.makeText(requireContext(), "User logged Successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), context?.getString(R.string.user_logged_successfully), Toast.LENGTH_SHORT).show()
 
                 } else {
                     binding.loginBtn.visibility = View.VISIBLE
                     binding.prog.visibility = View.GONE
-                    binding.etPass.error = "not correct"
+                    binding.etPass.error = getString(R.string.not_correct)
                 }
 
             } else {
-                Toast.makeText(requireContext(), "this user is not exist", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), context?.getString(R.string.this_user_is_not_exist), Toast.LENGTH_SHORT)
                     .show()
                 binding.loginBtn.visibility = View.VISIBLE
                 binding.prog.visibility = View.GONE
@@ -89,12 +89,12 @@ class LoginFragment : Fragment() {
 
         if (email.isEmpty()) {
             binding.etEmail.requestFocus()
-            binding.etEmail.error = "Required"
+            binding.etEmail.error = getString(R.string.required)
             return false
         }
         if (password.isEmpty()) {
             binding.etPass.requestFocus()
-            binding.etPass.error = "Required"
+            binding.etPass.error = getString(R.string.required)
             return false
         }
 

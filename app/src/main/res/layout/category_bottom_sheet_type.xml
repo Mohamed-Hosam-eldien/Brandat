@@ -97,7 +97,6 @@
 
         </HorizontalScrollView>
 
-
         <Button
             android:id="@+id/btnApply"
             android:layout_width="match_parent"

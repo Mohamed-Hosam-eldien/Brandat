@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentMyOrderBinding
 import com.example.brandat.models.orderModel.Order
+import com.example.brandat.utils.ConnectionUtil
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -24,11 +26,12 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
 
     private val TAG: String = "Main"
     lateinit var binding: FragmentMyOrderBinding
+
     //lateinit var myOrdrAdapter: MyOrderAdapter
     lateinit var navController: NavController
     private val viewModel: MyOrderViewModel by viewModels()
     private val myOrderAdapter by lazy { MyOrderAdapter(this) }
-     var email:String?=null
+    var email: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +51,23 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
         navController = Navigation.findNavController(view)
 
         Paper.init(requireContext())
-        email =Paper.book().read<String>("email")
+        email = Paper.book().read<String>("email")
+        ConnectionUtil.email = email.toString()
+        Toast.makeText(context, "${email}", Toast.LENGTH_SHORT).show()
+        if (ConnectionUtil.isNetworkAvailable(requireContext())) {
+            //shimmer / loading
+            viewModel.getOrdersFromApi(email)
+        } else {
+            showMessage(requireContext().getString(R.string.no_connection))
+            binding.animationView.visibility = View.VISIBLE
+        }
         initRecycler()
         showObservedData()
+        ConnectionUtil.registerConnectivityNetworkMonitor(
+            requireContext(),
+            viewModel,
+            requireActivity()
+        )
     }
 
     private fun initRecycler() {
@@ -77,38 +94,41 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
                 )
             )
         }
-
-
         return myOrderList
     }
 
     fun showObservedData() {
-        viewModel.getOrdersFromApi(email)
+
         viewModel.getOrder.observe(viewLifecycleOwner) {
-
-                //Toast.makeText(context, "${it.body()}", Toast.LENGTH_SHORT).show()
-                //Toast.makeText(context, "${it.body()}", Toast.LENGTH_SHORT).show()
-            if (it.isSuccessful)
-                initView(it.body()!!.orders)
-
+            if (it != null)
+                initView(it)
         }
-
     }
 
     private fun initView(order: List<Order>) {
         myOrderAdapter.setDatat(order)
-        //addressAdapter = AddressAdapter(this)
         binding.myOrderRecycler.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = myOrderAdapter
         }
+    }
+
+    override fun onClick(orderItem: Order) {
+
+        val direct:NavDirections=MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22(orderItem)
+        findNavController().navigate(direct)
 
     }
 
-
-    override fun onClick(orderItem: Order) {
-        val direct : NavDirections = MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment2(orderItem)
-        findNavController().navigate(direct)
+    private fun showMessage(it: String) {
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                resources.getColor(
+                    R.color.black2
+                )
+            )
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
     }
 
 }

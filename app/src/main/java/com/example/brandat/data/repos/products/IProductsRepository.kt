@@ -5,10 +5,9 @@ import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.Product
 import com.example.brandat.models.Products
+import com.example.brandat.models.orderModel.AllOrderResponse
 import com.example.brandat.models.orderModel.OrderModel
 import com.example.brandat.models.orderModel.OrderResponse
-import com.example.brandat.models.Orders
-import com.example.brandat.models.orderModel.AllOrderResponse
 import com.example.brandat.models.orderModel.discount.PriceRules
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.ResponseResult
@@ -16,11 +15,11 @@ import retrofit2.Response
 
 interface IProductsRepository {
 
-    suspend fun getProductDetails(productId: Long): NetworkResult<Product?>
+    suspend fun getProductDetails(productId:Long):NetworkResult<Product?>
 
     suspend fun getAllProduct(): NetworkResult<Products?>
 
-    suspend fun getAllProductByType(type: String): NetworkResult<Products?>
+    suspend fun getAllProductByType(type:String): NetworkResult<Products?>
 
     suspend fun getbrand(): NetworkResult<Brands?>
 
@@ -30,7 +29,7 @@ interface IProductsRepository {
     suspend fun removeSelectedProductsFromCart(product: List<Cart>)
     suspend fun getAllCartProducts(): List<Cart>
     suspend fun updateOrder(product: Cart)
-    suspend fun getAllPrice(): Double
+    suspend fun getAllPrice() : Double
 
     suspend fun insertFavouriteProduct(favourite: Favourite)
     suspend fun removeFavouriteProduct(productId: Long)
@@ -49,6 +48,6 @@ interface IProductsRepository {
 
     suspend fun isAdded(productName: String): Cart
 //    suspend fun postFavDraft(draftModel: com.example.brandat.models.draft.OrderModel): Response<com.example.brandat.ordermodel.OrderResponse>
-    suspend fun getAllOrders(email: String?): Response<AllOrderResponse>
+    suspend fun getAllOrders(email: String?): NetworkResult<AllOrderResponse?>
 
 }

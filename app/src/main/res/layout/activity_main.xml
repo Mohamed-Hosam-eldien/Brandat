@@ -77,6 +77,5 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/home_menu" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

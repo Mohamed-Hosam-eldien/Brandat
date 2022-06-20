@@ -2,13 +2,12 @@ package com.example.brandat.ui.fragments.home
 
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.util.Log
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,9 +24,9 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentHomeBinding
 import com.example.brandat.models.Brand
 import com.example.brandat.models.orderModel.discount.PriceRule
+import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ResponseResult
-import com.example.brandat.utils.ConnectionUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -64,6 +63,7 @@ class HomeFragment : Fragment(), BrandOnClickListner {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         initView()
+        // snackbar = Snackbar.make(requireView(), "it", Snackbar.LENGTH_INDEFINITE)
         //showShimmerEffect()
         return binding.root
     }
@@ -85,7 +85,6 @@ class HomeFragment : Fragment(), BrandOnClickListner {
             brandAdapter.setData(brands)
         }
         imageSlider()
-        Log.e("TAG", "==from home: ")
         ShowDescountCopune()
         discountInit()
 
@@ -136,72 +135,77 @@ class HomeFragment : Fragment(), BrandOnClickListner {
             cardAnimation()
             Toast.makeText(requireContext(), "Text copied to clipboard", Toast.LENGTH_SHORT).show()
         }
-
     }
 
+
     private fun randomDiscountCode(priceRules: List<PriceRule>) {
-        val randomElements = (0..priceRules.size ).shuffled().random()
+        val randomElements = (0..priceRules.size-1 ).shuffled().random()
         binding.txtCode.text = priceRules[randomElements].title
 
     }
 
-    private fun discountInit() {
-        binding.imgGift.setOnClickListener {
-            cardAnimation( )
+        private fun discountInit() {
+            binding.imgGift.setOnClickListener {
+               Constants.discounCde?.let {
+                   randomDiscountCode(Constants.discounCde!!)
+
+               }
+
+                cardAnimation()
+            }
         }
-    }
 
-    private fun cardAnimation() {
-        TransitionManager.beginDelayedTransition(binding.giftCard, AutoTransition())
-        binding.layoutCode.visibility = if (binding.layoutCode.visibility == View.GONE) {
-            View.VISIBLE
-        } else {
-            View.GONE
+        private fun cardAnimation() {
+            TransitionManager.beginDelayedTransition(binding.giftCard, AutoTransition())
+            binding.layoutCode.visibility = if (binding.layoutCode.visibility == View.GONE) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
-    }
 
-    private fun imageSlider() {
-        val imageList = ArrayList<SlideModel>()
-        imageList.add(SlideModel(R.drawable.img_1, ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.img_2, ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.img_3, ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.sh2, ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.shose_image, ScaleTypes.CENTER_CROP))
+        private fun imageSlider() {
+            val imageList = ArrayList<SlideModel>()
+            imageList.add(SlideModel(R.drawable.img_1, ScaleTypes.CENTER_CROP))
+            imageList.add(SlideModel(R.drawable.img_2, ScaleTypes.CENTER_CROP))
+            imageList.add(SlideModel(R.drawable.img_3, ScaleTypes.CENTER_CROP))
+            imageList.add(SlideModel(R.drawable.sh2, ScaleTypes.CENTER_CROP))
+            imageList.add(SlideModel(R.drawable.shose_image, ScaleTypes.CENTER_CROP))
 
 
-        binding.imageSlider.setImageList(imageList)
-        binding.imageSlider.setImageList(imageList)
-    }
-
-    private fun initView() {
-
-        brandAdapter = BrandAdapter(requireContext(), this)
-
-        binding.brandsRecycler.apply {
-            val layoutManager = GridLayoutManager(context, 2)
-            setLayoutManager(layoutManager)
-            adapter = brandAdapter
-
+            binding.imageSlider.setImageList(imageList)
+            binding.imageSlider.setImageList(imageList)
         }
-    }
 
-    private fun showShimmerEffect() {
-        binding.shimmerRecycle.showShimmerAdapter()
-        binding.shimmerRecycle.visibility = View.VISIBLE
-        binding.brandsRecycler.visibility = View.GONE
-    }
+        private fun initView() {
 
-    private fun hideShimmerEffect() {
-        binding.shimmerRecycle.hideShimmerAdapter()
-        binding.shimmerRecycle.visibility = View.GONE
-        binding.brandsRecycler.visibility = View.VISIBLE
-    }
+            brandAdapter = BrandAdapter(requireContext(), this)
 
-    override fun onBrandClick(brandId: String) {
-        bundle = Bundle()
-        bundle.putString("brandId", brandId)
-        findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment, bundle)
-    }
+            binding.brandsRecycler.apply {
+                val layoutManager = GridLayoutManager(context, 2)
+                setLayoutManager(layoutManager)
+                adapter = brandAdapter
+
+            }
+        }
+
+        private fun showShimmerEffect() {
+            binding.shimmerRecycle.showShimmerAdapter()
+            binding.shimmerRecycle.visibility = View.VISIBLE
+            binding.brandsRecycler.visibility = View.GONE
+        }
+
+        private fun hideShimmerEffect() {
+            binding.shimmerRecycle.hideShimmerAdapter()
+            binding.shimmerRecycle.visibility = View.GONE
+            binding.brandsRecycler.visibility = View.VISIBLE
+        }
+
+        override fun onBrandClick(brandId: String) {
+            bundle = Bundle()
+            bundle.putString("brandId", brandId)
+            findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment, bundle)
+        }
 
     private fun showMessage(it: String) {
         //snack = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)

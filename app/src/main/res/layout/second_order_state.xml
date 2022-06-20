@@ -103,7 +103,6 @@
                         android:backgroundTint="@color/green"
                         android:gravity="center"
                         android:visibility="gone" />
-
                     <Button
                         android:id="@+id/btnApply"
                         android:layout_width="0dp"

@@ -16,7 +16,7 @@ class LoginViewModel @Inject constructor(private val IRepo: IUserRepository) : V
     var signInSuccess: LiveData<CustomerModel> = _signInSuccess
 
      fun loginCustomer(email:String, tags:String) =viewModelScope.launch {
+
          _signInSuccess.postValue(IRepo.loginCustomer(email, tags).body())
-//          Log.e("TAG", "code '((${IRepo.loginCustomer(email).code()}: ", )
      }
     }

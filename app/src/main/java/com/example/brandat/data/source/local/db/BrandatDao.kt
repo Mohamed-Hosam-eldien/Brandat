@@ -21,7 +21,7 @@ interface BrandatDao {
 
 
     @Query("update cart_table set pQuantity =:conut,tPrice=:totalPrice where pId =:id")
-    suspend fun updateOrder(conut: Int, id: Long,totalPrice:Double)
+    suspend fun updateOrder(conut: Int, id: Long, totalPrice: kotlin.Double?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAddress(customerAddress: CustomerAddress)

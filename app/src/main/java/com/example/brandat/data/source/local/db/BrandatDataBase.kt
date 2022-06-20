@@ -12,7 +12,7 @@ import com.example.brandat.ui.fragments.cart.Cart
 // don forget to use automigration
 @Database(
     entities = arrayOf(Favourite::class,CustomerAddress::class,Cart::class),
-    version = 10,
+    version =11,
 
 
 )

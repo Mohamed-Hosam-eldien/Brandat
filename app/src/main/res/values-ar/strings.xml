@@ -1,0 +1,180 @@
+<resources>
+    <string name="app_name">Brandat</string>
+    <string name="home">الصفحه الرئيسيه</string>
+    <string name="category">التصنيفات</string>
+    <string name="fav">المفضله</string>
+    <string name="cart">السلة</string>
+    <string name="order">طلب</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="item_details">تفاصيل العنصر</string>
+    <string name="brandat">Brandat</string>
+    <string name="Address">العنوان</string>
+    <string name="customer_name">اسم المشتري:</string>
+    <string name="order_number">رقم الطلب:</string>
+    <string name="order_item">رقم الطلب:</string>
+    <string name="order_details">تفاصيل الطلب:</string>
+    <string name="total_price">إجمالي السعر:</string>
+    <string name="payment_method">طريقة الدفع:</string>
+    <string name="order_date">تاريخ الطلب:</string>
+    <string name="phone">رقم الهاتف:</string>
+    <string name="address">العنوان:</string>
+    <string name="brands">Brands</string>
+
+    <string name="btn_persistent">Persistent Bottom Sheet</string>
+    <string name="btn_modal">Modal Bottom Sheet</string>
+    <string name="tv_title">Learn Bottom Sheet</string>
+    <string name="tv_description"></string>
+    <string name="btn_one">Button 1</string>
+    <string name="btn_two">Button 2</string>
+    <string name="btn_three">Button 3</string>
+
+
+    <string name="my_addresses">العناوين</string>
+    <string name="currency">العملة</string>
+    <string name="language">اللغة</string>
+    <string name="sign_out">تسجيل خروج</string>
+    <string name="dollar">دولار</string>
+    <string name="bound">جنيه مصري</string>
+    <string name="steps">asd</string>
+    <string name="click_to_add_address">إضغط لإضافه عنوان</string>
+    <string name="credit_card">بطاقة الائتمان</string>
+    <string name="cash">الدفع عند اللإستلام</string>
+    <string name="paypal">Paypal</string>
+    <string name="copon">copon</string>
+    <string name="price">السعر</string>
+    <string name="apply">تطبيق</string>
+    <string name="delivery">خدمة التوصيل</string>
+    <string name="next">التالي</string>
+    <string name="add">إضافة</string>
+    <string name="add_to_cart">إضافة إلي السلة</string>
+    <string name="men">رجالي</string>
+    <string name="kids">أطفال</string>
+    <string name="sale">خصومات</string>
+    <string name="women">حريمي</string>
+    <string name="items">العناصر</string>
+    <string name="shoes">أحذيه</string>
+    <string name="t_shirt">تي شيرت</string>
+    <string name="accessories">اخري</string>
+    <string name="all">الكل</string>
+    <string name="last_name">الإسم الاخير</string>
+    <string name="create_new_account">إنشاء حساب جديد</string>
+    <string name="login">دخول</string>
+    <string name="sign_up">تسجيل دخول</string>
+    <string name="confirm_password">تأكيد كلمه السر</string>
+    <string name="password">كلمه السر</string>
+    <string name="total">الإجمالي</string>
+    <string name="checkout">تابع عملية الشراء</string>
+    <string name="click_to_add_your_address">إضغط لإضافة عنوان</string>
+    <string name="send_order">إرسال الطلب</string>
+    <string name="promo_code">كود الخصم</string>
+    <string name="search">بحث</string>
+    <string name="copunCode">agste54st</string>
+
+    <string name="retry">إعادة المحاولة</string>
+    <string name="pay_on_cash">الدفع فورا</string>
+    <string name="invalid_data">بيانات غير صالحة</string>
+    <string name="Discount">الخصم</string>
+    <string name="message_order_don">تمام</string>
+    <string name="operation_succeeded">نجحت العمليلة</string>
+    <string name="operation_faild">العملية فشلت</string>
+    <string name="someThing_wrong_happened">خطأ</string>
+    <string name="passward">كلمة السر</string>
+    <string name="save_location">حفظ الموقع</string>
+    <string name="country">البلد</string>
+    <string name="street_address">الشارع</string>
+    <string name="city">المدينه</string>
+    <string name="add_address">إضافه العنوان</string>
+
+    <string name="total_price_order">إجمالي السعر</string>
+    <string name="color">اللون:</string>
+    <string name="size">الحجم:</string>
+    <string name="one_size">one size</string>
+    <string name="reviews">التعليقات</string>
+    <string name="first_name">الإسم الأول</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="searchin">بحث..</string>
+    <string name="active">نشط</string>
+    <string name="first_step">First Order Status</string>
+    <string name="second_step">Second Order Status</string>
+
+    <string name="third_step">ThirdOrderState</string>
+
+    <string name="profile">الصفحة الشخصية</string>
+    <string name="addresess">صفحة العناوين</string>
+    <string name="maps">الخريطه</string>
+    <string name="register">تسجيل</string>
+
+    <string name="my_orders">طلباتي</string>
+    <string name="search_fragment">صفحة البحث</string>
+    <string name="cart_is_empty">سلة الشراء فارغة</string>
+    <string name="item">عنصر)</string>
+    <string name="login_now">تسجيل دخول</string>
+    <string name="cancel">إلغاء</string>
+    <string name="worning_msg">من فضلك سجل دخول لكي تتمكن من اضافه العنصر الي سله الشراء</string>
+    <string name="no">لا</string>
+    <string name="yes">نعم</string>
+    <string name="delet">مسح؟</string>
+    <string name="worning">هل انت متأكد من حذف هذه العناصر من سلة الشراء؟</string>
+    <string name="item_selected">عنصر محدد</string>
+    <string name="items_selected">عناصر محددة</string>
+    <string name="added_to_cart">تم اضافته الي السلة</string>
+    <string name="saved_successfully">تم اضافه البلد بنجاح</string>
+    <string name="select_your_address">من فضلك ادخل العنوان</string>
+    <string name="no_connection">لا يوجد انترنت</string>
+    <string name="close">اغلاق</string>
+    <string name="are_you_sure">هل انت متأكد؟</string>
+    <string name="user_logged_successfully">User logged Successfully</string>
+    <string name="this_user_is_not_exist">هذا اليوزر ليس موجود</string>
+    <string name="required">مطلوب</string>
+    <string name="not_correct">ليس صحيح</string>
+    <string name="User_Created_Successfully">User Created Successfully</string>
+    <string name="not_valid_email">البريد الالكتروني غير صالح</string>
+    <string name="passward_doesnot_match">كلمة السر ليست مطابقه</string>
+    <string name="removed_from_cart">تم المسح من سلة المشتريات</string>
+    <string name="terms_of_service">شروط الخدمات</string>
+    <string name="many_offers">Many Offers</string>
+    <string name="desc1_tv">A lot of offers wait you with many coupons just for you</string>
+    <string name="product_details_fragment">ProductDetailsFragment</string>
+
+    <string-array name="country_list">
+        <item>مصر</item>
+        <item>الجزائر</item>
+        <item>العراق</item>
+        <item>الأردن</item>
+        <item>لبنان</item>
+        <item>ليبيا</item>
+    </string-array>
+    <string-array name="city_list">
+        <item>القاهرة</item>
+        <item>الأسكندريه</item>
+        <item>أسوان</item>
+        <item>أسيوط</item>
+        <item>دمنهور</item>
+        <item>بني سويف</item>
+        <item>المنصورة</item>
+        <item>دمياط</item>
+        <item>الفيوم</item>
+        <item>طنطا</item>
+        <item>الجيزة</item>
+        <item>الإسماعلية</item>
+        <item>كفر الشيخ</item>
+        <item>الأقصر</item>
+        <item>مرسي مطروح</item>
+        <item>المنيا</item>
+        <item>شبين الكوم</item>
+        <item>الخارجه</item>
+        <item>العريش</item>
+        <item>بورسعيد</item>
+        <item>بنها</item>
+        <item>قنا</item>
+        <item>الغردقة</item>
+        <item>الزقازيق</item>
+        <item>سوهاج</item>
+        <item>الطور</item>
+        <item>السويس</item>
+    </string-array>
+
+
+</resources>

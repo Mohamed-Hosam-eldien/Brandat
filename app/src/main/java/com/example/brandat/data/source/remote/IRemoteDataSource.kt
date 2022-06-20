@@ -2,13 +2,14 @@ package com.example.brandat.data.source.remote
 
 import com.example.brandat.models.*
 import com.example.brandat.models.orderModel.AllOrderResponse
+import com.example.brandat.models.orderModel.Order
+import com.example.brandat.models.orderModel.Orders
 import com.example.brandat.models.orderModel.discount.PriceRules
 import retrofit2.Response
 
 interface IRemoteDataSource {
 
     suspend fun getCategories(productId: Long): Response<Products>
-
     suspend fun getBrands(): Response<Brands>
     suspend fun getAllProductsById(): Response<Products>
     suspend fun getProductDetails(productId: Long): Response<Product>

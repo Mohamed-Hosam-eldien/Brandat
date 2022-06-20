@@ -1,11 +1,11 @@
 package com.example.brandat.ui.fragments.orderDetails
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,22 +18,21 @@ class OrderDetailsFragment : Fragment() {
     lateinit var binding: FragmentOrderDetailsBinding
     lateinit var itemAdapter: OrderItemAdapter
     private val args by navArgs<OrderDetailsFragmentArgs>()
-    lateinit var order: Order
-
+    lateinit var order:Order
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val args: Bundle = requireArguments()
         val brandId = args.getLong("productId")
-        Log.d("TAG", "onCreateView ppppppp: ${brandId}")
+        Toast.makeText(requireContext(), "productId $brandId", Toast.LENGTH_SHORT).show()
 
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_order_details, container, false)
 
@@ -48,9 +47,9 @@ class OrderDetailsFragment : Fragment() {
         showData()
     }
 
-    private fun initRecycler(order: Order?) {
-        if (order?.items?.isNotEmpty() == true) {
-            itemAdapter = OrderItemAdapter(order.items)
+    private fun initRecycler(order:Order?) {
+        if(order?.items?.isNotEmpty() == true){
+            itemAdapter = OrderItemAdapter(requireContext(),order?.items)
             binding.myOrderRecycler.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 //layoutManager = GridLayoutManager(context,2)
@@ -61,12 +60,13 @@ class OrderDetailsFragment : Fragment() {
     }
 
 
-    fun showData() {
+    fun showData(){
         binding.orderNumber.text = order.orderNumber.toString()
         binding.paymentMethod.text = order.gateway
-        var date = order.createdAt?.substring(0, 10)
+        var date = order.createdAt?.substring(0,10)
         binding.orderDate.text = date
         binding.customerPhone.text = order.finalPrice
+       // binding.customerAddress.text = order.==>Address from Doaa
 
     }
 }

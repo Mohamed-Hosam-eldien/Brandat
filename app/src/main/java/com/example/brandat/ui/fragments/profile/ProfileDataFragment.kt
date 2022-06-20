@@ -44,8 +44,9 @@ class ProfileDataFragment : Fragment() {
             // navigate to orders fragment
             findNavController().navigate(R.id.action_profileDataFragment_to_myOrderFragment)
         }
-        binding.languageLayout.setOnClickListener{
+        binding.termsLayout.setOnClickListener{
             // navigate to language fragment
+            it.findNavController().navigate(R.id.action_profileDataFragment_to_termsOfServiceFragment)
         }
         binding.addressLayout.setOnClickListener{
             // navigate to addresses fragment
@@ -64,7 +65,7 @@ class ProfileDataFragment : Fragment() {
 
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton(context?.getString(R.string.yes)) { _, _ ->
             Paper.book().delete("email")
             Paper.book().delete("name")
             Paper.book().delete("id")
@@ -72,9 +73,9 @@ class ProfileDataFragment : Fragment() {
             Constants.user = Customer()
             requireActivity().finish()
         }
-        builder.setNegativeButton("No") { _, _ ->
+        builder.setNegativeButton(context?.getString(R.string.no)) { _, _ ->
         }
-        builder.setTitle("Are You Sure?")
+        builder.setTitle(context?.getString(R.string.are_you_sure))
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }

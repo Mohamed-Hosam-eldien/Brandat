@@ -58,7 +58,7 @@
                         android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email"
+                        android:hint="@string/email"
                         android:inputType="textEmailAddress"
                         android:textColor="#000"
                         android:textSize="16sp" />
@@ -84,7 +84,7 @@
                         android:id="@+id/et_pass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Passward"
+                        android:hint="@string/passward"
                         android:inputType="textPassword"
                         android:textColor="#000"
                         android:textSize="16sp" />

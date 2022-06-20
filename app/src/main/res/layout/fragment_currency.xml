@@ -92,7 +92,6 @@
                 android:contentDescription="@null"
                 tools:ignore="RelativeOverlap" />
 
-
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

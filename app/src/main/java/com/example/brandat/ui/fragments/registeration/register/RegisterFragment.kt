@@ -74,7 +74,7 @@ class RegisterFragment : Fragment() {
             Paper.book().write("name", binding.firstNameEt.text.toString() + " " + binding.lastEt.text.toString())
             initUser()
             requireActivity().finish()
-            Toast.makeText(requireContext(), "User Created Successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), context?.getString(R.string.User_Created_Successfully), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -94,37 +94,37 @@ class RegisterFragment : Fragment() {
         confirmPass = binding.confirmEt.text.toString()
         if (name.isEmpty()) {
             binding.firstNameEt.requestFocus()
-            binding.firstNameEt.error = "Required"
+            binding.firstNameEt.error = getString(R.string.required)
             return false
         }
         if (email.isEmpty()) {
             binding.emailEt.requestFocus()
-            binding.emailEt.error = "Required"
+            binding.emailEt.error = getString(R.string.required)
 
             return false
         }
         if (!isValidEmail(email)) {
-            binding.emailEt.error = "Not valid Email"
+            binding.emailEt.error = getString(R.string.not_valid_email)
         }
 
         if (lastName.isEmpty()) {
             binding.lastEt.requestFocus()
-            binding.lastEt.error = "Required"
+            binding.lastEt.error = getString(R.string.required)
             return false
         }
         if (pass.isEmpty()) {
             binding.passwordEt.requestFocus()
-            binding.passwordEt.error = "Required"
+            binding.passwordEt.error = getString(R.string.required)
             return false
         }
         if (confirmPass.isEmpty()) {
             binding.confirmEt.requestFocus()
-            binding.confirmEt.error = "Required"
+            binding.confirmEt.error = getString(R.string.required)
             return false
         }
         if (pass != confirmPass) {
             binding.confirmEt.requestFocus()
-            binding.confirmEt.error = "password doesn't match"
+            binding.confirmEt.error = getString(R.string.passward_doesnot_match)
             return false
         }
         return true

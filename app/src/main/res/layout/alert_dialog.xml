@@ -36,6 +36,7 @@
         android:textSize="18sp"
         android:id="@+id/tv_verify"
         android:gravity="center"
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="@+id/tv_ask"
         app:layout_constraintStart_toStartOf="@+id/tv_ask"
         android:textColor="@color/purple_700"

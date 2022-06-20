@@ -2,8 +2,8 @@ package com.example.brandat.ui.fragments.cart
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.brandat.R
 import com.example.brandat.databinding.AlertDialogBinding
 import com.example.brandat.databinding.FragmentCartBinding
 import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.Constants.Companion.count
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -34,7 +36,7 @@ class CartFragment : Fragment(), CartOnClickListener {
     private lateinit var bindingDialog: AlertDialogBinding
     private lateinit var dialog: AlertDialog
     private lateinit var bageCountI: IBadgeCount
-
+    private var badgeCount: Int = 0
     private val cartViewModel: CartViewModel by viewModels()
 
     override fun onCreateView(
@@ -64,8 +66,12 @@ class CartFragment : Fragment(), CartOnClickListener {
             if (Paper.book().read<String>("email") == null) {
                  showDialog()
             } else {
-                if(binding.ivPlaceholder.visibility == View.VISIBLE) {
-                    Toast.makeText(requireContext(), "cart is empty", Toast.LENGTH_SHORT).show()
+                if (binding.ivPlaceholder.visibility == View.VISIBLE) {
+                    Toast.makeText(
+                        requireContext(),
+                        "cart is empty",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     val intent =Intent(requireContext(), OrderStatus::class.java)
                     intent.putExtra("total",binding.tvTprice.text.toString())
@@ -126,7 +132,7 @@ class CartFragment : Fragment(), CartOnClickListener {
 
                             var total = 0.0
                             list.forEach{
-                                total += it.tPrice
+                                total += it.tPrice!!
                             }
 
                             binding.tvTprice.text = total.toString()
@@ -150,12 +156,12 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Login Now") { _, _ ->
+        builder.setPositiveButton(getString(R.string.login_now)) { _, _ ->
             startActivity(Intent(requireActivity(), ProfileActivity::class.java))
         }
-        builder.setNegativeButton("cancel") { _, _ ->
+        builder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
         }
-        builder.setTitle("please register or login to add item in cart")
+        builder.setTitle(getString(R.string.worning_msg))
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }
@@ -181,13 +187,13 @@ class CartFragment : Fragment(), CartOnClickListener {
             .child(order.pId.toString()).removeValue()
 
         cartViewModel.removeProductFromCart(order)
-//        cartViewModel.getAllCartProduct()
+        cartViewModel.getAllCartProduct()
           requireActivity().recreate()
     }
 
     override fun onPluseMinusClicked(count: Int, currentCart: Cart) {
-        val priceChange = currentCart.pPrice.toDouble()
-        val _price = (count * priceChange)
+        val priceChange = currentCart.pPrice?.toDouble()
+        val _price = (count * priceChange!!)
 //        val currentOrder = Cart(pQuantity = count, pId = pId, tPrice = _price)
 
         currentCart.tPrice = _price
