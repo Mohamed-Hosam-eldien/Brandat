@@ -21,7 +21,7 @@ data class LineItem(
 //    val product_id: Long = 0,
 //    val properties: List<Any> = listOf(),
 //    val requires_shipping: Boolean = false,
-//    val sku: String = "",
+      val sku: String = "",
 //    val tax_lines: List<Any> = listOf(),
 //    val taxable: Boolean = false,
 //    val title: String = "",

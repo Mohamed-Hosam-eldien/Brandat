@@ -1,9 +1,12 @@
 package com.example.brandat.welcomescreen
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +23,7 @@ import org.objectweb.asm.Handle
 
 class SplashyFragment : Fragment() {
 
-    lateinit var btn:Button
+    lateinit var btn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +37,6 @@ class SplashyFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_splashy, container, false)
 
-//        btn = view.findViewById(R.id.btn_i)
-//
-//
-//        btn.setOnClickListener {
-//            findNavController().navigate(R.id.action_splashyFragment_to_sliderFragment)
-//        }
-
         return view
     }
 
@@ -48,24 +44,26 @@ class SplashyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Handler(Looper.myLooper()!!).postDelayed({
-            findNavController().navigate(R.id.action_splashyFragment_to_sliderFragment)
+            if (isOpenAlread() == true) {
+                val intent = Intent(context, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            } else{
+                val editor = context?.getSharedPreferences("slide", AppCompatActivity.MODE_PRIVATE)?.edit()
+                editor?.putBoolean("slide", true)
+                editor?.commit()
+                findNavController().navigate(R.id.action_splashyFragment_to_sliderFragment)
+            }
+
+
         }, 5000)
 
-        Paper.init(requireContext())
-        val flag = Paper.book().read<Boolean>("slider")
+    }
 
+    private fun isOpenAlread(): Boolean? {
+        val sharedPreferences: SharedPreferences? =
+            context?.getSharedPreferences("slide", Context.MODE_PRIVATE)
+        return sharedPreferences?.getBoolean("slide", false)
 
-        Toast.makeText(context, "$flag", Toast.LENGTH_SHORT).show()
-        if (flag == true) {
-
-            Handler(Looper.myLooper()!!).postDelayed({
-                findNavController().navigate(R.id.action_splashyFragment_to_sliderFragment)
-            }, 5000)
-
-            val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-
-        }
     }
 }

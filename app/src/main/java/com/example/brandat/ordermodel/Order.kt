@@ -18,7 +18,7 @@ data class Order(
     val email: String? = "",
 
     @SerializedName( "billing_address")
-    val billingAddress: BillingAddress?,
+    val billingAddress: Address?,
 
     @SerializedName( "app_id")
     val orderNumber: Long? = 0,
@@ -45,6 +45,9 @@ data class Order(
     @SerializedName( "gateway")
     val gateway: String = "",
 
+    @SerializedName( "source_name")
+    val sourceName: String = ""
+
 //    val admin_graphql_api_id: String = "",
 //    val app_id: Int = 1,
 //    val billing_address: BillingAddress = BillingAddress(),
@@ -69,7 +72,6 @@ data class Order(
 //    val current_total_price_set: CurrentTotalPriceSet = CurrentTotalPriceSet(),
 //    val current_total_tax: String = "",
 //    val current_total_tax_set: CurrentTotalTaxSet = CurrentTotalTaxSet(),
-
 //    val customer_locale: Any = Any(),
 //    val device_id: Any = Any(),
 //    val discount_applications: List<Any> = listOf(),
@@ -79,7 +81,6 @@ data class Order(
 //    val financial_status: String = "",
 //    var fulfillment_status: Any = Any(),
 //    val fulfillments: List<Any> = listOf(),
-
 //    val id: Long = 0,
 //    val landing_site: Any = Any(),
 //    val landing_site_ref: Any = Any(),
@@ -104,7 +105,7 @@ data class Order(
 //    val shipping_address: ShippingAddress = ShippingAddress(),
 //    val shipping_lines: List<Any> = listOf(),
 //    val source_identifier: Any = Any(),
-//    val source_name: String = "",
+
 //    val source_url: Any = Any(),
 //    val subtotal_price: String = "",
 //    val subtotal_price_set: SubtotalPriceSet = SubtotalPriceSet(),

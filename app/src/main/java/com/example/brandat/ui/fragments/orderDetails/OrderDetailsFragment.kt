@@ -28,14 +28,6 @@ class OrderDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
-//        val args: Bundle = requireArguments()
-//        val brandId = args.getLong("productId")
-//        Log.d("TAG", "onCreateView ppppppp: ${brandId}")
-//        Toast.makeText(requireContext(), "productId $brandId", Toast.LENGTH_SHORT).show()
-
-
     }
 
     override fun onCreateView(
@@ -58,7 +50,7 @@ class OrderDetailsFragment : Fragment() {
 
     private fun initRecycler(order:Order?) {
         if(order?.items?.isNotEmpty() == true){
-            itemAdapter = OrderItemAdapter(order?.items)
+            itemAdapter = OrderItemAdapter(requireContext() ,order?.items)
             binding.myOrderRecycler.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 //layoutManager = GridLayoutManager(context,2)
@@ -89,6 +81,9 @@ class OrderDetailsFragment : Fragment() {
         var date = order.createdAt?.substring(0,10)
         binding.orderDate.text = date
         binding.customerPhone.text = order.finalPrice
+        binding.customerAddress.text = order.sourceName
+
 
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.brandat.data.repos.products
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
@@ -47,6 +48,7 @@ class ProductsRepository @Inject constructor(
     }
 
     override suspend fun getAllOrders(email:String?): Response<Orders> {
+        Log.d("TAG", "getAllOrders: ${remoteDataSource.getAllOrders(email).body()}")
         return remoteDataSource.getAllOrders(email)
     }
 

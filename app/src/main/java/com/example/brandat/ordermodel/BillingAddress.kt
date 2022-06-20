@@ -20,4 +20,8 @@ data class BillingAddress(
     val province: String = "",
     val province_code: String = "",
     val zip: String = ""
-):Parcelable
+):Parcelable{
+    fun printAddress():String{
+        return "$address1, $city, $country"
+    }
+}

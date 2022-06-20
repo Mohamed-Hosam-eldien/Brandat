@@ -108,7 +108,7 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
 
 
     override fun onClick(orderItem: Order) {
-        val direct : NavDirections = MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22(orderItem)
+        val direct : NavDirections = MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22( orderItem)
         findNavController().navigate(direct)
     }
 

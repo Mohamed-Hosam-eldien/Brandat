@@ -1,26 +1,30 @@
 package com.example.brandat.welcomescreen
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.brandat.R
 import com.example.brandat.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
+
 @AndroidEntryPoint
 class SliderFragment : Fragment() {
 
 
-    companion object{
+    companion object {
         lateinit var viewPager: ViewPager
     }
-    lateinit var adapter:SliderPagerAdapter
+
+    lateinit var adapter: SliderPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,27 +43,10 @@ class SliderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Paper.book().write<Boolean>("slider", true)
         viewPager = view.findViewById(R.id.view_pager_vp)
         adapter = context?.let { SliderPagerAdapter(it) }!!
         viewPager.adapter = adapter
 
 
-//        if (isOpenAlread()) {
-//
-//            val intent = Intent(context, MainActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//            startActivity(intent)
-//
-//        } else {
-//
-//            val editor = context?.getSharedPreferences("slide", AppCompatActivity.MODE_PRIVATE)?.edit()
-//            editor?.putBoolean("slide", true)
-//            editor?.commit()
-//        }
     }
-//    private fun isOpenAlread(): Boolean {
-//
-//        val f=  Paper.book().write<Boolean>("slider", true)
-//    }
 }
