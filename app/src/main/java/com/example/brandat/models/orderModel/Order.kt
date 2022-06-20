@@ -1,18 +1,16 @@
 package com.example.brandat.models.orderModel
 
 import android.os.Parcelable
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
-import com.example.brandat.ordermodel.BillingAddress
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
+import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Order(
 
-    @PrimaryKey
     @SerializedName( "id")
     val id: Long? = 0,
+    @SerializedName( "total_price")
+    val total_price: String = "",
 
     @SerializedName( "email")
     val email: String? = "",
@@ -43,7 +41,8 @@ data class Order(
     val items: List<LineItem>? = listOf(),
 
     @SerializedName( "gateway")
-    val gateway: String = "",
+    val gateway: String = ""
+
 
 //    val admin_graphql_api_id: String = "",
 //    val app_id: Int = 1,
@@ -66,10 +65,10 @@ data class Order(
 //    val current_total_discounts_set: CurrentTotalDiscountsSet = CurrentTotalDiscountsSet(),
 //    val current_total_duties_set: Any = Any(),
 //    val current_total_price: String = "",
-//    val current_total_price_set: CurrentTotalPriceSet = CurrentTotalPriceSet(),
+//    val current_total_price_set: com.example.brandat.models.orderModel.CurrentTotalPriceSet = com.example.brandat.models.orderModel.CurrentTotalPriceSet(),
 //    val current_total_tax: String = "",
 //    val current_total_tax_set: CurrentTotalTaxSet = CurrentTotalTaxSet(),
-
+//    val customer: Customer = Customer(),
 //    val customer_locale: Any = Any(),
 //    val device_id: Any = Any(),
 //    val discount_applications: List<Any> = listOf(),
@@ -79,7 +78,7 @@ data class Order(
 //    val financial_status: String = "",
 //    var fulfillment_status: Any = Any(),
 //    val fulfillments: List<Any> = listOf(),
-
+//    val gateway: String = "",
 //    val id: Long = 0,
 //    val landing_site: Any = Any(),
 //    val landing_site_ref: Any = Any(),
@@ -118,7 +117,6 @@ data class Order(
 //    val total_line_items_price: String = "",
 //    val total_line_items_price_set: TotalLineItemsPriceSet = TotalLineItemsPriceSet(),
 //    val total_outstanding: String = "",
-//    val total_price: String = "",
 //    val total_price_set: TotalPriceSet = TotalPriceSet(),
 //    val total_price_usd: String = "",
 //    val total_shipping_price_set: TotalShippingPriceSet = TotalShippingPriceSet(),
@@ -128,4 +126,4 @@ data class Order(
 //    val total_weight: Int = 0,
 //    val updated_at: String = "",
 //    val user_id: Any = Any()
-):Parcelable
+) : Parcelable

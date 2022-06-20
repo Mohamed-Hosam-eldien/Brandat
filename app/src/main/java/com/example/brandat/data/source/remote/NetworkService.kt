@@ -5,6 +5,7 @@ import com.example.brandat.models.orderModel.Order
 import com.example.brandat.models.orderModel.Orders
 import com.example.brandat.models.draftOrder.DraftOrder
 import com.example.brandat.models.draftOrder.DraftOrderModel
+import com.example.brandat.models.orderModel.AllOrderResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -30,7 +31,6 @@ interface NetworkService {
     @GET("products/{id}.json")
     suspend fun getProductDetails(@Path("id") productId: Long): Response<Product>
 
-    //==================================
     @Headers("X-Shopify-Access-Token: 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",
         "Content-Type: application/json")
     @POST("customers.json")
@@ -42,7 +42,7 @@ interface NetworkService {
 
     @Headers("X-Shopify-Access-Token: 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")
     @GET("orders.json")
-    suspend fun getAllOrders(@Query("email") email: String?): Response<Orders>
+    suspend fun getAllOrders(@Query("email") email: String?): Response<AllOrderResponse>
 
     @Headers("X-Shopify-Access-Token: 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",
         "Content-Type: application/json")

@@ -12,6 +12,7 @@ import com.example.brandat.models.orderModel.Order
 import com.example.brandat.models.orderModel.Orders
 import com.example.brandat.models.draftOrder.DraftOrder
 import com.example.brandat.models.draftOrder.DraftOrderModel
+import com.example.brandat.models.orderModel.AllOrderResponse
 import com.example.brandat.ui.fragments.cart.Cart
 import retrofit2.Response
 import javax.inject.Inject
@@ -88,8 +89,8 @@ class ProductsRepository @Inject constructor(
         return remoteDataSource.postFavDraft(draftModel)
     }
 
-    override suspend fun getAllOrders(email:String?): NetworkResult<Orders?> {
-        val result:NetworkResult<Orders?>
+    override suspend fun getAllOrders(email:String?): NetworkResult<AllOrderResponse?> {
+        val result:NetworkResult<AllOrderResponse?>
         val response=remoteDataSource.getAllOrders(email)
         if(response.isSuccessful){
             result=NetworkResult.Success(response.body())

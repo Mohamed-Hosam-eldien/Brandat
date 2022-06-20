@@ -30,15 +30,8 @@ class UserRepository @Inject constructor(
     override suspend fun removeAddress(city: String) {
         localDataSource.removeAddress(city)
     }
-//=======================================================
+
     override suspend fun registerCustomer(customer: CustomerRegisterModel): Response<CustomerRegisterModel> {
-//    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).body()} " )
-//    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).errorBody()} "
-//    )
-//    Log.e(TAG, "rpoooo:${remoteDataSource.registerCustomer(customer).code()} " )
-
-
-
     return remoteDataSource.registerCustomer(customer)
     }
 

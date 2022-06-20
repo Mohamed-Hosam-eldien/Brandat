@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.brandat.models.*
 import com.example.brandat.models.draftOrder.DraftOrder
 import com.example.brandat.models.draftOrder.DraftOrderModel
+import com.example.brandat.models.orderModel.AllOrderResponse
 import com.example.brandat.models.orderModel.Order
 import com.example.brandat.models.orderModel.Orders
 import retrofit2.Response
@@ -41,7 +42,7 @@ class RemoteDataSource @Inject constructor(
         return networkService.login(email, tags)
     }
 
-    override suspend fun getAllOrders(email: String?): Response<Orders> {
+    override suspend fun getAllOrders(email: String?): Response<AllOrderResponse> {
         return networkService.getAllOrders(email)
     }
 
