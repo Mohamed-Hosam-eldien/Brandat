@@ -180,7 +180,7 @@ class CartFragment : Fragment(), CartOnClickListener {
             .child("cart")
             .child(order.pId.toString()).removeValue()
 
-//        cartViewModel.removeProductFromCart(order)
+        cartViewModel.removeProductFromCart(order)
 //        cartViewModel.getAllCartProduct()
           requireActivity().recreate()
     }
