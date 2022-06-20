@@ -1,9 +1,10 @@
 package com.example.brandat.ui.fragments.orderStatus.checkOutOrder
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -11,16 +12,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFinshOrderStateBinding
 import com.example.brandat.models.CustomerAddress
-import com.example.brandat.models.orderModel.ShippingAddress
+import com.example.brandat.ui.MainActivity
+import com.example.brandat.ui.fragments.cart.CartFragment
+import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.ui.fragments.orderStatus.OrderStateViewModel
+import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ResponseResult
 import com.google.android.material.snackbar.Snackbar
 import com.paypal.android.sdk.payments.*
@@ -47,8 +54,9 @@ import java.math.BigDecimal
 class CheckOutOrderFragment : Fragment() {
 
     private val checkOutOrderViewModel : CheckOutOrderViewModel by viewModels()
-    private val mainStateOrderViewModel : OrderStateViewModel by viewModels()
+    private val cartViewModel : CartViewModel by viewModels()
 
+    lateinit var onOkClickListener: OnOkClickListener
       lateinit var binding:FragmentFinshOrderStateBinding
       override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,52 +73,42 @@ class CheckOutOrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         arguments?.let {
            checkOutOrderViewModel.selectedAddress = arguments?.getParcelable<CustomerAddress>("address")!!
            checkOutOrderViewModel.selectedPaymentMethods = arguments?.getString("paymentMethod")!!
-            Log.e(TAG, "onViewCreatedthree:${arguments?.getString("paymentMethod")!!} " )
-            Log.e(TAG, "onViewCreatedthree:${arguments?.getParcelable<CustomerAddress>("address")!!.address1} " )
-
+           checkOutOrderViewModel.discount =  arguments?.getDouble("discount")!!
         }
 
-        initUi()
+               initUi()
                setUpPayPal()
         checkOutOrderViewModel.createOrderResponse.observe(viewLifecycleOwner){
 
                   when(it){
                      is ResponseResult.Success ->{
-                         Log.e(TAG, ": d3d3d3${it.data}")
+                         hideLoading()
+                         cartViewModel.removeSelectedProductsFromCart(checkOutOrderViewModel.orderProduct)
+                          successDialog()
 
-                         showSnakebar(R.string.operation_succeeded)
-                         runBlocking {
-                             delay(300)
-                             requireActivity().finish()
-
-                         }
                      }
 
                      is  ResponseResult.Error -> {
-                         Log.e(TAG, "onViewCreated: d3d3d3${it.message.toString()}")
-                         showSnakebar(R.string.operation_faild)
-
+                          hideLoading()
+                           failureDialog()
                      }
                   }
-            }
+        }
 
         //button confirm
         binding.confirmOrder.setOnClickListener {
             showLoading()
-            when (mainStateOrderViewModel.selectedPaymentMethods) {
-                PaymentMethodsEnum.Cash -> checkOutOrderViewModel.createOrder()
-                PaymentMethodsEnum.Paypal -> {
-                    payPalPaymentMethod()
-                }
+            when (checkOutOrderViewModel.selectedPaymentMethods) {
+                "cash" -> checkOutOrderViewModel.createOrder()
+                 "paypal" -> payPalPaymentMethod()
+
             }
-
-
         }
-
-        }
+      }
 
 
     private fun showSnakebar(message:Int) {
@@ -127,28 +125,32 @@ class CheckOutOrderFragment : Fragment() {
 
     private fun showLoading(){
         binding.loading.visibility=View.VISIBLE
-        binding.confirmOrder.visibility=View.GONE
+        binding.confirmOrder.isEnabled=false
     }
 
     private fun hideLoading(){
         binding.loading.visibility=View.GONE
-        binding.confirmOrder.visibility=View.VISIBLE
+        binding.confirmOrder.isEnabled=true
     }
 
 
     private fun initUi() {
          showPaymentMethod()
          showSelectedAddress()
-//        binding.tvTotalProductsPrice.text ="99"
-//        binding.tvDelivary.text = "100"
-//       binding.tvDiscount.text = "20"
-//        binding.tvTotal.text = "320"
+       binding.totalPrice.text =Constants.totalPrice.toString()
+       binding.deliveryCoast.text = "100"
+       binding.orderPrice.text= (Constants.totalPrice!!+ 100).toString()
+
     }
 
     private fun showSelectedAddress() {
         binding.run {
-            mainStateOrderViewModel.run {
-               address.text=  checkOutOrderViewModel.selectedAddress.toString()
+            checkOutOrderViewModel.run {
+               var customerAddress =  checkOutOrderViewModel.selectedAddress
+                if (customerAddress != null) {
+                    address.text= customerAddress.address1.plus(" , ").plus(customerAddress.city).plus(" , ").plus(customerAddress.country)
+                }
+
             }
         }
 
@@ -156,15 +158,15 @@ class CheckOutOrderFragment : Fragment() {
 
     private fun showPaymentMethod() {
         binding.run {
-            mainStateOrderViewModel.run {
+            checkOutOrderViewModel.run {
                 cardCash.visibility = View.GONE
                 cardPaypal.visibility = View.GONE
 
                 when (selectedPaymentMethods) {
-                    PaymentMethodsEnum.Cash -> {
+                    selectedPaymentMethods -> {
                         cardCash.visibility = View.VISIBLE
                     }
-                    PaymentMethodsEnum.Paypal -> {
+                    selectedPaymentMethods -> {
                         cardPaypal.visibility = View.VISIBLE
                     }
                 }
@@ -172,8 +174,6 @@ class CheckOutOrderFragment : Fragment() {
         }
 
         }
-
-
 
     fun paypal() {
         PayPalCheckout.registerCallbacks(
@@ -222,28 +222,6 @@ class CheckOutOrderFragment : Fragment() {
         this.requireActivity().startService(intent)
     }
 
-
-    fun startCheck() {
-        PayPalCheckout.startCheckout(
-            CreateOrder { createOrderActions ->
-                val order =
-                    Order(
-                        intent = OrderIntent.CAPTURE,
-                        appContext = AppContext(userAction = UserAction.PAY_NOW),
-                        purchaseUnitList =
-                        listOf(
-                            PurchaseUnit(
-                                amount =
-                                Amount(currencyCode = CurrencyCode.USD, value = "10.00")
-                            )
-                        )
-                    )
-
-                createOrderActions.create(order)
-            }
-        )
-    }
-
     private val requestPaymentMethod =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data ->
             val resultCode = data.resultCode
@@ -251,34 +229,44 @@ class CheckOutOrderFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK) {
                   checkOutOrderViewModel.createOrder()
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.i(ContentValues.TAG, "The user canceled.")
-                Toast.makeText(context, "Payment Canceled!", Toast.LENGTH_SHORT).show()
+                showSnakebar(R.string.cancel)
+
 
             } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-                Log.i(
-                    ContentValues.TAG,
-                    "An invalid Payment or PayPalConfiguration was submitted. Please see the docs."
-                )
-                Toast.makeText(context, "Invalid Payment Data!", Toast.LENGTH_SHORT).show()
+
+                showSnakebar(R.string.invalid_data)
             }
 
         }
 
-//    private fun showDiscount(value: String? = null): Double? {
-//        binding.run {
-//            return if (value == null) {
-//                rowDiscount.visibility = View.GONE
-//                null
-//            } else {
-//                rowDiscount.visibility = View.VISIBLE
-//                value.toDouble()
-//            }
-//        }
-//    }
+   private  fun successDialog(){
+       var  dialogBuilder = AlertDialog.Builder(requireContext())
+       var layoutView = layoutInflater.inflate(R.layout.successful_dialog,null)
+       var dialogButton = layoutView.findViewById(R.id.btnDialog) as Button
+       dialogBuilder.setView(layoutView)
+       var   alertDialog = dialogBuilder.create()
+       alertDialog.show()
+       dialogButton.setOnClickListener(View.OnClickListener {
+           alertDialog.dismiss()
+           Navigation.findNavController(requireActivity(),R.id.navHostFragment)
+               .navigate(
+                   R.id.action_checkOutOrderFragment_to_homeFragment2
+               )
+           requireActivity().finish()
 
+       })
+   }
 
-
-
+    private  fun failureDialog(){
+        var  dialogBuilder = AlertDialog.Builder(requireContext())
+        var layoutView = layoutInflater.inflate(R.layout.dialog_failure, null)
+        var dialogButton = layoutView.findViewById(R.id.btnDialog) as Button
+        dialogBuilder.setView(layoutView)
+        var   alertDialog = dialogBuilder.create()
+        alertDialog.show()
+        dialogButton.setOnClickListener(View.OnClickListener {
+            alertDialog.dismiss() })
+    }
 
 
 

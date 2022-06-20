@@ -14,7 +14,7 @@ interface BrandatDao {
     suspend fun removeProductFromCart(product: Cart)
 
     @Delete
-    suspend fun removeSelectedProductsFromCart(product: ArrayList<Cart>)
+    suspend fun removeSelectedProductsFromCart(product: List<Cart>)
 
     @Query("SELECT * From cart_table ")//ORDER BY pName ASC
     suspend fun getAllCartProducts(): List<Cart>

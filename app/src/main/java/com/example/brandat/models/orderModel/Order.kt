@@ -7,6 +7,8 @@ data class Order(
 
     @SerializedName( "id")
     val id: Long? = 0,
+    @SerializedName( "total_price")
+    val total_price: String = "",
 
     @SerializedName( "email")
     val email: String? = "",
@@ -110,7 +112,6 @@ data class Order(
 //    val total_line_items_price: String = "",
 //    val total_line_items_price_set: TotalLineItemsPriceSet = TotalLineItemsPriceSet(),
 //    val total_outstanding: String = "",
-//    val total_price: String = "",
 //    val total_price_set: TotalPriceSet = TotalPriceSet(),
 //    val total_price_usd: String = "",
 //    val total_shipping_price_set: TotalShippingPriceSet = TotalShippingPriceSet(),

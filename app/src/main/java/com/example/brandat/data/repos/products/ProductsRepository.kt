@@ -85,7 +85,7 @@ class ProductsRepository @Inject constructor(
         localDataSource.removeProductFromCart(product)
     }
 
-    override suspend fun removeSelectedProductsFromCart(product: ArrayList<Cart>) {
+    override suspend fun removeSelectedProductsFromCart(product: List<Cart>) {
         localDataSource.removeSelectedProductsFromCart(product)
     }
 

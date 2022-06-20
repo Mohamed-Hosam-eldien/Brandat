@@ -13,16 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-        <ProgressBar
-            android:id="@+id/loading"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="@color/black"
-            />
+
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -41,10 +32,12 @@
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
+                    android:layout_marginStart="12dp"
                     android:text="@string/order_details"
                     android:textSize="16sp"
+                    android:layout_marginBottom="8dp"
                     android:textStyle="normal"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,7 +48,6 @@
                     android:layout_below="@id/cardCopon"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="12sp"
-                    android:layout_marginTop="18dp"
                     android:layout_marginEnd="12sp"
                     android:backgroundTint="@color/lightGray"
                     app:cardCornerRadius="12dp">
@@ -74,13 +66,14 @@
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
                                 android:text="@string/price"
                                 android:textSize="16sp" />
 
                             <TextView
+                                android:id="@+id/total_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
@@ -107,6 +100,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
+                                android:id="@+id/delivery_coast"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
@@ -129,11 +123,12 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
-                                android:text="@string/total"
+                                android:text="@string/total_price"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/order_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
@@ -158,6 +153,7 @@
                     android:text="payment_method"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:paddingTop="16dp"
                     android:textStyle="normal"
                     android:layout_margin="12dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -167,8 +163,8 @@
                     android:id="@+id/card_paypal"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginHorizontal="8dp"
-                    android:layout_marginVertical="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     app:cardCornerRadius="15dp">
 
 
@@ -204,18 +200,22 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="16dp"
+                            android:backgroundTint="@color/lightGray"
 
-                         >
+                            >
 
                             <TextView
                                 android:id="@+id/tv_cash"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-
                                 android:gravity="center"
-                                android:text="pay on cash"
-                                android:textColor="#FFFFFF"
+                                android:text="@string/pay_on_cash"
+                                android:textColor="#04146E"
+                                android:backgroundTint="@color/lightGray"
+
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
@@ -224,7 +224,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                 />
+                                android:src="@drawable/dollar"
+                                android:backgroundTint="@color/lightGray"
+
+                                />
 
                         </LinearLayout>
 
@@ -235,18 +238,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Address"
+                    android:layout_marginTop="16dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="normal"
-                    android:layout_margin="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/cardCopon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="12sp"
+                    android:layout_marginEnd="12sp"
+                    android:backgroundTint="@color/lightGray"
+                    app:cardCornerRadius="12dp"
+                    android:layout_gravity="center"
                     >
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -254,7 +265,7 @@
                         <TextView
                             android:id="@+id/address"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                              app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                              android:padding="8dp"
@@ -274,6 +285,16 @@
               />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="@color/black"
+            android:visibility="visible"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

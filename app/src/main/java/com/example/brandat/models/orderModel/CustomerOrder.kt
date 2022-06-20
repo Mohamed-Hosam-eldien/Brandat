@@ -17,6 +17,9 @@ data class CustomerOrder(
    val gateway: String = "",
     @SerializedName("billing_address")
     val billing_address: Address? = null,
-
+    @SerializedName( "total_price")
+    val total_price: String = "",
+    @SerializedName( "current_total_discounts")
+    val totalDiscount: String? = "",
 
     )

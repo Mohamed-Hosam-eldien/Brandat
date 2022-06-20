@@ -27,7 +27,7 @@ class CartViewModel @Inject constructor(private var repo: IProductsRepository) :
     fun removeProductFromCart(product: Cart) = viewModelScope.launch {
         repo.removeProductFromCart(product)
     }
-    fun removeSelectedProductsFromCart(product: ArrayList<Cart>) = viewModelScope.launch {
+    fun removeSelectedProductsFromCart(product:List<Cart>) = viewModelScope.launch {
         repo.removeSelectedProductsFromCart(product)
     }
     fun updateOrder(product: Cart)=viewModelScope.launch {

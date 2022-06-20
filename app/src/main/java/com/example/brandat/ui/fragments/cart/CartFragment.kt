@@ -10,17 +10,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.brandat.R
 import com.example.brandat.databinding.AlertDialogBinding
 import com.example.brandat.databinding.FragmentCartBinding
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.ProfileActivity
+import com.example.brandat.ui.fragments.orderStatus.checkOutOrder.OnOkClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
 @AndroidEntryPoint
-class CartFragment : Fragment(), CartOnClickListener {
+class CartFragment : Fragment(), CartOnClickListener,OnOkClickListener {
 
     private lateinit var binding: FragmentCartBinding
     private lateinit var cartAdapter: CartRvAdapter
@@ -172,6 +175,11 @@ class CartFragment : Fragment(), CartOnClickListener {
         builder.setTitle("Delete?")
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
+    }
+
+    override fun onClick() {
+        findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
+
     }
 
 }

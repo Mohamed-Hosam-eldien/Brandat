@@ -27,7 +27,7 @@ interface IProductsRepository {
     //Cart
     suspend fun addProductToCart(cartProduct: Cart)
     suspend fun removeProductFromCart(product: Cart)
-    suspend fun removeSelectedProductsFromCart(product: ArrayList<Cart>)
+    suspend fun removeSelectedProductsFromCart(product:List<Cart>)
     suspend fun getAllCartProducts(): List<Cart>
     suspend fun updateOrder(product: Cart)
     suspend fun getAllPrice() : Double

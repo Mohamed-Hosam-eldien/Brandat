@@ -2,10 +2,12 @@ package com.example.brandat.ui.fragments.home
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,6 +83,7 @@ class HomeFragment : Fragment(), BrandOnClickListner {
         binding.imgCopy.setOnClickListener {
             val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clipData = ClipData.newPlainText("text", binding.txtCode.text)
+            Log.e(TAG, "onViewCreated: code${clipData}")
             clipboardManager.setPrimaryClip(clipData)
             cardAnimation()
             Toast.makeText(requireContext(), "Text copied to clipboard", Toast.LENGTH_SHORT).show()

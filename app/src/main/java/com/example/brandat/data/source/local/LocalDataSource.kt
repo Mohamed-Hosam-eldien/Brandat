@@ -1,7 +1,5 @@
 package com.example.brandat.data.source.local
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.brandat.data.source.local.db.BrandatDao
 import com.example.brandat.models.CustomerAddress
 import com.example.brandat.models.Favourite
@@ -48,7 +46,7 @@ class LocalDataSource @Inject constructor(private var brandatDao:BrandatDao) :IL
         brandatDao.removeProductFromCart(product)
     }
 
-    override suspend fun removeSelectedProductsFromCart(product: ArrayList<Cart>) {
+    override suspend fun removeSelectedProductsFromCart(product: List<Cart>) {
         brandatDao.removeSelectedProductsFromCart(product)
     }
 

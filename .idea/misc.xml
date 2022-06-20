@@ -68,6 +68,7 @@
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/fragment_home.xml" value="0.10606060606060606" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/recycler_home_item.xml" value="0.1" />
         <entry key="..\:/sours/ITI_Android/Brandat/app/src/main/res/layout/slider_category_item.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/background_corners.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.1065" />
         <entry key="app/src/main/res/drawable/ic_person_circle.xml" value="0.1" />
@@ -80,6 +81,7 @@
         <entry key="app/src/main/res/layout/adderss_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/city_dropdown_item.xml" value="0.1644021739130435" />
         <entry key="app/src/main/res/layout/d3d3.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/dialog_failure.xml" value="0.1" />
         <entry key="app/src/main/res/layout/first_order_status.xml" value="0.1644021739130435" />
         <entry key="app/src/main/res/layout/fragment_address.xml" value="0.165625" />
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.165625" />
@@ -88,6 +90,7 @@
         <entry key="app/src/main/res/layout/fragment_payment.xml" value="0.1644021739130435" />
         <entry key="app/src/main/res/layout/fragment_third_order_state.xml" value="0.1" />
         <entry key="app/src/main/res/layout/second_order_state.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/successful_dialog.xml" value="0.1" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.165625" />
       </map>
     </option>

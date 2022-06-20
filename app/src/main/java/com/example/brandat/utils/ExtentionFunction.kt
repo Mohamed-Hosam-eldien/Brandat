@@ -30,13 +30,12 @@ fun List<Cart>.toLineItem(): List<LineItem> {
 
 fun convertToBillingAddress(address: CustomerAddress): Address {
     return Address(
-        firstName = "Doaa",
-        address1="el sharkia" ,
-        address = "sharkia",
-        lastName = "essam",
-        city = "sh",
-        country = "egypt",
-        phone = "01023566677",
+        firstName = Constants.user.firstName,
+        address1=address.address1 ,
+
+        lastName = Constants.user.lastName,
+        city = address.city,
+        country = address.country,
     )
 
 

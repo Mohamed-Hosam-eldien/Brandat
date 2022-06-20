@@ -31,7 +31,11 @@
     <fragment
         android:id="@+id/checkOutOrderFragment"
         android:name="com.example.brandat.ui.fragments.orderStatus.checkOutOrder.CheckOutOrderFragment"
-        android:label="FinishOrderStateFragment" />
+        android:label="FinishOrderStateFragment" >
+        <action
+            android:id="@+id/action_checkOutOrderFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/addAddressFragment2"
         android:name="com.example.brandat.ui.fragments.address.AddAddressFragment"
@@ -48,4 +52,8 @@
             android:id="@+id/action_mapsFragment2_to_firstOrderStatus"
             app:destination="@id/firstOrderStatus" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.example.brandat.ui.fragments.home.HomeFragment"
+        android:label="HomeFragment" />
 </navigation>

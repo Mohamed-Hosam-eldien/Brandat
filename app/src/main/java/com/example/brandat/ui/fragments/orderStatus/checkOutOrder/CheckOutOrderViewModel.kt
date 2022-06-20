@@ -29,18 +29,19 @@ class CheckOutOrderViewModel @Inject constructor(private val repository: IProduc
     val createOrderResponse: LiveData<ResponseResult<OrderResponse>?> = _createOrderResponse
     var selectedPaymentMethods:String = "Paypal"
     var selectedAddress: CustomerAddress? = null
-
+    var discount = 0.0
 
     //fun getTotalPrice() = (discount ?: 0.0) + orderProduct.getPrice() + deliveryCoast
 
     fun createOrder() {
-      Log.e(TAG, "createOrderfffff: ${convertToBillingAddress(selectedAddress!!)}")
         val order = CustomerOrder(
               billing_address= convertToBillingAddress(selectedAddress!!),
-              email = "doaa@gmail.com" ,
+              email = "d3d3@gmail.com" ,
               line_items=orderProduct.toLineItem(),
                gateway= selectedPaymentMethods ,
-//               customer = Constants.user
+               total_price = Constants.totalPrice.toString(),
+               totalDiscount = discount.toString(),
+              customer = Constants.user
 
         )
 
