@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentMyOrderBinding
-import com.example.brandat.models.orderModel.Order
+import com.example.brandat.ordermodel.Order
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 

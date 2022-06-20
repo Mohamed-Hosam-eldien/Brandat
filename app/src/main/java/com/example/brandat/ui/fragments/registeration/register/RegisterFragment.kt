@@ -13,6 +13,7 @@ import com.example.brandat.databinding.FragmentRegisterBinding
 import com.example.brandat.models.Customer
 import com.example.brandat.models.CustomerRegisterModel
 import com.example.brandat.models.DefaultAddress
+import com.example.brandat.utils.Constants
 import com.example.brandat.utils.Constants.Companion.EMAIL_PATTERN
 import com.example.brandat.utils.Constants.Companion.user
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,11 +69,20 @@ class RegisterFragment : Fragment() {
 
         registerViewModel.signUpSuccess.observe(viewLifecycleOwner) {
             Paper.init(requireContext())
+            Paper.book().write("id", it.customer.id)
             Paper.book().write("email", binding.emailEt.text.toString())
             Paper.book().write("name", binding.firstNameEt.text.toString() + " " + binding.lastEt.text.toString())
-
+            initUser()
             requireActivity().finish()
             Toast.makeText(requireContext(), "User Created Successfully", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun initUser() {
+        if(Paper.book().read<String>("email") != null) {
+            user.id = Paper.book().read<Long>("id")!!
+            user.email = Paper.book().read<String>("email").toString()
+            user.firstName = Paper.book().read<String>("name").toString()
         }
     }
 

@@ -2,8 +2,8 @@ package com.example.brandat.ui.fragments.cart
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,11 @@ import com.example.brandat.databinding.FragmentCartBinding
 import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.ProfileActivity
-import com.example.brandat.utils.Constants.Companion.count
+import com.example.brandat.utils.Constants
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -49,13 +53,16 @@ class CartFragment : Fragment(), CartOnClickListener {
         super.onViewCreated(view, savedInstanceState)
         Paper.init(requireContext())
         setUpRecyclerView()
-        cartViewModel.getAllCartProduct()
-        cartViewModel.getAllPrice()
+
+        //cartViewModel.getAllCartProduct()
+
+        //cartViewModel.getAllPrice()
+
         bageCountI = requireActivity() as MainActivity
 
         binding.buyButn.setOnClickListener {
             if (Paper.book().read<String>("email") == null) {
-                //  showDialog()
+                 showDialog()
             } else {
                 if(binding.ivPlaceholder.visibility == View.VISIBLE) {
                     Toast.makeText(requireContext(), "cart is empty", Toast.LENGTH_SHORT).show()
@@ -64,22 +71,71 @@ class CartFragment : Fragment(), CartOnClickListener {
                 }
             }
         }
-        cartViewModel.getAllCartProduct()
 
-        cartViewModel.cartProduct.observe(viewLifecycleOwner) {
-            Log.e("Cart", "============${it.size} ")
-            cartAdapter.setData(it)
-            checkEmptyList(it)
-            binding.tvConut.text = "(${it.size} item)"
-            bageCountI.updateBadgeCount(it.size)
-            cartAdapter.notifyDataSetChanged()
-            count = it.size
-            Paper.book().write("countFromCart", count)
+        getAllCartFromDraft()
 
-        }
-        cartViewModel.allPrice.observe(viewLifecycleOwner) {
-            binding.tvTprice.text = "$it $"
-        }
+
+//        cartViewModel.getAllCartProduct()
+//
+//        cartViewModel.cartProduct.observe(viewLifecycleOwner) {
+//            Log.e("Cart", "============${it.size} ")
+//            cartAdapter.setData(it)
+//            checkEmptyList(it)
+//            binding.tvConut.text = "(${it.size} item)"
+//            bageCountI.updateBadgeCount(it.size)
+//            cartAdapter.notifyDataSetChanged()
+//            count = it.size
+//            Paper.book().write("countFromCart", count)
+//
+//        }
+//        cartViewModel.allPrice.observe(viewLifecycleOwner) {
+//            binding.tvTprice.text = "$it $"
+//        }
+
+
+
+    }
+
+    private fun getAllCartFromDraft() {
+        cartAdapter = CartRvAdapter(requireContext(), requireActivity(), this)
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("cart")
+            .addValueEventListener(object : ValueEventListener {
+                val list = mutableListOf<Cart>()
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for(data in snapshot.children) {
+                        list.add(data.getValue(Cart::class.java)!!)
+                    }
+                    if(list.isNotEmpty()) {
+                        binding.rvCart.apply {
+                            val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+
+                            setLayoutManager(layoutManager)
+                            cartAdapter.setData(list)
+                            adapter = cartAdapter
+
+                            var total = 0.0
+                            list.forEach{
+                                total += it.tPrice
+                            }
+
+                            binding.tvTprice.text = total.toString()
+                            binding.tvConut.text = list.size.toString() + " item(s)"
+                            binding.rvCart.visibility = View.VISIBLE
+                            binding.ivPlaceholder.visibility = View.GONE
+                        }
+                    } else {
+                        binding.rvCart.visibility = View.GONE
+                        binding.ivPlaceholder.visibility = View.VISIBLE
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
+
     }
 
 
@@ -109,19 +165,43 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     override fun onClicked(order: Cart) {
        // showDialoge(order)
-        cartViewModel.removeProductFromCart(order)
-        cartViewModel.getAllCartProduct()
+
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("cart")
+            .child(order.pId.toString()).removeValue()
+
+//        cartViewModel.removeProductFromCart(order)
+//        cartViewModel.getAllCartProduct()
           requireActivity().recreate()
     }
 
-    override fun onPluseMinusClicked(count: Int, pId: Long, price: String) {
-        val priceChange = price.toDouble()
-        val _price = (count * priceChange)
-        val currentOrder = Cart(pQuantity = count, pId = pId, tPrice = _price)
-        cartViewModel.updateOrder(currentOrder)
-        cartViewModel.getAllCartProduct()
-        cartViewModel.getAllPrice()
-        cartAdapter.notifyDataSetChanged()
+    override fun onPluseMinusClicked(count: Int, currentCart: Cart) {
+        val priceChange = currentCart.pPrice?.toDouble()
+        val _price = (count * priceChange!!)
+//        val currentOrder = Cart(pQuantity = count, pId = pId, tPrice = _price)
+
+        currentCart.tPrice = _price
+        currentCart.pQuantity = count
+
+        FirebaseDatabase.getInstance().getReference(Constants.user.id.toString())
+            .child("cart")
+            .child(currentCart.pId.toString())
+            .setValue(currentCart)
+
+//        FirebaseDatabase.getInstance().getReference("123456")
+//            .child("cart")
+//            .child(pId.toString())
+//            .child("tquantity").setValue(count)
+
+
+        //getAllCartFromDraft()
+
+        requireActivity().recreate()
+        //cartViewModel.updateOrder(currentOrder)
+        //cartViewModel.getAllCartProduct()
+        //cartViewModel.getAllPrice()
+//        cartAdapter.notifyDataSetChanged()
     }
 
     private fun checkEmptyList(list: List<Cart>) {
@@ -168,7 +248,10 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     override fun onResume() {
         super.onResume()
-        cartViewModel.getAllCartProduct()
+        if(Constants.user.id <= 0) {
+            binding.ivPlaceholder.visibility = View.VISIBLE
+            binding.rvCart.visibility = View.GONE
+        }
     }
 
 }

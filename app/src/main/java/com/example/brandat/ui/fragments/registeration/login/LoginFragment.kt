@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentLoginBinding
+import com.example.brandat.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -49,10 +50,10 @@ class LoginFragment : Fragment() {
         loginViewModel.signInSuccess.observe(viewLifecycleOwner){
             if(it.customer.isNotEmpty()) {
                 if(it.customer[0].tags == binding.etPass.text.toString()) {
-
+                    Paper.book().write("id", it.customer[0].id)
                     Paper.book().write("email", it.customer[0].email)
                     Paper.book().write("name", it.customer[0].firstName + " " + it.customer[0].lastName)
-
+                    initUser()
                     requireActivity().finish()
                     Toast.makeText(requireContext(), "User logged Successfully", Toast.LENGTH_SHORT).show()
 
@@ -70,6 +71,14 @@ class LoginFragment : Fragment() {
                 binding.etEmail.setText("")
                 binding.etPass.setText("")
             }
+        }
+    }
+
+    private fun initUser() {
+        if(Paper.book().read<String>("email") != null) {
+            Constants.user.id = Paper.book().read<Long>("id", 0)?.toLong()!!
+            Constants.user.email = Paper.book().read<String>("email").toString()
+            Constants.user.firstName = Paper.book().read<String>("name").toString()
         }
     }
 

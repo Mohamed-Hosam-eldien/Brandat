@@ -1,6 +1,7 @@
-package com.example.brandat.models.orderModel
+package com.example.brandat.ordermodel
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -14,8 +15,11 @@ data class LineItem(
 //    val gift_card: Boolean = false,
 //    val grams: Int = 0,
 //    val id: Long = 0,
-      val name: String = "",
-      val price: String = "",
+
+//    val properties: List<HashMap<String, String>> = listOf(),
+    val sku: String = "",
+    val name: String = "",
+    val price: String = "",
 //    val price_set: PriceSet = PriceSet(),
 //    val product_exists: Boolean = false,
 //    val product_id: Long = 0,
@@ -24,13 +28,12 @@ data class LineItem(
 //    val sku: String = "",
 //    val tax_lines: List<Any> = listOf(),
 //    val taxable: Boolean = false,
-//    val title: String = "",
+    val title: String = "",
 //    val total_discount: String = "",
 //    val total_discount_set: TotalDiscountSet = TotalDiscountSet(),
-    val variant_id: Long ,
+    val variant_id: Long,
     val quantity: Int
-
 //    val variant_inventory_management: String = "",
 //    val variant_title: String = "",
 //    val vendor: String = ""
-):Parcelable
+) : Parcelable

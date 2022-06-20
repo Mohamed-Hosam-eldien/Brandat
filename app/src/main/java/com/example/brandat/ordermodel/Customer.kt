@@ -1,4 +1,8 @@
-package com.example.brandat.models.orderModel
+package com.example.brandat.ordermodel
+
+import com.example.brandat.test.DefaultAddress
+import com.example.brandat.test.EmailMarketingConsent
+import com.example.brandat.test.SmsMarketingConsent
 
 data class Customer(
     val accepts_marketing: Boolean = false,

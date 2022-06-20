@@ -1,4 +1,4 @@
-package com.example.brandat.models.orderModel
+package com.example.brandat.ordermodel
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

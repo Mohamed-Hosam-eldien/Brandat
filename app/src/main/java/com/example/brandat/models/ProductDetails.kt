@@ -6,39 +6,40 @@ import java.io.Serializable
 
 data class ProductDetails(
     @SerializedName("admin_graphql_api_id")
-    val adminGraphqlApiId: String,
+    val adminGraphqlApiId: String = "",
     @SerializedName("body_html")
-    val bodyHtml: String,
+    val bodyHtml: String = "",
     @SerializedName("created_at")
-    val createdAt: String,
+    val createdAt: String = "",
     @SerializedName("handle")
-    val handle: String,
+    val handle: String = "",
     @SerializedName("id")
-    val id: Long,
+    val id: Long = 0,
     @SerializedName("image")
-    val imageProduct: ImageProduct,
+    val imageProduct: ImageProduct = ImageProduct(),
     @SerializedName("images")
-    val imageProducts: List<ImageProduct>,
+    val imageProducts: List<ImageProduct> = emptyList(),
     @SerializedName("options")
-    val options: List<Option>,
+    val options: List<Option> = emptyList(),
     @SerializedName("product_type")
-    val productType: String,
+    val productType: String = "",
     @SerializedName("published_at")
-    val publishedAt: String,
+    val publishedAt: String = "",
     @SerializedName("published_scope")
-    val publishedScope: String,
+    val publishedScope: String = "",
     @SerializedName("status")
-    val status: String,
+    val status: String = "",
     @SerializedName("tags")
-    val tags: String,
+    val tags: String = "",
     @SerializedName("template_suffix")
-    val templateSuffix: Any,
+    val templateSuffix: Any = "",
     @SerializedName("title")
-    val title: String,
+    val title: String = "",
     @SerializedName("updated_at")
-    val updatedAt: String,
+    val updatedAt: String = "",
     @SerializedName("variants")
-    val variants: List<Variant>,
+    val variants: List<Variant> = listOf(),
     @SerializedName("vendor")
-    val vendor: String
+    val vendor: String=""
+
 ):Serializable

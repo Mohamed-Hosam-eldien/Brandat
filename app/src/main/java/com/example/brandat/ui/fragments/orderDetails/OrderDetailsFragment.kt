@@ -9,41 +9,33 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentOrderDetailsBinding
-import com.example.brandat.databinding.ItemsInOrderBinding
-import com.example.brandat.models.orderModel.Order
-import com.example.brandat.ui.fragments.myOrder.MyOrderAdapter
-import com.example.brandat.ui.fragments.myOrder.OrderModel
+import com.example.brandat.ordermodel.Order
 
 
 class OrderDetailsFragment : Fragment() {
     lateinit var binding: FragmentOrderDetailsBinding
     lateinit var itemAdapter: OrderItemAdapter
     private val args by navArgs<OrderDetailsFragmentArgs>()
-    lateinit var order:Order
+    lateinit var order: Order
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         val args: Bundle = requireArguments()
         val brandId = args.getLong("productId")
         Log.d("TAG", "onCreateView ppppppp: ${brandId}")
-        Toast.makeText(requireContext(), "productId $brandId", Toast.LENGTH_SHORT).show()
-
 
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_order_details, container, false)
 
@@ -58,7 +50,7 @@ class OrderDetailsFragment : Fragment() {
         showData()
     }
 
-    private fun initRecycler(order:Order?) {
+    private fun initRecycler(order: Order?) {
         if(order?.items?.isNotEmpty() == true){
             itemAdapter = OrderItemAdapter(order?.items)
             binding.myOrderRecycler.apply {

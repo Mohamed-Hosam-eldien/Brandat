@@ -13,9 +13,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.FragmentFavoriteBinding
 import com.example.brandat.models.Favourite
+import com.example.brandat.models.OrderResponse
+import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
+import com.example.brandat.utils.Constants
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -27,16 +34,11 @@ class FavoriteFragment : Fragment(), OnclickListener {
     private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFavoriteBinding.inflate(LayoutInflater.from(context), container, false)
         setupUi()
 
@@ -49,35 +51,64 @@ class FavoriteFragment : Fragment(), OnclickListener {
     }
 
 
-    private fun observeShowData() {
-        favouriteViewModel.getFavouriteProducts()
-        favouriteViewModel.getFavouriteProducts.observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isEmpty()) {
-                    print(it.size)
-                    binding.empty.visibility = View.VISIBLE
-
-                } else {
-                    binding.empty.visibility = View.GONE
-                }
-                favouriteAdapter.setData(it)
-            }
-
-        }
-
-    }
+//    private fun observeShowData() {
+//        favouriteViewModel.getFavouriteProducts()
+//        favouriteViewModel.getFavouriteProducts.observe(viewLifecycleOwner) {
+//            it?.let {
+//                if (it.isEmpty()) {
+//                    print(it.size)
+//                    binding.empty.visibility = View.VISIBLE
+//
+//                } else {
+//                    binding.empty.visibility = View.GONE
+//                }
+//                favouriteAdapter.setData(it)
+//            }
+//
+//        }
+//
+//    }
 
     private fun setupUi() {
         favouriteAdapter = FavouriteAdapter(requireContext(),this)
-        binding.rvFavorits.apply {
-            val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
-            setLayoutManager(layoutManager)
-            favouriteAdapter.setData(favourite)
-            adapter = favouriteAdapter
-            observeShowData()
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("fav")
+            .addValueEventListener(object :ValueEventListener {
+                val list = mutableListOf<ProductDetails>()
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for(data in snapshot.children) {
+                        list.add(data.getValue(ProductDetails::class.java)!!)
+                    }
+                    if(list.isNotEmpty()) {
+                        binding.rvFavorits.apply {
+                            val layoutManager =
+                                GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
+                            setLayoutManager(layoutManager)
+                            favouriteAdapter.setData(list)
+                            adapter = favouriteAdapter
+                            binding.rvFavorits.visibility = View.VISIBLE
+                            binding.empty.visibility = View.GONE
+                        }
+                    } else {
+                        binding.rvFavorits.visibility = View.GONE
+                        binding.empty.visibility = View.VISIBLE
+                    }
 
+                }
 
-        }
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
+
+//        favouriteAdapter = FavouriteAdapter(requireContext(),this)
+//        binding.rvFavorits.apply {
+//            val layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
+//            setLayoutManager(layoutManager)
+//            favouriteAdapter.setData(favourite)
+//            adapter = favouriteAdapter
+//            observeShowData()
+//        }
     }
 
 
@@ -85,20 +116,29 @@ class FavoriteFragment : Fragment(), OnclickListener {
 
     }
 
-    override fun onRemoveClicked(favourite: Favourite) {
+    override fun onRemoveClicked(favourite: ProductDetails) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
-            favouriteViewModel.removeFavouriteProduct(favourite.productId)
+            //favouriteViewModel.removeFavouriteProduct(favourite.productId)
 //            favouriteViewModel.getFavouriteProducts()
+            removeFromDraft(favourite.id)
             requireActivity().recreate()
-            showSnackbar()
         }
         builder.setNegativeButton("No") { _, _ ->
 
         }
-        builder.setTitle("Delete${favourite.productName.toLowerCase()}")
-        builder.setMessage("Are you sure you want to delete ${favourite.productName} from favourite")
+        builder.setTitle("Delete!")
+        builder.setMessage("Are you sure you want to delete this item from favourite?")
         builder.create().show()
+    }
+
+
+    private fun removeFromDraft(favouriteId: Long) {
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("fav")
+            .child(favouriteId.toString())
+            .removeValue()
     }
 
     override fun onCartClicked(product: Cart) {
@@ -122,11 +162,13 @@ class FavoriteFragment : Fragment(), OnclickListener {
         builder.create().show()
     }
 
-    private fun showSnackbar() {
-
-
+    override fun onResume() {
+        super.onResume()
+        if(Constants.user.id <= 0) {
+            binding.empty.visibility = View.VISIBLE
+            binding.rvFavorits.visibility = View.GONE
+        }
     }
-
 
 }
 

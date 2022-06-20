@@ -22,11 +22,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.CategoryViewModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentNewCategoryBinding
-import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
-import com.example.brandat.models.draftOrder.DraftOrderModel
-import com.example.brandat.models.draftOrder.DraftOrder
-import com.example.brandat.models.draftOrder.LineItem
+import com.example.brandat.models.draft.CustomerOrder
+import com.example.brandat.models.draft.OrderModel
+import com.example.brandat.ordermodel.LineItem
 import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
@@ -37,13 +36,13 @@ import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.ui.fragments.category.SharedViewModel
 import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
 import com.example.brandat.utils.ConnectionUtil
+import com.example.brandat.utils.Constants
 import com.example.brandat.utils.Constants.Companion.count
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
-import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.concurrent.schedule
 
 @AndroidEntryPoint
 class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
@@ -82,8 +81,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         val view = inflater.inflate(R.layout.fragment_new_category, container, false)
 
         binding = FragmentNewCategoryBinding.bind(view)
-        Paper.init(requireContext())
-        //  Paper.book().read<Int>("countFromCart")
+
         return binding.root
     }
 
@@ -92,19 +90,14 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
         bageCountI = requireActivity() as MainActivity
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
-           showShimmerEffect()
+            showShimmerEffect()
 
-            viewModel.getAllProductsByName()
-            filterProducts()
-//            Timer("SettingUp", false).schedule(10000) {
-//                requireActivity().runOnUiThread {
+//            viewModel.getAllProductsByName()
 //
-//                }
-//            }
+//            filterProducts()
 
             brandName = requireArguments().getString("brandId").toString()
             setUpRecyclerView()
-            observeOnFavourite()
 
             if (brandName != "null") {
 
@@ -112,24 +105,22 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 binding.chipCatSub.text = "All"
                 binding.groupChip.visibility = View.VISIBLE
 
-            viewModel.getAllProductsByName()
-            filterProducts()
+                viewModel.getAllProductsByName()
+                filterProducts()
 
-            viewModel.productsLive.observe(viewLifecycleOwner) {
-                val products: ArrayList<ProductDetails> = ArrayList()
-                for (product in it) {
-                    if (product.vendor == brandName.uppercase()) {
-                        products.add(product)
+                viewModel.productsLive.observe(viewLifecycleOwner) {
+                    val products: ArrayList<ProductDetails> = ArrayList()
+                    for (product in it) {
+                        if (product.vendor == brandName.uppercase()) {
+                            products.add(product)
+                        }
                     }
-                }
 
-
-                saveDraft(products[0])
-                hideShimmerEffect()
-                if (products.size > 0)
-                    binding.imgEmpty.visibility = View.GONE
-                else
-                    binding.imgEmpty.visibility = View.VISIBLE
+                    hideShimmerEffect()
+                    if (products.size > 0)
+                        binding.imgEmpty.visibility = View.GONE
+                    else
+                        binding.imgEmpty.visibility = View.VISIBLE
 
                     productRvAdapter.setData(products)
                 }
@@ -163,16 +154,18 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                     Log.e("TAG", "onViewCategoryCreated:${it} ")
 
                     for (product in it) {
-                        if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
+                        if (product.productType == binding.chipCatSub.text.toString()
+                                .uppercase()
+                        )
                             products.add(product)
                     }
                     hideShimmerEffect()
-                for (product in it) {
-                    if (product.productType == binding.chipCatSub.text.toString().toUpperCase())
-                        products.add(product)
-                }
+                    for (product in it) {
+                        if (product.productType == binding.chipCatSub.text.toString().uppercase())
+                            products.add(product)
+                    }
 
-                saveDraft(products[0])
+                    // saveDraft(products[0])
 
                     if (products.size > 0)
                         binding.imgEmpty.visibility = View.GONE
@@ -219,31 +212,35 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
             }
 
-        }else{
+        } else {
             showMessage("no Connection")
             hideShimmerEffect()
 
         }
 
-        ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(),viewModel, requireActivity())
+        ConnectionUtil.registerConnectivityNetworkMonitor(
+            requireContext(),
+            viewModel,
+            requireActivity()
+        )
 
     }
 
     private fun hideShimmerEffect() {
         binding.shimmerRecycle.hideShimmerAdapter()
         binding.shimmerRecycle.visibility = View.GONE
-        binding.recyclerCategory.visibility=View.VISIBLE
+        binding.recyclerCategory.visibility = View.VISIBLE
     }
 
     private fun showMessage(it: String) {
 
         //  snackbar = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
-        Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE).
-        setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
-            resources.getColor(
-                R.color.black2
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                resources.getColor(
+                    R.color.black2
+                )
             )
-        )
             .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
             }.show()
 
@@ -256,45 +253,37 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         binding.recyclerCategory.visibility = View.GONE
     }
 
-    private fun saveDraft(productDetails: ProductDetails) {
+    private fun saveToDraft(productDetails: ProductDetails) {
+
+        Log.d("TAG", "saveToDraft: ---> image ${productDetails.imageProduct.src}")
+        val hash = HashMap<String, String>()
+        hash["image"] = productDetails.imageProduct.src
 
         val lineItem = LineItem(
-            title =  productDetails.title,
-            vendor = productDetails.vendor,
-            //price = productDetails.variants[0].price,
-            price = "6",
-            quantity = 5
+            variant_id = productDetails.variants[0].id,
+            quantity = 3,
+            sku = productDetails.imageProduct.src,
+            title = productDetails.title,
+            price = productDetails.variants[0].price
         )
 
-        val customer = com.example.brandat.models.draftOrder.Customer(
-            email = "test@gmail.com",
-            firstName = "test",
-            lastName = "test2",
-            id = 6260313555202,
-            tags = "11"
+        favouriteViewModel.postDatToApi(
+            OrderModel(
+                CustomerOrder(
+                    line_items = listOf(lineItem),
+                    email = "hosam22@gmail.com",
+                    note = "fav"
+                )
+            )
         )
 
-//        val order = CustomerOrder(
-//            line_items = listOf(lineItem),
-//            email = "hosam@gmail.com",
-//            customer = customer
-//        )
-
-//        val orderModel = OrderModel(
-//            order
-//        )
-
-        val draft = DraftOrder(
-            line_items = listOf(lineItem),
-            customer = customer,
-            email = "test@gmail.com"
-        )
-
-        val response = DraftOrderModel(
-            draft
-        )
-
-        favouriteViewModel.postDatToApi(response)
+//        favouriteViewModel.getFavouriteDraftModel.observe(viewLifecycleOwner) {
+//            Toast.makeText(
+//                requireContext(),
+//                "${it.body()?.order?.items?.get(0)?.title}",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
 
 
     }
@@ -402,35 +391,53 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     }
 
-    override fun onFavClicked(favourite: Favourite, ivImage: ImageView) {
-        favouriteViewModel.insertFavouriteProduct(favourite)
+    override fun onFavClicked(details: ProductDetails, ivImage: ImageView) {
+//        favouriteViewModel.insertFavouriteProduct(favourite)
+//        saveToDraft(details)
+        saveFavToDraft(details)
+    }
+
+    private fun saveFavToDraft(details: ProductDetails) {
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("fav")
+            .child(details.id.toString())
+            .setValue(details)
+    }
+
+    private fun removeFromDraft(favouriteId: Long) {
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("fav")
+            .child(favouriteId.toString())
+            .removeValue()
     }
 
     override fun deleteFavourite(favouriteId: Long) {
-        favouriteViewModel.removeFavouriteProduct(favouriteId)
+        removeFromDraft(favouriteId)
+//        favouriteViewModel.removeFavouriteProduct(favouriteId)
     }
 
     override fun onCartClicked(currentProduct: Cart) {
         // isClicked=true
-        println("===id===${currentProduct.pId}")
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
-            // print("==========$isClicked")
-            cartViewModel.addProductToCart(currentProduct)
-            bageCountI.updateBadgeCount(count++)
+//            cartViewModel.addProductToCart(currentProduct)
+//            bageCountI.updateBadgeCount(count++)
+
+            addCartToDraft(currentProduct)
+
             Paper.book().write("CountfromHome", count)
-            //cartViewModel.isAdded(currentProduct.pName)
-//            if (!isClicked) {
-//                print("======clicked====$isClicked")
-//
-//                isClicked = true
-//            }
-//            if (!isClicked) {
-//
-//                isClicked=true
-//            }
         }
+    }
+
+    private fun addCartToDraft(currentProduct: Cart) {
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("cart")
+            .child(currentProduct.pId.toString())
+            .setValue(currentProduct)
     }
 
     private fun showDialog() {
@@ -445,14 +452,14 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         builder.create().show()
     }
 
-    private fun observeOnFavourite() {
-        favouriteViewModel.getFavouriteProducts()
-        favouriteViewModel.getFavouriteProducts.observe(viewLifecycleOwner) {
-            if (it != null) {
-                productRvAdapter.setFavData(it)
-            }
-        }
-    }
+//    private fun observeOnFavourite() {
+//        favouriteViewModel.getFavouriteProducts()
+//        favouriteViewModel.getFavouriteProducts.observe(viewLifecycleOwner) {
+//            if (it != null) {
+//                productRvAdapter.setFavData(it)
+//            }
+//        }
+//    }
 
     private fun showSnackBar(cart: Cart) {
         val snackbar = Snackbar.make(binding.newCat, "Added to Cart", Snackbar.LENGTH_LONG)

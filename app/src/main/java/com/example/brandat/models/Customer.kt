@@ -16,13 +16,13 @@ data class Customer(
     @SerializedName("default_address")
     val defaultAddress: DefaultAddress? = null,
     @SerializedName("email")
-    val email: String,//=========================
+    var email: String = "",//=========================
     @SerializedName("first_name")
-    val firstName: String,//=====================
+    var firstName: String = "",//=====================
     @SerializedName("id")
-    val id: Long = 0L,//==========================
+    var id: Long = 0L,//==========================
     @SerializedName("last_name")
-    val lastName: String,//====================
+    val lastName: String = "",//====================
     @SerializedName("last_order_id")
     val lastOrderId: Any? = null,
     @SerializedName("last_order_name")
@@ -46,7 +46,7 @@ data class Customer(
     @SerializedName("tax_exempt")
     val tax_exempt: Boolean = false,
     @SerializedName("tags")
-    val tags: String,
+    val tags: String = "",
     @SerializedName("addresses")
     val addresses: List<DefaultAddress>? = listOf(),
     @SerializedName("marketing_opt_in_level")

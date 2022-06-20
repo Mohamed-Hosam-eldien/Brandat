@@ -1,7 +1,8 @@
-package com.example.brandat.models.orderModel
+package com.example.brandat.ordermodel
 
-import com.example.brandat.models.Customer
+import com.example.brandat.models.orderModel.ShippingAddress
 import com.google.gson.annotations.SerializedName
+
 enum class FinancialStatus {
     Cash {
         override fun toString(): String {
@@ -24,15 +25,16 @@ data class CustomerOrder(
 //   val customer:Customer?= null,
     @SerializedName( "email")
    val email: String? = "",
+
     @SerializedName( "line_items")
     val line_items: List<LineItem>? = listOf(),
     @SerializedName( "billing_address")
     val billing_address: ShippingAddress = ShippingAddress(),
-   @SerializedName( "shipping_address")
+    @SerializedName( "shipping_address")
    val shipping_address: ShippingAddress = ShippingAddress(),
-   @SerializedName("gateway")
+    @SerializedName("gateway")
    val gateway: String = "",
 
 
 
-)
+    )

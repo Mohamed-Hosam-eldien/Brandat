@@ -24,56 +24,59 @@ data class LineItem(
 //    val variant_title: String,
 //    val vendor: String
 
-    @SerializedName("admin_graphql_api_id")
-    val adminGraphqlApiId: String = "",
+//    @SerializedName("admin_graphql_api_id")
+//    val adminGraphqlApiId: String = "",
     @SerializedName("variant_id")
-    val variant_id: String = "",
-    @SerializedName("variant_title")
-    val variant_title: String = "",
-    @SerializedName("discount_allocations")
-    val discountAllocations: List<Any> = emptyList(),
-    @SerializedName("duties")
-    val duties: List<Any> = emptyList(),
-    @SerializedName("fulfillable_quantity")
-    val fulfillableQuantity: Int = 0,
-    @SerializedName("applied_discount")
-    val applied_discount: Int = 0,
-    @SerializedName("fulfillment_service")
-    val fulfillmentService: String = "",
-    @SerializedName("fulfillment_status")
-    val fulfillmentStatus: Any  = "",
-    @SerializedName("gift_card")
-    val giftCard: Boolean = false,
-    @SerializedName("custom")
-    val custom: Boolean = false,
-    @SerializedName("grams")
-    val grams: Int=0,
-    @SerializedName("id")
-    val id: Long=0,
-    @SerializedName("name")
-    val name: String="",
-    @SerializedName("price")
-    val price: String,
-    @SerializedName("product_exists")
-    val productExists: Boolean = false,
-    @SerializedName("product_id")
-    val productId: Long = 0,
-    @SerializedName("properties")
-    val properties: List<Any>  = emptyList(),
+    val variant_id: Long,
     @SerializedName("quantity")
     val quantity: Int,
-    @SerializedName("requires_shipping")
-    val requiresShipping: Boolean = false,
-    @SerializedName("sku")
-    val sku: String = "",
-    @SerializedName("tax_lines")
-    val taxLines: List<Any> = emptyList(),
-    @SerializedName("taxable")
-    val taxable: Boolean=false,
-    @SerializedName("title")
-    val title: String,
-    @SerializedName("total_discount")
-    val totalDiscount: String="",
-    @SerializedName("vendor")
-    val vendor: String
+    @SerializedName("name")
+    val name: String = ""
+//    @SerializedName("variant_title")
+//    val variant_title: String = "",
+//    @SerializedName("discount_allocations")
+//    val discountAllocations: List<Any> = emptyList(),
+//    @SerializedName("duties")
+//    val duties: List<Any> = emptyList(),
+//    @SerializedName("fulfillable_quantity")
+//    val fulfillableQuantity: Int = 0,
+//    @SerializedName("applied_discount")
+//    val applied_discount: Int = 0,
+//    @SerializedName("fulfillment_service")
+//    val fulfillmentService: String = "",
+//    @SerializedName("fulfillment_status")
+//    val fulfillmentStatus: Any  = "",
+//    @SerializedName("gift_card")
+//    val giftCard: Boolean = false,
+//    @SerializedName("custom")
+//    val custom: Boolean = false,
+//    @SerializedName("grams")
+//    val grams: Int=0,
+//    @SerializedName("id")
+//    val id: Long=0,
+//    @SerializedName("name")
+//    val name: String="",
+//    @SerializedName("price")
+//    val price: String,
+//    @SerializedName("product_exists")
+//    val productExists: Boolean = false,
+//    @SerializedName("product_id")
+//    val productId: Long = 0,
+//    @SerializedName("properties")
+//    val properties: List<Any>  = emptyList(),
+
+//    @SerializedName("requires_shipping")
+//    val requiresShipping: Boolean = false,
+//    @SerializedName("sku")
+//    val sku: String = "",
+//    @SerializedName("tax_lines")
+//    val taxLines: List<Any> = emptyList(),
+//    @SerializedName("taxable")
+//    val taxable: Boolean=false,
+//    @SerializedName("title")
+//    val title: String,
+//    @SerializedName("total_discount")
+//    val totalDiscount: String="",
+//    @SerializedName("vendor")
+//    val vendor: String
 )

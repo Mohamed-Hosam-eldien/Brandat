@@ -1,4 +1,4 @@
-package com.example.brandat.models.orderModel
+package com.example.brandat.ordermodel
 
 data class OrderResponse(
     val order: Order

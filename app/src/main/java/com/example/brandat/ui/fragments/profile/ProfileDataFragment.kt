@@ -10,7 +10,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProfileDataBinding
+import com.example.brandat.models.Customer
 import com.example.brandat.ui.fragments.cart.Cart
+import com.example.brandat.utils.Constants
 import io.paperdb.Paper
 
 class ProfileDataFragment : Fragment() {
@@ -65,7 +67,9 @@ class ProfileDataFragment : Fragment() {
         builder.setPositiveButton("Yes") { _, _ ->
             Paper.book().delete("email")
             Paper.book().delete("name")
+            Paper.book().delete("id")
             Paper.book().destroy()
+            Constants.user = Customer()
             requireActivity().finish()
         }
         builder.setNegativeButton("No") { _, _ ->

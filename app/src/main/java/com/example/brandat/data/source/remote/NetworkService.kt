@@ -1,10 +1,9 @@
 package com.example.brandat.data.source.remote
 
 import com.example.brandat.models.*
-import com.example.brandat.models.orderModel.Order
-import com.example.brandat.models.orderModel.Orders
-import com.example.brandat.models.draftOrder.DraftOrder
-import com.example.brandat.models.draftOrder.DraftOrderModel
+import com.example.brandat.models.draft.CustomerOrder
+import com.example.brandat.ordermodel.OrderModel
+import com.example.brandat.ui.fragments.orderDetails.OrderItemModel
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -42,12 +41,11 @@ interface NetworkService {
 
     @Headers("X-Shopify-Access-Token: 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")
     @GET("orders.json")
-    suspend fun getAllOrders(@Query("email") email: String?): Response<Orders>
+    suspend fun getAllOrders(@Query("email") email: String?): Response<com.example.brandat.ordermodel.Orders>
 
     @Headers("X-Shopify-Access-Token: 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",
         "Content-Type: application/json")
-    @POST("draft_orders.json")
-    suspend fun draftFavorite(@Body draftOrderModel: DraftOrderModel):Response<DraftOrder>
-
+    @POST("orders.json")
+    suspend fun draftFavorite(@Body draftOrderModel: com.example.brandat.models.draft.OrderModel):Response<com.example.brandat.ordermodel.OrderResponse>
 
 }

@@ -44,8 +44,6 @@
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/layout/fragment_register.xml" value="0.2" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/layout/reviewer_row_layout.xml" value="0.2" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/app/src/main/res/menu/home_menu.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/cart_item.xml" value="0.33" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/drawable/ic_add_location.xml" value="0.1845" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/activity_order_status.xml" value="0.2" />
@@ -54,13 +52,13 @@
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/cart_item.xml" value="0.25" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/category_bottom_sheet.xml" value="0.27545909849749584" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/category_bottom_sheet_type.xml" value="0.33" />
-        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_cart.xml" value="0.1" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/data_not_found.xml" value="0.1" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/favourite_item.xml" value="0.22" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/first_order_status.xml" value="0.22" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_add_address.xml" value="0.171875" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_cart.xml" value="0.25" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_category.xml" value="0.171875" />
-        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_home.xml" value="0.171875" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_favorite.xml" value="0.171875" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_login.xml" value="0.22" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_new_category.xml" value="0.25" />

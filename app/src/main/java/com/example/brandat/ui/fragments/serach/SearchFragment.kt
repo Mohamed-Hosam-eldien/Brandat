@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentSearchBinding
-import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
@@ -119,7 +118,7 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
         )
     }
 
-    override fun onFavClicked(favourite: Favourite, ivImage: ImageView) {
+    override fun onFavClicked(favourite: ProductDetails, ivImage: ImageView) {
 
     }
 

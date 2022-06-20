@@ -1,4 +1,4 @@
-package com.example.brandat.models.draftOrder
+package com.example.brandat.models.draft
 
 import com.example.brandat.models.DefaultAddress
 import com.google.gson.annotations.SerializedName

@@ -5,5 +5,5 @@ import android.widget.TextView
 interface CartOnClickListener {
    // fun onLongClicked(order: ArrayList<Cart>)
     fun onClicked(order: Cart)
-    fun onPluseMinusClicked(count: Int, pId: Long, price: String)
+    fun onPluseMinusClicked(count: Int, pId: Cart)
 }

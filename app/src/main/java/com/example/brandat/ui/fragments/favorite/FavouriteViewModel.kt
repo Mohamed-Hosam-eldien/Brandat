@@ -6,8 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.brandat.data.repos.products.IProductsRepository
 import com.example.brandat.models.Favourite
-import com.example.brandat.models.draftOrder.DraftOrder
-import com.example.brandat.models.draftOrder.DraftOrderModel
+import com.example.brandat.models.draft.CustomerOrder
+import com.example.brandat.models.draftOrder.CustomerDraftOrder
+import com.example.brandat.models.draftOrder.DraftOrderResponse
+import com.example.brandat.ordermodel.Order
+import com.example.brandat.ordermodel.OrderModel
+import com.example.brandat.test.OrderDraft
+import com.example.brandat.test.OrderResponse
+import com.example.brandat.ui.fragments.orderDetails.OrderItemModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -24,8 +30,8 @@ class FavouriteViewModel @Inject constructor(
     private var _getFavouriteProducts = MutableLiveData<List<Favourite>>()
     var getFavouriteProducts: LiveData<List<Favourite>> = _getFavouriteProducts
 
-    private var _getFavouriteDraft = MutableLiveData<Response<DraftOrder>>()
-    var getFavouriteDraftModel: LiveData<Response<DraftOrder>> = _getFavouriteDraft
+    private var _getFavouriteDraft = MutableLiveData<Response<com.example.brandat.ordermodel.OrderResponse>>()
+    var getFavouriteDraftModel: LiveData<Response<com.example.brandat.ordermodel.OrderResponse>> = _getFavouriteDraft
 
 
 
@@ -57,7 +63,7 @@ class FavouriteViewModel @Inject constructor(
 
     }
 
-    fun postDatToApi(draftModel: DraftOrderModel) {
+    fun postDatToApi(draftModel: com.example.brandat.models.draft.OrderModel) {
         viewModelScope.launch {
             _getFavouriteDraft.postValue(favouriteRepository.postFavDraft(draftModel))
         }

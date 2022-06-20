@@ -1,9 +1,7 @@
-package com.example.brandat.models.orderModel
+package com.example.brandat.ordermodel
 
 import android.os.Parcelable
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.example.brandat.ordermodel.BillingAddress
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 

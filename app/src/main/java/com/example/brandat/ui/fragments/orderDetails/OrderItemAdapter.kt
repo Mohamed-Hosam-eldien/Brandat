@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.ItemsInOrderBinding
-import com.example.brandat.databinding.MyOrderItemBinding
-import com.example.brandat.models.orderModel.LineItem
+import com.example.brandat.ordermodel.LineItem
+
 
 class OrderItemAdapter(var itemList:List<LineItem>?):RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder>() {
 
@@ -21,7 +21,7 @@ class OrderItemAdapter(var itemList:List<LineItem>?):RecyclerView.Adapter<OrderI
        // holder.view.orderImage.setImageResource(orderItem.itemImage)
         holder.view.numberOfItem.text = orderItem?.quantity.toString()
         holder.view.itemPrice.text = orderItem?.price
-        holder.view.itemName.text = orderItem?.name
+        holder.view.itemName.text = orderItem?.title
 
     }
 

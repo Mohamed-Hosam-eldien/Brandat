@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
 import com.example.brandat.R
 import com.example.brandat.databinding.CartItemBinding
 import com.example.brandat.utils.CartDiffUtil
-import com.google.android.material.snackbar.Snackbar
 
 
 class CartRvAdapter(
@@ -61,16 +60,18 @@ class CartRvAdapter(
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         myViewHolders.add(holder)
         rootView = holder.itemView.rootView
+
         val currentCart = carts[position]
         holder.bind(currentCart)
 
-        totalPrice += currentCart.pPrice.toDouble()
+        totalPrice += currentCart.pPrice!!.toDouble()
 
         holder.binding.numberButton.number = currentCart.pQuantity.toString()
+
 //        holder.binding.tvProductPrice.text = (currentCart.pPrice.toDouble()
 //                * holder.binding.numberButton.number.toInt()).toString()
 
-        if(currentCart.tPrice == 0.0) {
+        if (currentCart.tPrice == 0.0) {
             holder.binding.tvProductPrice.text = currentCart.pPrice
         } else {
             holder.binding.tvProductPrice.text = currentCart.tPrice.toString()
@@ -78,14 +79,12 @@ class CartRvAdapter(
 
         holder.binding.tvProductName.text = currentCart.pName.lowercase()
 
-//        if (position == carts.size - 1)
-//            Log.d("TAG", "onBindViewHolder: $totalPrice")
-
         holder.binding.numberButton.setOnValueChangeListener { _, _, newValue ->
-            onClickListener.onPluseMinusClicked(newValue, currentCart.pId, currentCart.pPrice)
+            onClickListener.onPluseMinusClicked(newValue, currentCart)
         }
 
-            Glide.with(context).load(currentCart.pImage).into(holder.binding.imgProduct)
+        Glide.with(context).load(currentCart.pImage).into(holder.binding.imgProduct)
+
         holder.itemView.setOnClickListener {
             if (multiSelection) {
                 applySelection(holder, currentCart)
@@ -93,6 +92,7 @@ class CartRvAdapter(
                 Log.e("TAG", "onBindViewHolder: ")
             }
         }
+
         holder.itemView.setOnLongClickListener {
             if (!multiSelection) {
                 multiSelection = true
@@ -148,7 +148,7 @@ class CartRvAdapter(
 
         }
         builder.setTitle("Delete?")
-         builder.setMessage("Are you sure you want to delete this item from Cart?")
+        builder.setMessage("Are you sure you want to delete this item from Cart?")
         builder.create().show()
     }
 

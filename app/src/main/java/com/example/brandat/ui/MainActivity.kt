@@ -2,6 +2,7 @@ package com.example.brandat.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.SyncStateContract
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.example.brandat.databinding.ActivityMainBinding
 import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.google.android.material.badge.BadgeDrawable
 import com.example.brandat.ui.fragments.serach.SearchActivity
+import com.example.brandat.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -28,6 +30,9 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Paper.init(this)
+
+        initUser()
+
         badgeDrawable = binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment);
         badgeDrawable.isVisible = true
         if(Paper.book().read<Int>("countFromCart")!=null) {
@@ -57,6 +62,14 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
             startActivity(Intent(this, SearchActivity::class.java))
         }
 
+    }
+
+    private fun initUser() {
+        if(Paper.book().read<String>("id") != null ) {
+            Constants.user.id = Paper.book().read<Long>("id")?.toLong()!!
+            Constants.user.email = Paper.book().read<String>("email").toString()
+            Constants.user.firstName = Paper.book().read<String>("name").toString()
+        }
     }
 
     override fun onResume() {

@@ -89,6 +89,6 @@
             app:destination="@id/myOrderFragment" />
         <argument
             android:name="currentOrder"
-            app:argType="com.example.brandat.models.orderModel.Order" />
+            app:argType="com.example.brandat.ordermodel.Order" />
     </fragment>
 </navigation>

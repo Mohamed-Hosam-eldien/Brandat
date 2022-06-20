@@ -1,5 +1,6 @@
 package com.example.brandat.models.draftOrder
 
+import com.example.brandat.models.draft.Customer
 import com.google.gson.annotations.SerializedName
 
 data class DraftOrder(

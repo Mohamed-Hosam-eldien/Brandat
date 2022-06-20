@@ -4,15 +4,14 @@ import android.util.Log
 import com.example.brandat.utils.NetworkResult
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
-import com.example.brandat.models.Brands
-import com.example.brandat.models.Favourite
-import com.example.brandat.models.Product
-import com.example.brandat.models.Products
-import com.example.brandat.models.orderModel.Order
-import com.example.brandat.models.orderModel.Orders
-import com.example.brandat.models.draftOrder.DraftOrder
-import com.example.brandat.models.draftOrder.DraftOrderModel
+import com.example.brandat.models.*
+import com.example.brandat.models.draft.CustomerOrder
+import com.example.brandat.models.draftOrder.CustomerDraftOrder
+import com.example.brandat.models.draftOrder.DraftOrderResponse
+import com.example.brandat.ordermodel.Order
+import com.example.brandat.ordermodel.OrderModel
 import com.example.brandat.ui.fragments.cart.Cart
+import com.example.brandat.ui.fragments.orderDetails.OrderItemModel
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -82,13 +81,13 @@ class ProductsRepository @Inject constructor(
 
     override suspend fun isAdded(productName: String): Cart {
         return localDataSource.isAdded(productName)
-        println("result from repo=====${localDataSource.isAdded(productName)}")
     }
-    override suspend fun postFavDraft(draftModel: DraftOrderModel): Response<DraftOrder> {
+
+    override suspend fun postFavDraft(draftModel: com.example.brandat.models.draft.OrderModel): Response<com.example.brandat.ordermodel.OrderResponse> {
         return remoteDataSource.postFavDraft(draftModel)
     }
 
-    override suspend fun getAllOrders(email:String?): Response<Orders> {
+    override suspend fun getAllOrders(email:String?): Response<com.example.brandat.ordermodel.Orders> {
         return remoteDataSource.getAllOrders(email)
     }
 
