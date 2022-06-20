@@ -12,15 +12,28 @@
         android:layout_height="match_parent"
         tools:context=".welcomescreen.SliderActivity">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView"
-            android:name="com.example.brandat.welcomescreen.SliderFragment"
+        <!--        <androidx.fragment.app.FragmentContainerView-->
+        <!--            android:id="@+id/fragmentContainerView"-->
+        <!--            android:name="com.example.brandat.welcomescreen.SplashyFragment"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <fragment
+            android:id="@+id/navWelcomeHostFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:padding="@dimen/dimen_16"
+            app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/welcome_navigation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
