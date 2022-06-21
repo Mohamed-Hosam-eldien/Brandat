@@ -55,7 +55,7 @@ class CartFragment : Fragment(), CartOnClickListener,OnOkClickListener {
      // currency
             var  sharedPreferences =requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
             currency  = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
-
+      binding.cartsCurrency.text=currency
         binding.buyButn.setOnClickListener {
 //            if(Paper.book().read<String>("email") == null) {
 //                showDialog()

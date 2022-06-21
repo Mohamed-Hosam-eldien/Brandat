@@ -141,9 +141,9 @@ class CheckOutOrderFragment : Fragment() {
     private fun initUi() {
          showPaymentMethod()
          showSelectedAddress()
-       binding.totalPrice.text =Constants.totalPrice.toString().plus(currency)
-       binding.deliveryCoast.text = "100".plus(currency)
-       binding.orderPrice.text= (Constants.totalPrice!!+ 100).toString().plus(currency)
+       binding.totalPrice.text =Constants.totalPrice.toString().plus(" ").plus(currency)
+       binding.deliveryCoast.text = "100" .plus(" ").plus(currency)
+       binding.orderPrice.text= (Constants.totalPrice!!+ 100).toString().plus(" ").plus(currency)
 
     }
 
