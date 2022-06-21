@@ -37,7 +37,8 @@ data class Order(
 
     @SerializedName( "line_items")
     val items: List<LineItem>? = listOf(),
-
+    @SerializedName( "source_name")
+    val source_name: String = "",
 
 //    val admin_graphql_api_id: String = "",
 //    val app_id: Int = 1,
@@ -98,7 +99,7 @@ data class Order(
 //    val shipping_address: ShippingAddress = ShippingAddress(),
 //    val shipping_lines: List<Any> = listOf(),
 //    val source_identifier: Any = Any(),
-//    val source_name: String = "",
+
 //    val source_url: Any = Any(),
 //    val subtotal_price: String = "",
 //    val subtotal_price_set: SubtotalPriceSet = SubtotalPriceSet(),

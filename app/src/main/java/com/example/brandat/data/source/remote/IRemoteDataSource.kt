@@ -1,6 +1,8 @@
 package com.example.brandat.data.source.remote
 
 import com.example.brandat.models.*
+import com.example.brandat.models.currency.CurrencyResponse
+import com.example.brandat.models.currrenct.CurrencyConverter
 import com.example.brandat.models.orderModel.OrderModel
 import com.example.brandat.models.orderModel.OrderResponse
 import com.example.brandat.models.draftOrder.DraftOrder
@@ -21,4 +23,5 @@ interface IRemoteDataSource {
     suspend fun createOrder(orders: OrderModel):Response<OrderResponse>
     suspend fun postFavDraft(draftModel: DraftOrderModel): Response<DraftOrder>
     suspend fun  getDiscountCodes():Response<PriceRules>
-}
+//     suspend fun  currencyConverter():Response<CurrencyResponse>
+     }

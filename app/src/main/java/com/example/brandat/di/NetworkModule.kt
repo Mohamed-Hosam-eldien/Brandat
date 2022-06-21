@@ -1,7 +1,10 @@
 package com.example.brandat.di
 
+import com.example.brandat.data.source.remote.CurrencyNetworkService
 import com.example.brandat.data.source.remote.NetworkService
+import com.example.brandat.utils.Constants
 import com.example.brandat.utils.Constants.Companion.BASE_URL
+import com.example.brandat.utils.Constants.Companion.CURRENCY_BASE_URL
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -60,5 +63,28 @@ object NetworkModule {
     fun provideApiService(retrofit: Retrofit): NetworkService {
         return retrofit.create(NetworkService::class.java)
     }
-
+//
+//    @Provides
+//    fun provideRetrofitCurrency(
+//        okHttpClient: OkHttpClient,
+//        gsonConverterFactory: GsonConverterFactory
+//    ): Retrofit {
+//
+//        val interceptor = HttpLoggingInterceptor()
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+//        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+//
+//        return Retrofit.Builder()
+//            .baseUrl(CURRENCY_BASE_URL)
+//            //  .client(client)
+//            .client(okHttpClient)
+//            .addConverterFactory(gsonConverterFactory)
+//            .build()
+//    }
+//
+//    //@Singleton
+//    @Provides
+//    fun provideApiServiceCurrency(retrofit: Retrofit): CurrencyNetworkService {
+//        return retrofit.create(CurrencyNetworkService::class.java)
+//    }
 }

@@ -24,6 +24,7 @@ import com.example.brandat.R
 import com.example.brandat.databinding.FragmentHomeBinding
 import com.example.brandat.models.Brand
 import com.example.brandat.models.orderModel.discount.PriceRule
+import com.example.brandat.models.orderModel.discount.PriceRules
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ResponseResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -91,8 +92,8 @@ class HomeFragment : Fragment(), BrandOnClickListner {
 
     }
 
-    private fun randomDiscountCode(priceRules: List<PriceRule>) {
-        val randomElements = (0..priceRules.size ).shuffled().random()
+    private fun randomDiscountCode(priceRules: List<PriceRule>)  {
+        val randomElements = (0..priceRules.size-1 ).shuffled().random()
         binding.txtCode.text = priceRules[randomElements].title
 
     }
@@ -104,6 +105,9 @@ class HomeFragment : Fragment(), BrandOnClickListner {
     }
 
     private fun cardAnimation() {
+        Constants?.let {
+            randomDiscountCode(Constants.discounCde!!)
+        }
         TransitionManager.beginDelayedTransition(binding.giftCard, AutoTransition())
         binding.layoutCode.visibility = if (binding.layoutCode.visibility == View.GONE) {
                 View.VISIBLE

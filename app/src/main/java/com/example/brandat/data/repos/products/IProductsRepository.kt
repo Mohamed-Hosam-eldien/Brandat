@@ -8,6 +8,7 @@ import com.example.brandat.models.orderModel.OrderModel
 import com.example.brandat.models.orderModel.OrderResponse
 import com.example.brandat.models.Product
 import com.example.brandat.models.Products
+import com.example.brandat.models.currency.CurrencyResponse
 import com.example.brandat.models.orderModel.DiscountCodes
 import com.example.brandat.models.orderModel.discount.PriceRules
 import com.example.brandat.ui.fragments.cart.Cart
@@ -46,6 +47,9 @@ interface IProductsRepository {
 
     //discount code
     suspend fun  getDiscountCodes():ResponseResult<PriceRules>
+
+    // currency
+//    suspend fun  currencyConverter():ResponseResult<CurrencyResponse>
 
 
 }

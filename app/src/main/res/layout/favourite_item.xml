@@ -65,6 +65,14 @@
                 app:layout_constraintStart_toStartOf="@id/tv_product_name"
                 app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
+             <TextView
+                 android:id="@+id/fav_currency"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                  app:layout_constraintStart_toEndOf="@id/tv_product_price"
+                 app:layout_constraintTop_toTopOf="@id/tv_product_price"
+                 app:layout_constraintBottom_toBottomOf="@id/tv_product_price"
+                 />
             <ImageView
                 android:id="@+id/iv_favorite"
                 android:layout_width="40dp"

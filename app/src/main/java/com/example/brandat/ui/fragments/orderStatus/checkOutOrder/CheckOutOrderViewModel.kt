@@ -41,7 +41,8 @@ class CheckOutOrderViewModel @Inject constructor(private val repository: IProduc
                gateway= selectedPaymentMethods ,
                total_price = Constants.totalPrice.toString(),
                totalDiscount = discount.toString(),
-              customer = Constants.user
+               source_name = selectedAddress!!.printAddress()
+              //customer = Constants.user
 
         )
 

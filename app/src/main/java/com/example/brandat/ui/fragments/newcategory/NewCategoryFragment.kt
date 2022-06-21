@@ -244,7 +244,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
 
     private fun setUpRecyclerView() {
-        productRvAdapter = ProductRvAdapter(this)
+        productRvAdapter = ProductRvAdapter(requireContext(),this)
 
         binding.recyclerCategory.apply {
             val layoutManager =

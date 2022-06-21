@@ -44,6 +44,7 @@ import com.paypal.checkout.order.AppContext
 import com.paypal.checkout.order.Order
 import com.paypal.checkout.order.PurchaseUnit
 import dagger.hilt.android.AndroidEntryPoint
+import io.paperdb.Paper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.json.JSONException
@@ -55,7 +56,7 @@ class CheckOutOrderFragment : Fragment() {
 
     private val checkOutOrderViewModel : CheckOutOrderViewModel by viewModels()
     private val cartViewModel : CartViewModel by viewModels()
-
+ var currency = "USD"
     lateinit var onOkClickListener: OnOkClickListener
       lateinit var binding:FragmentFinshOrderStateBinding
       override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +80,10 @@ class CheckOutOrderFragment : Fragment() {
            checkOutOrderViewModel.selectedPaymentMethods = arguments?.getString("paymentMethod")!!
            checkOutOrderViewModel.discount =  arguments?.getDouble("discount")!!
         }
-
+        Paper.init(requireContext())
+        // currency
+        var  sharedPreferences =requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
+        currency  = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
                initUi()
                setUpPayPal()
         checkOutOrderViewModel.createOrderResponse.observe(viewLifecycleOwner){
@@ -137,9 +141,9 @@ class CheckOutOrderFragment : Fragment() {
     private fun initUi() {
          showPaymentMethod()
          showSelectedAddress()
-       binding.totalPrice.text =Constants.totalPrice.toString()
-       binding.deliveryCoast.text = "100"
-       binding.orderPrice.text= (Constants.totalPrice!!+ 100).toString()
+       binding.totalPrice.text =Constants.totalPrice.toString().plus(currency)
+       binding.deliveryCoast.text = "100".plus(currency)
+       binding.orderPrice.text= (Constants.totalPrice!!+ 100).toString().plus(currency)
 
     }
 
@@ -227,7 +231,26 @@ class CheckOutOrderFragment : Fragment() {
             val resultCode = data.resultCode
 
             if (resultCode == Activity.RESULT_OK) {
-                  checkOutOrderViewModel.createOrder()
+                val auth = data?.data?.getParcelableExtra<PayPalAuthorization>(PayPalProfileSharingActivity.EXTRA_RESULT_AUTHORIZATION)
+                val confirm =
+
+                    data?.data?.getParcelableExtra<PaymentConfirmation>(PaymentActivity.EXTRA_RESULT_CONFIRMATION)
+                if (confirm != null) {
+                    try {
+                        checkOutOrderViewModel.createOrder()
+
+                        Log.e(TAG, ": auth ${auth}" )
+                        Log.i(TAG, confirm.toJSONObject().toString(4))
+                        Log.i(TAG, confirm.payment.toJSONObject().toString(4))
+
+                    } catch (e: JSONException) {
+                        Log.e(TAG, "an extremely unlikely failure occurred: ", e)
+                        Toast.makeText(context,
+                            "Payment failed please try Again!",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
+                }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 showSnakebar(R.string.cancel)
 

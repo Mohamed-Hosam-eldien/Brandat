@@ -1,6 +1,8 @@
 package com.example.brandat.data.source.remote
 
 import com.example.brandat.models.*
+import com.example.brandat.models.currency.CurrencyResponse
+import com.example.brandat.models.currrenct.CurrencyConverter
 
 import com.example.brandat.models.draftOrder.DraftOrder
 import com.example.brandat.models.draftOrder.DraftOrderModel
@@ -8,6 +10,7 @@ import com.example.brandat.models.orderModel.DiscountCodes
 import com.example.brandat.models.orderModel.OrderModel
 import com.example.brandat.models.orderModel.OrderResponse
 import com.example.brandat.models.orderModel.discount.PriceRules
+import com.example.brandat.utils.Constants
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -22,6 +25,10 @@ interface NetworkService {
     @GET("price_rules.json")
     suspend fun getDiscountCodes(): Response<PriceRules>
 
+//    @GET("api/v7/convert?q=USD_EGP,EGP_SAR&compact=ultra")
+//    suspend fun convertCurrency(@Query("api") to: String): Response<CurrencyConverter>
+//    @GET("convert?apikey=345d0e86dea309b5506b82a5&amount=1&from=USD")
+//    suspend fun convertCurrency(@Query("to") to: String): Response<ConverterCurrency>
 
     @Headers("X-Shopify-Access-Token: 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")
     @GET("collections/{collection_id}/products.json")
@@ -58,5 +65,6 @@ interface NetworkService {
     @POST("draft_orders.json")
     suspend fun draftFavorite(@Body draftOrderModel: DraftOrderModel):Response<DraftOrder>
 
-
+//    @GET("v6/345d0e86dea309b5506b82a5/latest/USD")
+//    suspend fun convertCurrency(): Response<CurrencyResponse>
 }

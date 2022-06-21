@@ -1,5 +1,7 @@
 package com.example.brandat.ui.fragments.category
 
+import android.app.Application
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
@@ -13,16 +15,24 @@ import com.example.brandat.databinding.ProductItemBinding
 import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.cart.Cart
+import com.example.brandat.utils.Constants
 import com.example.brandat.utils.FavouriteDiffUtil
 import com.example.brandat.utils.ProductDiffUtil
+import com.example.brandat.utils.convertCurrency
 
 
- class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener) : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
+class ProductRvAdapter(var context:Context,var onImageFavClickedListener: OnImageFavClickedListener) : RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
 
    // private var products = emptyList<Product>()
     private var product = emptyList<ProductDetails>()
      private var favorites = emptyList<Favourite>()
+    var currency :String = "USD"
 
+    init {
+        var  sharedPreferences =context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
+       currency  = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
 
@@ -42,7 +52,8 @@ import com.example.brandat.utils.ProductDiffUtil
         Glide.with(holder.binding.root)
             .load(currentProduct.imageProduct.src)
             .into(holder.binding.ivProduct)
-
+       holder.binding.tvProductPrice.text= convertCurrency(currentProduct.variants[currentProduct.variants.lastIndex].price.toDouble(),holder.itemView.context)
+        holder.binding.productCurrency.text= currency
         for (i in 0..favorites.size.minus(1)) {
             if (currentProduct.title == favorites[i].productName) {
                 holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
@@ -134,3 +145,11 @@ import com.example.brandat.utils.ProductDiffUtil
     }
 
 }
+
+
+
+
+
+
+
+

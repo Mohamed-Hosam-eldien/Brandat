@@ -2,6 +2,7 @@ package com.example.brandat.ui.fragments.orderStatus.secondState
 
 import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import com.example.brandat.ui.fragments.orderStatus.IChangeOrderStatus
 import com.example.brandat.ui.fragments.orderStatus.checkOutOrder.CheckOutOrderViewModel
 import com.example.brandat.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import io.paperdb.Paper
 import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.math.log
@@ -33,6 +35,7 @@ class SecondOrderStatus: Fragment() {
     private val shardOrderStatusViewModel: CheckOutOrderViewModel by viewModels()
     lateinit var selectedAddress: CustomerAddress
     var selectPaymentMethod: String? = null
+    var currency = "USD"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,7 +60,10 @@ class SecondOrderStatus: Fragment() {
 
 
         }
-
+        Paper.init(requireContext())
+        // currency
+        var  sharedPreferences =requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
+        currency  = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
         binding.layoutCash.setOnClickListener {
             binding.rdbCash.isChecked = true
             binding.rdbPay.isChecked = false
@@ -117,7 +123,7 @@ class SecondOrderStatus: Fragment() {
     private fun isCorrectCoupon(code: String): String {
         val value = Constants.discounCde?.filter { it.title == code }
         if (value?.size!=0) {
-            return "30.0"
+            return value?.get(0)!!.value
         }
         return ""
     }
@@ -126,8 +132,8 @@ class SecondOrderStatus: Fragment() {
         Constants.totalPrice?.let {
              discount = it * discountValue.toDouble() / 100
             Constants.totalPrice = it - discount
-            binding.finalPrice.text = Constants.totalPrice.toString()
-            binding.discount.text=discount.toString()
+            binding.finalPrice.text = Constants.totalPrice.toString().plus(currency)
+            binding.discount.text=discount.toString().plus(currency)
         }
     }
 

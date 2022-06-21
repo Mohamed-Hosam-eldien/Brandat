@@ -2,6 +2,7 @@ package com.example.brandat.ui.fragments.cart
 
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +20,7 @@ import com.example.brandat.databinding.FragmentCartBinding
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.orderStatus.checkOutOrder.OnOkClickListener
+import com.example.brandat.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -30,7 +32,7 @@ class CartFragment : Fragment(), CartOnClickListener,OnOkClickListener {
     private lateinit var builder: AlertDialog.Builder
     private lateinit var bindingDialog: AlertDialogBinding
     private lateinit var dialog: AlertDialog
-
+   var currency = "USD"
     private val cartViewModel: CartViewModel by viewModels()
 
     override fun onCreateView(
@@ -49,8 +51,10 @@ class CartFragment : Fragment(), CartOnClickListener,OnOkClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-
         Paper.init(requireContext())
+     // currency
+            var  sharedPreferences =requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
+            currency  = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
 
         binding.buyButn.setOnClickListener {
 //            if(Paper.book().read<String>("email") == null) {

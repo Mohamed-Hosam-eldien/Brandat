@@ -77,8 +77,10 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
     private fun showObservedData() {
         viewModel.getAllAddress()
         viewModel.getAddresses.observe(viewLifecycleOwner) {
-            initView(it)
-            selectedAddress=it[0]
+           if (it.size !=0) {
+               initView(it)
+               selectedAddress = it[0]
+           }
         }
 
     }

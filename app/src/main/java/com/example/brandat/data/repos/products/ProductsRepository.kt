@@ -9,6 +9,7 @@ import com.example.brandat.models.Product
 import com.example.brandat.models.Products
 import com.example.brandat.models.Brands
 import com.example.brandat.models.Favourite
+import com.example.brandat.models.currency.CurrencyResponse
 import com.example.brandat.models.orderModel.OrderModel
 import com.example.brandat.models.orderModel.OrderResponse
 import com.example.brandat.models.draftOrder.DraftOrder
@@ -71,6 +72,29 @@ class ProductsRepository @Inject constructor(
        }
 
     }
+
+//    override suspend fun currencyConverter(): ResponseResult<CurrencyResponse> {
+//        return try{
+//             var res = remoteDataSource.currencyConverter()
+//            if (res.isSuccessful){
+//                if (res!=null){
+//                    return ResponseResult.Success(res.body()!!)
+//                }
+//                else{
+//                    return ResponseResult.Error(res)
+//                }
+//            }
+//            else{
+//                return ResponseResult.Error()
+//
+//            }
+//        }catch (t:Throwable){
+//            Log.e(TAG, "currencyConverter: ${t.localizedMessage}", )
+//            return ResponseResult.Error(t.localizedMessage)
+//        }
+//
+//
+//    }
 
 
     override suspend fun getbrand():Response<Brands> {

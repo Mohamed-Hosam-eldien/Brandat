@@ -1,13 +1,12 @@
 package com.example.brandat.data.source.remote
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.brandat.models.*
+import com.example.brandat.models.currency.CurrencyResponse
 import com.example.brandat.models.orderModel.OrderModel
 import com.example.brandat.models.orderModel.OrderResponse
 import com.example.brandat.models.draftOrder.DraftOrder
 import com.example.brandat.models.draftOrder.DraftOrderModel
-import com.example.brandat.models.orderModel.DiscountCodes
 import com.example.brandat.models.orderModel.discount.PriceRules
 import retrofit2.Response
 import javax.inject.Inject
@@ -50,14 +49,16 @@ class RemoteDataSource @Inject constructor(
     }
 
     override suspend fun getDiscountCodes(): Response<PriceRules> {
-        Log.e(TAG, "getDiscountCodes: ${networkService.getDiscountCodes().body()}")
       return networkService.getDiscountCodes()
 
     }
 
-    override suspend fun createOrder(orders: OrderModel): Response<OrderResponse> {
+//    override suspend fun currencyConverter(): Response<CurrencyResponse> {
+//        return  currencyNetworkService.convertCurrency()
+//    }
 
-    return networkService.createOrder(orders)
+    override suspend fun createOrder(orders: OrderModel): Response<OrderResponse> {
+        return networkService.createOrder(orders)
     }
 
 

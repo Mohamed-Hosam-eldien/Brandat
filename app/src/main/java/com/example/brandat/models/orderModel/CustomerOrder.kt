@@ -21,5 +21,7 @@ data class CustomerOrder(
     val total_price: String = "",
     @SerializedName( "current_total_discounts")
     val totalDiscount: String? = "",
+    @SerializedName( "source_name")
+    val source_name: String = "",
 
     )

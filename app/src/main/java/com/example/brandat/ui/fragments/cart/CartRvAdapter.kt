@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 import com.example.brandat.R
 import com.example.brandat.databinding.CartItemBinding
 import com.example.brandat.utils.CartDiffUtil
+import com.example.brandat.utils.Constants
+import com.example.brandat.utils.convertCurrency
 import com.google.android.material.snackbar.Snackbar
 
 class CartRvAdapter(
@@ -28,7 +30,13 @@ class CartRvAdapter(
     private var selectedOrders = arrayListOf<Cart>()
     private var multiSelection = false
     private var totalPrice = 0.0
+    var currency :String = "USD"
 
+    init {
+        var  sharedPreferences =context.getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
+        currency  = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
+
+    }
     fun setData(newData: List<Cart>) {
         val cartDiffUtil = CartDiffUtil(carts, newData)
         val cartDiffUtilResult = DiffUtil.calculateDiff(cartDiffUtil)
@@ -55,10 +63,14 @@ class CartRvAdapter(
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
+        val currentProduct = carts[position]
+
         myViewHolders.add(holder)
         rootView = holder.itemView.rootView
         val currentCart = carts[position]
         holder.bind(currentCart)
+        holder.binding.tvProductPrice.text= convertCurrency(currentProduct. pPrice.toDouble(),holder.itemView.context)
+        holder.binding.cartCurrency.text= currency
 
         totalPrice += currentCart.pPrice.toDouble()
 
