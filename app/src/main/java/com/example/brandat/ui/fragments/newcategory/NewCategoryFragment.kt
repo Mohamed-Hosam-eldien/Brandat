@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.CategoryViewModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentNewCategoryBinding
-import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.models.Variant
 import com.example.brandat.ui.MainActivity
@@ -36,14 +35,11 @@ import com.example.brandat.ui.fragments.category.SharedViewModel
 import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
-import com.example.brandat.utils.Constants.Companion.count
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.concurrent.schedule
+
 
 @AndroidEntryPoint
 class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
@@ -237,6 +233,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         } else {
             showMessage("no Connection")
             hideShimmerEffect()
+            binding.animationView.visibility = View.VISIBLE
         }
 
         ConnectionUtil.registerConnectivityNetworkMonitor(
@@ -489,48 +486,70 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     override fun onFavClicked(details: ProductDetails, ivImage: ImageView) {
 //        favouriteViewModel.insertFavouriteProduct(favourite)
 //        saveToDraft(details)
-        saveFavToDraft(details)
+        saveFavToDraft(details, ivImage)
     }
 
-    private fun saveFavToDraft(details: ProductDetails) {
-        FirebaseDatabase.getInstance()
-            .getReference(Constants.user.id.toString())
-            .child("fav")
-            .child(details.id.toString())
-            .setValue(details)
+    private fun saveFavToDraft(details: ProductDetails, ivImage: ImageView) {
+        if (Paper.book().read<String>("email") == null) {
+            showDialog()
+        } else {
+            FirebaseDatabase.getInstance()
+                .getReference(Constants.user.id.toString())
+                .child("fav")
+                .child(details.id.toString())
+                .setValue(details)
+            ivImage.setImageResource(R.drawable.ic_favorite_filled)
+        }
     }
 
-    private fun removeFromDraft(favouriteId: Long) {
-        FirebaseDatabase.getInstance()
-            .getReference(Constants.user.id.toString())
-            .child("fav")
-            .child(favouriteId.toString())
-            .removeValue()
+    private fun removeFromDraft(favouriteId: Long, ivFavorite: ImageView) {
+        if (Paper.book().read<String>("email") == null) {
+            showDialog()
+        } else {
+            FirebaseDatabase.getInstance()
+                .getReference(Constants.user.id.toString())
+                .child("fav")
+                .child(favouriteId.toString())
+                .removeValue()
+            ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
+        }
     }
 
-    override fun deleteFavourite(favouriteId: Long) {
-        removeFromDraft(favouriteId)
-//        favouriteViewModel.removeFavouriteProduct(favouriteId)
+    override fun deleteFavourite(favouriteId: Long, ivFavorite: ImageView) {
+        removeFromDraft(favouriteId, ivFavorite)
     }
 
-    override fun onCartClicked(currentProduct: Cart) {
+    override fun onCartClicked(currentProduct: Cart, ivCart: ImageView) {
         // isClicked=true
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
-            cartViewModel.addProductToCart(currentProduct)
-//            bageCountI.updateBadgeCount(count++)
+
+            if (ivCart.tag != "done") {
+                addCartToDraft(currentProduct)
+                ivCart.tag = "done"
+                cartViewModel.addProductToCart(currentProduct)
+                ivCart.setImageResource(R.drawable.cart_done)
+                ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
+                /*bageCountI.updateBadgeCount(count++)
             cartViewModel.getAllCartProduct()
-            addCartToDraft(currentProduct)
             cartViewModel.cartProduct.observe(viewLifecycleOwner) {
                 count = it.size
                 cartViewModel.addProductToCart(currentProduct)
-                Toast.makeText(requireContext(), "yeahhh!", Toast.LENGTH_SHORT).show()
                 bageCountI.updateBadgeCount(count)
             }
-            Paper.book().write("CountfromHome", count)
+            Paper.book().write("CountfromHome", count)*/
+
+                if (Paper.book().read<Int>("count") != null) {
+                    Paper.book().write("count", Paper.book().read<Int>("count")!! + 1)
+                } else {
+                    Paper.book().write("count", 1)
+                }
+                bageCountI.updateBadgeCount(Paper.book().read<Int>("count")!!)
+            }
         }
     }
+
 
     private fun addCartToDraft(currentProduct: Cart) {
         FirebaseDatabase.getInstance()

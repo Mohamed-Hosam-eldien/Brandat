@@ -19,7 +19,6 @@ interface BrandatDao {
     @Query("SELECT * From cart_table ")//ORDER BY pName ASC
     suspend fun getAllCartProducts(): List<Cart>
 
-
     @Query("update cart_table set pQuantity =:conut,tPrice=:totalPrice where pId =:id")
     suspend fun updateOrder(conut: Int, id: Long, totalPrice: kotlin.Double?)
 
@@ -40,6 +39,7 @@ interface BrandatDao {
 
     @Query("SELECT * FROM Favourite ")
     suspend fun getFavouriteProducts(): List<Favourite>
+
 
     @Query("SELECT SUM(tPrice) FROM cart_table")
     suspend fun getAllPrice(): Double

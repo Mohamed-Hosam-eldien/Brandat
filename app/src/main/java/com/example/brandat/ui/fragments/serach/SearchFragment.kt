@@ -1,7 +1,6 @@
 package com.example.brandat.ui.fragments.serach
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -20,13 +19,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentSearchBinding
 import com.example.brandat.models.ProductDetails
+import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
+import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.utils.ConnectionUtil
+import com.example.brandat.utils.Constants
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -36,6 +39,7 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
     private val viewModel: SearchViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
     private lateinit var iSnackBar: ISnackBar
+    private lateinit var bageCountI: IBadgeCount
 
     private lateinit var binding: FragmentSearchBinding
     private var itemList = emptyList<ProductDetails>()
@@ -139,22 +143,78 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
     }
 
     override fun onFavClicked(favourite: ProductDetails, ivImage: ImageView) {
-
+        saveFavToDraft(favourite, ivImage)
     }
 
-    override fun onCartClicked(currentProduct: Cart) {
+    private fun addCartToDraft(currentProduct: Cart) {
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("cart")
+            .child(currentProduct.pId.toString())
+            .setValue(currentProduct)
+    }
+
+
+    override fun onCartClicked(currentProduct: Cart, ivCart: ImageView) {
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
-            cartViewModel.addProductToCart(currentProduct)
-            showSnackBar(currentProduct)
+
+            if (ivCart.tag != "done") {
+                addCartToDraft(currentProduct)
+                ivCart.tag = "done"
+                cartViewModel.addProductToCart(currentProduct)
+                ivCart.setImageResource(R.drawable.cart_done)
+                ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
+                /*bageCountI.updateBadgeCount(count++)
+            cartViewModel.getAllCartProduct()
+            cartViewModel.cartProduct.observe(viewLifecycleOwner) {
+                count = it.size
+                cartViewModel.addProductToCart(currentProduct)
+                bageCountI.updateBadgeCount(count)
+            }
+            Paper.book().write("CountfromHome", count)*/
+
+                if (Paper.book().read<Int>("count") != null) {
+                    Paper.book().write("count", Paper.book().read<Int>("count")!! + 1)
+                } else {
+                    Paper.book().write("count", 1)
+                }
+//                bageCountI.updateBadgeCount(Paper.book().read<Int>("count")!!)
+            }
         }
     }
 
-    override fun deleteFavourite(favouriteId: Long) {
-        TODO("Not yet implemented")
+    override fun deleteFavourite(favouriteId: Long, ivFavorite: ImageView) {
+        removeFromDraft(favouriteId, ivFavorite)
     }
 
+
+    private fun saveFavToDraft(details: ProductDetails, ivImage: ImageView) {
+        if (Paper.book().read<String>("email") == null) {
+            showDialog()
+        } else {
+            FirebaseDatabase.getInstance()
+                .getReference(Constants.user.id.toString())
+                .child("fav")
+                .child(details.id.toString())
+                .setValue(details)
+            ivImage.setImageResource(R.drawable.ic_favorite_filled)
+        }
+    }
+
+    private fun removeFromDraft(favouriteId: Long, ivFavorite: ImageView) {
+        if (Paper.book().read<String>("email") == null) {
+            showDialog()
+        } else {
+            FirebaseDatabase.getInstance()
+                .getReference(Constants.user.id.toString())
+                .child("fav")
+                .child(favouriteId.toString())
+                .removeValue()
+            ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
+        }
+    }
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.login_now)) { _, _ ->

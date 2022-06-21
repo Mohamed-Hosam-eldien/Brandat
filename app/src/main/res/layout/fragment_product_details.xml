@@ -154,7 +154,7 @@
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                     android:id="@+id/elegantNumberButton_quantity"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="42dp"
                     android:layout_marginTop="18dp"
                     android:background="@color/purple_200"
                     android:gravity="center"

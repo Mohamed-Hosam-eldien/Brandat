@@ -79,11 +79,11 @@ class HomeFragment : Fragment(), BrandOnClickListner {
                }
             }
         }
-        brandViewModel.getBrands()
-        brandViewModel.brandResponse.observe(requireActivity()) {
-            brands = it
-            brandAdapter.setData(brands)
-        }
+//        brandViewModel.getBrands()
+//        brandViewModel.brandResponse.observe(requireActivity()) {
+//            brands = it
+//            brandAdapter.setData(brands)
+//        }
         imageSlider()
         ShowDescountCopune()
         discountInit()
@@ -115,7 +115,7 @@ class HomeFragment : Fragment(), BrandOnClickListner {
 
 
             } else {
-                //showShimmerEffect()
+                showShimmerEffect()
             }
         }
             ConnectionUtil.registerConnectivityNetworkMonitor(
@@ -126,7 +126,6 @@ class HomeFragment : Fragment(), BrandOnClickListner {
         }
 
     private fun ShowDescountCopune() {
-
 
         binding.imgCopy.setOnClickListener {
             val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

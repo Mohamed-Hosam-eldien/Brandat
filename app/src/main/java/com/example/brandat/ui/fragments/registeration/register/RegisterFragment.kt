@@ -13,9 +13,15 @@ import com.example.brandat.databinding.FragmentRegisterBinding
 import com.example.brandat.models.Customer
 import com.example.brandat.models.CustomerRegisterModel
 import com.example.brandat.models.DefaultAddress
+import com.example.brandat.ui.fragments.cart.Cart
+import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.Constants.Companion.EMAIL_PATTERN
 import com.example.brandat.utils.Constants.Companion.user
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -30,6 +36,8 @@ class RegisterFragment : Fragment() {
     private lateinit var confirmPass: String
 
     private val registerViewModel: RegisterViewModel by viewModels()
+    private val cartViewModel: CartViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,13 +76,24 @@ class RegisterFragment : Fragment() {
         }
 
         registerViewModel.signUpSuccess.observe(viewLifecycleOwner) {
-            Paper.init(requireContext())
-            Paper.book().write("id", it.customer.id)
-            Paper.book().write("email", binding.emailEt.text.toString())
-            Paper.book().write("name", binding.firstNameEt.text.toString() + " " + binding.lastEt.text.toString())
-            initUser()
-            requireActivity().finish()
-            Toast.makeText(requireContext(), context?.getString(R.string.User_Created_Successfully), Toast.LENGTH_SHORT).show()
+            if(it != null) {
+                Paper.init(requireContext())
+                Paper.book().write("id", it.customer.id)
+                Paper.book().write("email", binding.emailEt.text.toString())
+                Paper.book().write(
+                    "name",
+                    binding.firstNameEt.text.toString() + " " + binding.lastEt.text.toString()
+                )
+                initUser()
+                requireActivity().finish()
+                Toast.makeText(
+                    requireContext(),
+                    context?.getString(R.string.User_Created_Successfully),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(requireContext(), "this user already exist", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -83,6 +102,25 @@ class RegisterFragment : Fragment() {
             user.id = Paper.book().read<Long>("id")!!
             user.email = Paper.book().read<String>("email").toString()
             user.firstName = Paper.book().read<String>("name").toString()
+
+            FirebaseDatabase.getInstance()
+                .getReference(Constants.user.id.toString())
+                .child("cart")
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        Paper.book().write<Int>("count", snapshot.children.count())
+                        //Constants.count = Paper.book().read<Int>("count")!!
+//                        val viewModel = ViewModelProvider(this@LoginFragment)[ProfileSharedViewModel::class.java]
+//                        viewModel.setCount(count)
+
+                        snapshot.children.forEach {
+                            val cart : Cart = it.getValue(Cart::class.java)!!
+                            cartViewModel.addProductToCart(cart)
+                        }
+
+                    }
+                    override fun onCancelled(error: DatabaseError) {}
+                })
         }
     }
 

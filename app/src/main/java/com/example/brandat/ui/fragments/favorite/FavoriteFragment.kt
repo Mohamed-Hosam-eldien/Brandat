@@ -6,18 +6,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFavoriteBinding
 import com.example.brandat.models.Favourite
-import com.example.brandat.models.OrderResponse
 import com.example.brandat.models.ProductDetails
+import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
+import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.example.brandat.utils.Constants
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -33,7 +36,7 @@ class FavoriteFragment : Fragment(), OnclickListener {
     private val favourite: List<Favourite> = ArrayList()
     private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
-
+    private lateinit var bageCountI: IBadgeCount
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +50,7 @@ class FavoriteFragment : Fragment(), OnclickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        bageCountI = requireActivity() as MainActivity
     }
 
 
@@ -113,7 +116,13 @@ class FavoriteFragment : Fragment(), OnclickListener {
 
 
     override fun onItemClicked(productId: Long) {
+        val bundle = Bundle()
+        bundle.putLong("productId", productId)
 
+        findNavController().navigate(
+            R.id.action_favoriteFragment_to_productDetailsFragment,
+            bundle
+        )
     }
 
     override fun onRemoveClicked(favourite: ProductDetails) {
@@ -141,13 +150,42 @@ class FavoriteFragment : Fragment(), OnclickListener {
             .removeValue()
     }
 
-    override fun onCartClicked(product: Cart) {
+    override fun onCartClicked(product: Cart, ivCart: ImageView) {
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
-            cartViewModel.addProductToCart(product)
-            Toast.makeText(requireContext(), "Added To Cart", Toast.LENGTH_SHORT).show()
+
+            if (ivCart.tag != "done") {
+                addCartToDraft(product)
+                ivCart.tag = "done"
+                cartViewModel.addProductToCart(product)
+                ivCart.setImageResource(R.drawable.cart_done)
+                ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
+                /*bageCountI.updateBadgeCount(count++)
+            cartViewModel.getAllCartProduct()
+            cartViewModel.cartProduct.observe(viewLifecycleOwner) {
+                count = it.size
+                cartViewModel.addProductToCart(currentProduct)
+                bageCountI.updateBadgeCount(count)
+            }
+            Paper.book().write("CountfromHome", count)*/
+
+                if (Paper.book().read<Int>("count") != null) {
+                    Paper.book().write("count", Paper.book().read<Int>("count")!! + 1)
+                } else {
+                    Paper.book().write("count", 1)
+                }
+                bageCountI.updateBadgeCount(Paper.book().read<Int>("count")!!)
+            }
         }
+    }
+
+    private fun addCartToDraft(currentProduct: Cart) {
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("cart")
+            .child(currentProduct.pId.toString())
+            .setValue(currentProduct)
     }
 
     private fun showDialog() {

@@ -9,7 +9,11 @@
         android:id="@+id/favoriteFragment"
         android:name="com.example.brandat.ui.fragments.favorite.FavoriteFragment"
         android:label="@string/fav"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/homeFragment"

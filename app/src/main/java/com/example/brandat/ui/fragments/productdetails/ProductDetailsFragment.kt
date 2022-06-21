@@ -17,13 +17,17 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProductDetailsBinding
 import com.example.brandat.models.Product
+import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.User
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
+import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.example.brandat.utils.ConnectionUtil
+import com.example.brandat.utils.Constants
 import com.example.brandat.viewmodels.ProductDetailsViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -34,6 +38,8 @@ class ProductDetailsFragment : Fragment() {
     private var random: Float = 4.5F
     private lateinit var mProduct: Product
     private lateinit var productToCart: Cart
+    private lateinit var bageCountI: IBadgeCount
+
     private var user: List<User> = listOf(
         User("Mohamed", "this product is so beautiful wwooooww", 3),
         User("Ahmed", "I really liked this product so awesome", 4),
@@ -67,6 +73,8 @@ class ProductDetailsFragment : Fragment() {
         _binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_product_details, container, false)
 
+        bageCountI = requireActivity() as MainActivity
+
         Paper.init(requireContext())
 
         return binding.root
@@ -92,14 +100,7 @@ class ProductDetailsFragment : Fragment() {
         binding.favoriteBtn.setOnClickListener {
 
         }
-        binding.butAddToCart.setOnClickListener {
-            if (Paper.book().read<String>("email") == null) {
-                showDialog()
-            } else {
-                cartViewModel.addProductToCart(productToCart)
-                Toast.makeText(requireContext(), context?.getString(R.string.added_to_cart), Toast.LENGTH_SHORT).show()
-            }
-        }
+
         setupRecyclerView()
         var usersList: User? = user.asSequence().shuffled().find { true }
         val numberOfElements = 3
@@ -108,6 +109,15 @@ class ProductDetailsFragment : Fragment() {
         observeShowData()
         ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(), viewModel, requireActivity())
 
+    }
+
+
+    private fun addCartToDraft(currentProduct: Cart) {
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("cart")
+            .child(currentProduct.pId.toString())
+            .setValue(currentProduct)
     }
 
     private fun showMessage(it: String) {
@@ -176,6 +186,44 @@ class ProductDetailsFragment : Fragment() {
             val imageList = ArrayList<SlideModel>()
             for(image in body.productDetails.imageProducts) {
                 imageList.add(SlideModel(image.src))
+            }
+
+            binding.butAddToCart.setOnClickListener {
+                if (Paper.book().read<String>("email") == null) {
+                    showDialog()
+                } else {
+
+                    //if (ivCart.tag != "done") {
+                    addCartToDraft(productToCart)
+                    //ivCart.tag = "done"
+                    cartViewModel.addProductToCart(productToCart)
+                    //ivCart.setImageResource(R.drawable.cart_done)
+                    //ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
+                    /*bageCountI.updateBadgeCount(count++)
+                cartViewModel.getAllCartProduct()
+                cartViewModel.cartProduct.observe(viewLifecycleOwner) {
+                    count = it.size
+                    cartViewModel.addProductToCart(currentProduct)
+                    bageCountI.updateBadgeCount(count)
+                }
+                Paper.book().write("CountfromHome", count)*/
+
+                    if (Paper.book().read<Int>("count") != null) {
+                        Paper.book().write("count", Paper.book().read<Int>("count")!! + 1)
+                    } else {
+                        Paper.book().write("count", 1)
+                    }
+                    bageCountI.updateBadgeCount(Paper.book().read<Int>("count")!!)
+                    Toast.makeText(requireContext(), context?.getString(R.string.added_to_cart), Toast.LENGTH_SHORT).show()
+                }
+                //}
+
+                ////
+//                if (Paper.book().read<String>("email") == null) {
+//                    showDialog()
+//                } else {
+//                    cartViewModel.addProductToCart(productToCart)
+//                }
             }
 
 //            imageList.add(SlideModel(body.productDetails.imageProducts[0].src))

@@ -29,7 +29,7 @@ class Constants {
         )
 
         var user: Customer = Customer()
-        var count: Int = 1
+        var count: Int = 0
         const val BASE_URL = "https://${apiKey}:${password}@${hostName}/admin/api/2022-04/"
 
 

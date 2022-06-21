@@ -55,12 +55,23 @@ class CartFragment : Fragment(), CartOnClickListener {
         super.onViewCreated(view, savedInstanceState)
         Paper.init(requireContext())
         setUpRecyclerView()
+        bageCountI = requireActivity() as MainActivity
+
+        getAllCartFromDraft()
+        cartViewModel.getAllCartProduct()
+        cartViewModel.cartProduct.observe(viewLifecycleOwner) {
+            if(it.isEmpty()) {
+                binding.ivPlaceholder.visibility = View.VISIBLE
+                binding.rvCart.visibility = View.GONE
+                binding.tvTprice.text = "0"
+                binding.tvConut.text = "0 item"
+            }
+        }
+
 
         //cartViewModel.getAllCartProduct()
 
         //cartViewModel.getAllPrice()
-
-        bageCountI = requireActivity() as MainActivity
 
         binding.buyButn.setOnClickListener {
             if (Paper.book().read<String>("email") == null) {
@@ -77,17 +88,6 @@ class CartFragment : Fragment(), CartOnClickListener {
                     intent.putExtra("total",binding.tvTprice.text.toString())
                     startActivity(intent)
                 }
-            }
-        }
-
-        getAllCartFromDraft()
-
-        cartViewModel.cartProduct.observe(viewLifecycleOwner) {
-            if(it.isEmpty()) {
-                binding.ivPlaceholder.visibility = View.VISIBLE
-                binding.rvCart.visibility = View.GONE
-                binding.tvTprice.text = "0"
-                binding.tvConut.text = "0 item"
             }
         }
 
@@ -131,6 +131,7 @@ class CartFragment : Fragment(), CartOnClickListener {
                             adapter = cartAdapter
 
                             var total = 0.0
+
                             list.forEach{
                                 total += it.tPrice!!
                             }
@@ -187,8 +188,17 @@ class CartFragment : Fragment(), CartOnClickListener {
             .child(order.pId.toString()).removeValue()
 
         cartViewModel.removeProductFromCart(order)
+
         cartViewModel.getAllCartProduct()
-          requireActivity().recreate()
+
+        if (Paper.book().read<Int>("count") != null) {
+            Paper.book().write("count", Paper.book().read<Int>("count")!! - 1)
+        } else {
+            Paper.book().write("count", 0)
+        }
+        bageCountI.updateBadgeCount(Paper.book().read<Int>("count")!!)
+
+        requireActivity().recreate()
     }
 
     override fun onPluseMinusClicked(count: Int, currentCart: Cart) {

@@ -1,6 +1,5 @@
 package com.example.brandat.ui.fragments.category
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -43,8 +42,6 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener)
             .load(currentProduct.imageProduct.src)
             .into(holder.binding.ivProduct)
 
-        Log.e("TAG", "onBindViewHolder: price adapter ${currentProduct.variants?.get(0)?.price}", )
-
         holder.binding.tvProductPrice.text = currentProduct.variants?.get(0)?.price
 
 //        checkFavExist(currentProduct.id, holder.binding.ivFavorite)
@@ -56,11 +53,30 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener)
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.hasChild(currentProduct.id.toString())) {
                         holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                        holder.binding.ivFavorite.tag = "favorite"
                     } else {
                         holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
+                        holder.binding.ivFavorite.tag = "unfavorite"
                     }
                 }
+                override fun onCancelled(error: DatabaseError) {}
+            })
 
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+            .child("cart")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.hasChild(currentProduct.id.toString())) {
+                        holder.binding.ivCart.setImageResource(R.drawable.cart_done)
+                        holder.binding.ivCart.tag = "done"
+                        holder.binding.ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
+                    } else {
+                        holder.binding.ivCart.tag = "notDone"
+                        holder.binding.ivCart.setImageResource(R.drawable.ic_add_to_cart)
+                        holder.binding.ivCart.setBackgroundResource(R.drawable.cart_shape_back)
+                    }
+                }
                 override fun onCancelled(error: DatabaseError) {}
             })
 
@@ -76,22 +92,34 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener)
 //
 //        }
 
+//        holder.binding.ivFavorite.setOnClickListener {
+//            if (holder.binding.ivFavorite.tag != "favorite") {
+//                holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+////                holder.binding.ivFavorite.tag = "favorite"
+//                onImageFavClickedListener.onFavClicked(currentProduct, holder.binding.ivFavorite)
+//            } else {
+//                onImageFavClickedListener.deleteFavourite(currentProduct.id, holder.binding.ivFavorite)
+//                holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
+////                holder.binding.ivFavorite.tag = "unFavorite"
+//            }
+//        }
+
         holder.binding.ivFavorite.setOnClickListener {
             if (holder.binding.ivFavorite.tag != "favorite") {
-                holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
-                holder.binding.ivFavorite.tag = "favorite"
+//                holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+//                holder.binding.ivFavorite.tag = "favorite"
                 //  val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
                 onImageFavClickedListener.onFavClicked(currentProduct, holder.binding.ivFavorite)
             } else {
-                onImageFavClickedListener.deleteFavourite(currentProduct.id)
-                holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
-                holder.binding.ivFavorite.tag = "unFavorite"
+                onImageFavClickedListener.deleteFavourite(currentProduct.id, holder.binding.ivFavorite)
+//                holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
+//                holder.binding.ivFavorite.tag = "unFavorite"
 
             }
-
         }
+
         holder.binding.ivCart.setOnClickListener {
-            onImageFavClickedListener.onCartClicked(setProductDataToCartModel(currentProduct))
+            onImageFavClickedListener.onCartClicked(setProductDataToCartModel(currentProduct), holder.binding.ivCart)
         }
 
         holder.itemView.setOnClickListener {

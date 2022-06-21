@@ -1,23 +1,34 @@
 package com.example.brandat.ui.fragments.profile
 
 import android.app.AlertDialog
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProfileDataBinding
 import com.example.brandat.models.Customer
+import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.fragments.cart.Cart
+import com.example.brandat.ui.fragments.cart.CartViewModel
+import com.example.brandat.ui.fragments.cart.IBadgeCount
+import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
 import com.example.brandat.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
+@AndroidEntryPoint
 class ProfileDataFragment : Fragment() {
 
     private lateinit var binding:FragmentProfileDataBinding
+    private val cartViewModel: CartViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,12 +77,24 @@ class ProfileDataFragment : Fragment() {
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(context?.getString(R.string.yes)) { _, _ ->
-            Paper.book().delete("email")
-            Paper.book().delete("name")
-            Paper.book().delete("id")
-            Paper.book().destroy()
-            Constants.user = Customer()
-            requireActivity().finish()
+
+            binding.btnSignOut.visibility = View.VISIBLE
+            binding.progress.visibility = View.VISIBLE
+
+            cartViewModel.getAllCartProduct()
+            cartViewModel.cartProduct.observe(viewLifecycleOwner, Observer {
+                if(it != null) {
+                    cartViewModel.removeSelectedProductsFromCart(it)
+                    Paper.book().delete("email")
+                    Paper.book().delete("name")
+                    Paper.book().delete("id")
+                    Paper.book().delete("count")
+                    Paper.book().destroy()
+                    Constants.user = Customer()
+                    requireActivity().finish()
+                }
+            })
+
         }
         builder.setNegativeButton(context?.getString(R.string.no)) { _, _ ->
         }

@@ -23,5 +23,4 @@ interface ILocalDataSource {
     suspend fun getAllPrice(): Double
     suspend fun isAdded(productName: String?): Cart
 
-
 }

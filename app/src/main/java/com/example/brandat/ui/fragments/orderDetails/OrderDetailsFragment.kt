@@ -25,7 +25,7 @@ class OrderDetailsFragment : Fragment() {
 
         val args: Bundle = requireArguments()
         val brandId = args.getLong("productId")
-        Toast.makeText(requireContext(), "productId $brandId", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), "productId $brandId", Toast.LENGTH_SHORT).show()
 
     }
 
