@@ -36,7 +36,7 @@ class BrandAdapter(var context: Context, var clickListner: BrandOnClickListner) 
         var brandItem = brandList[position]
         holder.view.brandName.text = brandItem.title
 
-        Glide.with(context).load(brandItem.image.src).into(holder.view.imgBrand)
+        Glide.with(context).load(brandItem.image!!.src).into(holder.view.imgBrand)
         holder.itemView.setOnClickListener {
             clickListner.onBrandClick(brandItem.title)
         }

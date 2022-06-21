@@ -22,7 +22,7 @@ import javax.inject.Inject
 //@ActivityRetainedScoped
 //@ViewModelScoped
 
-class ProductsRepository @Inject constructor(
+open class ProductsRepository @Inject constructor(
     private var localDataSource: ILocalDataSource,
     private var remoteDataSource: IRemoteDataSource
     ) :IProductsRepository{

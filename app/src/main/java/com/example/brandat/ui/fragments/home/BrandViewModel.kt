@@ -4,10 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.brandat.data.repos.products.IProductsRepository
 import com.example.brandat.data.repos.products.ProductsRepository
 import com.example.brandat.models.Brand
@@ -27,7 +24,7 @@ class BrandViewModel @Inject constructor(
 
 
     private var _brandResponse = MutableLiveData<Response<Brands>>()
-    var brandResponse = _brandResponse
+    var brandResponse : LiveData<Response<Brands>> = _brandResponse
 
     fun getBrands() = viewModelScope.launch {
         var result = brandRepository.getbrand()
@@ -38,7 +35,7 @@ class BrandViewModel @Inject constructor(
         } else {
             _brandResponse.postValue(result)
         }
-        brandResponse.postValue(result)
+        _brandResponse.postValue(result)
 
     }
 
