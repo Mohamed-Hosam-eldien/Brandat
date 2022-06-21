@@ -102,8 +102,6 @@ class ConnectionUtil {
                             super.onLost(network)
                             if (activity != null) {
 
-
-
                                 for(i in 0..4) {
                                     if(!isShow) {
                                         showDialoge(context)

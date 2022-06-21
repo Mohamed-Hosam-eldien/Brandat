@@ -73,7 +73,7 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
 
         binding.imgBack.setOnClickListener { requireActivity().finish() }
 
-        productRvAdapter = ProductRvAdapter(this)
+        productRvAdapter = ProductRvAdapter(this, requireActivity())
 
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

@@ -156,6 +156,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
                 viewModel.getCategory(productID)
 
+                viewModel.categoryLive
+
                 viewModel.categoryResponse.observe(requireActivity()) { it ->
                     val products: ArrayList<ProductDetails> = ArrayList()
                     Log.e("TAG", "onViewCategoryCreated:${it} ")
@@ -381,7 +383,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
 
     private fun setUpRecyclerView() {
-        productRvAdapter = ProductRvAdapter(this)
+        productRvAdapter = ProductRvAdapter(this, requireActivity())
 
         binding.recyclerCategory.apply {
             val layoutManager =

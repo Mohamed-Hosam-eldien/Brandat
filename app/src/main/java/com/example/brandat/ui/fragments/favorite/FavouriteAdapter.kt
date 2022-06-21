@@ -12,6 +12,7 @@ import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.FavouriteDiffUtil
+import com.example.brandat.utils.convertCurrency
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -21,6 +22,13 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
     RecyclerView.Adapter<FavouriteAdapter.ProductViewHolder>() {
 
     private var fav_products = emptyList<ProductDetails>()
+    var currency :String = "USD"
+
+    init {
+        val sharedPreferences = context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(
@@ -35,10 +43,16 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val currentProduct = fav_products[position]
 
+
+        holder.binding.tvProductPrice.text= convertCurrency(currentProduct.variants?.get(
+            currentProduct.variants!!.lastIndex)?.price?.toDouble(),holder.itemView.context)
+
+        holder.binding.productCurrency.text= currency
+
         //holder.binding.ivProductFav.setImageBitmap(currentProduct.productImage)
         Glide.with(context).load(currentProduct.imageProduct.src).into(holder.binding.ivProductFav)
         holder.binding.tvProductName.text = currentProduct.title.lowercase()
-        holder.binding.tvProductPrice.text = currentProduct.variants?.get(0)?.price
+//        holder.binding.tvProductPrice.text = currentProduct.variants?.get(0)?.price
 
         FirebaseDatabase.getInstance()
             .getReference(Constants.user.id.toString())

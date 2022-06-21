@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.category
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,14 +13,23 @@ import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ProductDiffUtil
+import com.example.brandat.utils.convertCurrency
 import com.google.firebase.database.*
 
-class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener) :
+class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener, val context:Context ) :
     RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
 
     // private var products = emptyList<Product>()
     private var product = emptyList<ProductDetails>()
     private var favorites = emptyList<Favourite>()
+
+    var currency :String = "USD"
+
+    init {
+        val sharedPreferences = context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
+
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -42,7 +52,12 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener)
             .load(currentProduct.imageProduct.src)
             .into(holder.binding.ivProduct)
 
-        holder.binding.tvProductPrice.text = currentProduct.variants?.get(0)?.price
+//        holder.binding.tvProductPrice.text = currentProduct.variants?.get(0)?.price
+
+        holder.binding.tvProductPrice.text= convertCurrency(currentProduct.variants?.get(
+            currentProduct.variants!!.lastIndex)?.price?.toDouble(),holder.itemView.context)
+
+        holder.binding.productCurrency.text= currency
 
 //        checkFavExist(currentProduct.id, holder.binding.ivFavorite)
 
