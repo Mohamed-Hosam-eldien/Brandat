@@ -18,7 +18,7 @@ data class Order(
     val email: String? = "",
 
     @SerializedName( "billing_address")
-    val billingAddress: Address?,
+    val billingAddress: Address?=null,
 
     @SerializedName( "app_id")
     val orderNumber: Long? = 0,

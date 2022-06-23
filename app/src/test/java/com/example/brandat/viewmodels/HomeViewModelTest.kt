@@ -4,12 +4,12 @@ import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.brandat.FakeDataSource
-import com.example.brandat.FakeRepo
+import com.example.brandat.data.source.FakeDataSource
+import com.example.brandat.data.repo.FakeProductRepo
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
 import com.example.brandat.models.Brand
-import com.example.brandat.models.ProductDetails
+import com.example.brandat.models.Brands
 import com.example.brandat.ui.fragments.home.BrandViewModel
 import getOrAwaitValue
 import org.junit.Assert.*
@@ -27,7 +27,9 @@ class HomeViewModelTest {
     lateinit var  productViewModel : BrandViewModel
 
    // val repoLocalList = mutableListOf<Brand>(Brand(), Brand(), Brand(), Brand())
-    val repoRemoteList = mutableListOf<Brand>(Brand(),Brand(), Brand(), Brand())
+    val listOfBrands : List<Brand>? = listOf(Brand(), Brand(),Brand())
+    val repoRemoteList = Brands(listOfBrands!!)
+
     lateinit var fakeRemoteDataSource: IRemoteDataSource
     lateinit var fakeLocalDataSource: ILocalDataSource
 
@@ -36,10 +38,12 @@ class HomeViewModelTest {
         //Given brandViewModel
 
         val app = ApplicationProvider.getApplicationContext<Application>()
-        //fakeLocalDataSource = FakeDataSource(repoLocalList)
-        fakeRemoteDataSource = FakeDataSource(repoRemoteList)
+        //fakeLocalDataSource = FakeDataSource(repoRemoteList)
+        val fakeDataSource = FakeDataSource()
+        fakeDataSource.brands = repoRemoteList
+        fakeRemoteDataSource = FakeDataSource()
 
-        val repo = FakeRepo()
+        val repo = FakeProductRepo()
         productViewModel = BrandViewModel(repo, app)
     }
 
@@ -55,15 +59,5 @@ class HomeViewModelTest {
 
 
     }
-
-
-    @Test
-    fun getGetProduct_() {
-    }
-
-    @Test
-    fun setGetProduct() {
-    }
-
 
 }

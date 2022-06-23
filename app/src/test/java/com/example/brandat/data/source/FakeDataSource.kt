@@ -1,20 +1,24 @@
-package com.example.brandat
+package com.example.brandat.data.source
 
 import com.example.brandat.data.repos.products.IProductsRepository
 import com.example.brandat.data.source.remote.IRemoteDataSource
 import com.example.brandat.models.*
+import com.example.brandat.models.orderModel.Order
 import com.example.brandat.models.orderModel.Orders
 import com.example.brandat.ui.fragments.cart.Cart
 import retrofit2.Response
 
-class FakeDataSource(private val brands:MutableList<Brand>? = mutableListOf<Brand>()) : IRemoteDataSource{
+class FakeDataSource() : IRemoteDataSource{
 
-    override suspend fun getCategories(productId: Long): Response<Products> {
-        TODO("Not yet implemented")
+    var brands:Brands = Brands(mutableListOf<Brand>())
+    var orders:Orders = Orders(mutableListOf<Order>())
+
+    override suspend fun getAllOrders(email: String?): Response<Orders> {
+        return Response.success(orders)
     }
 
     override suspend fun getBrands(): Response<Brands> {
-        TODO("Not yet implemented")
+        return Response.success(brands)
     }
 
     override suspend fun getAllProductsById(): Response<Products> {
@@ -37,7 +41,7 @@ class FakeDataSource(private val brands:MutableList<Brand>? = mutableListOf<Bran
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllOrders(email: String?): Response<Orders> {
+    override suspend fun getCategories(productId: Long): Response<Products> {
         TODO("Not yet implemented")
     }
 

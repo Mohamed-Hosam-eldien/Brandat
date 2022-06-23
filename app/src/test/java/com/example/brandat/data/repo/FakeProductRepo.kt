@@ -1,16 +1,30 @@
-package com.example.brandat
+package com.example.brandat.data.repo
 
+import androidx.lifecycle.MutableLiveData
 import com.example.brandat.data.repos.products.IProductsRepository
 import com.example.brandat.data.repos.products.ProductsRepository
-import com.example.brandat.models.Brands
-import com.example.brandat.models.Favourite
-import com.example.brandat.models.Product
-import com.example.brandat.models.Products
+import com.example.brandat.models.*
+import com.example.brandat.models.orderModel.Order
 import com.example.brandat.models.orderModel.Orders
 import com.example.brandat.ui.fragments.cart.Cart
 import retrofit2.Response
 
-class FakeRepo : IProductsRepository {
+class FakeProductRepo : IProductsRepository {
+
+    private val brandsItem = mutableListOf<Brand>()
+    private val ordersItem = mutableListOf<Order>()
+
+    private val observableBrandsItem = Brands(brandsItem)
+    private val observableOrdersItem = Orders(ordersItem)
+
+
+    override suspend fun getbrand(): Response<Brands> {
+        return Response.success(observableBrandsItem)
+    }
+
+    override suspend fun getAllOrders(email: String?): Response<Orders> {
+        return Response.success(observableOrdersItem)
+    }
 
     override suspend fun getProductDetails(productId: Long): Response<Product> {
         TODO("Not yet implemented")
@@ -21,10 +35,6 @@ class FakeRepo : IProductsRepository {
     }
 
     override suspend fun getAllProductByType(type: String): Response<Products> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getbrand(): Response<Brands> {
         TODO("Not yet implemented")
     }
 
@@ -72,7 +82,5 @@ class FakeRepo : IProductsRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllOrders(email: String?): Response<Orders> {
-        TODO("Not yet implemented")
-    }
+
 }

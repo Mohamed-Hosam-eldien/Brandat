@@ -34,19 +34,13 @@ data class Order(
     val currentSubtotalPriceSet: CurrentSubtotalPriceSet,
     @SerializedName("current_total_discounts")
     val currentTotalDiscounts: String,
-//    @SerializedName("current_total_discounts_set")
-//    val currentTotalDiscountsSet: CurrentTotalDiscountsSet,
     @SerializedName("current_total_duties_set")
     val currentTotalDutiesSet: Any,
     @SerializedName("current_total_price")
     val currentTotalPrice: String,
-//    @SerializedName("current_total_price_set")
-//    val currentTotalPriceSet: CurrentTotalPriceSet,
     @SerializedName("current_total_tax")
     val currentTotalTax: String,
     @SerializedName("current_total_tax_set")
-//    val currentTotalTaxSet: CurrentTotalTaxSet,
-//    @SerializedName("customer")
     val customer: Customer,
     @SerializedName("customer_locale")
     val customerLocale: Any,
