@@ -29,7 +29,7 @@ class BrandViewModel @Inject constructor(
     fun getBrands() = viewModelScope.launch {
         var result = brandRepository.getbrand()
 
-       // brandResponse.postValue()//loading
+        // brandResponse.postValue()//loading
         if (result is NetworkResult.Success<*>) {
             _brandResponse.postValue(result.data!! as Response<Brands>?)
         } else {

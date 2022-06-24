@@ -2,7 +2,7 @@ package com.example.brandat.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.brandat.data.source.FakeDataSource
+import com.example.brandat.data.source.FakeRemoteDataSource
 import com.example.brandat.data.repo.FakeProductRepo
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
@@ -34,24 +34,24 @@ class MyOrderViewModelTest {
     @Before
     fun setup(){
         //Given orderViewModel
-        val fakeDataSource = FakeDataSource()
+        val fakeDataSource = FakeRemoteDataSource()
         fakeDataSource.orders = repoRemoteList
-        fakeRemoteDataSource = FakeDataSource()
+        fakeRemoteDataSource = FakeRemoteDataSource()
 
         val repo = FakeProductRepo()
         myOrderViewModel = MyOrderViewModel(repo)
     }
 
     @Test
-    fun getAllOrdersFromAPI_listOfOrders() {
+    fun getAllOrdersFromAPI_listOfOrdersNotNull() {
 
         //When get all orders
-        myOrderViewModel.getOrdersFromApi("mmohamed@gmail.com")
+        myOrderViewModel.getOrdersFromApi("mohamed@gmail.com")
         val value = myOrderViewModel.getOrder.getOrAwaitValue { }
 
         //Then the list has value
         Assert.assertNotNull(value)
-
+        Assert.assertEquals(3, value.body()?.orders?.size)
 
     }
 }

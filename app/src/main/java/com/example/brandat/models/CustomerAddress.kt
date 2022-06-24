@@ -9,14 +9,14 @@ import com.google.gson.annotations.SerializedName
 @Entity
 data class CustomerAddress(
 
-    var isSelected:Boolean,
+    var isSelected:Boolean = false,
     @SerializedName("address1")
-    val address1: String,
+    val address1: String = "",
     @PrimaryKey
     @SerializedName("city")
-    val city: String,
+    val city: String = "",
     @SerializedName("country")
-    val country: String
+    val country: String = ""
 ){
     fun printAddress():String{
         return "$address1, $city, $country"

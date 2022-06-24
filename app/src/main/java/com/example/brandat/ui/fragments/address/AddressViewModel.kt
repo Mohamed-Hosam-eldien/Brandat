@@ -16,12 +16,12 @@ import javax.inject.Inject
 @HiltViewModel
 class AddressViewModel @Inject public constructor(
     var repository: IUserRepository
-):ViewModel() {
+) : ViewModel() {
 
     private var _getAddresses = MutableLiveData<List<CustomerAddress>>()
-    var getAddresses : LiveData<List<CustomerAddress>> = _getAddresses
+    var getAddresses: LiveData<List<CustomerAddress>> = _getAddresses
 
-    fun getAllAddress(){
+    fun getAllAddress() {
         viewModelScope.launch(Dispatchers.IO) {
             var result = repository.getAllAddresses()
             _getAddresses.postValue(result)
@@ -32,10 +32,11 @@ class AddressViewModel @Inject public constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertAddress(customerAddress)
+
         }
     }
 
-    fun removeAddress(city:String){
+    fun removeAddress(city: String) {
 
         viewModelScope.launch(Dispatchers.IO) {
             repository.removeAddress(city)

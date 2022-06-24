@@ -8,7 +8,7 @@ import com.example.brandat.models.orderModel.Orders
 import com.example.brandat.ui.fragments.cart.Cart
 import retrofit2.Response
 
-class FakeDataSource() : IRemoteDataSource{
+class FakeRemoteDataSource() : IRemoteDataSource{
 
     var brands:Brands = Brands(mutableListOf<Brand>())
     var orders:Orders = Orders(mutableListOf<Order>())

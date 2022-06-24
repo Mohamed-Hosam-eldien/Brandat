@@ -60,8 +60,6 @@ class HomeFragment : Fragment(),BrandOnClickListner {
             brandAdapter.setData(brands)
         }
         imageSlider()
-
-
     }
 
     private fun imageSlider() {

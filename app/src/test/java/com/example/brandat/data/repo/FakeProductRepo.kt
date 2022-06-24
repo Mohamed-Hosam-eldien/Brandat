@@ -11,19 +11,19 @@ import retrofit2.Response
 
 class FakeProductRepo : IProductsRepository {
 
-    private val brandsItem = mutableListOf<Brand>()
-    private val ordersItem = mutableListOf<Order>()
+    private val brandsItem = mutableListOf<Brand>(Brand(), Brand(), Brand())
+    private val ordersItem = mutableListOf<Order>(Order(), Order(), Order())
 
-    private val observableBrandsItem = Brands(brandsItem)
-    private val observableOrdersItem = Orders(ordersItem)
+    private val bBrandsItem = Brands(brandsItem)
+    private val oOrdersItem = Orders(ordersItem)
 
 
     override suspend fun getbrand(): Response<Brands> {
-        return Response.success(observableBrandsItem)
+        return Response.success(bBrandsItem)
     }
 
     override suspend fun getAllOrders(email: String?): Response<Orders> {
-        return Response.success(observableOrdersItem)
+        return Response.success(oOrdersItem)
     }
 
     override suspend fun getProductDetails(productId: Long): Response<Product> {
