@@ -42,12 +42,6 @@ class AddAddressFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val countries = resources.getStringArray(R.array.country_list)
-        var countriesAdapter = ArrayAdapter(
-            requireContext(),
-            R.layout.city_dropdown_item, countries
-        )
-        binding.autoCompleteTextView.setAdapter(countriesAdapter)
 
         val cites = resources.getStringArray(R.array.city_list)
         var citesAdapter = ArrayAdapter(

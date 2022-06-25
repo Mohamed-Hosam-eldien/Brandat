@@ -146,6 +146,7 @@
         <item>Lebanon</item>
         <item>Libya</item>
     </string-array>
+
     <string-array name="city_list">
         <item>Cairo</item>
         <item>Alexandria</item>
@@ -175,6 +176,5 @@
         <item>El Tor</item>
         <item>Suez</item>
     </string-array>
-
 
 </resources>

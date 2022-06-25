@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 import java.io.IOException
 import java.util.*
 
@@ -94,18 +94,23 @@ class MapsFragment : Fragment() {
 
 
         binding.btnLocation.setOnClickListener {
-            if (latitude!=0.0 && longitude!=0.0){
+            if (latitude != 0.0 && longitude != 0.0) {
 
-                customerAddress = getTimeZone(latitude, longitude)
-
+                customerAddress =  getTimeZone(latitude, longitude)
                 viewModel.insertAddress(customerAddress)
 
-                Toast.makeText(requireContext(), getString(R.string.saved_successfully), Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.saved_successfully),
+                    Toast.LENGTH_SHORT
+                ).show()
 
                 findNavController().popBackStack()
                 //navController.popBackStack()
-            }else{
-                Toast.makeText(context, getString(R.string.select_your_address), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, getString(R.string.select_your_address), Toast.LENGTH_SHORT)
+                    .show()
             }
 
 
@@ -120,26 +125,31 @@ class MapsFragment : Fragment() {
         var city: String = "Street 45"
         var country: String = "Egypt"
         val geocoder: Geocoder
-        val addresses: List<Address>?
+        var addresses: List<Address> = listOf<Address>()
         geocoder = Geocoder(context, Locale.getDefault())
 
         try {
-            addresses = geocoder.getFromLocation(lat, lon, 1)
-            if (addresses != null) {
-                val address = addresses[0]
-                //street = address.locality
 
-                state = address.locality ?: address.featureName
-                city = address.adminArea ?: "Suez"
-                country = address.countryName ?: "Egypt"
-               street = address.getAddressLine(0)
 
-            }
+                addresses = geocoder.getFromLocation(lat, lon, 5)
+                if (addresses != null) {
+                    val address = addresses[0]
+                    //street = address.locality
+
+                    state = address.locality ?: address.featureName
+                    city = address.adminArea ?: "Suez"
+                    country = address.countryName ?: "Egypt"
+                    street = address.getAddressLine(0)
+
+                }
+
+
+
 
         } catch (e: IOException) {
 
         }
 
-        return CustomerAddress(false,state, city, country)
+        return CustomerAddress(false, state, city, country)
     }
 }
