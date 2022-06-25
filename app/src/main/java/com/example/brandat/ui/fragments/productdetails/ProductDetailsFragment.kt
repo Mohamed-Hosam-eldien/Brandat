@@ -25,6 +25,7 @@ import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.observeOnce
 import com.example.brandat.viewmodels.ProductDetailsViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
@@ -161,7 +162,7 @@ class ProductDetailsFragment : Fragment() {
 
     private fun observeShowData() {
         //7782820708581L
-        viewModel.getProduct.observe(viewLifecycleOwner) {
+        viewModel.getProduct.observeOnce(viewLifecycleOwner) {
             if (it != null) {
                 showData(it)
             }

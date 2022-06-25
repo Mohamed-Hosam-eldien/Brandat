@@ -28,6 +28,7 @@ import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.observeOnce
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +61,7 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
 
             viewModel.getAllProduct()
-            viewModel.liveSearch.observe(viewLifecycleOwner) {
+            viewModel.liveSearch.observeOnce(viewLifecycleOwner) {
                 itemList = it
             }
 

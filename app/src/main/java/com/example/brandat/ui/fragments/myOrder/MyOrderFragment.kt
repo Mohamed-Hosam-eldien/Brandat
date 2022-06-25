@@ -53,7 +53,7 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
         Paper.init(requireContext())
         email = Paper.book().read<String>("email")
         ConnectionUtil.email = email.toString()
-        Toast.makeText(context, "${email}", Toast.LENGTH_SHORT).show()
+
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
             //shimmer / loading
             viewModel.getOrdersFromApi(email)

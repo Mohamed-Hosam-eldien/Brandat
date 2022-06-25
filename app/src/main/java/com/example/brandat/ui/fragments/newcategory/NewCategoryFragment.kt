@@ -13,7 +13,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -35,6 +34,7 @@ import com.example.brandat.ui.fragments.category.SharedViewModel
 import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.observeOnce
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,12 +50,14 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     private var type: String = ""
     private var brandName: String = "null"
     private lateinit var bageCountI: IBadgeCount
-    private var isClicked: Boolean = true
     private val viewModel: CategoryViewModel by viewModels()
-    private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
     private var mCount = 0
     private lateinit var model: SharedViewModel
+    private val listener by lazy {
+        FirebaseDatabase.getInstance()
+            .getReference(Constants.user.id.toString())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +110,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
                 filterProducts()
 
-                viewModel.productsLive.observe(viewLifecycleOwner) {
+                viewModel.productsLive.observeOnce(viewLifecycleOwner) {
                     val products: ArrayList<ProductDetails> = ArrayList()
 
 //                    Log.e("TAG", "onViewCreated: --- > empty list ${it.size}")
@@ -158,23 +160,15 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
                 viewModel.categoryLive
 
-                viewModel.categoryResponse.observe(requireActivity()) { it ->
+                viewModel.categoryResponse.observeOnce(requireActivity()) { it ->
                     val products: ArrayList<ProductDetails> = ArrayList()
-                    Log.e("TAG", "onViewCategoryCreated:${it} ")
-
-                    Log.e("TAG", "onViewCreated: --- > empty list ${it.size}")
 
                     it.forEach {
                         if (it.productType == binding.chipCatSub.text.toString().uppercase()) {
-                            Log.e("TAG", "onViewCreated: ${it.title} --  ${it.id}")
                             val price: String = setPrice(it.id)
                             it.variants = mutableListOf()
                             it.variants?.add(Variant(price = price))
                             products.add(it)
-                            Log.e(
-                                "TAG",
-                                "onViewCreated: after add --> ${it.variants?.get(0)?.price}",
-                            )
                         }
                     }
 
@@ -327,7 +321,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     private fun showMessage(it: String) {
 
-        //  snackbar = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
         Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
             .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
                 resources.getColor(
@@ -336,8 +329,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             )
             .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
             }.show()
-
-
     }
 
     private fun showShimmerEffect() {
@@ -395,7 +386,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     private fun filterCategories() {
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        model.positionMutable.observe(viewLifecycleOwner, Observer {
+        model.positionMutable.observeOnce(viewLifecycleOwner) {
 
             val cat = it[0]
 
@@ -427,13 +418,13 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             viewModel.getCategory(productID)
             binding.groupChip.visibility = View.VISIBLE
 
-        })
+        }
 
     }
 
     private fun filterProducts() {
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        model.typeMutable.observe(viewLifecycleOwner) {
+        model.typeMutable.observeOnce(viewLifecycleOwner) {
 
             when (it) {
                 "Shoes" -> {
@@ -495,8 +486,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
-            FirebaseDatabase.getInstance()
-                .getReference(Constants.user.id.toString())
+            listener
                 .child("fav")
                 .child(details.id.toString())
                 .setValue(details)
@@ -508,8 +498,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
-            FirebaseDatabase.getInstance()
-                .getReference(Constants.user.id.toString())
+            listener
                 .child("fav")
                 .child(favouriteId.toString())
                 .removeValue()
@@ -554,9 +543,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
 
     private fun addCartToDraft(currentProduct: Cart) {
-        FirebaseDatabase.getInstance()
-            .getReference(Constants.user.id.toString())
-            .child("cart")
+        listener.child("cart")
             .child(currentProduct.pId.toString())
             .setValue(currentProduct)
     }

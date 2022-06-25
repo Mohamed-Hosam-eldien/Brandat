@@ -16,18 +16,24 @@ import com.example.brandat.utils.ProductDiffUtil
 import com.example.brandat.utils.convertCurrency
 import com.google.firebase.database.*
 
-class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener, val context:Context ) :
+class ProductRvAdapter(
+    var onImageFavClickedListener: OnImageFavClickedListener,
+    val context: Context
+) :
     RecyclerView.Adapter<ProductRvAdapter.ProductViewHolder>() {
 
-    // private var products = emptyList<Product>()
     private var product = emptyList<ProductDetails>()
-    private var favorites = emptyList<Favourite>()
+    private val listener = FirebaseDatabase.getInstance().getReference(Constants.user.id.toString())
+    private val favListener = listener.child("fav")
+    private val cartListener = listener.child("cart")
 
-    var currency :String = "USD"
+
+    var currency: String = "USD"
 
     init {
-        val sharedPreferences = context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
-        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
+        val sharedPreferences =
+            context.getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE, "USD")!!
 
     }
 
@@ -52,48 +58,47 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener,
             .load(currentProduct.imageProduct.src)
             .into(holder.binding.ivProduct)
 
-//        holder.binding.tvProductPrice.text = currentProduct.variants?.get(0)?.price
+        holder.binding.tvProductPrice.text = convertCurrency(
+            currentProduct.variants?.get(
+                currentProduct.variants!!.lastIndex
+            )?.price?.toDouble(), holder.itemView.context
+        )
 
-        holder.binding.tvProductPrice.text= convertCurrency(currentProduct.variants?.get(
-            currentProduct.variants!!.lastIndex)?.price?.toDouble(),holder.itemView.context)
-
-        holder.binding.productCurrency.text= currency
+        holder.binding.productCurrency.text = currency
 
 //        checkFavExist(currentProduct.id, holder.binding.ivFavorite)
 
-        FirebaseDatabase.getInstance()
-            .getReference(Constants.user.id.toString())
-            .child("fav")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.hasChild(currentProduct.id.toString())) {
-                        holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
-                        holder.binding.ivFavorite.tag = "favorite"
-                    } else {
-                        holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
-                        holder.binding.ivFavorite.tag = "unfavorite"
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {}
-            })
 
-        FirebaseDatabase.getInstance()
-            .getReference(Constants.user.id.toString())
-            .child("cart")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.hasChild(currentProduct.id.toString())) {
-                        holder.binding.ivCart.setImageResource(R.drawable.cart_done)
-                        holder.binding.ivCart.tag = "done"
-                        holder.binding.ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
-                    } else {
-                        holder.binding.ivCart.tag = "notDone"
-                        holder.binding.ivCart.setImageResource(R.drawable.ic_add_to_cart)
-                        holder.binding.ivCart.setBackgroundResource(R.drawable.cart_shape_back)
-                    }
+        favListener.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.hasChild(currentProduct.id.toString())) {
+                    holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                    holder.binding.ivFavorite.tag = "favorite"
+                } else {
+                    holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
+                    holder.binding.ivFavorite.tag = "unfavorite"
                 }
-                override fun onCancelled(error: DatabaseError) {}
-            })
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+
+        cartListener.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.hasChild(currentProduct.id.toString())) {
+                    holder.binding.ivCart.setImageResource(R.drawable.cart_done)
+                    holder.binding.ivCart.tag = "done"
+                    holder.binding.ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
+                } else {
+                    holder.binding.ivCart.tag = "notDone"
+                    holder.binding.ivCart.setImageResource(R.drawable.ic_add_to_cart)
+                    holder.binding.ivCart.setBackgroundResource(R.drawable.cart_shape_back)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
 
 //        for (i in 0..favorites.size.minus(1)) {
 //            if (currentProduct.title == favorites[i].productName) {
@@ -121,20 +126,17 @@ class ProductRvAdapter(var onImageFavClickedListener: OnImageFavClickedListener,
 
         holder.binding.ivFavorite.setOnClickListener {
             if (holder.binding.ivFavorite.tag != "favorite") {
-//                holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
-//                holder.binding.ivFavorite.tag = "favorite"
-                //  val bm = (holder.binding.ivProduct.getDrawable() as BitmapDrawable).bitmap
                 onImageFavClickedListener.onFavClicked(currentProduct, holder.binding.ivFavorite)
             } else {
                 onImageFavClickedListener.deleteFavourite(currentProduct.id, holder.binding.ivFavorite)
-//                holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_fill)
-//                holder.binding.ivFavorite.tag = "unFavorite"
-
             }
         }
 
         holder.binding.ivCart.setOnClickListener {
-            onImageFavClickedListener.onCartClicked(setProductDataToCartModel(currentProduct), holder.binding.ivCart)
+            onImageFavClickedListener.onCartClicked(
+                setProductDataToCartModel(currentProduct),
+                holder.binding.ivCart
+            )
         }
 
         holder.itemView.setOnClickListener {

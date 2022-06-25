@@ -18,6 +18,7 @@ import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.Constants.Companion.EMAIL_PATTERN
 import com.example.brandat.utils.Constants.Companion.user
+import com.example.brandat.utils.observeOnce
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -75,7 +76,7 @@ class RegisterFragment : Fragment() {
             }
         }
 
-        registerViewModel.signUpSuccess.observe(viewLifecycleOwner) {
+        registerViewModel.signUpSuccess.observeOnce(viewLifecycleOwner) {
             if(it != null) {
                 Paper.init(requireContext())
                 Paper.book().write("id", it.customer.id)
