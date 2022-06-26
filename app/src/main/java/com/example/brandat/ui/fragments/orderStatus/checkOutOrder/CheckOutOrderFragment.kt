@@ -40,6 +40,7 @@ import com.paypal.checkout.approve.OnApprove
 import com.paypal.checkout.cancel.OnCancel
 import com.paypal.checkout.error.OnError
 import dagger.hilt.android.AndroidEntryPoint
+import io.paperdb.Paper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.json.JSONException
@@ -87,6 +88,7 @@ class CheckOutOrderFragment : Fragment() {
                     cartViewModel.removeSelectedProductsFromCart(checkOutOrderViewModel.orderProduct)
                     deleteFromDraft()
                     successDialog()
+                    removeDataFromPrefrence()
                 }
 
                 is ResponseResult.Error -> {
@@ -94,6 +96,7 @@ class CheckOutOrderFragment : Fragment() {
                     Log.e(TAG, "onViewCreated: ${it.message}", )
                     failureDialog()
                 }
+                else -> {}
             }
         }
 
@@ -106,6 +109,10 @@ class CheckOutOrderFragment : Fragment() {
 
             }
         }
+    }
+
+    private fun removeDataFromPrefrence() {
+        Paper.book().delete("count")
     }
 
     private fun deleteFromDraft() {
@@ -151,7 +158,7 @@ class CheckOutOrderFragment : Fragment() {
     private fun showSelectedAddress() {
         binding.run {
             checkOutOrderViewModel.run {
-                var customerAddress = checkOutOrderViewModel.selectedAddress
+                val customerAddress = checkOutOrderViewModel.selectedAddress
                 if (customerAddress != null) {
                     address.text =
                         customerAddress.address1.plus(" , ").plus(customerAddress.city).plus(" , ")
@@ -179,7 +186,6 @@ class CheckOutOrderFragment : Fragment() {
                 }
             }
         }
-
     }
 
     fun paypal() {
@@ -206,7 +212,7 @@ class CheckOutOrderFragment : Fragment() {
                     "error",
                     Toast.LENGTH_SHORT
                 ).show()
-                Log.e("paypal_onError", "paypal: " + errorInfo)
+                Log.e("paypal_onError", "paypal: $errorInfo")
             }
         )
     }

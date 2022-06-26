@@ -13,13 +13,13 @@ class OrderItemAdapter(var context: Context, var itemList:List<LineItem>?):Recyc
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemViewHolder {
-        var view =  ItemsInOrderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view =  ItemsInOrderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return OrderItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: OrderItemViewHolder, position: Int) {
 
-        var orderItem = itemList?.get(position)
+        val orderItem = itemList?.get(position)
        // holder.view.orderImage.setImageResource(orderItem.itemImage)
         holder.view.numberOfItem.text = orderItem?.quantity.toString()
         holder.view.itemPrice.text = orderItem?.price

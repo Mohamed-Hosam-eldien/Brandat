@@ -49,7 +49,7 @@ class CheckOutOrderViewModel @Inject constructor(private val repository: IProduc
         )
 
         viewModelScope.launch(Dispatchers.IO) {
-            var res = repository.createOrder(OrderModel(order = order))
+            val res = repository.createOrder(OrderModel(order = order))
             _createOrderResponse.postValue(res)
         }
 
@@ -58,12 +58,9 @@ class CheckOutOrderViewModel @Inject constructor(private val repository: IProduc
 
     init {
         viewModelScope.launch {
-            var result = repository.getAllCartProducts()
+            val result = repository.getAllCartProducts()
             orderProduct = result
-
         }
-
-
     }
 
 

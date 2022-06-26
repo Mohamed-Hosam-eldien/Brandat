@@ -1,5 +1,8 @@
 package com.example.brandat.utils
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.example.brandat.models.CustomerAddress
 import com.example.brandat.models.orderModel.Address
 import com.example.brandat.models.orderModel.LineItem
@@ -11,6 +14,16 @@ fun List<Cart>.getPrice(): Double {
         price += it.pQuantity * (it.pPrice?.toDouble() ?: 1.0)
     }
     return price
+}
+
+
+fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+    observe(lifecycleOwner, object : Observer<T> {
+        override fun onChanged(t: T?) {
+            observer.onChanged(t)
+            removeObserver(this)
+        }
+    })
 }
 
 

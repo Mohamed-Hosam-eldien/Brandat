@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,11 +26,10 @@ import com.example.brandat.models.orderModel.discount.PriceRule
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ResponseResult
+import com.example.brandat.utils.observeOnce
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.concurrent.schedule
 
 
 @AndroidEntryPoint
@@ -103,7 +101,7 @@ class HomeFragment : Fragment(), BrandOnClickListner {
             hideShimmerEffect()
             binding.animationView.visibility = View.VISIBLE
         }
-        observer = brandViewModel.brandResponse.observe(requireActivity()) {
+        observer = brandViewModel.brandResponse.observeOnce(requireActivity()) {
             if (it != null) {
                 binding.animationView.visibility = View.GONE
                 //hide snake bar
@@ -112,7 +110,6 @@ class HomeFragment : Fragment(), BrandOnClickListner {
                 brands = it
                 brandAdapter.setData(brands)
                 hideShimmerEffect()
-
 
             } else {
                 showShimmerEffect()

@@ -20,6 +20,7 @@ import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.example.brandat.ui.fragments.registeration.ProfileSharedViewModel
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.observeOnce
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -64,10 +65,9 @@ class LoginFragment : Fragment() {
             }
         }
 
-        loginViewModel.signInSuccess.observe(viewLifecycleOwner) {
+        loginViewModel.signInSuccess.observeOnce(viewLifecycleOwner) {
             if (it.customer.isNotEmpty()) {
-                Log.e("TAG", "onViewCreated: -- >> ${it.customer[0].id}", )
-//                Toast.makeText(requireContext(), "${it.customer[0].id}", Toast.LENGTH_SHORT).show()
+
                 if (it.customer[0].tags == binding.etPass.text.toString()) {
                     Paper.book().write("id", it.customer[0].id)
                     Paper.book().write("email", it.customer[0].email)
