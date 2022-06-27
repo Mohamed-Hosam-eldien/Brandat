@@ -1,7 +1,6 @@
 package com.example.brandat.ui.fragments.registeration.register
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +14,10 @@ import com.example.brandat.models.CustomerRegisterModel
 import com.example.brandat.models.DefaultAddress
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
+import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.Constants.Companion.EMAIL_PATTERN
+import com.example.brandat.utils.Constants.Companion.showSnackBar
 import com.example.brandat.utils.Constants.Companion.user
 import com.example.brandat.utils.observeOnce
 import com.google.firebase.database.DataSnapshot
@@ -54,32 +55,35 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.registerBtn.setOnClickListener {
+            if (ConnectionUtil.isNetworkAvailable(requireContext())) {
+                if (checkEmpty()) {
+                    binding.registerBtn.visibility = View.GONE
+                    binding.prog.visibility = View.VISIBLE
 
-            if (checkEmpty()) {
-                binding.registerBtn.visibility = View.GONE
-                binding.prog.visibility = View.VISIBLE
-
-                val address = DefaultAddress(address1 = "elmanshia", city = "alexandria", country = "egypt")
-
-                val customer = Customer(
-                    email = binding.emailEt.text.toString(),
-                    firstName = binding.firstNameEt.text.toString(),
-                    lastName = binding.lastEt.text.toString(),
-                    state = "enabled",
-                    tags = binding.passwordEt.text.toString(),
-                    defaultAddress = address
-                )
-
-                val model = CustomerRegisterModel(customer)
-                registerViewModel.registerCustomer(model)
+                    val address =
+                        DefaultAddress(address1 = "elmanshia", city = "alexandria", country = "egypt")
+                    val customer = Customer(
+                        email = binding.emailEt.text.toString(),
+                        firstName = binding.firstNameEt.text.toString(),
+                        lastName = binding.lastEt.text.toString(),
+                        state = "enabled",
+                        tags = binding.passwordEt.text.toString(),
+                        defaultAddress = address
+                    )
+                    val model = CustomerRegisterModel(customer)
+                    registerViewModel.registerCustomer(model)
+                }
+            }else{
+                showSnackBar(getString(R.string.no_connection))
+                binding.animationView.visibility = View.VISIBLE
 
             }
         }
 
         registerViewModel.signUpSuccess.observeOnce(viewLifecycleOwner) {
-            if(it != null) {
+            if (it != null) {
                 Paper.init(requireContext())
-                Paper.book().write("id", it.customer.id)
+                Paper.book().write("id", it.id)
                 Paper.book().write("email", binding.emailEt.text.toString())
                 Paper.book().write(
                     "name",
@@ -93,13 +97,14 @@ class RegisterFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                Toast.makeText(requireContext(), "this user already exist", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "this user already exist", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
     private fun initUser() {
-        if(Paper.book().read<String>("email") != null) {
+        if (Paper.book().read<String>("email") != null) {
             user.id = Paper.book().read<Long>("id")!!
             user.email = Paper.book().read<String>("email").toString()
             user.firstName = Paper.book().read<String>("name").toString()
@@ -115,11 +120,12 @@ class RegisterFragment : Fragment() {
 //                        viewModel.setCount(count)
 
                         snapshot.children.forEach {
-                            val cart : Cart = it.getValue(Cart::class.java)!!
+                            val cart: Cart = it.getValue(Cart::class.java)!!
                             cartViewModel.addProductToCart(cart)
                         }
 
                     }
+
                     override fun onCancelled(error: DatabaseError) {}
                 })
         }

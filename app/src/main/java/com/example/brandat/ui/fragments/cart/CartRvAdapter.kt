@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
 import com.example.brandat.R
 import com.example.brandat.databinding.CartItemBinding
 import com.example.brandat.utils.CartDiffUtil
-import com.google.android.material.snackbar.Snackbar
 
 
 class CartRvAdapter(
@@ -65,7 +64,9 @@ class CartRvAdapter(
         holder.bind(currentCart)
 
         totalPrice += currentCart.pPrice!!.toDouble()
-
+        holder.binding.ivDelete.setOnClickListener {
+            onClickListener.onDeleteClicked(currentCart)
+        }
         holder.binding.numberButton.number = currentCart.pQuantity.toString()
 
 //        holder.binding.tvProductPrice.text = (currentCart.pPrice.toDouble()
@@ -150,8 +151,17 @@ class CartRvAdapter(
         builder.setNegativeButton(context.getString(R.string.no)) { _, _ ->
 
         }
-        builder.setTitle(context.getString(R.string.delet))
-         builder.setMessage(context.getString(R.string.worning))
+        builder.setIcon(R.drawable.ic_delete)
+        builder.setTitle(context.getString(R.string.delete))
+        when(selectedOrders.size){
+            1 -> {
+                builder.setMessage(context.getString(R.string.delete_item_cart))
+            }
+            else -> {
+                builder.setMessage(context.getString(R.string.delete_items_cart))
+            }
+        }
+       // builder.setMessage(context.getString(R.string.worning))
         builder.create().show()
     }
 
@@ -170,12 +180,14 @@ class CartRvAdapter(
                 multiSelection = false
             }
             1 -> {
-                mActionMode.title =" ${selectedOrders.size}${context.getString(R.string.item_selected)}"
+                mActionMode.title =
+                    " ${selectedOrders.size}${context.getString(R.string.item_selected)}"
 
                 //  mActionMode.title= R.font.m
             }
             else -> {
-                mActionMode.title = "${selectedOrders.size}${context.getString(R.string.items_selected)}"
+                mActionMode.title =
+                    "${selectedOrders.size}${context.getString(R.string.items_selected)}"
             }
         }
     }

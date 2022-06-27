@@ -1,31 +1,25 @@
 package com.example.brandat.ui.fragments.registeration.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentLoginBinding
-import com.example.brandat.models.ProductDetails
-import com.example.brandat.ui.MainActivity
-import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
-import com.example.brandat.ui.fragments.cart.IBadgeCount
-import com.example.brandat.ui.fragments.registeration.ProfileSharedViewModel
+import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.Constants.Companion.showSnackBar
 import com.example.brandat.utils.observeOnce
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.paypal.android.sdk.payments.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
@@ -51,7 +45,12 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        if (ConnectionUtil.isNetworkAvailable(requireContext())) {
+    //=========!!
+        }else{
+            showSnackBar(getString(R.string.no_connection))
+            binding.animationView.visibility = View.VISIBLE
+        }
         binding.tvNewAccount.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
@@ -66,12 +65,12 @@ class LoginFragment : Fragment() {
         }
 
         loginViewModel.signInSuccess.observeOnce(viewLifecycleOwner) {
-            if (it.customer.isNotEmpty()) {
+            if (it.isNotEmpty()) {
 
-                if (it.customer[0].tags == binding.etPass.text.toString()) {
-                    Paper.book().write("id", it.customer[0].id)
-                    Paper.book().write("email", it.customer[0].email)
-                    Paper.book().write("name", it.customer[0].firstName + " " + it.customer[0].lastName)
+                if (it[0].tags == binding.etPass.text.toString()) {
+                    Paper.book().write("id", it[0].id)
+                    Paper.book().write("email", it[0].email)
+                    Paper.book().write("name", it[0].firstName + " " + it[0].lastName)
                     initUser()
 
                     requireActivity().finish()
@@ -119,17 +118,18 @@ class LoginFragment : Fragment() {
 //                        viewModel.setCount(count)
 
                         snapshot.children.forEach {
-                            val cart : Cart = it.getValue(Cart::class.java)!!
+                            val cart: Cart = it.getValue(Cart::class.java)!!
                             cartViewModel.addProductToCart(cart)
                         }
 
                     }
+
                     override fun onCancelled(error: DatabaseError) {}
                 })
         }
     }
 
-    //=======================================
+
     private fun checkEmpty(): Boolean {
         email = binding.etEmail.text.toString()
         password = binding.etPass.text.toString()

@@ -23,10 +23,7 @@ class BrandAdapter(var context: Context, var clickListner: BrandOnClickListner) 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandViewHolder {
 
-        val binding = RecyclerHomeItemBinding.inflate(
-            LayoutInflater
-                .from(parent.context), parent, false
-        )
+        val binding = RecyclerHomeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BrandViewHolder(binding)
 
 

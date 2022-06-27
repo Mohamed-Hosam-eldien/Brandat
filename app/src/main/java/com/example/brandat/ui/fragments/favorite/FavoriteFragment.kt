@@ -21,7 +21,9 @@ import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.ui.fragments.cart.IBadgeCount
+import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.Constants.Companion.showDialogToRegister
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -43,7 +45,13 @@ class FavoriteFragment : Fragment(), OnclickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFavoriteBinding.inflate(LayoutInflater.from(context), container, false)
-        setupUi()
+        if(ConnectionUtil.isNetworkAvailable(requireContext())){
+            setupUi()
+        }else{
+
+            binding.animationView.visibility = View.VISIBLE
+        }
+
 
         return binding.root
     }
@@ -126,18 +134,22 @@ class FavoriteFragment : Fragment(), OnclickListener {
     }
 
     override fun onRemoveClicked(favourite: ProductDetails) {
+        showAlertDialog(favourite)
+    }
+
+    private fun showAlertDialog(favourite: ProductDetails) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
             //favouriteViewModel.removeFavouriteProduct(favourite.productId)
-//            favouriteViewModel.getFavouriteProducts()
+    //            favouriteViewModel.getFavouriteProducts()
             removeFromDraft(favourite.id)
             requireActivity().recreate()
         }
-        builder.setNegativeButton("No") { _, _ ->
+        builder.setNegativeButton(getString(R.string.no)) { _, _ ->
 
         }
-        builder.setTitle("Delete!")
-        builder.setMessage("Are you sure you want to delete this item from favourite?")
+        builder.setTitle(getString(R.string.delete))
+        builder.setMessage(getString(R.string.deletfavourite))
         builder.create().show()
     }
 
@@ -152,7 +164,7 @@ class FavoriteFragment : Fragment(), OnclickListener {
 
     override fun onCartClicked(product: Cart, ivCart: ImageView) {
         if (Paper.book().read<String>("email") == null) {
-            showDialog()
+            showDialogToRegister(getString(R.string.login_to_add_to_cart))
         } else {
 
             if (ivCart.tag != "done") {
@@ -186,18 +198,6 @@ class FavoriteFragment : Fragment(), OnclickListener {
             .child("cart")
             .child(currentProduct.pId.toString())
             .setValue(currentProduct)
-    }
-
-    private fun showDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Login Now") { _, _ ->
-            startActivity(Intent(requireActivity(), ProfileActivity::class.java))
-        }
-        builder.setNegativeButton("cancel") { _, _ ->
-        }
-        builder.setTitle("please register or login to add item in cart")
-        // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
-        builder.create().show()
     }
 
     override fun onResume() {

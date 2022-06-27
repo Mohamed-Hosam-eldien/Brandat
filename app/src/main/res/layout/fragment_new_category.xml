@@ -85,23 +85,23 @@
             android:src="@drawable/empty_bag"
             android:visibility="gone" />
 
-        <com.mikelau.views.shimmer.ShimmerRecyclerView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.mikelau.views.shimmer.ShimmerRecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/shimmer_recycle"
             android:layout_width="match_parent"
+            android:background="@color/lightGray"
             android:layout_height="match_parent"
-            app:shimmer_demo_reverse_animation="false"
             android:splitMotionEvents="false"
-            app:shimmer_demo_mask_width=".5"
-            app:shimmer_demo_child_count="16"
-            app:shimmer_demo_grid_child_count="2"
-            app:shimmer_demo_angle="4"
             android:visibility="visible"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            app:shimmer_recycler_direction="top_to_bottom"
+            app:shimmer_demo_angle="4"
+            app:shimmer_demo_child_count="16"
+            app:shimmer_demo_grid_child_count="2"
             app:shimmer_demo_layout="@layout/placeholder_product"
             app:shimmer_demo_layout_manager_type="grid"
-            />
+            app:shimmer_demo_mask_width=".5"
+            app:shimmer_demo_reverse_animation="false"
+            app:shimmer_recycler_direction="top_to_bottom" />
+
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="250dp"
@@ -116,6 +116,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/no_coneection" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerCategory"
             android:layout_width="match_parent"

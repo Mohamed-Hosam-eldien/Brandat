@@ -3,14 +3,11 @@ package com.example.brandat.ui.fragments.newcategory
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -31,9 +28,9 @@ import com.example.brandat.ui.fragments.cart.IBadgeCount
 import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
 import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.ui.fragments.category.SharedViewModel
-import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.Constants.Companion.showDialogToRegister
 import com.example.brandat.utils.observeOnce
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
@@ -82,6 +79,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         binding = FragmentNewCategoryBinding.bind(view)
         Paper.init(requireContext())
         //  Paper.book().read<Int>("countFromCart")
+        setUpRecyclerView()
         return binding.root
     }
 
@@ -92,13 +90,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         showShimmerEffect()
 
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
-//            viewModel.getAllProductsByName()
-//
-//            filterProducts()
 
             brandName = requireArguments().getString("brandId").toString()
-
-            setUpRecyclerView()
 
             if (brandName != "null") {
 
@@ -107,31 +100,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 binding.groupChip.visibility = View.VISIBLE
 
                 viewModel.getAllProductsByName()
-
                 filterProducts()
-
-                viewModel.productsLive.observeOnce(viewLifecycleOwner) {
-                    val products: ArrayList<ProductDetails> = ArrayList()
-
-//                    Log.e("TAG", "onViewCreated: --- > empty list ${it.size}")
-
-//                    Log.e("TAG", "onViewCreated: --- > empty variant ${it[0].variants.size}")
-
-                    for (product in it) {
-                        if (product.vendor == brandName.uppercase()) {
-                            products.add(product)
-                        }
-                    }
-
-                    hideShimmerEffect()
-
-                    if (products.size > 0)
-                        binding.imgEmpty.visibility = View.GONE
-                    else
-                        binding.imgEmpty.visibility = View.VISIBLE
-
-                    productRvAdapter.setData(products)
-                }
 
             } else {
 
@@ -154,43 +123,9 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                     }
                 }
 
-                filterCategories()
-
                 viewModel.getCategory(productID)
-
                 viewModel.categoryLive
-
-                viewModel.categoryResponse.observeOnce(requireActivity()) { it ->
-                    val products: ArrayList<ProductDetails> = ArrayList()
-
-                    it.forEach {
-                        if (it.productType == binding.chipCatSub.text.toString().uppercase()) {
-                            val price: String = setPrice(it.id)
-                            it.variants = mutableListOf()
-                            it.variants?.add(Variant(price = price))
-                            products.add(it)
-                        }
-                    }
-
-//                    for (product in it) {
-//                        if (product.productType == binding.chipCatSub.text.toString().uppercase()) {
-//                            products.add(product)
-//                            Log.e("TAG", "onViewCreated: --- product num ${products.size}" +
-//                                    " - id = ${product.id}")
-//                        }
-//                    }
-                    hideShimmerEffect()
-
-                    if (products.size > 0)
-                        binding.imgEmpty.visibility = View.GONE
-                    else
-                        binding.imgEmpty.visibility = View.VISIBLE
-
-                    productRvAdapter.setData(products)
-                }
-
             }
-
             binding.imgFilter.setOnClickListener {
 
                 if (brandName != "null") {
@@ -227,11 +162,51 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             }
 
         } else {
-            showMessage("no Connection")
+            showMessage(getString(R.string.no_connection))
             hideShimmerEffect()
             binding.animationView.visibility = View.VISIBLE
         }
+        filterCategories()
+        viewModel.productsLive.observe(viewLifecycleOwner) {
+            val products: ArrayList<ProductDetails> = ArrayList()
 
+            for (product in it) {
+                if (product.vendor == brandName.uppercase()) {
+                    products.add(product)
+                }
+            }
+
+            hideShimmerEffect()
+
+            if (products.size > 0)
+                binding.imgEmpty.visibility = View.GONE
+            else
+                binding.imgEmpty.visibility = View.VISIBLE
+
+            productRvAdapter.setData(products)
+        }
+        viewModel.categoryResponse.observe(requireActivity()) { it ->
+            val products: ArrayList<ProductDetails> = ArrayList()
+
+            it.forEach {
+                if (it.productType == binding.chipCatSub.text.toString().uppercase()) {
+                    val price: String = setPrice(it.id)
+                    it.variants = mutableListOf()
+                    it.variants?.add(Variant(price = price))
+                    products.add(it)
+                }
+            }
+
+
+            hideShimmerEffect()
+
+            if (products.size > 0)
+                binding.imgEmpty.visibility = View.GONE
+            else
+                binding.imgEmpty.visibility = View.VISIBLE
+
+            productRvAdapter.setData(products)
+        }
         ConnectionUtil.registerConnectivityNetworkMonitor(
             requireContext(),
             viewModel,
@@ -278,7 +253,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             7706246250754 -> "119.95"
             7706246119682 -> "192.95"
             7706246054146 -> "129.95"
-            7706245759234 -> "220"
+            7706245759234 -> "220.0"
             7706245562626 -> "99.95"
             7706242416898 -> "129.95"
             7706242154754 -> "169.95"
@@ -286,30 +261,30 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             7706241335554 -> "119.95"
             7706241302786 -> "129.95"
             7706241106178 -> "169.95"
-            7706248315138 -> "110"
-            7706241433858 -> "40"
-            7706242515202 -> "40"
-            7706246316290 -> "40"
+            7706248315138 -> "110.0"
+            7706241433858 -> "40.00"
+            7706242515202 -> "40.00"
+            7706246316290 -> "40.00"
             7706243006722 -> "29.99"
             7706247102722 -> "29.99"
             7706242023682 -> "29.99"
-            7706241532162 -> "249"
-            7706241499394 -> "229"
-            7706242547970 -> "229"
-            7706242646274 -> "249"
-            7706242613506 -> "229"
-            7706241466626 -> "229"
+            7706241532162 -> "249.0"
+            7706241499394 -> "229.0"
+            7706242547970 -> "229.0"
+            7706242646274 -> "249.0"
+            7706242613506 -> "229.0"
+            7706241466626 -> "229.0"
             7706242908418 -> "19.95"
             7706241892610 -> "19.75"
 
-            7706241859842 -> "90"
-            7706242875650 -> "90"
-            7706242777346 -> "70"
-            7706241728770 -> "70"
-            7706242842882 -> "70"
-            7706241794306 -> "70"
+            7706241859842 -> "90.00"
+            7706242875650 -> "90.00"
+            7706242777346 -> "70.00"
+            7706241728770 -> "70.00"
+            7706242842882 -> "70.00"
+            7706241794306 -> "70.00"
 
-            else -> "0"
+            else -> "0.00"
         }
     }
 
@@ -321,13 +296,13 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     private fun showMessage(it: String) {
 
-        Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)
             .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
                 resources.getColor(
                     R.color.black2
                 )
             )
-            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            .setActionTextColor(resources.getColor(R.color.white)).setAction(getString(R.string.close)) {
             }.show()
     }
 
@@ -337,45 +312,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         binding.recyclerCategory.visibility = View.GONE
     }
 
-//    private fun saveToDraft(productDetails: ProductDetails) {
-//
-//        Log.d("TAG", "saveToDraft: ---> image ${productDetails.imageProduct.src}")
-//        val hash = HashMap<String, String>()
-//        hash["image"] = productDetails.imageProduct.src
-//
-//        val lineItem = LineItem(
-//            variant_id = productDetails.variants[0].id,
-//            quantity = 3,
-//            sku = productDetails.imageProduct.src,
-//            title = productDetails.title,
-//            price = productDetails.variants[0].price
-//        )
-//
-//        favouriteViewModel.postDatToApi(
-//            OrderModel(
-//                CustomerOrder(
-//                    line_items = listOf(lineItem),
-//                    email = "hosam22@gmail.com",
-//                    note = "fav"
-//                )
-//            )
-//        )
-//
-////        favouriteViewModel.getFavouriteDraftModel.observe(viewLifecycleOwner) {
-////            Toast.makeText(
-////                requireContext(),
-////                "${it.body()?.order?.items?.get(0)?.title}",
-////                Toast.LENGTH_SHORT
-////            ).show()
-////        }
-//
-//
-//    }
-
-
     private fun setUpRecyclerView() {
         productRvAdapter = ProductRvAdapter(this, requireActivity())
-
         binding.recyclerCategory.apply {
             val layoutManager =
                 GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
@@ -484,7 +422,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     private fun saveFavToDraft(details: ProductDetails, ivImage: ImageView) {
         if (Paper.book().read<String>("email") == null) {
-            showDialog()
+            showDialogToRegister(getString(R.string.login_to_add_to_cart))
         } else {
             listener
                 .child("fav")
@@ -496,7 +434,8 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     private fun removeFromDraft(favouriteId: Long, ivFavorite: ImageView) {
         if (Paper.book().read<String>("email") == null) {
-            showDialog()
+           // showDialog()
+            showDialogToRegister(getString(R.string.login_to_add_to_cart))//it's imposible case!!
         } else {
             listener
                 .child("fav")
@@ -513,7 +452,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     override fun onCartClicked(currentProduct: Cart, ivCart: ImageView) {
         // isClicked=true
         if (Paper.book().read<String>("email") == null) {
-            showDialog()
+            showDialogToRegister(getString(R.string.login_to_add_to_cart))
         } else {
 
             if (ivCart.tag != "done") {
@@ -548,35 +487,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             .setValue(currentProduct)
     }
 
-    private fun showDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Login Now") { _, _ ->
-            startActivity(Intent(requireActivity(), ProfileActivity::class.java))
-        }
-        builder.setNegativeButton("cancel") { _, _ ->
-        }
-        builder.setTitle("please register or login to add item in cart")
-        // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
-        builder.create().show()
-    }
 
-//    private fun observeOnFavourite() {
-//        favouriteViewModel.getFavouriteProducts()
-//        favouriteViewModel.getFavouriteProducts.observe(viewLifecycleOwner) {
-//            if (it != null) {
-//                productRvAdapter.setFavData(it)
-//            }
-//        }
-//    }
 
-    private fun showSnackBar(cart: Cart) {
-        val snackbar = Snackbar.make(binding.newCat, "Added to Cart", Snackbar.LENGTH_LONG)
-        snackbar.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        snackbar.setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
-            .setBackgroundTint(resources.getColor(R.color.black2))
-            .setActionTextColor(resources.getColor(R.color.white)).setAction("Undo") {
-                cartViewModel.removeProductFromCart(cart)
-                Toast.makeText(requireContext(), "Removed from Cart!", Toast.LENGTH_SHORT).show()
-            }.show()
-    }
 }

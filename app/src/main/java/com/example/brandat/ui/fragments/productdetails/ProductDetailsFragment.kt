@@ -140,7 +140,7 @@ class ProductDetailsFragment : Fragment() {
         }
         builder.setNegativeButton(context?.getString(R.string.cancel)) { _, _ ->
         }
-        builder.setTitle(context?.getString(R.string.worning_msg))
+        builder.setTitle(context?.getString(R.string.login_to_add_to_cart))
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }
