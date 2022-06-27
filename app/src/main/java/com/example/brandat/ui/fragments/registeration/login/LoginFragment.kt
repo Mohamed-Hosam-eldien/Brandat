@@ -24,7 +24,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.paypal.android.sdk.payments.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
