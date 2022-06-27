@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.orderStatus
 
+import android.graphics.Color
 import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -49,6 +50,11 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
 
         showObservedData()
 
+        binding.fabMenu.menuIconView.setImageResource(R.drawable.ic_location)
+        binding.fabMenu.menuButtonColorNormal = Color.parseColor("#162D53")
+        Toast.makeText(context, "${binding.fabMenu.menuButtonColorNormal}", Toast.LENGTH_SHORT).show()
+        binding.fabMenu.isIconAnimated = true
+
         binding.mapBtn.setOnClickListener {
             findNavController().navigate(R.id.action_firstOrderStatus_to_mapsFragment2)
         }
@@ -56,7 +62,7 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
             findNavController().navigate(R.id.action_firstOrderStatus_to_addAddressFragment2)
         }
 
-        binding.animationView.setOnClickListener {
+        binding.clickHereTxt.setOnClickListener {
             findNavController().navigate(R.id.action_firstOrderStatus_to_addAddressFragment2)
         }
 
@@ -91,7 +97,7 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
     private fun initView(addresses: List<CustomerAddress>) {
         if (addresses.isNotEmpty()) {
             binding.animationView.visibility = View.GONE
-            binding.txt.visibility = View.GONE
+            binding.clickHereTxt.visibility = View.GONE
             binding.recyclerviewAddress.visibility = View.VISIBLE
             binding.fabMenu.visibility = View.VISIBLE
             binding.btnNext.visibility = View.VISIBLE
