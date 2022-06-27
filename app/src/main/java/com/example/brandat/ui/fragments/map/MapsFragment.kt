@@ -62,7 +62,8 @@ class MapsFragment : Fragment() {
             options.title(latAndLong.latitude.toString() + " : " + latAndLong.longitude)
             latitude = latAndLong.latitude
             longitude = latAndLong.longitude
-
+            binding.addresTxt.visibility = View.VISIBLE
+            binding.addresTxt.text = getTimeZone(latitude, longitude).printAddress()
             binding.btnLocation.visibility = View.VISIBLE
             googleMap.clear()
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latAndLong, 10.2222f))
@@ -91,6 +92,7 @@ class MapsFragment : Fragment() {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.google_map_location) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+
 
 
         binding.btnLocation.setOnClickListener {
