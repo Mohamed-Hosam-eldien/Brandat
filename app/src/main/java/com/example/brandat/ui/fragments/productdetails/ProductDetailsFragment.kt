@@ -236,7 +236,8 @@ class ProductDetailsFragment : Fragment() {
                 body.productDetails.title,
                 variant_id = body.productDetails.variants?.get(0)?.id,
                 body.productDetails.variants?.get(0)?.price,
-                body.productDetails.imageProducts[0].src
+                body.productDetails.imageProducts[0].src,
+                pId = body.productDetails.id
             )
 
         }

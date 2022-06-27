@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -138,6 +139,7 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
         badgeDrawable = binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment)
         badgeDrawable.isVisible = true
         badgeDrawable.number = count
+
         if (badgeDrawable.number == 0) {
             badgeDrawable.isVisible = false
         }

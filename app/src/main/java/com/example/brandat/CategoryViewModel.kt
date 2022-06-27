@@ -1,5 +1,6 @@
 package com.example.brandat
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,7 +28,7 @@ class CategoryViewModel @Inject constructor(
 //    private val _isAdded: MutableLiveData<Cart> = MutableLiveData<Cart>()
 //    var isAdded: LiveData<Cart> = _isAdded
 
-    private var allProductResponse: MutableLiveData<List<ProductDetails>> = MutableLiveData()
+    var allProductResponse: MutableLiveData<List<ProductDetails>> = MutableLiveData()
     var productsLive: LiveData<List<ProductDetails>> = allProductResponse
 
     fun getCategory(productId: Long) = viewModelScope.launch {
@@ -55,7 +56,15 @@ class CategoryViewModel @Inject constructor(
     }
 
     fun getAllProductsByType(type: String) = viewModelScope.launch {
-        val result = repoInterface.getAllProductByType(type)
+        val result = if(type == "ALL")
+            repoInterface.getAllProduct()
+        else
+            repoInterface.getAllProductByType(type)
+
+        Log.d("TAG", "filterProducts: --> 22 $type")
+
+        Log.d("TAG", "filterProducts: result --> 33 ${result}")
+
         when (result) {
             is NetworkResult.Success -> allProductResponse.postValue(result.data?.products)
             is NetworkResult.Error -> _setError.postValue(result.exception)

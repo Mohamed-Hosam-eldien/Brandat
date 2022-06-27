@@ -36,7 +36,6 @@ class LoginFragment : Fragment() {
     private lateinit var password: String
     private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var binding: FragmentLoginBinding
-    private val cartViewModel: CartViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -57,7 +56,6 @@ class LoginFragment : Fragment() {
         }
 
         binding.loginBtn.setOnClickListener {
-
             if (checkEmpty()) {
                 binding.loginBtn.visibility = View.GONE
                 binding.prog.visibility = View.VISIBLE
@@ -65,16 +63,18 @@ class LoginFragment : Fragment() {
             }
         }
 
-        loginViewModel.signInSuccess.observeOnce(viewLifecycleOwner) {
+        loginViewModel.signInSuccess.observe(viewLifecycleOwner) {
             if (it.customer.isNotEmpty()) {
 
                 if (it.customer[0].tags == binding.etPass.text.toString()) {
                     Paper.book().write("id", it.customer[0].id)
                     Paper.book().write("email", it.customer[0].email)
                     Paper.book().write("name", it.customer[0].firstName + " " + it.customer[0].lastName)
+
                     initUser()
 
                     requireActivity().finish()
+
                     Toast.makeText(
                         requireContext(),
                         context?.getString(R.string.user_logged_successfully),
@@ -103,6 +103,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun initUser() {
+        val cartViewModel = ViewModelProvider(requireActivity())[CartViewModel::class.java]
+
         if (Paper.book().read<String>("email") != null) {
             Constants.user.id = Paper.book().read<Long>("id", 0)?.toLong()!!
             Constants.user.email = Paper.book().read<String>("email").toString()

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.brandat.R
 import com.example.brandat.databinding.CategoryBottomSheetBinding
 import com.example.brandat.databinding.CategoryBottomSheetTypeBinding
+import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.fragments.category.IProduct
 import com.example.brandat.ui.fragments.category.SharedViewModel
 import com.example.brandat.ui.fragments.newcategory.NewCategoryFragment

@@ -3,6 +3,7 @@ package com.example.brandat.utils
 import android.app.Application
 import android.content.Context
 import com.example.brandat.utils.Constants.Companion.CURRENCY_TYPE
+import java.text.DecimalFormat
 
 enum class CurrenciesEnum {
     EGP, USD, SAR
@@ -19,6 +20,8 @@ fun convertCurrency(value: Double?, context: Context): String {
     } else if (currency == CurrenciesEnum.EGP.toString()) {
         price = ((value ?: 0.0) * 18).toString()
     }
-    return price
+    //
+    return DecimalFormat("####.00").format(price.toDouble()).toString()
+
 }
 

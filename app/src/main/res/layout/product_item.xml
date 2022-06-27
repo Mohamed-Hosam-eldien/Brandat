@@ -51,30 +51,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_product" />
 
-            <TextView
-                android:id="@+id/tv_product_price"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="serif"
-                android:padding="8dp"
-                android:text="@{product.variants.get(0).price}"
-                android:textColor="@color/yellow"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/tv_product_name"
                 app:layout_constraintStart_toStartOf="@id/tv_product_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/product_currency"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/yellow"
-                app:layout_constraintStart_toEndOf="@id/tv_product_price"
-                app:layout_constraintBottom_toBottomOf="@id/tv_product_price"
-                app:layout_constraintTop_toTopOf="@id/tv_product_price" />
+
+                <TextView
+                    android:id="@+id/tv_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    android:padding="8dp"
+                    android:text="@{product.variants.get(0).price}"
+                    android:textColor="@color/yellow"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="1220" />
+
+                <TextView
+                    android:id="@+id/product_currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    tools:text="EGP"
+                    android:textColor="@color/yellow" />
+
+            </LinearLayout>
+
 
             <ImageView
                 android:id="@+id/iv_favorite"

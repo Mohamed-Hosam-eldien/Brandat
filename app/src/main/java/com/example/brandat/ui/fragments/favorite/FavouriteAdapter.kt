@@ -18,15 +18,20 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListener) :
+class FavouriteAdapter(val context: Context, var onClickedListener: OnclickListener) :
     RecyclerView.Adapter<FavouriteAdapter.ProductViewHolder>() {
 
     private var fav_products = emptyList<ProductDetails>()
-    var currency :String = "USD"
+    private val listener = FirebaseDatabase.getInstance()
+        .getReference(Constants.user.id.toString())
+        .child("cart")
+
+    var currency: String = "USD"
 
     init {
-        val sharedPreferences = context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
-        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
+        val sharedPreferences =
+            context.getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE, "USD")!!
 
     }
 
@@ -44,19 +49,20 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
         val currentProduct = fav_products[position]
 
 
-        holder.binding.tvProductPrice.text= convertCurrency(currentProduct.variants?.get(
-            currentProduct.variants!!.lastIndex)?.price?.toDouble(),holder.itemView.context)
+        holder.binding.tvProductPrice.text = convertCurrency(
+            currentProduct.variants?.get(
+                currentProduct.variants!!.lastIndex
+            )?.price?.toDouble(), holder.itemView.context
+        )
 
-        holder.binding.productCurrency.text= currency
+        holder.binding.productCurrency.text = currency
 
         //holder.binding.ivProductFav.setImageBitmap(currentProduct.productImage)
         Glide.with(context).load(currentProduct.imageProduct.src).into(holder.binding.ivProductFav)
         holder.binding.tvProductName.text = currentProduct.title.lowercase()
 //        holder.binding.tvProductPrice.text = currentProduct.variants?.get(0)?.price
 
-        FirebaseDatabase.getInstance()
-            .getReference(Constants.user.id.toString())
-            .child("cart")
+        listener
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.hasChild(currentProduct.id.toString())) {
@@ -69,6 +75,7 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
                         holder.binding.ivCart.setBackgroundResource(R.drawable.cart_shape_back)
                     }
                 }
+
                 override fun onCancelled(error: DatabaseError) {}
             })
 
@@ -80,7 +87,10 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
             onClickedListener.onRemoveClicked(currentProduct)
         }
         holder.binding.ivCart.setOnClickListener {
-            onClickedListener.onCartClicked(setProductDataToCartModel(currentProduct), holder.binding.ivCart)
+            onClickedListener.onCartClicked(
+                setProductDataToCartModel(currentProduct),
+                holder.binding.ivCart
+            )
         }
     }
 
@@ -101,7 +111,6 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
         val favDiffUtilResult = DiffUtil.calculateDiff(favouriteDiffUtil)
         fav_products = ArrayList(newData)
         favDiffUtilResult.dispatchUpdatesTo(this)
-
     }
 
     private fun setProductDataToCartModel(favProduct: ProductDetails): Cart {

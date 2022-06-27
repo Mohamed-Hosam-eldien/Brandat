@@ -15,6 +15,7 @@ import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ProductDiffUtil
 import com.example.brandat.utils.convertCurrency
 import com.google.firebase.database.*
+import java.text.DecimalFormat
 
 class ProductRvAdapter(
     var onImageFavClickedListener: OnImageFavClickedListener,
@@ -58,11 +59,10 @@ class ProductRvAdapter(
             .load(currentProduct.imageProduct.src)
             .into(holder.binding.ivProduct)
 
-        holder.binding.tvProductPrice.text = convertCurrency(
-            currentProduct.variants?.get(
-                currentProduct.variants!!.lastIndex
-            )?.price?.toDouble(), holder.itemView.context
-        )
+
+        holder.binding.tvProductPrice.text = (convertCurrency(
+            currentProduct.variants?.get(currentProduct.variants!!.lastIndex)?.price?.toDouble(),
+            holder.itemView.context))
 
         holder.binding.productCurrency.text = currency
 
@@ -100,6 +100,14 @@ class ProductRvAdapter(
             override fun onCancelled(error: DatabaseError) {}
         })
 
+        holder.binding.ivFavorite.setOnClickListener {
+            if (holder.binding.ivFavorite.tag != "favorite") {
+                onImageFavClickedListener.onFavClicked(currentProduct, holder.binding.ivFavorite)
+            } else {
+                onImageFavClickedListener.deleteFavourite(currentProduct.id, holder.binding.ivFavorite)
+            }
+        }
+
 //        for (i in 0..favorites.size.minus(1)) {
 //            if (currentProduct.title == favorites[i].productName) {
 //                holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
@@ -123,14 +131,6 @@ class ProductRvAdapter(
 ////                holder.binding.ivFavorite.tag = "unFavorite"
 //            }
 //        }
-
-        holder.binding.ivFavorite.setOnClickListener {
-            if (holder.binding.ivFavorite.tag != "favorite") {
-                onImageFavClickedListener.onFavClicked(currentProduct, holder.binding.ivFavorite)
-            } else {
-                onImageFavClickedListener.deleteFavourite(currentProduct.id, holder.binding.ivFavorite)
-            }
-        }
 
         holder.binding.ivCart.setOnClickListener {
             onImageFavClickedListener.onCartClicked(

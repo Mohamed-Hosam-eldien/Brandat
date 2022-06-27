@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentRegisterBinding
 import com.example.brandat.models.Customer
@@ -37,7 +39,7 @@ class RegisterFragment : Fragment() {
     private lateinit var confirmPass: String
 
     private val registerViewModel: RegisterViewModel by viewModels()
-    private val cartViewModel: CartViewModel by viewModels()
+//    private val cartViewModel: CartViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -59,15 +61,14 @@ class RegisterFragment : Fragment() {
                 binding.registerBtn.visibility = View.GONE
                 binding.prog.visibility = View.VISIBLE
 
-                val address = DefaultAddress(address1 = "elmanshia", city = "alexandria", country = "egypt")
+//                val address = DefaultAddress(address1 = "elmanshia", city = "alexandria", country = "egypt")
 
                 val customer = Customer(
                     email = binding.emailEt.text.toString(),
                     firstName = binding.firstNameEt.text.toString(),
                     lastName = binding.lastEt.text.toString(),
                     state = "enabled",
-                    tags = binding.passwordEt.text.toString(),
-                    defaultAddress = address
+                    tags = binding.passwordEt.text.toString()
                 )
 
                 val model = CustomerRegisterModel(customer)
@@ -76,7 +77,7 @@ class RegisterFragment : Fragment() {
             }
         }
 
-        registerViewModel.signUpSuccess.observeOnce(viewLifecycleOwner) {
+        registerViewModel.signUpSuccess.observe(viewLifecycleOwner) {
             if(it != null) {
                 Paper.init(requireContext())
                 Paper.book().write("id", it.customer.id)
@@ -99,6 +100,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun initUser() {
+        val cartViewModel = ViewModelProvider(requireActivity())[CartViewModel::class.java]
         if(Paper.book().read<String>("email") != null) {
             user.id = Paper.book().read<Long>("id")!!
             user.email = Paper.book().read<String>("email").toString()

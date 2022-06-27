@@ -20,8 +20,8 @@ fun List<Cart>.getPrice(): Double {
 fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
     observe(lifecycleOwner, object : Observer<T> {
         override fun onChanged(t: T?) {
-            observer.onChanged(t)
             removeObserver(this)
+            observer.onChanged(t)
         }
     })
 }
