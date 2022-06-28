@@ -93,19 +93,23 @@ class AddressFragment : Fragment() ,OnClickListener{
     override fun onClick(customerAddress: CustomerAddress) {
         // remove address form recycler
         // dont forget to ask user berfor remove
+        showAlertDialog(customerAddress)
+
+    }
+
+    private fun showAlertDialog(customerAddress: CustomerAddress) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes"){_,_,->
+        builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
             viewModel.removeAddress(customerAddress.city)
             viewModel.getAllAddress()
             //activity?.recreate()
         }
-        builder.setNegativeButton("Cancel"){_,_,->
+        builder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
 
         }
         builder.setIcon(R.drawable.ic_delete)
-        builder.setTitle("Delete This Address")
-        builder.setMessage("Are you sure you want to delete ${customerAddress.address1} address")
+        builder.setTitle(getString(R.string.delete))
+        builder.setMessage(getString(R.string.delete_address))
         builder.create().show()
-
     }
 }

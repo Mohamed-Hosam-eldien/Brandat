@@ -4,10 +4,8 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
-import com.example.brandat.models.Customer
-import com.example.brandat.models.CustomerAddress
-import com.example.brandat.models.CustomerModel
-import com.example.brandat.models.CustomerRegisterModel
+import com.example.brandat.models.*
+import com.example.brandat.utils.NetworkResult
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response
 import javax.inject.Inject
@@ -31,12 +29,26 @@ class UserRepository @Inject constructor(
         localDataSource.removeAddress(city)
     }
 
-    override suspend fun registerCustomer(customer: CustomerRegisterModel): Response<CustomerRegisterModel> {
-    return remoteDataSource.registerCustomer(customer)
+    override suspend fun registerCustomer(customer: CustomerRegisterModel): NetworkResult<CustomerRegisterModel?> {
+        val result: NetworkResult<CustomerRegisterModel?>
+        val response=remoteDataSource.registerCustomer(customer)
+      if(response.isSuccessful){
+          result=NetworkResult.Success(response.body())
+      }else{
+          result=NetworkResult.Error("error${response.code()}")
+      }
+    return result
     }
 
-    override suspend fun loginCustomer(email: String, tags:String): Response<CustomerModel> {
-        return remoteDataSource.loginCustomer(email,tags)
+    override suspend fun loginCustomer(email: String, tags:String): NetworkResult<CustomerModel?> {
+       val result:NetworkResult<CustomerModel?>
+       val response=remoteDataSource.loginCustomer(email,tags)
+        if(response.isSuccessful){
+            result=NetworkResult.Success(response.body())
+        }else{
+            result=NetworkResult.Error("error${response.code()}")
+        }
+        return result
     }
 
 

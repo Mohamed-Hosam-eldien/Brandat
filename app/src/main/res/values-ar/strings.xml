@@ -56,7 +56,7 @@
     <string name="items">العناصر</string>
     <string name="shoes">أحذيه</string>
     <string name="t_shirt">تي شيرت</string>
-    <string name="accessories">اخري</string>
+    <string name="accessories">أخري</string>
     <string name="all">الكل</string>
     <string name="last_name">الإسم الاخير</string>
     <string name="create_new_account">إنشاء حساب جديد</string>
@@ -71,6 +71,7 @@
     <string name="promo_code">كود الخصم</string>
     <string name="search">بحث</string>
     <string name="copunCode">agste54st</string>
+    <string name="deletfavourite">هل تريد إزاله هذا العنصر من المفضله؟</string>
 
     <string name="retry">إعادة المحاولة</string>
     <string name="pay_on_cash">الدفع فورا</string>
@@ -90,7 +91,7 @@
     <string name="total_price_order">إجمالي السعر</string>
     <string name="color">اللون:</string>
     <string name="size">الحجم:</string>
-    <string name="one_size">one size</string>
+    <string name="one_size">حجم واحد</string>
     <string name="reviews">التعليقات</string>
     <string name="first_name">الإسم الأول</string>
     <string name="email">البريد الإلكتروني</string>
@@ -112,32 +113,44 @@
     <string name="item">عنصر)</string>
     <string name="login_now">تسجيل دخول</string>
     <string name="cancel">إلغاء</string>
-    <string name="worning_msg">من فضلك سجل دخول لكي تتمكن من اضافه العنصر الي سله الشراء</string>
+    <string name="login_to_add_to_cart">من فضلك سجل دخول لكي تتمكن من اضافه العنصر الي سله الشراء</string>
     <string name="no">لا</string>
     <string name="yes">نعم</string>
-    <string name="delet">مسح؟</string>
-    <string name="worning">هل انت متأكد من حذف هذه العناصر من سلة الشراء؟</string>
+    <string name="delete">مسح؟</string>
+    <string name="zero">0</string>
+    <string name="zero_item">0 عنصر</string>
+    <string name="delete_item_cart">هل انت متأكد من حذف هذا العنصر من سلة الشراء؟</string>
+    <string name="delete_items_cart">هل انت متأكد من حذف هذه العناصر من سلة الشراء؟</string>
     <string name="item_selected">عنصر محدد</string>
     <string name="items_selected">عناصر محددة</string>
     <string name="added_to_cart">تم اضافته الي السلة</string>
     <string name="saved_successfully">تم اضافه البلد بنجاح</string>
     <string name="select_your_address">من فضلك ادخل العنوان</string>
     <string name="no_connection">لا يوجد انترنت</string>
-    <string name="close">اغلاق</string>
+    <string name="close">إغلاق</string>
     <string name="are_you_sure">هل انت متأكد؟</string>
-    <string name="user_logged_successfully">User logged Successfully</string>
+    <string name="user_logged_successfully">تم تسجيل الدخول بنجاح</string>
     <string name="this_user_is_not_exist">هذا اليوزر ليس موجود</string>
     <string name="required">مطلوب</string>
     <string name="not_correct">ليس صحيح</string>
-    <string name="User_Created_Successfully">User Created Successfully</string>
+    <string name="User_Created_Successfully">تم إنشاء حساب بنجاح</string>
     <string name="not_valid_email">البريد الالكتروني غير صالح</string>
     <string name="passward_doesnot_match">كلمة السر ليست مطابقه</string>
     <string name="removed_from_cart">تم المسح من سلة المشتريات</string>
     <string name="terms_of_service">شروط الخدمات</string>
-    <string name="many_offers">Many Offers</string>
-    <string name="desc1_tv">A lot of offers wait you with many coupons just for you</string>
+    <string name="many_offers">العديد من العروض</string>
+    <string name="desc1_tv">العديد من العروض والخصومات تنتظرك</string>
     <string name="product_details_fragment">ProductDetailsFragment</string>
-
+    <string name="text_copied">تم نسخ النص إلي الحافظة</string>
+    <string name="text">النص</string>
+    <string name="warning">تحذير!</string>
+    <string name="itseemyou"> لقد إنقطع الإتصال بالانترنت</string>
+    <string name="ok">حسناً</string>
+    <string name="There_is_an_empty_field">هناك حقل فارغ</string>
+    <string name="delete_address">هل أنت متأكد من حذف هذا العنوان؟</string>
+    <string name="cart_empty">السلة فارغة</string>
+    <string name="delete_cart">هل ترغب بإزالة هذا العنصر من سلة الشراء؟</string>
+    <string name="items_i">عناصر </string>
     <string-array name="country_list">
         <item>مصر</item>
         <item>الجزائر</item>

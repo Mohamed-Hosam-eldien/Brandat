@@ -1,25 +1,20 @@
 package com.example.brandat.ui.fragments.registeration.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentLoginBinding
-import com.example.brandat.models.ProductDetails
-import com.example.brandat.ui.MainActivity
-import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
-import com.example.brandat.ui.fragments.cart.IBadgeCount
-import com.example.brandat.ui.fragments.registeration.ProfileSharedViewModel
+import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.Constants.Companion.showSnackBar
 import com.example.brandat.utils.observeOnce
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -55,15 +50,20 @@ class LoginFragment : Fragment() {
         }
 
         binding.loginBtn.setOnClickListener {
-            if (checkEmpty()) {
-                binding.loginBtn.visibility = View.GONE
-                binding.prog.visibility = View.VISIBLE
-                loginViewModel.loginCustomer(binding.etEmail.text.toString(), "")
+            if (ConnectionUtil.isNetworkAvailable(requireContext())) {
+                if (checkEmpty()) {
+                    binding.loginBtn.visibility = View.GONE
+                    binding.prog.visibility = View.VISIBLE
+                    loginViewModel.loginCustomer(binding.etEmail.text.toString(), "")
+                }
+            }else{
+                showSnackBar(getString(R.string.no_connection))
+                binding.animationView.visibility = View.VISIBLE
             }
-        }
 
-        loginViewModel.signInSuccess.observe(viewLifecycleOwner) {
-            if (it.customer.isNotEmpty()) {
+        }
+        loginViewModel.signInSuccess.observeOnce(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
 
                 if (it.customer[0].tags == binding.etPass.text.toString()) {
                     Paper.book().write("id", it.customer[0].id)
@@ -73,7 +73,6 @@ class LoginFragment : Fragment() {
                     initUser()
 
                     requireActivity().finish()
-
                     Toast.makeText(
                         requireContext(),
                         context?.getString(R.string.user_logged_successfully),

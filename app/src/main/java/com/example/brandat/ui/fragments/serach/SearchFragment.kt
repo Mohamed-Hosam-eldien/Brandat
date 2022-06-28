@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentSearchBinding
 import com.example.brandat.models.ProductDetails
-import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
@@ -223,7 +222,7 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
         }
         builder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
         }
-        builder.setTitle(getString(R.string.worning_msg))
+        builder.setTitle(getString(R.string.login_to_add_to_cart))
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }

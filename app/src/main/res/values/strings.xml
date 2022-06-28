@@ -53,7 +53,7 @@
     <string name="kids">Kids</string>
     <string name="sale">Sale</string>
     <string name="women">Women</string>
-    <string name="items">Items</string>
+    <string name="items">Items)</string>
     <string name="shoes">Shoes</string>
     <string name="t_shirt">T-Shirts</string>
     <string name="accessories">Accessories</string>
@@ -115,11 +115,12 @@
     <string name="cart_is_empty">cart is empty</string>
     <string name="item">item)</string>
     <string name="login_now">Login Now</string>
-    <string name="worning_msg">please register or login to add item in cart</string>
+    <string name="login_to_add_to_cart">please register or login to add item in cart</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
-    <string name="delet">delet?</string>
-    <string name="worning">Are you sure you want to delete this item from Cart?</string>
+    <string name="delete">delete?</string>
+    <string name="delete_item_cart">Are you sure you want to delete this item from Cart?</string>
+    <string name="delete_items_cart">Are you sure you want to delete this items from Cart?</string>
     <string name="item_selected">\" item selected\"</string>
     <string name="items_selected">items_selected</string>
     <string name="added_to_cart">Added To Cart</string>
@@ -130,13 +131,26 @@
     <string name="are_you_sure">Are You Sure?</string>
     <string name="user_logged_successfully">User logged Successfully</string>
     <string name="this_user_is_not_exist">this user is not exist</string>
-    <string name="required">Required</string>
+    <string name="required">Required!</string>
     <string name="not_correct">not correct</string>
     <string name="User_Created_Successfully">User Created Successfully</string>
     <string name="not_valid_email">Not valid Email</string>
     <string name="passward_doesnot_match">password doesn\'t match</string>
     <string name="removed_from_cart">Removed from Cart!</string>
     <string name="terms_of_service">Terms of Service</string>
+    <string name="text_copied">Text copied to clipboard</string>
+    <string name="text">text</string>
+    <string name="warning">Warning!</string>
+    <string name="itseemyou">"it seems you lost your Internet'( "</string>
+    <string name="ok">ok</string>
+    <string name="deletfavourite">Are you sure you want to delete this item from favourite?</string>
+    <string name="There_is_an_empty_field">There is an empty field</string>
+    <string name="delete_address">Are you sure you want to delete this address?</string>
+    <string name="cart_empty">cart is empty</string>
+    <string name="delete_cart">Are you sure you want to delete this item from cart?</string>
+    <string name="zero">0</string>
+    <string name="zero_item">0 item</string>
+    <string name="items_i">items</string>
 
     <string-array name="country_list">
         <item>Egypt</item>

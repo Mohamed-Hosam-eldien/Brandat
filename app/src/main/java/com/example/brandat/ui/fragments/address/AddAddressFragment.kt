@@ -61,22 +61,21 @@ class AddAddressFragment : Fragment() {
                findNavController().popBackStack()
 
             } else {
-                Toast.makeText(context ,"There is an empty field" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(context ,getString(R.string.There_is_an_empty_field) , Toast.LENGTH_SHORT).show()
             }
 
         }
-
     }
 
     private fun checkValidity(): Boolean {
         if (binding.autoCompleteTextView.text.toString().trim().isNullOrEmpty()) {
-            binding.autoCompleteTextView.error = "Field Required!"
+            binding.autoCompleteTextView.error =getString(R.string.required)
             return false
         } else if (binding.autoCompleteCityTextView.text.toString().trim().isNullOrEmpty()) {
-            binding.autoCompleteCityTextView.error = "Field Required!"
+            binding.autoCompleteCityTextView.error = getString(R.string.required)
             return false
         } else if (binding.streerAddress.text.toString().trim().isNullOrEmpty()) {
-            binding.streerAddress.error = "Field Required!"
+            binding.streerAddress.error =getString(R.string.required)
             return false
         }
         return true

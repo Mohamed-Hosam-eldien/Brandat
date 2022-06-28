@@ -1,12 +1,13 @@
 package com.example.brandat.ui.fragments.home
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,11 +26,11 @@ import com.example.brandat.models.Brand
 import com.example.brandat.models.orderModel.discount.PriceRule
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.Constants.Companion.showSnackBar
 import com.example.brandat.utils.ResponseResult
 import com.example.brandat.utils.observeOnce
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -58,170 +59,125 @@ class HomeFragment : Fragment(), BrandOnClickListner {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         initView()
-        // snackbar = Snackbar.make(requireView(), "it", Snackbar.LENGTH_INDEFINITE)
-        //showShimmerEffect()
         return binding.root
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        brandViewModel.getDiscountCode()
-        brandViewModel.discountCodes.observe(viewLifecycleOwner){
-           when(it){
-               is ResponseResult.Success->{
-                  Constants.discounCde = it.data.price_rules
-                   binding.txtCode.text =it.data.price_rules[0].title
-               }
-            }
-        }
-//        brandViewModel.getBrands()
-//        brandViewModel.brandResponse.observe(requireActivity()) {
-//            brands = it
-//            brandAdapter.setData(brands)
-//        }
         imageSlider()
         ShowDescountCopune()
         discountInit()
-
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
             showShimmerEffect()
-
+            brandViewModel.getDiscountCode()
             Handler().postDelayed({
                 brandViewModel.getBrands()
             }, 3000)
-
-
         } else {
-            //brandViewModel.getBrandsFromDB()//cashing
-            // ConnectionUtil.showMessage(requireParentFragment())
-            showMessage("No Connection")
+            showSnackBar(getString(R.string.no_connection))
             hideShimmerEffect()
             binding.animationView.visibility = View.VISIBLE
+        }
+        brandViewModel.discountCodes.observe(viewLifecycleOwner) {
+            when (it) {
+                is ResponseResult.Success -> {
+                    Constants.discounCde = it.data.price_rules
+                    binding.txtCode.text = it.data.price_rules[0].title
+                }
+            }
         }
         observer = brandViewModel.brandResponse.observeOnce(requireActivity()) {
             if (it != null) {
                 binding.animationView.visibility = View.GONE
-                //hide snake bar
-                //  snack?.dismiss()
-                //ConnectionUtil.snack?.dismiss()
                 brands = it
                 brandAdapter.setData(brands)
                 hideShimmerEffect()
-
             } else {
                 showShimmerEffect()
             }
         }
-            ConnectionUtil.registerConnectivityNetworkMonitor(
-                requireContext(),
-                brandViewModel,
-                requireActivity()
-            )
-        }
+        ConnectionUtil.registerConnectivityNetworkMonitor(
+            requireContext(),
+            brandViewModel,
+            requireActivity()
+        )
+    }
 
     private fun ShowDescountCopune() {
-
         binding.imgCopy.setOnClickListener {
-            val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clipData = ClipData.newPlainText("text", binding.txtCode.text)
+            val clipboardManager =
+                requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText(getString(R.string.text), binding.txtCode.text)
             clipboardManager.setPrimaryClip(clipData)
             cardAnimation()
-            Toast.makeText(requireContext(), "Text copied to clipboard", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.text_copied), Toast.LENGTH_SHORT).show()
         }
     }
-
 
     private fun randomDiscountCode(priceRules: List<PriceRule>) {
-        val randomElements = (0..priceRules.size-1 ).shuffled().random()
+        val randomElements = (0..priceRules.size - 1).shuffled().random()
         binding.txtCode.text = priceRules[randomElements].title
-
     }
 
-        private fun discountInit() {
-            binding.imgGift.setOnClickListener {
-               Constants.discounCde?.let {
-                   randomDiscountCode(Constants.discounCde!!)
-
-               }
-
-                cardAnimation()
+    private fun discountInit() {
+        binding.imgGift.setOnClickListener {
+            Constants.discounCde?.let {
+                randomDiscountCode(Constants.discounCde!!)
             }
+            cardAnimation()
         }
-
-        private fun cardAnimation() {
-            TransitionManager.beginDelayedTransition(binding.giftCard, AutoTransition())
-            binding.layoutCode.visibility = if (binding.layoutCode.visibility == View.GONE) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-        }
-
-        private fun imageSlider() {
-            val imageList = ArrayList<SlideModel>()
-            imageList.add(SlideModel(R.drawable.img_1, ScaleTypes.CENTER_CROP))
-            imageList.add(SlideModel(R.drawable.img_2, ScaleTypes.CENTER_CROP))
-            imageList.add(SlideModel(R.drawable.img_3, ScaleTypes.CENTER_CROP))
-            imageList.add(SlideModel(R.drawable.sh2, ScaleTypes.CENTER_CROP))
-            imageList.add(SlideModel(R.drawable.shose_image, ScaleTypes.CENTER_CROP))
-
-
-            binding.imageSlider.setImageList(imageList)
-            binding.imageSlider.setImageList(imageList)
-        }
-
-        private fun initView() {
-
-            brandAdapter = BrandAdapter(requireContext(), this)
-
-            binding.brandsRecycler.apply {
-                val layoutManager = GridLayoutManager(context, 2)
-                setLayoutManager(layoutManager)
-                adapter = brandAdapter
-
-            }
-        }
-
-        private fun showShimmerEffect() {
-            binding.shimmerRecycle.showShimmerAdapter()
-            binding.shimmerRecycle.visibility = View.VISIBLE
-            binding.brandsRecycler.visibility = View.GONE
-        }
-
-        private fun hideShimmerEffect() {
-            binding.shimmerRecycle.hideShimmerAdapter()
-            binding.shimmerRecycle.visibility = View.GONE
-            binding.brandsRecycler.visibility = View.VISIBLE
-        }
-
-        override fun onBrandClick(brandId: String) {
-            bundle = Bundle()
-            bundle.putString("brandId", brandId)
-            findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment, bundle)
-        }
-
-    private fun showMessage(it: String) {
-        //snack = Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
-        Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)
-            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
-                resources.getColor(
-                    R.color.black2
-                )
-            )
-            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
-            }.show()
-//        snack?.apply {
-//            setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
-//                resources.getColor(
-//                    R.color.black2
-//                )
-//            )
-//                .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
-//                }.show()
-//        }
     }
+
+    private fun cardAnimation() {
+        TransitionManager.beginDelayedTransition(binding.giftCard, AutoTransition())
+        binding.layoutCode.visibility = if (binding.layoutCode.visibility == View.GONE) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    private fun imageSlider() {
+        val imageList = ArrayList<SlideModel>()
+        imageList.add(SlideModel(R.drawable.ads4, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.ads9, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.ads7, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.ads1, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.ads5, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.ads2,ScaleTypes.FIT))
+        binding.imageSlider.setImageList(imageList)
+        binding.imageSlider.setImageList(imageList)
+    }
+
+    private fun initView() {
+        brandAdapter = BrandAdapter(requireContext(), this)
+        binding.brandsRecycler.apply {
+            val layoutManager = GridLayoutManager(context, 2)
+            setLayoutManager(layoutManager)
+            adapter = brandAdapter
+        }
+    }
+
+    private fun showShimmerEffect() {
+        binding.shimmerRecycle.showShimmerAdapter()
+        binding.shimmerRecycle.visibility = View.VISIBLE
+        binding.brandsRecycler.visibility = View.GONE
+    }
+
+    private fun hideShimmerEffect() {
+        binding.shimmerRecycle.hideShimmerAdapter()
+        binding.shimmerRecycle.visibility = View.GONE
+        binding.brandsRecycler.visibility = View.VISIBLE
+    }
+
+    override fun onBrandClick(brandId: String) {
+        bundle = Bundle()
+        bundle.putString("brandId", brandId)
+        findNavController().navigate(R.id.action_homeFragment_to_newCategoryFragment, bundle)
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.cart
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -34,6 +35,7 @@ class CartFragment : Fragment(), CartOnClickListener {
     private lateinit var bindingDialog: AlertDialogBinding
     private lateinit var dialog: AlertDialog
     private lateinit var bageCountI: IBadgeCount
+    private var badgeCount: Int = 0
     private val cartViewModel: CartViewModel by viewModels()
     private val listener by lazy {
         FirebaseDatabase.getInstance()
@@ -62,13 +64,18 @@ class CartFragment : Fragment(), CartOnClickListener {
         getAllCartFromDraft()
         cartViewModel.getAllCartProduct()
         cartViewModel.cartProduct.observe(viewLifecycleOwner) {
-            if (it.isEmpty()) {
+            if(it.isEmpty()) {
                 binding.ivPlaceholder.visibility = View.VISIBLE
                 binding.rvCart.visibility = View.GONE
-                binding.tvTprice.text = "0"
-                binding.tvConut.text = "0 item"
+                binding.tvTprice.text = getString(R.string.zero)
+                binding.tvConut.text =getString(R.string.zero_item)
             }
         }
+
+
+        //cartViewModel.getAllCartProduct()
+
+        //cartViewModel.getAllPrice()
 
         binding.buyButn.setOnClickListener {
             if (Paper.book().read<String>("email") == null) {
@@ -77,12 +84,12 @@ class CartFragment : Fragment(), CartOnClickListener {
                 if (binding.ivPlaceholder.visibility == View.VISIBLE) {
                     Toast.makeText(
                         requireContext(),
-                        "cart is empty",
+                        getString(R.string.cart_empty),
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    val intent = Intent(requireContext(), OrderStatus::class.java)
-                    intent.putExtra("total", binding.tvTprice.text.toString())
+                    val intent =Intent(requireContext(), OrderStatus::class.java)
+                    intent.putExtra("total",binding.tvTprice.text.toString())
                     startActivity(intent)
                 }
             }
@@ -95,15 +102,14 @@ class CartFragment : Fragment(), CartOnClickListener {
         listener
             .addValueEventListener(object : ValueEventListener {
                 val list = mutableListOf<Cart>()
-
+                @SuppressLint("SetTextI18n")
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    for (data in snapshot.children) {
+                    for(data in snapshot.children) {
                         list.add(data.getValue(Cart::class.java)!!)
                     }
-                    if (list.isNotEmpty()) {
+                    if(list.isNotEmpty()) {
                         binding.rvCart.apply {
-                            val layoutManager =
-                                LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                            val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
                             setLayoutManager(layoutManager)
                             cartAdapter.setData(list)
@@ -111,12 +117,17 @@ class CartFragment : Fragment(), CartOnClickListener {
 
                             var total = 0.0
 
-                            list.forEach {
+                            list.forEach{
                                 total += it.tPrice!!
                             }
 
                             binding.tvTprice.text = total.toString()
-                            binding.tvConut.text = list.size.toString() + " item(s)"
+                            when (list.size) {
+                                0 -> binding.tvConut.text = "${list.size}${getString(R.string.item)}"
+                                1 -> binding.tvConut.text ="${list.size}${getString(R.string.item)}"
+                                else -> binding.tvConut.text ="${list.size}${getString(R.string.items_i)}"
+                            }
+
                             binding.rvCart.visibility = View.VISIBLE
                             binding.ivPlaceholder.visibility = View.GONE
                         }
@@ -133,6 +144,7 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     }
 
+
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.login_now)) { _, _ ->
@@ -140,7 +152,7 @@ class CartFragment : Fragment(), CartOnClickListener {
         }
         builder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
         }
-        builder.setTitle(getString(R.string.worning_msg))
+        builder.setTitle(getString(R.string.login_to_add_to_cart))
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
     }
@@ -174,6 +186,10 @@ class CartFragment : Fragment(), CartOnClickListener {
         bageCountI.updateBadgeCount(Paper.book().read<Int>("count")!!)
 
         requireActivity().recreate()
+    }
+
+    override fun onDeleteClicked(order: Cart) {
+        showDialoge(order)
     }
 
     override fun onPluseMinusClicked(count: Int, currentCart: Cart) {
@@ -225,25 +241,26 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     private fun showDialoge(products: Cart) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _, _ ->
-            // cartViewModel.removeSelectedProductsFromCart(products)//list=========
+        builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+            cartViewModel.removeProductFromCart(products)
+            // cartViewModel.getAllCartProduct()
             requireActivity().recreate()
         }
-        builder.setNegativeButton("No") { _, _ ->
+        builder.setNegativeButton(getString(R.string.no)) { _, _ ->
 
         }
-        builder.setTitle("Delete?")
-        // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
+        builder.setTitle(getString(R.string.delete))
+        builder.setMessage(getString(R.string.delete_cart))
         builder.create().show()
     }
 
     override fun onResume() {
         super.onResume()
-        if (Constants.user.id <= 0) {
+        if(Constants.user.id <= 0) {
             binding.ivPlaceholder.visibility = View.VISIBLE
             binding.rvCart.visibility = View.GONE
-            binding.tvTprice.text = "0"
-            binding.tvConut.text = "0 item"
+            binding.tvTprice.text = getString(R.string.zero)
+            binding.tvConut.text = getString(R.string.zero_item)
         }
         cartViewModel.getAllCartProduct()
     }

@@ -57,6 +57,7 @@ class ProductRvAdapter(
 
         Glide.with(holder.binding.root)
             .load(currentProduct.imageProduct.src)
+            .placeholder(com.denzcoskun.imageslider.R.drawable.loading)
             .into(holder.binding.ivProduct)
 
 

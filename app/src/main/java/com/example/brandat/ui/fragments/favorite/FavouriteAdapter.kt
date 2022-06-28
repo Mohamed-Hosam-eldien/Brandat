@@ -124,7 +124,6 @@ class FavouriteAdapter(val context: Context, var onClickedListener: OnclickListe
         )
     }
 
-    //============================================================
     class ProductViewHolder(val binding: FavouriteItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 

@@ -1,7 +1,6 @@
 package com.example.brandat.ui.fragments.registeration.register
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import com.example.brandat.models.CustomerRegisterModel
 import com.example.brandat.models.DefaultAddress
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
+import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.Constants.Companion.EMAIL_PATTERN
 import com.example.brandat.utils.Constants.Companion.user
@@ -56,10 +56,10 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.registerBtn.setOnClickListener {
-
-            if (checkEmpty()) {
-                binding.registerBtn.visibility = View.GONE
-                binding.prog.visibility = View.VISIBLE
+            if (ConnectionUtil.isNetworkAvailable(requireContext())) {
+                if (checkEmpty()) {
+                    binding.registerBtn.visibility = View.GONE
+                    binding.prog.visibility = View.VISIBLE
 
 //                val address = DefaultAddress(address1 = "elmanshia", city = "alexandria", country = "egypt")
 
@@ -73,6 +73,11 @@ class RegisterFragment : Fragment() {
 
                 val model = CustomerRegisterModel(customer)
                 registerViewModel.registerCustomer(model)
+
+            }
+            }else{
+                showSnackBar(getString(R.string.no_connection))
+                binding.animationView.visibility = View.VISIBLE
 
             }
         }
@@ -94,7 +99,8 @@ class RegisterFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                Toast.makeText(requireContext(), "this user already exist", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "this user already exist", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

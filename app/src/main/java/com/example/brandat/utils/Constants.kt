@@ -1,10 +1,16 @@
 package com.example.brandat.utils
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import com.example.brandat.R
 import com.example.brandat.models.Customer
 import com.example.brandat.models.orderModel.discount.PriceRule
+import com.example.brandat.ui.ProfileActivity
+import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
 
 class Constants {
@@ -35,26 +41,26 @@ class Constants {
         var count: Int = 0
         const val BASE_URL = "https://${apiKey}:${password}@${hostName}/admin/api/2022-04/"
 
-
-        fun hasInternetConnection(context: Context): Boolean {
-
-            val connectivityManager = context.getSystemService(
-                Context.CONNECTIVITY_SERVICE
-            ) as ConnectivityManager
-
-            val actionNetwork = connectivityManager.activeNetwork ?: return false
-            val capabilities =
-                connectivityManager.getNetworkCapabilities(actionNetwork) ?: return false
-
-            return when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-                else -> false
-            }
-
+       fun Fragment.showSnackBar(it: String) {
+            Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG)
+                .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                    resources.getColor(
+                        R.color.black2
+                    )
+                )
+                .setActionTextColor(resources.getColor(R.color.white)).setAction(getString(R.string.close)) {
+                }.show()
         }
-
+        fun Fragment.showDialogToRegister(title:String) {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setPositiveButton(getString(R.string.login_now)) { _, _ ->
+                startActivity(Intent(requireActivity(), ProfileActivity::class.java))
+            }
+            builder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
+            }
+            builder.setTitle(title)
+            builder.create().show()
+        }
     }
 
 }

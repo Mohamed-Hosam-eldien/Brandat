@@ -32,7 +32,6 @@ class CategoryFragment : Fragment() {
     private lateinit var binding: FragmentCategoryBinding
     private val iPosition: IProduct = ProductFragment()
 
-
     //slider
     private lateinit var sliderAdapter: SliderCategoryAdapter
     private lateinit var viewPager2: ViewPager2
