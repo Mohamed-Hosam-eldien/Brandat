@@ -45,25 +45,24 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (ConnectionUtil.isNetworkAvailable(requireContext())) {
-    //=========!!
-        }else{
-            showSnackBar(getString(R.string.no_connection))
-            binding.animationView.visibility = View.VISIBLE
-        }
+
         binding.tvNewAccount.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
         binding.loginBtn.setOnClickListener {
-
-            if (checkEmpty()) {
-                binding.loginBtn.visibility = View.GONE
-                binding.prog.visibility = View.VISIBLE
-                loginViewModel.loginCustomer(binding.etEmail.text.toString(), "")
+            if (ConnectionUtil.isNetworkAvailable(requireContext())) {
+                if (checkEmpty()) {
+                    binding.loginBtn.visibility = View.GONE
+                    binding.prog.visibility = View.VISIBLE
+                    loginViewModel.loginCustomer(binding.etEmail.text.toString(), "")
+                }
+            }else{
+                showSnackBar(getString(R.string.no_connection))
+                binding.animationView.visibility = View.VISIBLE
             }
-        }
 
+        }
         loginViewModel.signInSuccess.observeOnce(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
 
