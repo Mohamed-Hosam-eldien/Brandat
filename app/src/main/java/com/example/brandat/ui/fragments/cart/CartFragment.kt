@@ -1,9 +1,10 @@
 package com.example.brandat.ui.fragments.cart
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,7 @@ import com.example.brandat.ui.MainActivity
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.utils.Constants
-import com.example.brandat.utils.Constants.Companion.count
+import com.example.brandat.utils.convertCurrency
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -35,6 +36,8 @@ class CartFragment : Fragment(), CartOnClickListener {
     private lateinit var builder: AlertDialog.Builder
     private lateinit var bindingDialog: AlertDialogBinding
     private lateinit var dialog: AlertDialog
+    lateinit var currencyCode:String
+    lateinit var sharedPreferences : SharedPreferences
     private lateinit var bageCountI: IBadgeCount
     private var badgeCount: Int = 0
     private val cartViewModel: CartViewModel by viewModels()
@@ -53,6 +56,9 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences =requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
+        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
+
         Paper.init(requireContext())
         setUpRecyclerView()
         bageCountI = requireActivity() as MainActivity
@@ -63,7 +69,8 @@ class CartFragment : Fragment(), CartOnClickListener {
             if(it.isEmpty()) {
                 binding.ivPlaceholder.visibility = View.VISIBLE
                 binding.rvCart.visibility = View.GONE
-                binding.tvTprice.text = "0"
+                binding.tvTprice.text = "0.0"
+                binding.cartsCurrency.text = currencyCode
                 binding.tvConut.text = "0 item"
             }
         }
@@ -84,6 +91,7 @@ class CartFragment : Fragment(), CartOnClickListener {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
+                    Constants.getDiscount=false
                     val intent =Intent(requireContext(), OrderStatus::class.java)
                     intent.putExtra("total",binding.tvTprice.text.toString())
                     startActivity(intent)
@@ -136,7 +144,8 @@ class CartFragment : Fragment(), CartOnClickListener {
                                 total += it.tPrice!!
                             }
 
-                            binding.tvTprice.text = total.toString()
+                            binding.tvTprice.text = convertCurrency(total,requireContext()).toString()
+                            binding.cartsCurrency.text = currencyCode
                             binding.tvConut.text = list.size.toString() + " item(s)"
                             binding.rvCart.visibility = View.VISIBLE
                             binding.ivPlaceholder.visibility = View.GONE

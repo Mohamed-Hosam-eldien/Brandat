@@ -22,11 +22,11 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
     RecyclerView.Adapter<FavouriteAdapter.ProductViewHolder>() {
 
     private var fav_products = emptyList<ProductDetails>()
-    var currency :String = "USD"
+    var currency :String = "EGP"
 
     init {
         val sharedPreferences = context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
-        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,"USD")!!
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,"EGP")!!
 
     }
 

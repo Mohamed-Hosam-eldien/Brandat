@@ -21,6 +21,8 @@
     <string name="phone">رقم الهاتف:</string>
     <string name="address">العنوان:</string>
     <string name="brands">Brands</string>
+    <string name="text_user_discount">راجع الصفحة الرئيسية للحصول علي  كود لتخفيضات 🎁</string>
+
 
     <string name="btn_persistent">Persistent Bottom Sheet</string>
     <string name="btn_modal">Modal Bottom Sheet</string>
@@ -71,7 +73,8 @@
     <string name="promo_code">كود الخصم</string>
     <string name="search">بحث</string>
     <string name="copunCode">agste54st</string>
-
+    <string name="failed_order">فشل في إرسال الطلب n\ حاول مرة أخرى</string>
+    <string name="order_send_successfully">تم أرسل الطلب بنجاح!\n👍🏻</string>
     <string name="retry">إعادة المحاولة</string>
     <string name="pay_on_cash">الدفع فورا</string>
     <string name="invalid_data">بيانات غير صالحة</string>

@@ -77,6 +77,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
+
                                 android:layout_centerVertical="true"
                                 android:text="120 E.G"
                                 android:textSize="16sp" />
@@ -149,13 +150,14 @@
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:text="payment_method"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:paddingTop="16dp"
                     android:textStyle="normal"
-                    android:layout_margin="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -165,6 +167,7 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginTop="12dp"
                     app:cardCornerRadius="15dp">
 
 
@@ -202,6 +205,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginEnd="16dp"
                             android:layout_marginStart="16dp"
+                            android:background="@color/lightGray"
                             android:backgroundTint="@color/lightGray"
 
                             >
@@ -214,6 +218,7 @@
                                 android:gravity="center"
                                 android:text="@string/pay_on_cash"
                                 android:textColor="#04146E"
+                                android:background="@color/lightGray"
                                 android:backgroundTint="@color/lightGray"
 
                                 android:textSize="20sp"
@@ -274,27 +279,39 @@
                             />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
+       <RelativeLayout
+           android:id="@+id/send_order_layout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="16dp"
+           >
 
-          <Button
-              android:id="@+id/confirm_order"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-               android:layout_margin="16dp"
-               android:text="confirm orders"
-              android:backgroundTint="#2B5EB5"
-              />
+           <Button
+               android:id="@+id/confirm_order"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="16dp"
+               android:layout_marginTop="16dp"
+               android:layout_marginEnd="16dp"
+               android:layout_marginBottom="16dp"
+               android:backgroundTint="#2B5EB5"
+               android:textAllCaps="false"
+               android:text="@string/send_order" />
+                <ProgressBar
+                    android:id="@+id/loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:backgroundTint="@color/black"
+                    android:visibility="gone"
+                    />
+       </RelativeLayout>
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-        <ProgressBar
-            android:id="@+id/loading"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="@color/black"
-            android:visibility="gone"
-            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

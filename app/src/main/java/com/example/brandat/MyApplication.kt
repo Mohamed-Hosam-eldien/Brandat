@@ -23,11 +23,12 @@ class MyApplication:Application() {
                 application = this,
                 clientId = Constants.PAYPAL_CLIENT_ID,
                 environment = Environment.SANDBOX,
-                returnUrl = BuildConfig.APPLICATION_ID + "://paypalpay",
-                currencyCode = CurrencyCode.USD,
+                returnUrl = "com.example.brandat://paypalpay",
+                currencyCode = CurrencyCode.EUR,
                 userAction = UserAction.PAY_NOW,
                 settingsConfig = SettingsConfig(
-                    loggingEnabled = true
+                    loggingEnabled = true,
+                    shouldFailEligibility = false
                 )
             )
         )
