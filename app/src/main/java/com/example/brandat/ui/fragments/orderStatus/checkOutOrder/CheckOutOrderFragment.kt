@@ -1,11 +1,11 @@
 package com.example.brandat.ui.fragments.orderStatus.checkOutOrder
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -18,32 +18,33 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFinshOrderStateBinding
 import com.example.brandat.models.CustomerAddress
-import com.example.brandat.ui.MainActivity
-import com.example.brandat.ui.fragments.cart.CartFragment
 import com.example.brandat.ui.fragments.cart.CartViewModel
-import com.example.brandat.ui.fragments.orderStatus.OrderStateViewModel
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ResponseResult
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
-import com.paypal.android.sdk.payments.PayPalConfiguration
-import com.paypal.android.sdk.payments.PayPalPayment
-import com.paypal.android.sdk.payments.PayPalService
-import com.paypal.android.sdk.payments.PaymentActivity
 import com.paypal.checkout.PayPalCheckout
 import com.paypal.checkout.approve.OnApprove
 import com.paypal.checkout.cancel.OnCancel
+import com.paypal.checkout.config.CheckoutConfig
+import com.paypal.checkout.config.Environment
+import com.paypal.checkout.config.SettingsConfig
+import com.paypal.checkout.createorder.CreateOrder
+import com.paypal.checkout.createorder.CurrencyCode
+import com.paypal.checkout.createorder.OrderIntent
+import com.paypal.checkout.createorder.UserAction
 import com.paypal.checkout.error.OnError
+import com.paypal.checkout.order.Amount
+import com.paypal.checkout.order.AppContext
+import com.paypal.checkout.order.Order
+import com.paypal.checkout.order.PurchaseUnit
+
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import org.json.JSONException
+
 import java.math.BigDecimal
 
 @AndroidEntryPoint
@@ -51,7 +52,7 @@ class CheckOutOrderFragment : Fragment() {
 
     private val checkOutOrderViewModel: CheckOutOrderViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
-
+     lateinit var sharedPreferences :SharedPreferences
     lateinit var onOkClickListener: OnOkClickListener
     lateinit var binding: FragmentFinshOrderStateBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,14 +73,18 @@ class CheckOutOrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            checkOutOrderViewModel.selectedAddress =
-                arguments?.getParcelable<CustomerAddress>("address")!!
+            checkOutOrderViewModel.selectedAddress = arguments?.getParcelable<CustomerAddress>("address")!!
             checkOutOrderViewModel.selectedPaymentMethods = arguments?.getString("paymentMethod")!!
             checkOutOrderViewModel.discount = arguments?.getDouble("discount")!!
+            checkOutOrderViewModel.totalPrice = arguments?.getDouble("price")!!
+
         }
+        sharedPreferences =requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
+        checkOutOrderViewModel.currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
 
         initUi()
-        setUpPayPal()
+//        setUpPayPal()
+        setPaypal()
         checkOutOrderViewModel.createOrderResponse.observe(viewLifecycleOwner) {
 
             when (it) {
@@ -93,10 +98,9 @@ class CheckOutOrderFragment : Fragment() {
 
                 is ResponseResult.Error -> {
                     hideLoading()
-                    Log.e(TAG, "onViewCreated: ${it.message}", )
                     failureDialog()
+                    Log.e(TAG, "onViewCreated: ${it.message}", )
                 }
-                else -> {}
             }
         }
 
@@ -104,12 +108,65 @@ class CheckOutOrderFragment : Fragment() {
         binding.confirmOrder.setOnClickListener {
             showLoading()
             when (checkOutOrderViewModel.selectedPaymentMethods) {
-                "cash" -> checkOutOrderViewModel.createOrder()
-                "paypal" -> payPalPaymentMethod()
+                 "cash"-> checkOutOrderViewModel.createOrder()
+                 "paypal"-> paypal()
+                     //payPalPaymentMethod()
 
             }
         }
     }
+
+       private  fun paypal(){
+                   var price:Double = when(checkOutOrderViewModel.currencyCode){
+            "USD"->checkOutOrderViewModel.totalPrice
+            "EGP"-> checkOutOrderViewModel.totalPrice.div(18.0)
+            else-> checkOutOrderViewModel.totalPrice
+                   }
+           PayPalCheckout.startCheckout(
+                       createOrder =
+                       CreateOrder { createOrderActions ->
+                           val order =
+                               Order(
+                                   intent = OrderIntent.CAPTURE,
+                                   appContext = AppContext(userAction = UserAction.PAY_NOW),
+                                   purchaseUnitList =
+                                   listOf(
+                                       PurchaseUnit(
+                                           amount =
+                                           Amount(currencyCode = CurrencyCode.USD, value = "10.0")
+                                       )
+                                   )
+                               )
+                           createOrderActions.create(order)
+                       },
+
+                   )
+
+       }
+    private fun setPaypal(){
+
+            PayPalCheckout.registerCallbacks(
+                onApprove = OnApprove { approval ->
+                    approval.orderActions.capture { i ->
+                        checkOutOrderViewModel.createOrder()
+                        Log.e(TAG, "setPaypal: ${approval.data}", )
+                        Log.e(TAG, "setPaypbbbbal: ${i}", )
+
+                    }
+                },
+
+                onCancel = OnCancel {
+                        showCancelSnakebar()
+                },
+
+                onError = OnError { errorInfo ->
+                    hideLoading()
+                    Log.e(TAG, "setPaypal: ${errorInfo}", )
+                     showErrorSnakebar()
+                }
+            )
+        }
+
 
     private fun removeDataFromPrefrence() {
         Paper.book().delete("count")
@@ -123,35 +180,26 @@ class CheckOutOrderFragment : Fragment() {
     }
 
 
-    private fun showSnakebar(message: Int) {
-        val snackBar = Snackbar.make(
-            binding.root,
-            message,
-            Snackbar.LENGTH_LONG
-        )
-        snackBar.view.setBackgroundColor(Color.GREEN)
-        snackBar.show()
-        hideLoading()
-
-    }
 
     private fun showLoading() {
         binding.loading.visibility = View.VISIBLE
-        binding.confirmOrder.isEnabled = false
+        binding.confirmOrder.visibility = View.GONE
     }
 
     private fun hideLoading() {
         binding.loading.visibility = View.GONE
-        binding.confirmOrder.isEnabled = true
+        binding.confirmOrder.visibility = View.VISIBLE
+
     }
 
 
     private fun initUi() {
+        hideLoading()
         showPaymentMethod()
         showSelectedAddress()
-        binding.totalPrice.text = Constants.totalPrice.toString()
-        binding.deliveryCoast.text = "100"
-        binding.orderPrice.text = (Constants.totalPrice!! + 100).toString()
+        binding.totalPrice.text = checkOutOrderViewModel.totalPrice.toString().plus("  ").plus(checkOutOrderViewModel.currencyCode)
+        binding.deliveryCoast.text = "100".plus("  ").plus(checkOutOrderViewModel.currencyCode)
+        binding.orderPrice.text = (checkOutOrderViewModel.totalPrice!! + 100).toString().plus("  ").plus(checkOutOrderViewModel.currencyCode)
 
     }
 
@@ -188,75 +236,67 @@ class CheckOutOrderFragment : Fragment() {
         }
     }
 
-    fun paypal() {
-        PayPalCheckout.registerCallbacks(
-            onApprove = OnApprove { approval ->
-                approval.orderActions.capture { _ ->
-                    checkOutOrderViewModel.createOrder()
-                }
-            },
 
-            onCancel = OnCancel {
+//
+//    private fun payPalPaymentMethod() {
+//        var price = when(checkOutOrderViewModel.currencyCode){
+//            "USD"-> Constants.totalPrice
+//            "EGP"-> Constants.totalPrice?.div(18.0)
+//            else-> Constants.totalPrice
+//        }
+//        var payment =PayPalPayment(
+//                BigDecimal(price?:0.0),
+//                "USD",
+//                "Brandat",
+//                PayPalPayment.PAYMENT_INTENT_SALE
+//            )
+//        val intent = Intent(activity, PaymentActivity::class.java)
+//        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration)
+//        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment)
+//        requestPaymentMethod.launch(intent)
+//    }
+//
+//    private val payPalConfiguration =
+//        PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_NO_NETWORK)
+//            .clientId(Constants.PAYPAL_CLIENT_ID)
+//
+//
+//    fun setUpPayPal() {
+//        var intent = Intent(context, PayPalService::class.java)
+//        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,payPalConfiguration)
+//        this.requireActivity().startService(intent)
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        requireActivity().stopService(Intent(requireActivity(), PayPalService::class.java))
+//
+//    }
 
-                Toast.makeText(
-                    context,
-                    "canceled",
-                    Toast.LENGTH_SHORT
-                ).show()
-            },
-
-            onError = OnError { errorInfo ->
-
-                Toast.makeText(
-                    context,
-                    "error",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.e("paypal_onError", "paypal: $errorInfo")
-            }
-        )
-    }
-
-    private fun payPalPaymentMethod() {
-        var payment =
-            PayPalPayment(
-                BigDecimal(Constants.totalPrice!!),
-                "USD",
-                "Brandat",
-                PayPalPayment.PAYMENT_INTENT_SALE
-            )
-        val intent = Intent(activity, PaymentActivity::class.java)
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration)
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment)
-        requestPaymentMethod.launch(intent)
-    }
-
-    private val payPalConfiguration =
-        PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_NO_NETWORK)
-
-
-    fun setUpPayPal() {
-        var intent = Intent(context, PayPalService::class.java)
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration)
-        this.requireActivity().startService(intent)
-    }
-
-    private val requestPaymentMethod =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data ->
-            val resultCode = data.resultCode
-
-            if (resultCode == Activity.RESULT_OK) {
-                checkOutOrderViewModel.createOrder()
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                showSnakebar(R.string.cancel)
-
-
-            } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-
-                showSnakebar(R.string.invalid_data)
-            }
-
-        }
+//
+//    private val requestPaymentMethod =
+//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data ->
+//            val resultCode = data.resultCode
+//
+//            if (resultCode == Activity.RESULT_OK) {
+//                val auth = data?.data?.getParcelableExtra<PayPalAuthorization>(PayPalProfileSharingActivity.EXTRA_RESULT_AUTHORIZATION)
+//                val confirm = data?.data?.getParcelableExtra<PaymentConfirmation>(PaymentActivity.EXTRA_RESULT_CONFIRMATION)
+//                if(confirm!=null){
+//                checkOutOrderViewModel.createOrder()
+//
+//                }
+//            } else if (resultCode == Activity.RESULT_CANCELED) {
+//                        hideLoading()
+//                        showCancelSnakebar()
+//
+//
+//            } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+//                          hideLoading()
+//                          showErrorSnakebar()
+//                Log.e(TAG, ":${resultCode} ", )
+//            }
+//
+//        }
 
     private fun successDialog() {
         val dialogBuilder = AlertDialog.Builder(requireContext())
@@ -272,6 +312,7 @@ class CheckOutOrderFragment : Fragment() {
 //                .navigate(
 //                    R.id.action_checkOutOrderFragment_to_homeFragment2
 //                )
+
             requireActivity().finish()
 
         }
@@ -288,5 +329,29 @@ class CheckOutOrderFragment : Fragment() {
             alertDialog.dismiss()
         }
     }
+    private fun showCancelSnakebar() {
+        Snackbar.make(requireView(), "Cancel", Snackbar.LENGTH_INDEFINITE)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                resources.getColor(
+                    R.color.black2
+                )
+            )
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
+
+    }
+    private fun showErrorSnakebar() {
+        Snackbar.make(requireView(), "something wrong happen ", Snackbar.LENGTH_INDEFINITE)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
+                resources.getColor(
+                    R.color.red
+                )
+            )
+            .setActionTextColor(resources.getColor(R.color.white)).setAction("Close") {
+            }.show()
+
+    }
+
+
 
 }

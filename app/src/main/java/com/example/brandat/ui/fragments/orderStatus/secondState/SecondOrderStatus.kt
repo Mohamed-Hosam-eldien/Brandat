@@ -2,6 +2,8 @@ package com.example.brandat.ui.fragments.orderStatus.secondState
 
 import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -30,6 +32,9 @@ class SecondOrderStatus: Fragment() {
     lateinit var binding: SecondOrderStateBinding
     lateinit var iChangeOrderStatus: IChangeOrderStatus
     private var discount = 0.0
+    private  var price =0.0
+    lateinit var currencyCode:String
+    lateinit var sharedPreferences : SharedPreferences
     private val shardOrderStatusViewModel: CheckOutOrderViewModel by viewModels()
     lateinit var selectedAddress: CustomerAddress
     var selectPaymentMethod: String? = null
@@ -51,17 +56,14 @@ class SecondOrderStatus: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.e(TAG, "onViewCreated: ---> ${Constants.totalPrice}", )
-
-        binding.totalPrice.text = Constants.totalPrice.toString()
-        binding.finalPrice.text = Constants.totalPrice.toString()
-
-
+        sharedPreferences =requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
+        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
+        price= Constants.totalPrice?:0.0
+        initView()
         arguments?.let {
             selectedAddress = arguments?.getParcelable("address")!!
         }
-        
+
         binding.layoutCash.setOnClickListener {
             binding.rdbCash.isChecked = true
             binding.rdbPay.isChecked = false
@@ -78,12 +80,14 @@ class SecondOrderStatus: Fragment() {
 
         binding.btnApply.setOnClickListener {
             if (binding.edtCopon.text.toString().isNotEmpty()) {
+                if(Constants.getDiscount==false){
                 it.visibility = View.GONE
                 binding.progress.visibility = View.VISIBLE
 
                 Timer("SettingUp", false).schedule(3000) {
                     requireActivity().runOnUiThread {
                         val discountValue = isCorrectCoupon(binding.edtCopon.text.toString())
+                        Log.e(TAG, "onViewCreated: ${discountValue}", )
                         if (discountValue == "") {
                             it.visibility = View.VISIBLE
                             binding.progress.visibility = View.GONE
@@ -91,12 +95,20 @@ class SecondOrderStatus: Fragment() {
                             Toast.makeText(requireContext(), "invalid code", Toast.LENGTH_SHORT)
                                 .show()
                         } else {
-                            calacDiscount(discountValue)
+                            calacDiscount(discountValue ?:"0.0")
+                            Constants.getDiscount = true
                             binding.layoutCoponDone.visibility = View.VISIBLE
                             binding.layoutCopon.visibility = View.GONE
                         }
                     }
                 }
+                }
+                else{
+                    Toast.makeText(requireContext(), "you take your discount before", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else{
+                //binding.userDiscount.textColors=resources.getColor(R.color.black)
             }
         }
         binding.btnNext.setOnClickListener {
@@ -111,6 +123,7 @@ class SecondOrderStatus: Fragment() {
                 bundle.putParcelable("address", selectedAddress)
                 bundle.putString("paymentMethod", selectPaymentMethod)
                 bundle.putDouble("discount",discount)
+                bundle.putDouble("price",price)
                 findNavController().navigate(R.id.action_secondOrderStatus_to_finishOrderStateFragment, bundle)
                 iChangeOrderStatus.changeStatus(2)
 
@@ -118,23 +131,29 @@ class SecondOrderStatus: Fragment() {
         }
     }
 
-    private fun isCorrectCoupon(code: String): String {
+    private fun initView() {
+        binding.subPrice.text = Constants.totalPrice?.toString()?.plus(" ")?.plus(currencyCode)?: "0.0"
+        binding.totalPrice.text =price.minus(discount)?.toString()?.plus(" ")?.plus(currencyCode)?: "0.0"
+        binding.discount.text =discount?.toString().plus(" ")?.plus(currencyCode)
+
+    }
+
+    private fun isCorrectCoupon(code: String): String? {
         val value = Constants.discounCde?.filter { it.title == code }
+        Log.e(TAG, "isCorrectCoupon: ${value}", )
         if (value?.size!=0) {
-            return "30.0"
+            return value?.get(0)?.value
         }
         return ""
     }
 
     private fun calacDiscount(discountValue: String) {
-
-        Constants.totalPrice?.let {
-             discount = it * discountValue.toDouble() / 100
-            Constants.totalPrice = it - discount
-            binding.discount.text=discount.toString()
-            binding.finalPrice.text = Constants.totalPrice.toString()
-
-            Log.e(TAG, "calacDiscount: ${ Constants.totalPrice.toString()}", )
+        Log.e(TAG, "calacDiscount: ${discountValue}", )
+        price?.let {
+             discount = (it * (discountValue.toDouble()*-1) / 100)
+             price = it - discount
+            binding.discount.text=discount.toString().plus(" ").plus(currencyCode)
+            binding.totalPrice.text =price?.toString()?.plus(" ")?.plus(currencyCode)?:"0.0"
         }
 
     }

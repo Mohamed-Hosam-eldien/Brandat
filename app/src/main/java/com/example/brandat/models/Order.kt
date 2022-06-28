@@ -39,7 +39,8 @@ data class Order(
     val gateway: String = "",
         @SerializedName("source_name")
         val sourceName: String="",
-
+//        @SerializedName("currency")
+//        val currency: String
 //    @SerializedName("admin_graphql_api_id")
 //    val adminGraphqlApiId: String,
 //    @SerializedName("app_id")
@@ -62,8 +63,7 @@ data class Order(
 //    val contactEmail: String,
 //    @SerializedName("created_at")
 //    val createdAt: String,
-//    @SerializedName("currency")
-//    val currency: String,
+
 //    @SerializedName("current_subtotal_price")
 //    val currentSubtotalPrice: String,
 //    @SerializedName("current_subtotal_price_set")

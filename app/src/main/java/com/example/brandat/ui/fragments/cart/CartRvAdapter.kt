@@ -15,6 +15,9 @@ import com.bumptech.glide.Glide
 import com.example.brandat.R
 import com.example.brandat.databinding.CartItemBinding
 import com.example.brandat.utils.CartDiffUtil
+import com.example.brandat.utils.Constants
+import com.example.brandat.utils.convertCurrency
+import com.google.android.material.snackbar.Snackbar
 
 
 class CartRvAdapter(
@@ -24,7 +27,13 @@ class CartRvAdapter(
 ) :
     RecyclerView.Adapter<CartRvAdapter.CartViewHolder>(), ActionMode.Callback {
     private var carts: List<Cart> = ArrayList()
+    var currency :String = "EGP"
 
+    init {
+        val sharedPreferences = context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,"EGP")!!
+
+    }
     private lateinit var rootView: View
     private lateinit var mActionMode: ActionMode
     private var myViewHolders = arrayListOf<CartViewHolder>()
@@ -73,9 +82,11 @@ class CartRvAdapter(
 //                * holder.binding.numberButton.number.toInt()).toString()
 
         if (currentCart.tPrice == 0.0) {
-            holder.binding.tvProductPrice.text = currentCart.pPrice
+            holder.binding.tvProductPrice.text = convertCurrency(currentCart.pPrice!!.toDouble(),holder.itemView.context).plus("  ").plus(currency)
+//            holder.binding.tvProductPrice.text = currentCart.pPrice
         } else {
-            holder.binding.tvProductPrice.text = currentCart.tPrice.toString()
+            holder.binding.tvProductPrice.text = convertCurrency(currentCart.tPrice!!.toDouble(),holder.itemView.context).plus("  ").plus(currency)
+            //holder.binding.tvProductPrice.text = currentCart.tPrice.toString()
         }
 
         holder.binding.tvProductName.text = currentCart.pName.lowercase()

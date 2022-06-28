@@ -16,6 +16,7 @@ import com.example.brandat.utils.ResponseResult
 import com.example.brandat.utils.convertToBillingAddress
 import com.example.brandat.utils.toLineItem
 import com.google.firebase.database.FirebaseDatabase
+import com.paypal.checkout.createorder.CurrencyCode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,23 +30,25 @@ class CheckOutOrderViewModel @Inject constructor(private val repository: IProduc
     val loading = MutableLiveData<Boolean>()
     private val _createOrderResponse = MutableLiveData<ResponseResult<OrderResponse>>()
     val createOrderResponse: LiveData<ResponseResult<OrderResponse>?> = _createOrderResponse
-    var selectedPaymentMethods: String = "Paypal"
+    var selectedPaymentMethods: String = "cash"
     var selectedAddress: CustomerAddress? = null
     var discount = 0.0
-
+    var totalPrice = 0.0
+    lateinit var currencyCode: String
     //fun getTotalPrice() = (discount ?: 0.0) + orderProduct.getPrice() + deliveryCoast
 
     fun createOrder() {
-        Log.e(TAG, "createOrder: items --> ${orderProduct.toLineItem()}")
+
         val order = CustomerOrder(
-            billing_address = convertToBillingAddress(selectedAddress!!),
+           billing_address = convertToBillingAddress(selectedAddress!!),
             email = Constants.user.email,
             line_items = orderProduct.toLineItem(),
-            gateway = selectedPaymentMethods,
-            total_price = Constants.totalPrice.toString(),
+            gateway =selectedPaymentMethods,
+            total_price = totalPrice.toString(),
             totalDiscount = discount.toString(),
             customer = Constants.user,
-            sourceName = selectedAddress!!.printAddress()
+            sourceName = selectedAddress!!.printAddress(),
+            currency = currencyCode
         )
 
         viewModelScope.launch(Dispatchers.IO) {

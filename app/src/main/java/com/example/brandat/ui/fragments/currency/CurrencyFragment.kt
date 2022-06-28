@@ -23,6 +23,7 @@ class CurrencyFragment : Fragment() {
     lateinit var binding: FragmentCurrencyBinding
     lateinit var sharedPreferences:SharedPreferences
     lateinit var  editor : SharedPreferences.Editor
+    lateinit var currencyCode:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,18 @@ class CurrencyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = requireActivity().getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
+        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
 
+        when(currencyCode){
+            "USD"->{
+                binding.rdbBound.isChecked = false
+                binding.rdbDollar.isChecked = true
+               }
+            "EGP"->{
+                binding.rdbBound.isChecked = true
+                binding.rdbDollar.isChecked = false
+            }
+        }
         binding.cardBound.setOnClickListener {
             binding.rdbBound.isChecked = true
             binding.rdbDollar.isChecked = false

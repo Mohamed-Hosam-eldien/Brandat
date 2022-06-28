@@ -18,20 +18,18 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class FavouriteAdapter(val context: Context, var onClickedListener: OnclickListener) :
+class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListener) :
     RecyclerView.Adapter<FavouriteAdapter.ProductViewHolder>() {
 
     private var fav_products = emptyList<ProductDetails>()
+    var currency :String = "EGP"
     private val listener = FirebaseDatabase.getInstance()
         .getReference(Constants.user.id.toString())
         .child("cart")
 
-    var currency: String = "USD"
-
     init {
-        val sharedPreferences =
-            context.getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
-        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE, "USD")!!
+        val sharedPreferences = context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,"EGP")!!
 
     }
 
@@ -75,7 +73,6 @@ class FavouriteAdapter(val context: Context, var onClickedListener: OnclickListe
                         holder.binding.ivCart.setBackgroundResource(R.drawable.cart_shape_back)
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {}
             })
 
@@ -111,6 +108,7 @@ class FavouriteAdapter(val context: Context, var onClickedListener: OnclickListe
         val favDiffUtilResult = DiffUtil.calculateDiff(favouriteDiffUtil)
         fav_products = ArrayList(newData)
         favDiffUtilResult.dispatchUpdatesTo(this)
+
     }
 
     private fun setProductDataToCartModel(favProduct: ProductDetails): Cart {
@@ -124,6 +122,7 @@ class FavouriteAdapter(val context: Context, var onClickedListener: OnclickListe
         )
     }
 
+    //============================================================
     class ProductViewHolder(val binding: FavouriteItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 

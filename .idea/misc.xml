@@ -144,11 +144,20 @@
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/oval_shap.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/paypal_background.xml" value="0.1855" />
+        <entry key="app/src/main/res/drawable/rounded_shap.xml" value="0.1515" />
+        <entry key="app/src/main/res/drawable/rounded_shape.xml" value="0.1515" />
+        <entry key="app/src/main/res/drawable/send_order_backgroung.xml" value="0.1515" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15217391304347827" />
         <entry key="app/src/main/res/layout/adderss_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/brands_item_shimmer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/d3d3.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/dialog_failure.xml" value="0.11005434782608696" />
         <entry key="app/src/main/res/layout/fragment_address.xml" value="0.165625" />
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/fragment_finsh_order_state.xml" value="0.1771756122980719" />
+        <entry key="app/src/main/res/layout/second_order_state.xml" value="0.11730072463768115" />
+        <entry key="app/src/main/res/layout/successful_dialog.xml" value="0.11005434782608696" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.165625" />
       </map>
     </option>

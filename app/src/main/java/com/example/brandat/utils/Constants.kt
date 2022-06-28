@@ -18,8 +18,8 @@ class Constants {
     companion object {
         var totalPrice: Double? = 0.0
         var discounCde: List<PriceRule>? = null
-        const val PAYPAL_CLIENT_ID = "Aab9pWmlaqabofcahFzc-e1zxOzjqQqrY1YREcrpdIWR6pHJWJF3SfhtZ0rnZq4iahcfu6xG8AFBP1hL"
-
+        var getDiscount :Boolean = false
+        const val PAYPAL_CLIENT_ID = "AT0rbijoRD0wfeS-jvgy67hXA_HzxMnLgn56IztMCLsqqkpxShTzdzWL7at-St_2ExP9mhhcpykB_OS8"
         const val  SHARD_NAME = "shard"
         const val CURRENCY_TYPE = "currency"
 

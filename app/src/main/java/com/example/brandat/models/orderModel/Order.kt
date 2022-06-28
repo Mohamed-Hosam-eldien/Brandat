@@ -41,8 +41,11 @@ data class Order(
     val items: List<LineItem>? = listOf(),
 
     @SerializedName( "gateway")
-    val gateway: String = ""
-
+    val gateway: String = "",
+    @SerializedName("source_name")
+    val sourceName: String="",
+        @SerializedName("currency")
+        val currency: String
 
 //    val admin_graphql_api_id: String = "",
 //    val app_id: Int = 1,

@@ -19,6 +19,7 @@ import com.example.brandat.models.CustomerAddress
 import com.example.brandat.models.orderModel.ShippingAddress
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.fragments.address.AddressViewModel
+import com.example.brandat.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,6 +72,7 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
             var bundle = Bundle()
             if (selectedAddress != null) {
                 bundle.putParcelable("address", selectedAddress)
+                Constants.getDiscount = false
                 findNavController().navigate(
                     R.id.action_firstOrderStatus_to_secondOrderStatus,
                     bundle
