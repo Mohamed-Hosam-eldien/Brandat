@@ -18,10 +18,12 @@
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_address.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_cart.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_category.xml" value="0.22509057971014493" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_login.xml" value="0.24365942028985507" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_maps.xml" value="0.264" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_my_order.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_order_details.xml" value="0.24609178013111446" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_product_details.xml" value="0.12360688956433637" />
+        <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_register.xml" value="0.24365942028985507" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/fragment_search.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/items_in_order.xml" value="0.22509057971014493" />
         <entry key="..\:/NativeMobile(ITI)/Final project - Brandat/Brandat project/Brandat/Brandat/app/src/main/res/layout/main_toolbar.xml" value="0.18333333333333332" />
@@ -47,6 +49,8 @@
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/drawable/cart_shape_back.xml" value="0.1115" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/drawable/cart_shape_back_done.xml" value="0.1845" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/drawable/ic_add_location.xml" value="0.1845" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/drawable/ic_add_shopping_cart.xml" value="0.153" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/drawable/ic_favorite_filled.xml" value="0.1845" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/drawable/ic_add_shopping_cart.xml" value="0.153" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/drawable/ic_favorite_filled.xml" value="0.1845" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/drawable/rounded_shap.xml" value="0.1845" />
@@ -81,6 +85,7 @@
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_new_category.xml" value="0.25" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_order_details.xml" value="0.171875" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_product.xml" value="0.12407407407407407" />
+        <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_product_details.xml" value="0.22" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_product_details.xml" value="0.25" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_profile_data.xml" value="0.171875" />
         <entry key="..\:/Users/PCM/Desktop/Brandat2/app/src/main/res/layout/fragment_register.xml" value="0.21" />
