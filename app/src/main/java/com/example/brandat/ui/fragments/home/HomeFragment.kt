@@ -11,6 +11,10 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.Interpolator
+import android.view.animation.LayoutAnimationController
+import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
@@ -31,6 +35,8 @@ import com.example.brandat.utils.ResponseResult
 import com.example.brandat.utils.observeOnce
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 
 
 @AndroidEntryPoint
@@ -157,8 +163,15 @@ class HomeFragment : Fragment(), BrandOnClickListner {
         binding.brandsRecycler.apply {
             val layoutManager = GridLayoutManager(context, 2)
             setLayoutManager(layoutManager)
-            adapter = brandAdapter
+
+            val scaleAdapter = ScaleInAnimationAdapter(brandAdapter).apply {
+                setDuration(825)
+                setFirstOnly(false)
+            }
+
+            adapter = scaleAdapter
         }
+
     }
 
     private fun showShimmerEffect() {

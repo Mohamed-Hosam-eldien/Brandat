@@ -40,6 +40,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 
 
 @AndroidEntryPoint
@@ -286,7 +287,13 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             val layoutManager =
                 GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
             setLayoutManager(layoutManager)
-            adapter = productRvAdapter
+
+            val scaleAdapter = ScaleInAnimationAdapter(productRvAdapter).apply {
+                setDuration(825)
+                setFirstOnly(false)
+            }
+
+            adapter = scaleAdapter
         }
     }
 
@@ -329,7 +336,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 addCartToDraft(currentProduct)
                 ivCart.tag = "done"
                 cartViewModel.addProductToCart(currentProduct)
-                ivCart.setImageResource(R.drawable.cart_done)
+                ivCart.setImageResource(R.drawable.ic_baseline_done_green)
                 ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
 
                 if (Paper.book().read<Int>("count") != null) {

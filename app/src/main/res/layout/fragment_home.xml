@@ -12,13 +12,14 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
         android:id="@+id/home_layout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/lightGray">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
+            android:background="@color/lightGray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
@@ -31,7 +32,7 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="220dp"
                 android:fitsSystemWindows="true"
                 app:contentScrim="#5A7480"
                 app:expandedTitleGravity="bottom"
@@ -39,19 +40,28 @@
                 app:expandedTitleMarginStart="8dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <com.denzcoskun.imageslider.ImageSlider
-                    android:id="@+id/image_slider"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:animateLayoutChanges="true"
-                    app:iss_auto_cycle="true"
-                    app:iss_delay="1"
-                    app:iss_error_image="@drawable/error"
-                    app:iss_period="2000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="230dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <com.denzcoskun.imageslider.ImageSlider
+                        android:id="@+id/image_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        android:animateLayoutChanges="true"
+                        app:iss_auto_cycle="true"
+                        app:iss_delay="1"
+                        app:iss_error_image="@drawable/error"
+                        app:iss_period="2000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.cardview.widget.CardView>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -63,7 +73,9 @@
                     app:popupTheme="@style/ThemeOverlay.AppCompat" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
+
         </com.google.android.material.appbar.AppBarLayout>
+
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="250dp"
@@ -87,8 +99,7 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             tools:listitem="@layout/recycler_home_item" />
 
-        <com.mikelau.views.shimmer.ShimmerRecyclerView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.mikelau.views.shimmer.ShimmerRecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/shimmer_recycle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -101,26 +112,26 @@
             app:shimmer_demo_layout="@layout/placeholder_product"
             app:shimmer_demo_layout_manager_type="grid"
             app:shimmer_demo_mask_width=".5"
-            app:shimmer_recycler_direction="top_to_bottom"
-            app:shimmer_demo_reverse_animation="false" />
+            app:shimmer_demo_reverse_animation="false"
+            app:shimmer_recycler_direction="top_to_bottom" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/giftCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="4dp"
-            android:layout_gravity="left"
-            android:layout_marginLeft="8dp"
             app:cardUseCompatPadding="true">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
                 android:id="@+id/gift_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:gravity="left"
-                android:layout_height="wrap_content">
+                android:gravity="left">
 
                 <ImageView
                     android:id="@+id/imgGift"
@@ -136,20 +147,20 @@
                     android:id="@+id/layoutCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:visibility="gone"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center"
                     android:layout_toRightOf="@id/imgGift"
+                    android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:visibility="gone">
 
 
                     <TextView
                         android:id="@+id/txtCode"
-                        android:gravity="left"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="left"
                         android:text="@string/copunCode"
                         android:textStyle="bold" />
 

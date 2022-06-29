@@ -26,20 +26,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.denzcoskun.imageslider.ImageSlider
-                    android:id="@+id/image_slider"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSlide"
                     android:layout_width="match_parent"
-                    android:layout_height="280dp"
-                    android:animateLayoutChanges="true"
-                    app:iss_auto_cycle="true"
-                    app:iss_delay="1"
-                    app:iss_error_image="@drawable/error"
-                    app:iss_period="2000"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_height="230dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
 
+                    <com.denzcoskun.imageslider.ImageSlider
+                        android:id="@+id/image_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp"
+                        android:animateLayoutChanges="true"
+                        app:iss_auto_cycle="true"
+                        app:iss_delay="1"
+                        app:iss_error_image="@drawable/error"
+                        app:iss_period="2000" />
+
+                </androidx.cardview.widget.CardView>
 
                 <View
                     android:layout_width="50dp"
@@ -87,6 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
+                    android:textAllCaps="false"
                     android:text="black back bag"
                     android:textAlignment="center"
                     android:textColor="#000000"
@@ -94,7 +104,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image_slider" />
+                    app:layout_constraintTop_toBottomOf="@id/cardSlide" />
 
                 <TextView
                     android:id="@+id/product_price_tv"
@@ -110,11 +120,12 @@
 
                 <RatingBar
                     android:id="@+id/ratingBar"
-                    android:layout_width="242dp"
-                    android:layout_height="48dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:backgroundTint="@color/lightGray"
                     android:isIndicator="true"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:progressTint="#ECA800"
                     app:layout_constraintEnd_toEndOf="@id/product_price_tv"
                     app:layout_constraintStart_toStartOf="@id/product_price_tv"
@@ -159,7 +170,7 @@
                     android:layout_marginTop="18dp"
                     android:background="@color/chipTextColor"
                     android:gravity="center"
-                    app:backGroundColor="@color/teal_700"
+                    app:backGroundColor="@color/page"
                     app:finalNumber="20"
                     app:initialNumber="1"
                     app:layout_constraintLeft_toLeftOf="@id/ratingBar"

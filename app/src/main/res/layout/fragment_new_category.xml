@@ -85,7 +85,7 @@
             android:src="@drawable/empty_bag"
             android:visibility="gone" />
 
-        <com.mikelau.views.shimmer.ShimmerRecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.mikelau.views.shimmer.ShimmerRecyclerView
             android:id="@+id/shimmer_recycle"
             android:layout_width="match_parent"
             android:background="@color/lightGray"

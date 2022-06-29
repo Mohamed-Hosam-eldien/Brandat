@@ -189,6 +189,8 @@ dependencies {
     implementation 'io.github.pilgr:paperdb:2.7.2'
     // dialog
     implementation "com.airbnb.android:lottie:2.8.0"
+
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
 //detect
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
 

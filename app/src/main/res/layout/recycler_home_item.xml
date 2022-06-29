@@ -46,9 +46,8 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:gravity="center"
-
                     android:text="CLASSIC BACKPACK"
-                    android:background="@color/darkG"
+                    android:background="@color/black2"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"

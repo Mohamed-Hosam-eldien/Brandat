@@ -86,7 +86,7 @@ class ProductRvAdapter(
         cartListener.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.hasChild(currentProduct.id.toString())) {
-                    holder.binding.ivCart.setImageResource(R.drawable.cart_done)
+                    holder.binding.ivCart.setImageResource(R.drawable.ic_baseline_done_green)
                     holder.binding.ivCart.tag = "done"
                     holder.binding.ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
                 } else {

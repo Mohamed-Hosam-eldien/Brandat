@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#44403E</color>
-    <color name="purple_500">#44403E</color>
-    <color name="purple_700">#615B59</color>
+    <color name="purple_200">#4C3A51</color>
+    <color name="purple_500">#4C3A51</color>
+    <color name="purple_700">#4C3A51</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFE83B</color>
-    <color name="shimmerColor">#C2C2C2</color>
-
+    <color name="page">#E7AB79</color>
+    <color name="shimmerColor">#EAEAEA</color>
+    <color name="shimmerDark">#D1D1D1</color>
+<!--    E27802 774360-->
+<!--    774360-->
     <color name="red">#D70D0D</color>
     <color name="green">#72B227</color>
     <color name="lightGray">#F0F0F0</color>
@@ -22,7 +25,7 @@
 
     <color name="checkedChipTextColor">@color/white</color>
     <color name="chipTextColor">@color/darkG</color>
-    <color name="black2">#1F1D1D</color>
+    <color name="black2">#CE000000</color>
     <color name="blue">#2196F3</color>
   // dialog color
     <color name="colorPrimary">#566573</color>
