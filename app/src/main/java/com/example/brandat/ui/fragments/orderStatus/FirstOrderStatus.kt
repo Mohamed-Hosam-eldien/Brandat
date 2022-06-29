@@ -53,7 +53,7 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
 
         binding.fabMenu.menuIconView.setImageResource(R.drawable.ic_location)
         binding.fabMenu.menuButtonColorNormal = Color.parseColor("#162D53")
-        Toast.makeText(context, "${binding.fabMenu.menuButtonColorNormal}", Toast.LENGTH_SHORT).show()
+
         binding.fabMenu.isIconAnimated = true
 
         binding.mapBtn.setOnClickListener {

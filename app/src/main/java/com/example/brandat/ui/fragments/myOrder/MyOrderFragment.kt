@@ -30,7 +30,7 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
     //lateinit var myOrdrAdapter: MyOrderAdapter
     lateinit var navController: NavController
     private val viewModel: MyOrderViewModel by viewModels()
-    private val myOrderAdapter by lazy { MyOrderAdapter(this) }
+    private val myOrderAdapter by lazy { MyOrderAdapter(this, requireContext()) }
     var email: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,10 +114,8 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
     }
 
     override fun onClick(orderItem: Order) {
-
-        val direct:NavDirections=MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment22(orderItem)
+        val direct:NavDirections=MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment2(orderItem)
         findNavController().navigate(direct)
-
     }
 
     private fun showMessage(it: String) {

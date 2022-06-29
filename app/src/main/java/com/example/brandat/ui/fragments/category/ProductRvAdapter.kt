@@ -28,14 +28,12 @@ class ProductRvAdapter(
     private val favListener = listener.child("fav")
     private val cartListener = listener.child("cart")
 
-
     var currency: String = "EGP"
 
     init {
         val sharedPreferences =
             context.getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
         currency = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
-
     }
 
 

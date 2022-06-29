@@ -80,7 +80,7 @@
             android:id="@+id/action_myOrderFragment_to_profileDataFragment"
             app:destination="@id/profileDataFragment" />
         <action
-            android:id="@+id/action_myOrderFragment_to_orderDetailsFragment22"
+            android:id="@+id/action_myOrderFragment_to_orderDetailsFragment2"
             app:destination="@id/orderDetailsFragment2" />
     </fragment>
     <fragment

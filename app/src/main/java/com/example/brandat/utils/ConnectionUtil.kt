@@ -79,7 +79,7 @@ class ConnectionUtil {
                                         viewModel.getDiscountCode()
 
                                     } else if (viewModel is CategoryViewModel) {
-                                        viewModel.getAllProductsByName()
+                                        viewModel.getAllProductsByType("ALL")
                                         viewModel.getCategory(395964875010L)
                                     } else if (viewModel is ProductDetailsViewModel) {
                                         Log.d("TAG", "onAvailable: id -->$id")

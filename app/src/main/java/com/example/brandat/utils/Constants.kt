@@ -51,6 +51,7 @@ class Constants {
                 .setActionTextColor(resources.getColor(R.color.white)).setAction(getString(R.string.close)) {
                 }.show()
         }
+
         fun Fragment.showDialogToRegister(title:String) {
             val builder = AlertDialog.Builder(requireContext())
             builder.setPositiveButton(getString(R.string.login_now)) { _, _ ->

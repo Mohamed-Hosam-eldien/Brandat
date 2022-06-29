@@ -11,15 +11,15 @@
     <string name="item_details">تفاصيل العنصر</string>
     <string name="brandat">Brandat</string>
     <string name="Address">العنوان</string>
-    <string name="customer_name">اسم المشتري:</string>
-    <string name="order_number">رقم الطلب:</string>
-    <string name="order_item">رقم الطلب:</string>
-    <string name="order_details">تفاصيل الطلب:</string>
-    <string name="total_price">إجمالي السعر:</string>
-    <string name="payment_method">طريقة الدفع:</string>
-    <string name="order_date">تاريخ الطلب:</string>
-    <string name="phone">رقم الهاتف:</string>
-    <string name="address">العنوان:</string>
+    <string name="customer_name">اسم المشتري : </string>
+    <string name="order_number">رقم الطلب : </string>
+    <string name="order_item">رقم الطلب : </string>
+    <string name="order_details">تفاصيل الطلب : </string>
+    <string name="total_price">إجمالي السعر : </string>
+    <string name="payment_method">طريقة الدفع : </string>
+    <string name="order_date">تاريخ الطلب : </string>
+    <string name="phone">رقم الهاتف : </string>
+    <string name="address">العنوان : </string>
     <string name="brands">Brands</string>
     <string name="text_user_discount">راجع الصفحة الرئيسية للحصول علي  كود لتخفيضات 🎁</string>
 

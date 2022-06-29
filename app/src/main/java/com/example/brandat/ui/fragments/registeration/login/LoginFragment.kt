@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentLoginBinding
@@ -56,19 +57,21 @@ class LoginFragment : Fragment() {
                     binding.prog.visibility = View.VISIBLE
                     loginViewModel.loginCustomer(binding.etEmail.text.toString(), "")
                 }
-            }else{
+
+            } else {
                 showSnackBar(getString(R.string.no_connection))
                 binding.animationView.visibility = View.VISIBLE
             }
 
         }
-        loginViewModel.signInSuccess.observeOnce(viewLifecycleOwner) {
+
+        loginViewModel.signInSuccess.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
 
-                if (it.customer[0].tags == binding.etPass.text.toString()) {
-                    Paper.book().write("id", it.customer[0].id)
-                    Paper.book().write("email", it.customer[0].email)
-                    Paper.book().write("name", it.customer[0].firstName + " " + it.customer[0].lastName)
+                if (it[0].tags == binding.etPass.text.toString()) {
+                    Paper.book().write("id", it[0].id)
+                    Paper.book().write("email", it[0].email)
+                    Paper.book().write("name", it[0].firstName + " " + it[0].lastName)
 
                     initUser()
 
@@ -90,8 +93,8 @@ class LoginFragment : Fragment() {
                     requireContext(),
                     context?.getString(R.string.this_user_is_not_exist),
                     Toast.LENGTH_SHORT
-                )
-                    .show()
+                ).show()
+
                 binding.loginBtn.visibility = View.VISIBLE
                 binding.prog.visibility = View.GONE
                 binding.etEmail.setText("")
@@ -114,9 +117,6 @@ class LoginFragment : Fragment() {
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         Paper.book().write<Int>("count", snapshot.children.count())
-                        //Constants.count = Paper.book().read<Int>("count")!!
-//                        val viewModel = ViewModelProvider(this@LoginFragment)[ProfileSharedViewModel::class.java]
-//                        viewModel.setCount(count)
 
                         snapshot.children.forEach {
                             val cart : Cart = it.getValue(Cart::class.java)!!

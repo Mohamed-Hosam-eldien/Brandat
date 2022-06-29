@@ -38,8 +38,8 @@ class CartFragment : Fragment(), CartOnClickListener {
     private lateinit var builder: AlertDialog.Builder
     private lateinit var bindingDialog: AlertDialogBinding
     private lateinit var dialog: AlertDialog
-    lateinit var currencyCode:String
-    lateinit var sharedPreferences : SharedPreferences
+    lateinit var currencyCode: String
+    lateinit var sharedPreferences: SharedPreferences
     private lateinit var bageCountI: IBadgeCount
     private var badgeCount: Int = 0
     private val cartViewModel: CartViewModel by viewModels()
@@ -49,11 +49,18 @@ class CartFragment : Fragment(), CartOnClickListener {
             .child("cart")
     }
 
+    var currency: String = "EGP"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCartBinding.inflate(LayoutInflater.from(context), container, false)
+
+
+        sharedPreferences = context?.getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)!!
+
+        currency = sharedPreferences?.getString(Constants.CURRENCY_TYPE, "EGP")!!.toString()
 
         bindingDialog =
             AlertDialogBinding.inflate(LayoutInflater.from(context), container, false)
@@ -63,7 +70,8 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences =requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
+        sharedPreferences =
+            requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
         currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
 
         Paper.init(requireContext())
@@ -73,12 +81,12 @@ class CartFragment : Fragment(), CartOnClickListener {
         getAllCartFromDraft()
         cartViewModel.getAllCartProduct()
         cartViewModel.cartProduct.observe(viewLifecycleOwner) {
-            if(it.isEmpty()) {
+            if (it.isEmpty()) {
                 binding.ivPlaceholder.visibility = View.VISIBLE
                 binding.rvCart.visibility = View.GONE
                 binding.cartsCurrency.text = currencyCode
                 binding.tvTprice.text = getString(R.string.zero)
-                binding.tvConut.text =getString(R.string.zero_item)
+                binding.tvConut.text = getString(R.string.zero_item)
             }
         }
 
@@ -98,9 +106,9 @@ class CartFragment : Fragment(), CartOnClickListener {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Constants.getDiscount=false
-                    val intent =Intent(requireContext(), OrderStatus::class.java)
-                    intent.putExtra("total",binding.tvTprice.text.toString())
+                    Constants.getDiscount = false
+                    val intent = Intent(requireContext(), OrderStatus::class.java)
+                    intent.putExtra("total", binding.tvTprice.text.toString())
                     startActivity(intent)
                 }
             }
@@ -113,14 +121,17 @@ class CartFragment : Fragment(), CartOnClickListener {
         listener
             .addValueEventListener(object : ValueEventListener {
                 val list = mutableListOf<Cart>()
+
                 @SuppressLint("SetTextI18n")
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    for(data in snapshot.children) {
+                    for (data in snapshot.children) {
                         list.add(data.getValue(Cart::class.java)!!)
                     }
-                    if(list.isNotEmpty()) {
+
+                    if (list.isNotEmpty()) {
                         binding.rvCart.apply {
-                            val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                            val layoutManager =
+                                LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
                             setLayoutManager(layoutManager)
                             cartAdapter.setData(list)
@@ -128,15 +139,18 @@ class CartFragment : Fragment(), CartOnClickListener {
 
                             var total = 0.0
 
-                            list.forEach{
+                            list.forEach {
                                 total += it.tPrice!!
                             }
 
-                            binding.tvTprice.text = total.toString()
+                            binding.tvTprice.text = convertCurrency(total, requireContext())
+                            binding.cartsCurrency.text = currency
+
                             when (list.size) {
-                                0 -> binding.tvConut.text = "${list.size}${getString(R.string.item)}"
-                                1 -> binding.tvConut.text ="${list.size}${getString(R.string.item)}"
-                                else -> binding.tvConut.text ="${list.size}${getString(R.string.items_i)}"
+                                0, 1 -> binding.tvConut.text =
+                                    "(${list.size} ${getString(R.string.item)}"
+                                else -> binding.tvConut.text =
+                                    "(${list.size} ${getString(R.string.items_i)}"
                             }
                             binding.cartsCurrency.text = currencyCode
                             binding.rvCart.visibility = View.VISIBLE
@@ -181,7 +195,7 @@ class CartFragment : Fragment(), CartOnClickListener {
     }
 
     override fun onClicked(order: Cart) {
-       // showDialoge(order)
+        // showDialoge(order)
 
         listener.child(order.pId.toString()).removeValue()
 
@@ -268,7 +282,7 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     override fun onResume() {
         super.onResume()
-        if(Constants.user.id <= 0) {
+        if (Constants.user.id <= 0) {
             binding.ivPlaceholder.visibility = View.VISIBLE
             binding.rvCart.visibility = View.GONE
             binding.tvTprice.text = getString(R.string.zero)

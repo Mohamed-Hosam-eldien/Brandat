@@ -1,7 +1,9 @@
 package com.example.brandat.ui.fragments.productdetails
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,15 +25,16 @@ import com.example.brandat.ui.User
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.ui.fragments.cart.IBadgeCount
+import com.example.brandat.ui.fragments.serach.SearchActivity
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
+import com.example.brandat.utils.convertCurrency
 import com.example.brandat.utils.observeOnce
 import com.example.brandat.viewmodels.ProductDetailsViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
-
 
 @AndroidEntryPoint
 class ProductDetailsFragment : Fragment() {
@@ -40,6 +43,8 @@ class ProductDetailsFragment : Fragment() {
     private lateinit var mProduct: Product
     private lateinit var productToCart: Cart
     private lateinit var bageCountI: IBadgeCount
+    lateinit var sharedPreferences: SharedPreferences
+    private lateinit var currency:String
 
     private var user: List<User> = listOf(
         User("Mohamed", "this product is so beautiful wwooooww", 3),
@@ -74,7 +79,14 @@ class ProductDetailsFragment : Fragment() {
         _binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_product_details, container, false)
 
-        bageCountI = requireActivity() as MainActivity
+        sharedPreferences = context?.getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)!!
+
+        currency = sharedPreferences?.getString(Constants.CURRENCY_TYPE, "EGP")!!.toString()
+
+        if(requireActivity() is MainActivity)
+            bageCountI = requireActivity() as MainActivity
+        else
+            bageCountI = requireActivity() as SearchActivity
 
         Paper.init(requireContext())
 
@@ -174,7 +186,9 @@ class ProductDetailsFragment : Fragment() {
         if (body != null) {
 
             binding.productNameTv.text = body.productDetails.title
-            binding.productPriceTv.text = body.productDetails.variants?.get(0)?.price
+            binding.productPriceTv.text = convertCurrency(body.productDetails.variants?.get(0)?.price?.toDouble(),
+                requireContext()).plus("  ").plus(currency)
+
             binding.description.text = body.productDetails.bodyHtml
             binding.oneSize.text = body.productDetails.options[0].values[0]
             when (body.productDetails.options[1].values[0]) {
@@ -194,50 +208,30 @@ class ProductDetailsFragment : Fragment() {
                     showDialog()
                 } else {
 
-                    //if (ivCart.tag != "done") {
                     addCartToDraft(productToCart)
-                    //ivCart.tag = "done"
+
                     cartViewModel.addProductToCart(productToCart)
-                    //ivCart.setImageResource(R.drawable.cart_done)
-                    //ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
-                    /*bageCountI.updateBadgeCount(count++)
-                cartViewModel.getAllCartProduct()
-                cartViewModel.cartProduct.observe(viewLifecycleOwner) {
-                    count = it.size
-                    cartViewModel.addProductToCart(currentProduct)
-                    bageCountI.updateBadgeCount(count)
-                }
-                Paper.book().write("CountfromHome", count)*/
 
                     if (Paper.book().read<Int>("count") != null) {
                         Paper.book().write("count", Paper.book().read<Int>("count")!! + 1)
                     } else {
                         Paper.book().write("count", 1)
                     }
+
                     bageCountI.updateBadgeCount(Paper.book().read<Int>("count")!!)
                     Toast.makeText(requireContext(), context?.getString(R.string.added_to_cart), Toast.LENGTH_SHORT).show()
                 }
-                //}
-
-                ////
-//                if (Paper.book().read<String>("email") == null) {
-//                    showDialog()
-//                } else {
-//                    cartViewModel.addProductToCart(productToCart)
-//                }
             }
-
-//            imageList.add(SlideModel(body.productDetails.imageProducts[0].src))
-//            imageList.add(SlideModel(body.productDetails.imageProducts[1].src))
-//            imageList.add(SlideModel(body.productDetails.imageProducts[2].src))
 
             binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
             productToCart = Cart(
-                body.productDetails.title,
+                pName = body.productDetails.title,
                 variant_id = body.productDetails.variants?.get(0)?.id,
-                body.productDetails.variants?.get(0)?.price,
-                body.productDetails.imageProducts[0].src,
-                pId = body.productDetails.id
+                pPrice = body.productDetails.variants?.get(0)?.price,
+                pImage = body.productDetails.imageProducts[0].src,
+                tPrice = body.productDetails.variants?.get(0)?.price?.toDouble(),
+                pId = body.productDetails.id,
+                pQuantity = binding.elegantNumberButtonQuantity.number.toInt()
             )
 
         }

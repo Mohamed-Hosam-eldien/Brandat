@@ -55,8 +55,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
                     android:padding="3dp"
-                    android:maxLines="1"
-                    android:ems="8"
                     android:text="@{cart.PName}"
                     tools:text="CLASSIC BACKPACK"
                     android:textColor="@color/white"
@@ -82,12 +80,10 @@
 
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                     android:id="@+id/number_button"
-                    android:layout_width="140dp"
+                    android:layout_width="110dp"
                     android:layout_height="35dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="4dp"
-                    app:backgroundDrawable="@drawable/rounded_shap"
                     app:backGroundColor="@color/white"
                     app:finalNumber="20"
                     app:initialNumber="1"
@@ -100,10 +96,11 @@
                     android:id="@+id/iv_delete"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:visibility="gone"
                     app:layout_constraintTop_toTopOf="@+id/tv_product_name"
                     app:layout_constraintStart_toEndOf="@id/tv_product_name"
                     app:srcCompat="@drawable/ic_delete"
-                     />
+                    />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 

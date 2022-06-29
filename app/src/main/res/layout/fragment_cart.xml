@@ -62,8 +62,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/carts_currency"
-            app:layout_constraintBottom_toTopOf="@+id/buy_butn"
-             />
+            app:layout_constraintBottom_toTopOf="@+id/buy_butn" />
         <TextView
             android:id="@+id/carts_currency"
             android:layout_width="wrap_content"

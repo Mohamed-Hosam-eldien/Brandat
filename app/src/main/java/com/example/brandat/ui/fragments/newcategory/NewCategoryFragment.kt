@@ -127,11 +127,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             binding.animationView.visibility = View.VISIBLE
         }
 
-        ConnectionUtil.registerConnectivityNetworkMonitor(
-            requireContext(),
-            viewModel,
-            requireActivity()
-        )
+        ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(), viewModel, requireActivity())
 
     }
 
