@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.orderDetails
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,7 +19,7 @@ class OrderDetailsFragment : Fragment() {
     lateinit var binding: FragmentOrderDetailsBinding
     lateinit var itemAdapter: OrderItemAdapter
     private val args by navArgs<OrderDetailsFragmentArgs>()
-    lateinit var order:Order
+    lateinit var order: Order
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +47,9 @@ class OrderDetailsFragment : Fragment() {
         showData()
     }
 
-    private fun initRecycler(order:Order?) {
-        if(order?.items?.isNotEmpty() == true){
-            itemAdapter = OrderItemAdapter(requireContext(),order?.items)
+    private fun initRecycler(order: Order?) {
+        if (order?.items?.isNotEmpty() == true) {
+            itemAdapter = OrderItemAdapter(requireContext(), order.items)
             binding.myOrderRecycler.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 //layoutManager = GridLayoutManager(context,2)
@@ -59,13 +60,14 @@ class OrderDetailsFragment : Fragment() {
     }
 
 
-    fun showData(){
+    @SuppressLint("SetTextI18n")
+    fun showData() {
         binding.orderNumber.text = order.orderNumber.toString()
-        binding.paymentMethod.text = order.gateway
-        var date = order.createdAt?.substring(0,10)
+        var date = order.createdAt?.substring(0, 10)
         binding.orderDate.text = date
-        binding.customerPhone.text = order.finalPrice
-       // binding.customerAddress.text = order.==>Address from Doaa
-
+        binding.priceValue.text = order.finalPrice
+        binding.priceCurrency.text = order.currency
+        binding.customerAddress.text = order.sourceName[0].uppercaseChar() + order.sourceName.substring(1)
+        binding.paymentMethod.text = order.gateway[0].uppercaseChar() + order.gateway.substring(1)
     }
 }

@@ -155,6 +155,8 @@
     <string name="cart_empty">السلة فارغة</string>
     <string name="delete_cart">هل ترغب بإزالة هذا العنصر من سلة الشراء؟</string>
     <string name="items_i">عناصر </string>
+    <string name="order_number_txt">order number:</string>
+    <string name="order_id_txt">order id:</string>
     <string-array name="country_list">
         <item>مصر</item>
         <item>الجزائر</item>

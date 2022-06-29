@@ -3,10 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
-   id  'dagger.hilt.android.plugin'
+    id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
-    id ("androidx.navigation.safeargs")
+    id("androidx.navigation.safeargs")
     id("io.gitlab.arturbosch.detekt").version("1.20.0")
 }
 
@@ -152,10 +152,10 @@ dependencies {
     //circleImg
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-   //circleimageview
+    //circleimageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    // floating button
+    // Floating button
     implementation 'com.github.clans:fab:1.6.4'
 
     //Image slider
@@ -172,7 +172,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
 
 
-   //paypal
+    //paypal
 //    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
 //    implementation 'com.paypal.checkout:android-sdk:0.6.2'
     implementation('com.paypal.checkout:android-sdk:0.6.2')

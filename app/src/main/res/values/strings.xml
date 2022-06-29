@@ -16,7 +16,7 @@
     <string name="order_item">Order Item : </string>
     <string name="order_details">order details</string>
     <string name="total_price">total price : </string>
-    <string name="payment_method">Payment method : </string>
+    <string name="payment_method">Payment Method : </string>
     <string name="order_date">Order Date : </string>
     <string name="phone">Phone : </string>
     <string name="address">Address : </string>
@@ -154,6 +154,8 @@
     <string name="zero">0</string>
     <string name="zero_item">0 item</string>
     <string name="items_i">items</string>
+    <string name="order_number_txt">order number:</string>
+    <string name="order_id_txt">order id :</string>
 
     <string-array name="country_list">
         <item>Egypt</item>

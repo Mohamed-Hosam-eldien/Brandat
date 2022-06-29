@@ -122,10 +122,12 @@
                         android:id="@+id/customer_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="El sharkia"
                         android:layout_marginEnd="12dp"
+                        android:inputType="textCapWords"
+                        android:text="El sharkia"
                         app:layout_constraintBottom_toBottomOf="@+id/text_customer_address"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:ignore="TextViewEdits" />
 
                     <TextView
                         android:id="@+id/text_customer_phone"
@@ -141,13 +143,24 @@
                         />
 
                     <TextView
-                        android:id="@+id/customer_phone"
+                        android:id="@+id/price_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
                         android:gravity="center"
-                        android:text="01028269540"
+                        android:text="240"
                         app:layout_constraintBottom_toBottomOf="@+id/text_customer_phone"
+                        app:layout_constraintEnd_toStartOf="@id/price_currency"
+                        app:layout_constraintTop_toTopOf="@id/text_customer_phone" />
+
+                    <TextView
+                        android:id="@+id/price_currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="12dp"
+                        android:gravity="center"
+                        android:text="USD"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_customer_phone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/text_customer_phone" />
 
@@ -169,10 +182,10 @@
                         android:id="@+id/order_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
                         android:gravity="center"
                         android:text="23 -5 2022"
                         app:layout_constraintBottom_toBottomOf="@+id/text_order_date"
-                        android:layout_marginEnd="12dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/text_order_date" />
 
@@ -195,11 +208,13 @@
                         android:id="@+id/payment_method"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=" d3d3"
                         android:layout_marginEnd="12dp"
+                        android:gravity="center"
+                        android:inputType="textCapSentences"
+                        android:text=" d3d3"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/text_payment_method" />
+                        app:layout_constraintTop_toTopOf="@id/text_payment_method"
+                        tools:ignore="TextViewEdits" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

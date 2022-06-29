@@ -7,45 +7,46 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Order(
 
-    @SerializedName( "id")
+    @SerializedName("id")
     val id: Long? = 0,
-    @SerializedName( "total_price")
+    @SerializedName("total_price")
     val total_price: String = "",
 
-    @SerializedName( "email")
+    @SerializedName("email")
     val email: String? = "",
 
-    @SerializedName( "billing_address")
+    @SerializedName("billing_address")
     val billingAddress: BillingAddress?,
 
-    @SerializedName( "app_id")
-    val orderNumber: Long? = 0,
+    @SerializedName("order_number")
+    val orderNumber: Int = 0,
 
-    @SerializedName( "created_at")
+    @SerializedName("created_at")
     val createdAt: String? = "",
 
-    @SerializedName( "current_subtotal_price")
+    @SerializedName("current_subtotal_price")
     val finalPrice: String? = "",
 
-    @SerializedName( "current_total_discounts")
+    @SerializedName("current_total_discounts")
     val totalDiscount: String? = "",
 
-
-    @SerializedName( "quantity")
+    @SerializedName("quantity")
     val quantity: Long? = 0,
 
-    @SerializedName( "financial_status")
+    @SerializedName("financial_status")
     val financialStatus: String? = "",
 
-    @SerializedName( "line_items")
+    @SerializedName("line_items")
     val items: List<LineItem>? = listOf(),
 
-    @SerializedName( "gateway")
+    @SerializedName("gateway")
     val gateway: String = "",
+
     @SerializedName("source_name")
-    val sourceName: String="",
-        @SerializedName("currency")
-        val currency: String
+    val sourceName: String = "",
+
+    @SerializedName("currency")
+    val currency: String
 
 //    val admin_graphql_api_id: String = "",
 //    val app_id: Int = 1,
