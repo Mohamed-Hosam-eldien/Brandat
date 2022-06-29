@@ -6,161 +6,170 @@
     <data>
 
     </data>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        tools:context=".ui.fragments.registeration.RegistrationActivity">
+        android:layout_height="match_parent">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationView"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/no_coneection" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_cv"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:elevation="16dp"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="16dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toTopOf="@id/login_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            tools:context=".ui.fragments.registeration.RegistrationActivity">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:layout_gravity="center"
-                android:layout_width="359dp"
-                android:layout_height="208dp">
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/no_coneection" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/first_name_layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginStart="48dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginEnd="48dp"
-                    android:textColorHint="#000"
-                    app:boxStrokeColor="#000"
-                    android:backgroundTint="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/image_login"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="18dp"
+                android:src="@drawable/login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_email"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:elevation="2dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:layout_constraintBottom_toTopOf="@id/login_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_login">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="359dp"
+                    android:layout_height="208dp"
+                    android:layout_gravity="center">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/first_name_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/email"
-                        android:inputType="textEmailAddress"
-                        android:textColor="#000"
-                        android:textSize="16sp" />
+                        android:layout_marginStart="48dp"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginEnd="48dp"
+                        android:backgroundTint="@color/white"
+                        android:gravity="center"
+                        android:textColorHint="#000"
+                        app:boxStrokeColor="#000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/email"
+                            android:inputType="textEmailAddress"
+                            android:textColor="#000"
+                            android:textSize="16sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/email_layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:textColorHint="#000"
-                    android:layout_marginStart="48dp"
-                    android:layout_marginEnd="48dp"
-                    app:boxStrokeColor="#000"
-                    app:layout_constraintEnd_toEndOf="@id/first_name_layout"
-                    app:layout_constraintStart_toStartOf="@id/first_name_layout"
-                    app:layout_constraintTop_toBottomOf="@id/first_name_layout">
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_pass"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/email_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/passward"
-                        android:inputType="textPassword"
-                        android:textColor="#000"
-                        android:textSize="16sp" />
+                        android:layout_marginStart="48dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="48dp"
+                        android:gravity="center"
+                        android:textColorHint="#000"
+                        app:boxStrokeColor="#000"
+                        app:layout_constraintEnd_toEndOf="@id/first_name_layout"
+                        app:layout_constraintStart_toStartOf="@id/first_name_layout"
+                        app:layout_constraintTop_toBottomOf="@id/first_name_layout">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_pass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/passward"
+                            android:inputType="textPassword"
+                            android:textColor="#000"
+                            android:textSize="16sp" />
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/login_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="4dp"
-            app:backgroundTint="#0093CF"
-            android:padding="14dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/login"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            app:cornerRadius="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/card_cv"
-            app:layout_constraintEnd_toEndOf="@id/view1"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/view1" />
-
-        <ProgressBar
-            android:id="@+id/prog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/view1"
-            android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="@id/card_cv"
-            app:layout_constraintEnd_toEndOf="@id/card_cv"
-            android:visibility="gone"
-            />
-
-        <View
-            android:id="@+id/view1"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            app:layout_constraintEnd_toEndOf="@id/card_cv"
-            app:layout_constraintStart_toStartOf="@id/card_cv"
-            app:layout_constraintTop_toBottomOf="@id/card_cv" />
-
-        <TextView
-            android:id="@+id/tv_new_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_new_account"
-            android:textColor="#0093CF"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/login_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/login_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="48dp"
+                android:layout_marginBottom="4dp"
+                android:padding="14dp"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:backgroundTint="#4C3A51"
+                app:cornerRadius="16dp"
+                app:layout_constraintEnd_toEndOf="@id/view1"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/view1"
+                app:layout_constraintTop_toBottomOf="@+id/card_cv" />
+
+            <ProgressBar
+                android:id="@+id/prog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/card_cv"
+                app:layout_constraintStart_toStartOf="@id/card_cv"
+                app:layout_constraintTop_toBottomOf="@id/view1" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="@id/card_cv"
+                app:layout_constraintStart_toStartOf="@id/card_cv"
+                app:layout_constraintTop_toBottomOf="@id/card_cv" />
+
+            <TextView
+                android:id="@+id/tv_new_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/create_new_account"
+                android:textColor="#0093CF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_btn"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
