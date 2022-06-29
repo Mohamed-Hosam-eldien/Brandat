@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,15 +48,14 @@ class ProductDetailsFragment : Fragment() {
     private lateinit var currency:String
 
     private var user: List<User> = listOf(
-        User("Mohamed", "this product is so beautiful wwooooww", 3),
-        User("Ahmed", "I really liked this product so awesome", 4),
-        User("Galal", "Incredible product I bought it and I'll buy it again", 5),
-        User("Salem", "it's fine when you wanna a bag for you school", 4),
-        User("Noor", "I got one for my sister and she loves it so much", 3),
-        User("Yasmeen", "I did't like it at all so bad material", 2)
+        User("Mohamed", "this product is so beautiful wwooooww", 3, R.drawable.man1),
+        User("Ahmed", "I really liked this product so awesome", 4,R.drawable.man2),
+        User("Galal", "Incredible product I bought it and I'll buy it again", 5, R.drawable.man3),
+        User("Salem", "it's fine when you wanna a bag for you school", 4, R.drawable.man4),
+        User("Noor", "I got one for my sister and she loves it so much", 3,R.drawable.man5),
+        User("Mazen", "I did't like it at all so bad material", 2, R.drawable.man6)
     )
 
-    var soso = "7782820643045"
 
     private val viewModel: ProductDetailsViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
@@ -185,7 +185,7 @@ class ProductDetailsFragment : Fragment() {
     private fun showData(body: Product?) {
         if (body != null) {
 
-            binding.productNameTv.text = body.productDetails.title
+            binding.productNameTv.text = body.productDetails.title.lowercase()
             binding.productPriceTv.text = convertCurrency(body.productDetails.variants?.get(0)?.price?.toDouble(),
                 requireContext()).plus("  ").plus(currency)
 

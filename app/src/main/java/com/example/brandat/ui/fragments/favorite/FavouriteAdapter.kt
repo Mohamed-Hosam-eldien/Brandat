@@ -46,7 +46,6 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val currentProduct = fav_products[position]
 
-
         holder.binding.tvProductPrice.text = convertCurrency(
             currentProduct.variants?.get(
                 currentProduct.variants!!.lastIndex
@@ -55,16 +54,14 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
 
         holder.binding.productCurrency.text = currency
 
-        //holder.binding.ivProductFav.setImageBitmap(currentProduct.productImage)
         Glide.with(context).load(currentProduct.imageProduct.src).into(holder.binding.ivProductFav)
         holder.binding.tvProductName.text = currentProduct.title.lowercase()
-//        holder.binding.tvProductPrice.text = currentProduct.variants?.get(0)?.price
 
         listener
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.hasChild(currentProduct.id.toString())) {
-                        holder.binding.ivCart.setImageResource(R.drawable.cart_done)
+                        holder.binding.ivCart.setImageResource(R.drawable.ic_baseline_done_green)
                         holder.binding.ivCart.tag = "done"
                         holder.binding.ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
                     } else {

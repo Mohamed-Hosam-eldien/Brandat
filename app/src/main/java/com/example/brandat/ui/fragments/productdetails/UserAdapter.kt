@@ -14,6 +14,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     class ViewHolder(private var binding:ReviewerRowLayoutBinding)
         : RecyclerView.ViewHolder(binding.root){
 
+        val image = binding.userImageview
 
         fun bind(user : User) {
             binding.user = user
@@ -36,7 +37,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var currentUser = users[position]
+        val currentUser = users[position]
+        holder.image.setImageResource(currentUser.image)
         holder.bind(user = currentUser)
     }
 

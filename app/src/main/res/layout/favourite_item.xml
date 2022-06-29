@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
-            android:background="#504C4C">
+            android:background="@color/purple_200">
 
             <ImageView
                 android:id="@+id/iv_product_fav"
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
                     android:padding="8dp"
-                    android:textColor="@color/yellow"
+                    android:textColor="#EDC19A"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:text="1220" />
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     tools:text="EGP"
-                    android:textColor="@color/yellow" />
+                    android:textColor="#EDC19A" />
 
             </LinearLayout>
 
