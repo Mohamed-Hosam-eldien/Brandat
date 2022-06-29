@@ -39,6 +39,7 @@ class MyOrderAdapter(var onItemClickLinter: OnItemClickLinter, val context: Cont
         holder.view.price.text = " ".plus(convertCurrency(orderItem.finalPrice?.toDouble(), holder.itemView.context))
             .plus(" ").plus(currency)
 //        holder.view.itemsNumber.text=orderItem.itemsNumber
+        holder.view.orderIdValue.text = orderItem.orderNumber.toString()
         holder.view.orderStatus.text = orderItem.financialStatus
         holder.view.cardView.setOnClickListener {
             onItemClickLinter.onClick(orderItem)

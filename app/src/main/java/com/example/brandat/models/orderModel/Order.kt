@@ -18,8 +18,8 @@ data class Order(
     @SerializedName( "billing_address")
     val billingAddress: BillingAddress?,
 
-    @SerializedName( "app_id")
-    val orderNumber: Long? = 0,
+    @SerializedName( "order_number")
+    val orderNumber: Int = 0,
 
     @SerializedName( "created_at")
     val createdAt: String? = "",
@@ -29,7 +29,6 @@ data class Order(
 
     @SerializedName( "current_total_discounts")
     val totalDiscount: String? = "",
-
 
     @SerializedName( "quantity")
     val quantity: Long? = 0,

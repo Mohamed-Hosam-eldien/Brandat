@@ -154,6 +154,8 @@
     <string name="zero">0</string>
     <string name="zero_item">0 item</string>
     <string name="items_i">items</string>
+    <string name="order_number_txt">order number:</string>
+    <string name="order_id_txt">order id :</string>
 
     <string-array name="country_list">
         <item>Egypt</item>
