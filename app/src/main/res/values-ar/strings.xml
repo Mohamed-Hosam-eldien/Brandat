@@ -21,6 +21,10 @@
     <string name="phone">رقم الهاتف : </string>
     <string name="address">العنوان : </string>
     <string name="brands">Brands</string>
+    <string name="payment_method_text">طريقة الدفع</string>
+    <string name="warning_dialog">تحذير</string>
+    <string name="warning_message">قد تجاوزت الحد المسموح في الدفع الكاش
+من فضلك استخدم طريقه اخرى للدفع</string>
     <string name="text_user_discount">راجع الصفحة الرئيسية للحصول علي  كود لتخفيضات 🎁</string>
 
 
@@ -76,11 +80,12 @@
     <string name="failed_order">فشل في إرسال الطلب n\ حاول مرة أخرى</string>
     <string name="order_send_successfully">تم أرسل الطلب بنجاح!\n👍🏻</string>
     <string name="deletfavourite">هل تريد إزاله هذا العنصر من المفضله؟</string>
-
+    <string name="egypt_currency">جنيه مصري</string>
+    <string name="dollar_currency">دولار</string>
     <string name="retry">إعادة المحاولة</string>
     <string name="pay_on_cash">الدفع فورا</string>
     <string name="invalid_data">بيانات غير صالحة</string>
-    <string name="Discount">الخصم</string>
+    <string name="discount">الخصم</string>
     <string name="message_order_don">تمام</string>
     <string name="operation_succeeded">نجحت العمليلة</string>
     <string name="operation_faild">العملية فشلت</string>

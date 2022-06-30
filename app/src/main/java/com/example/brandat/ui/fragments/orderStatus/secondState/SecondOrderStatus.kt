@@ -1,5 +1,6 @@
 package com.example.brandat.ui.fragments.orderStatus.secondState
 
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -16,9 +17,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.SecondOrderStateBinding
 import com.example.brandat.models.CustomerAddress
+import com.example.brandat.models.ProductDetails
 import com.example.brandat.models.orderModel.ShippingAddress
 import com.example.brandat.models.orderModel.discount.PriceRule
 import com.example.brandat.ui.OrderStatus
+import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.orderStatus.IChangeOrderStatus
 import com.example.brandat.ui.fragments.orderStatus.checkOutOrder.CheckOutOrderViewModel
 import com.example.brandat.utils.Constants
@@ -57,7 +60,7 @@ class SecondOrderStatus: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences =requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
-        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
+        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE,getString(R.string.egypt_currency))!!
         price= Constants.totalPrice?:0.0
         initView()
         arguments?.let {
@@ -65,9 +68,16 @@ class SecondOrderStatus: Fragment() {
         }
 
         binding.layoutCash.setOnClickListener {
-            binding.rdbCash.isChecked = true
-            binding.rdbPay.isChecked = false
-            selectPaymentMethod = "cash"
+            Log.e(TAG, "onViewCreatedd3d3d3: ${price}", )
+            if (price<= 400.00) {
+                binding.rdbCash.isChecked = true
+                binding.rdbPay.isChecked = false
+                selectPaymentMethod = "cash"
+
+            }
+            else{
+                showAlertDialog()
+            }
         }
 
 
@@ -158,4 +168,16 @@ class SecondOrderStatus: Fragment() {
 
     }
 
+    private fun showAlertDialog() {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+        builder.setPositiveButton(getString(R.string.ok)) { _, _ ->
+
+        }
+
+        builder.setIcon(R.drawable.ic_warning)
+        builder.setTitle(getString(R.string.warning))
+        builder.setMessage(getString(R.string.warning_message))
+        builder.create().show()
+    }
 }
+

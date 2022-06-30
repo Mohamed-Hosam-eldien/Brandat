@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:text="@string/order_details"
-                    android:textSize="16sp"
+                    android:textSize="18dp"
                     android:layout_marginBottom="8dp"
                     android:textStyle="normal"
                     android:textColor="@color/black"
@@ -58,59 +58,7 @@
                         android:orientation="vertical"
                         android:padding="8sp">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24sp"
-                            android:layout_marginEnd="24sp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:text="@string/price"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/total_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-
-                                android:layout_centerVertical="true"
-                                android:text="120 E.G"
-                                android:textSize="16sp" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24sp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="24sp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:text="@string/delivery"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/delivery_coast"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:text="25 E.G"
-                                android:textSize="16sp" />
-
-
-                        </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -123,9 +71,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
                                 android:text="@string/total_price"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -150,9 +97,9 @@
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="payment_method"
+                    android:text="@string/payment_method_text"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="normal"
                     android:layout_marginTop="12dp"
                     android:layout_marginStart="12dp"
@@ -245,7 +192,7 @@
                     android:text="Address"
                     android:layout_marginTop="16dp"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="normal"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
@@ -274,6 +221,7 @@
                              app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                              android:padding="8dp"
+                            android:textSize="18sp"
                             android:text="iti, ismalia , egypt"
                             android:gravity="center"
                             />
@@ -291,12 +239,13 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_marginStart="16dp"
-               android:layout_marginTop="16dp"
+               android:layout_marginTop="64dp"
                android:layout_marginEnd="16dp"
                android:layout_marginBottom="16dp"
                android:backgroundTint="#2B5EB5"
+               android:text="Confirm Order"
                android:textAllCaps="false"
-               android:text="@string/send_order" />
+               android:textSize="18sp" />
                 <ProgressBar
                     android:id="@+id/loading"
                     android:layout_width="match_parent"

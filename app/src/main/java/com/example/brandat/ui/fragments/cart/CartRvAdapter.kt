@@ -27,11 +27,11 @@ class CartRvAdapter(
 ) :
     RecyclerView.Adapter<CartRvAdapter.CartViewHolder>(), ActionMode.Callback {
     private var carts: List<Cart> = ArrayList()
-    var currency :String = "EGP"
+    var currency :String?
 
     init {
         val sharedPreferences = context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
-        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,"EGP")!!
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,context.getString(R.string.egypt_currency))!!
 
     }
     private lateinit var rootView: View

@@ -38,14 +38,14 @@ class CurrencyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = requireActivity().getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
-        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
+        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE,getString(R.string.egypt_currency))!!
 
         when(currencyCode){
-            "USD"->{
+           getString( R.string.dollar_currency)->{
                 binding.rdbBound.isChecked = false
                 binding.rdbDollar.isChecked = true
                }
-            "EGP"->{
+            getString( R.string.egypt_currency)->{
                 binding.rdbBound.isChecked = true
                 binding.rdbDollar.isChecked = false
             }
@@ -53,7 +53,7 @@ class CurrencyFragment : Fragment() {
         binding.cardBound.setOnClickListener {
             binding.rdbBound.isChecked = true
             binding.rdbDollar.isChecked = false
-            editor.putString(Constants.CURRENCY_TYPE,CurrenciesEnum.EGP.toString())
+            editor.putString(Constants.CURRENCY_TYPE,getString(R.string.egypt_currency))
             editor.apply()
             editor.commit()
         }
@@ -61,7 +61,7 @@ class CurrencyFragment : Fragment() {
         binding.dollar.setOnClickListener {
             binding.rdbBound.isChecked = false
             binding.rdbDollar.isChecked = true
-            editor.putString(Constants.CURRENCY_TYPE,CurrenciesEnum.USD.toString())
+            editor.putString(Constants.CURRENCY_TYPE,getString(R.string.dollar_currency))
             editor.apply()
             editor.commit()
         }
