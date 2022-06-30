@@ -33,7 +33,7 @@ class ProductRvAdapter(
     init {
         val sharedPreferences =
             context.getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
-        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,context.getString(R.string.egypt_currency))!!
     }
 
 

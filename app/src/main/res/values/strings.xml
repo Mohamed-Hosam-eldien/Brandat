@@ -158,6 +158,8 @@
     <string name="warning_dialog">warning</string>
     <string name="warning_message">You have exceeded your cash payment limit
 Please use another method of payment</string>
+    <string name="egypt_currency">EGP</string>
+    <string name="dollar_currency">USD</string>
 
     <string-array name="country_list">
         <item>Egypt</item>

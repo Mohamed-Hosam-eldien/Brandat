@@ -1,6 +1,7 @@
 package com.example.brandat.ui.fragments.favorite
 
 import android.content.Context
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -22,14 +23,14 @@ class FavouriteAdapter(val context: Context,var onClickedListener: OnclickListen
     RecyclerView.Adapter<FavouriteAdapter.ProductViewHolder>() {
 
     private var fav_products = emptyList<ProductDetails>()
-    var currency :String = "EGP"
+    var currency :String?
     private val listener = FirebaseDatabase.getInstance()
         .getReference(Constants.user.id.toString())
         .child("cart")
 
     init {
         val sharedPreferences = context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
-        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,"EGP")!!
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,context.getString(R.string.egypt_currency))!!
 
     }
 

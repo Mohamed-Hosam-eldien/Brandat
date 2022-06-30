@@ -60,7 +60,7 @@ class SecondOrderStatus: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences =requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
-        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
+        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE,getString(R.string.egypt_currency))!!
         price= Constants.totalPrice?:0.0
         initView()
         arguments?.let {

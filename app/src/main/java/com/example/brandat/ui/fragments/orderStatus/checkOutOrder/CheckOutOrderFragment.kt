@@ -89,7 +89,7 @@ class CheckOutOrderFragment : Fragment() {
         sharedPreferences =
             requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
         checkOutOrderViewModel.currencyCode =
-            sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
+            sharedPreferences.getString(Constants.CURRENCY_TYPE,getString(R.string.egypt_currency))!!
 
         initUi()
 //        setUpPayPal()
@@ -128,8 +128,8 @@ class CheckOutOrderFragment : Fragment() {
 
     private fun paypal() {
         var price: Double = when (checkOutOrderViewModel.currencyCode) {
-            "USD" -> checkOutOrderViewModel.totalPrice
-            "EGP" -> checkOutOrderViewModel.totalPrice.div(18.0)
+            getString(R.string.dollar_currency) -> checkOutOrderViewModel.totalPrice
+             getString(R.string.egypt_currency) -> checkOutOrderViewModel.totalPrice.div(18.0)
             else -> checkOutOrderViewModel.totalPrice
         }
         Log.e(TAG, "paydddpal: ${price}", )

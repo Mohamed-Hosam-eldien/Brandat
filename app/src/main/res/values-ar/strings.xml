@@ -80,7 +80,8 @@
     <string name="failed_order">فشل في إرسال الطلب n\ حاول مرة أخرى</string>
     <string name="order_send_successfully">تم أرسل الطلب بنجاح!\n👍🏻</string>
     <string name="deletfavourite">هل تريد إزاله هذا العنصر من المفضله؟</string>
-
+    <string name="egypt_currency">جنيه مصري</string>
+    <string name="dollar_currency">دولار</string>
     <string name="retry">إعادة المحاولة</string>
     <string name="pay_on_cash">الدفع فورا</string>
     <string name="invalid_data">بيانات غير صالحة</string>

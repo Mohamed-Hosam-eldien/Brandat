@@ -49,7 +49,7 @@ class CartFragment : Fragment(), CartOnClickListener {
             .child("cart")
     }
 
-    var currency: String = "EGP"
+    var currency: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +60,7 @@ class CartFragment : Fragment(), CartOnClickListener {
 
         sharedPreferences = context?.getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)!!
 
-        currency = sharedPreferences?.getString(Constants.CURRENCY_TYPE, "EGP")!!.toString()
+        currency = sharedPreferences?.getString(Constants.CURRENCY_TYPE,getString(R.string.egypt_currency))!!.toString()
 
         bindingDialog =
             AlertDialogBinding.inflate(LayoutInflater.from(context), container, false)
@@ -72,7 +72,7 @@ class CartFragment : Fragment(), CartOnClickListener {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences =
             requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
-        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!
+        currencyCode = sharedPreferences.getString(Constants.CURRENCY_TYPE, context?.getString(R.string.egypt_currency))!!
 
         Paper.init(requireContext())
         setUpRecyclerView()
