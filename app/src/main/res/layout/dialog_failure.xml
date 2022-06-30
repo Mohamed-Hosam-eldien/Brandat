@@ -14,7 +14,7 @@
         android:layout_height="150dp"
         android:scaleType="centerCrop"
         android:layout_centerInParent="true"
-        app:lottie_rawRes="@raw/error_occurred"
+        app:lottie_rawRes="@raw/order_failed"
 
         app:lottie_loop="true"
         app:lottie_autoPlay="true" />

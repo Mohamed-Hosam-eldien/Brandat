@@ -21,7 +21,9 @@ import androidx.fragment.app.viewModels
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFinshOrderStateBinding
 import com.example.brandat.models.CustomerAddress
+import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.fragments.cart.CartViewModel
+import com.example.brandat.ui.fragments.orderStatus.IChangeOrderStatus
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ResponseResult
 import com.google.android.material.snackbar.Snackbar
@@ -54,6 +56,8 @@ class CheckOutOrderFragment : Fragment() {
     private val cartViewModel: CartViewModel by viewModels()
     lateinit var sharedPreferences: SharedPreferences
     lateinit var onOkClickListener: OnOkClickListener
+    lateinit var iChangeOrderStatus: IChangeOrderStatus
+
     lateinit var binding: FragmentFinshOrderStateBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +70,8 @@ class CheckOutOrderFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_finsh_order_state, container, false)
+        iChangeOrderStatus = requireActivity() as OrderStatus
+
         return binding.root
     }
 
@@ -92,6 +98,7 @@ class CheckOutOrderFragment : Fragment() {
 
             when (it) {
                 is ResponseResult.Success -> {
+                    iChangeOrderStatus.changeStatus(3)
                     hideLoading()
                     cartViewModel.removeSelectedProductsFromCart(checkOutOrderViewModel.orderProduct)
                     deleteFromDraft()
@@ -125,6 +132,7 @@ class CheckOutOrderFragment : Fragment() {
             "EGP" -> checkOutOrderViewModel.totalPrice.div(18.0)
             else -> checkOutOrderViewModel.totalPrice
         }
+        Log.e(TAG, "paydddpal: ${price}", )
         PayPalCheckout.startCheckout(
             createOrder =
             CreateOrder { createOrderActions ->
@@ -136,7 +144,7 @@ class CheckOutOrderFragment : Fragment() {
                         listOf(
                             PurchaseUnit(
                                 amount =
-                                Amount(currencyCode = CurrencyCode.USD, value = "10.0")
+                                Amount(currencyCode = CurrencyCode.USD, value = price.toString())
                             )
                         )
                     )
@@ -153,8 +161,7 @@ class CheckOutOrderFragment : Fragment() {
             onApprove = OnApprove { approval ->
                 approval.orderActions.capture { i ->
                     checkOutOrderViewModel.createOrder()
-                    Log.e(TAG, "setPaypal: ${approval.data}")
-                    Log.e(TAG, "setPaypbbbbal: ${i}")
+
 
                 }
             },
@@ -200,10 +207,7 @@ class CheckOutOrderFragment : Fragment() {
         hideLoading()
         showPaymentMethod()
         showSelectedAddress()
-        binding.totalPrice.text = checkOutOrderViewModel.totalPrice.toString().plus("  ")
-            .plus(checkOutOrderViewModel.currencyCode)
-        binding.deliveryCoast.text = "100".plus("  ").plus(checkOutOrderViewModel.currencyCode)
-        binding.orderPrice.text = (checkOutOrderViewModel.totalPrice!! + 100).toString().plus("  ")
+        binding.orderPrice.text = (checkOutOrderViewModel.totalPrice!!).toString().plus("  ")
             .plus(checkOutOrderViewModel.currencyCode)
 
     }
