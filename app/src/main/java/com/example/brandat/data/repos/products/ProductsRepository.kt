@@ -12,11 +12,7 @@ import com.example.brandat.models.orderModel.*
 import com.example.brandat.models.orderModel.discount.PriceRules
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.utils.ResponseResult
-import retrofit2.Response
 import javax.inject.Inject
-
-//@ActivityRetainedScoped
-//@ViewModelScoped
 
 class ProductsRepository @Inject constructor(
     private var localDataSource: ILocalDataSource,
@@ -26,10 +22,10 @@ class ProductsRepository @Inject constructor(
     override suspend fun getCategories(productId: Long): NetworkResult<Products?> {
         val result: NetworkResult<Products?>
         val response=remoteDataSource.getCategories(productId)
-        if(response.isSuccessful){
-            result=NetworkResult.Success(response.body())
+        result = if(response.isSuccessful){
+            NetworkResult.Success(response.body())
         }else{
-            result=NetworkResult.Error("error${response.code()}")
+            NetworkResult.Error("error${response.code()}")
         }
         return result
     }
@@ -37,10 +33,10 @@ class ProductsRepository @Inject constructor(
     override suspend fun getAllProduct(): NetworkResult<Products?> {
         val result:NetworkResult<Products?>
         val response=remoteDataSource.getAllProductsById()
-        if(response.isSuccessful){
-            result=NetworkResult.Success(response.body())
+        result = if(response.isSuccessful){
+            NetworkResult.Success(response.body())
         }else{
-            result=NetworkResult.Error("error${response.code()}")
+            NetworkResult.Error("error${response.code()}")
         }
         return result
     }
@@ -48,10 +44,10 @@ class ProductsRepository @Inject constructor(
     override suspend fun getAllProductByType(type: String): NetworkResult<Products?> {
         val result:NetworkResult<Products?>
         val response=remoteDataSource.getAllProductsByProductType(type)
-        if(response.isSuccessful){
-            result=NetworkResult.Success(response.body())
+        result = if(response.isSuccessful){
+            NetworkResult.Success(response.body())
         }else{
-            result=NetworkResult.Error("error${response.code()}")
+            NetworkResult.Error("error${response.code()}")
         }
         return result
     }
@@ -59,22 +55,20 @@ class ProductsRepository @Inject constructor(
     override suspend fun getbrand(): NetworkResult<Brands?> {
         val result: NetworkResult<Brands?>
         val response = remoteDataSource.getBrands()
-        if (response.isSuccessful) {
-            Log.e("TAG", "==from repo:success ", )
-            result = NetworkResult.Success(response.body())
+        result = if (response.isSuccessful) {
+            NetworkResult.Success(response.body())
         } else {
-            Log.e("TAG", "==from repo:error ", )
-            result = NetworkResult.Error("error${response.code()}")
+            NetworkResult.Error("error${response.code()}")
         }
         return result
     }
     override suspend fun getProductDetails(productId: Long): NetworkResult<Product?> {
         val result:NetworkResult<Product?>
         val response=remoteDataSource.getProductDetails(productId)
-        if(response.isSuccessful){
-            result=NetworkResult.Success(response.body())
+        result = if(response.isSuccessful){
+            NetworkResult.Success(response.body())
         }else{
-            result=NetworkResult.Error("error${response.code()}")
+            NetworkResult.Error("error${response.code()}")
         }
         return result
     }
@@ -86,21 +80,18 @@ class ProductsRepository @Inject constructor(
     override suspend fun getAllOrders(email:String?): NetworkResult<AllOrderResponse?> {
         val result:NetworkResult<AllOrderResponse?>
         val response=remoteDataSource.getAllOrders(email)
-        if(response.isSuccessful){
-            result=NetworkResult.Success(response.body())
+        result = if(response.isSuccessful){
+            NetworkResult.Success(response.body())
         }else{
-            result=NetworkResult.Error("error${response.code()}")
+            NetworkResult.Error("error${response.code()}")
         }
         return result
     }
 
-//    override suspend fun postFavDraft(draftModel: com.example.brandat.models.draft.OrderModel): Response<com.example.brandat.ordermodel.OrderResponse> {
-//        return remoteDataSource.postFavDraft(draftModel)
-//    }
 
     override suspend fun getDiscountCodes(): ResponseResult<PriceRules> {
        return try {
-           var result = remoteDataSource.getDiscountCodes()
+           val result = remoteDataSource.getDiscountCodes()
             if (result.isSuccessful){
                 if ( result.body() != null) {
                     ResponseResult.Success(result.body()!!)
@@ -165,7 +156,6 @@ class ProductsRepository @Inject constructor(
     override suspend fun createOrder(order: OrderModel): ResponseResult<OrderResponse> {
         return try {
             val res = remoteDataSource.createOrder(order)
-            Log.e("TAG", "createOrder: ${res}", )
             if (res.isSuccessful) {
                 val responseBody = res.body()
                 if (responseBody != null) {
@@ -174,12 +164,10 @@ class ProductsRepository @Inject constructor(
                     ResponseResult.Error(res.errorBody().toString())
                 }
             } else {
-                Log.e("TAG", "createOrdercode: ${res.code()}", )
                 ResponseResult.Error(res.message())
             }
 
         } catch (t: Throwable) {
-            Log.e("TAG", "createOrder: ${t.localizedMessage}", )
             ResponseResult.Error(t.message)
         }
     }

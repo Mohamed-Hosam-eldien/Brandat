@@ -1,8 +1,6 @@
 package com.example.brandat.ui.fragments.myOrder
 
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +36,7 @@ class MyOrderAdapter(var onItemClickLinter: OnItemClickLinter, val context: Cont
 
         holder.view.price.text = " ".plus(convertCurrency(orderItem.finalPrice?.toDouble(), holder.itemView.context))
             .plus(" ").plus(currency)
-//        holder.view.itemsNumber.text=orderItem.itemsNumber
+
         holder.view.orderIdValue.text = orderItem.orderNumber.toString()
         holder.view.orderStatus.text = orderItem.financialStatus
         holder.view.cardView.setOnClickListener {
@@ -57,8 +55,6 @@ class MyOrderAdapter(var onItemClickLinter: OnItemClickLinter, val context: Cont
         notifyDataSetChanged()
     }
 
-    class MyOrderViewHolder(var view: MyOrderItemBinding) : RecyclerView.ViewHolder(view.root) {
-
-    }
+    class MyOrderViewHolder(var view: MyOrderItemBinding) : RecyclerView.ViewHolder(view.root)
 
 }

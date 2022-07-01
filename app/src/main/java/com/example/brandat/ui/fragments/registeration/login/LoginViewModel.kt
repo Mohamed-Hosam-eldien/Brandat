@@ -19,10 +19,10 @@ class LoginViewModel @Inject constructor(private val IRepo: IUserRepository) : V
     var getError: LiveData<String> = _setError
 
     fun loginCustomer(email: String, tags: String) = viewModelScope.launch {
-        val result = IRepo.loginCustomer(email, tags)
-        when (result) {
+        when (val result = IRepo.loginCustomer(email, tags)) {
             is NetworkResult.Success -> _signInSuccess.postValue(result.data?.customer)
             is NetworkResult.Error -> _setError.postValue(result.exception)
+            else -> {}
         }
     }
 }

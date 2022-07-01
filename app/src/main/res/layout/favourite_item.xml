@@ -15,7 +15,7 @@
         android:layout_margin="5dp"
         app:cardCornerRadius="21dp"
         app:cardElevation="7dp"
-        app:cardBackgroundColor="#504C4C"
+        app:cardBackgroundColor="@color/purple_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -41,6 +41,7 @@
                 android:fontFamily="serif"
                 android:gravity="center"
                 android:padding="3dp"
+                android:maxLines="2"
                 tools:text="CLASSIC BACKPACK"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -99,7 +100,7 @@
                 app:layout_constraintBottom_toTopOf="@id/tv_product_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/ic_add_to_cart"
-                app:tint="@color/white" />
+                app:tint="@color/purple_200" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

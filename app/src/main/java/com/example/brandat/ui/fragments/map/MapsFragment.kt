@@ -23,7 +23,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
 import java.io.IOException
 import java.util.*
 
@@ -39,20 +38,9 @@ class MapsFragment : Fragment() {
 
     lateinit var customerAddress: CustomerAddress
 
-    // private lateinit var viewModel: MapViewModel
-
     private lateinit var _binding: FragmentMapsBinding
     private val binding get() = _binding
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
 
         googleMap.setOnMapClickListener { latLng ->
 
@@ -72,16 +60,16 @@ class MapsFragment : Fragment() {
     }
 
     override fun onCreateView(
-
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
 
-        _binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_maps, container, false)
-
+        _binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_maps, container, false
+        )
 
         return binding.root
     }
@@ -98,7 +86,7 @@ class MapsFragment : Fragment() {
         binding.btnLocation.setOnClickListener {
             if (latitude != 0.0 && longitude != 0.0) {
 
-                customerAddress =  getTimeZone(latitude, longitude)
+                customerAddress = getTimeZone(latitude, longitude)
                 viewModel.insertAddress(customerAddress)
 
 
@@ -122,30 +110,26 @@ class MapsFragment : Fragment() {
     private fun getTimeZone(lat: Double, lon: Double)
             : CustomerAddress {
 
-        var street: String = "Cairo"
-        var state: String = "state"
-        var city: String = "Street 45"
-        var country: String = "Egypt"
+        var street = "Cairo"
+        var state = "state"
+        var city = "Street 45"
+        var country = "Egypt"
         val geocoder: Geocoder
-        var addresses: List<Address> = listOf<Address>()
+        val addresses: List<Address>
         geocoder = Geocoder(context, Locale.getDefault())
 
         try {
 
+            addresses = geocoder.getFromLocation(lat, lon, 5)
+            if (addresses != null) {
+                val address = addresses[0]
 
-                addresses = geocoder.getFromLocation(lat, lon, 5)
-                if (addresses != null) {
-                    val address = addresses[0]
-                    //street = address.locality
+                state = address.locality ?: address.featureName
+                city = address.adminArea ?: "Suez"
+                country = address.countryName ?: "Egypt"
+                street = address.getAddressLine(0)
 
-                    state = address.locality ?: address.featureName
-                    city = address.adminArea ?: "Suez"
-                    country = address.countryName ?: "Egypt"
-                    street = address.getAddressLine(0)
-
-                }
-
-
+            }
 
 
         } catch (e: IOException) {

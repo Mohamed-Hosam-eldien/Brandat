@@ -42,8 +42,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:id="@+id/user_imageview"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:scaleType="centerCrop"
                     tools:layout_editor_absoluteX="0dp"
                     tools:layout_editor_absoluteY="24dp" />

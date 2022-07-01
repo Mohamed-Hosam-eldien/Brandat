@@ -1,9 +1,7 @@
 package com.example.brandat.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.brandat.models.Product
 import com.example.brandat.models.ProductDetails
-import com.example.brandat.ui.fragments.category.ProductModel
 
 class ProductDiffUtil(
     private val oldList: List<ProductDetails>,

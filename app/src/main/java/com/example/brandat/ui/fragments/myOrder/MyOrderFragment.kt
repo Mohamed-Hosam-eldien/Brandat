@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,24 +23,17 @@ import io.paperdb.Paper
 @AndroidEntryPoint
 class MyOrderFragment : Fragment(), OnItemClickLinter {
 
-    private val TAG: String = "Main"
     lateinit var binding: FragmentMyOrderBinding
 
-    //lateinit var myOrdrAdapter: MyOrderAdapter
     lateinit var navController: NavController
     private val viewModel: MyOrderViewModel by viewModels()
     private val myOrderAdapter by lazy { MyOrderAdapter(this, requireContext()) }
     var email: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_order, container, false)
         return binding.root
     }
@@ -79,26 +71,7 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
         }
     }
 
-    private fun fakeData(): ArrayList<OrderModel> {
-        var myOrderList = ArrayList<OrderModel>()
-        for (i in 1..10) {
-            myOrderList.add(
-                OrderModel(
-                    "shoes",
-                    "cairo",
-                    "Active",
-                    "2000$",
-                    "2-2-2020",
-                    R.drawable.shose_image3,
-                    "5 item"
-                )
-            )
-        }
-        return myOrderList
-    }
-
     fun showObservedData() {
-
         viewModel.getOrder.observe(viewLifecycleOwner) {
             if (it != null)
                 initView(it)
@@ -114,9 +87,8 @@ class MyOrderFragment : Fragment(), OnItemClickLinter {
     }
 
     override fun onClick(orderItem: Order) {
-//        val direct:NavDirections=MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment2(orderItem)
-//        findNavControl
-    //        ler().navigate(direct)
+        val direct:NavDirections=MyOrderFragmentDirections.actionMyOrderFragmentToOrderDetailsFragment2(orderItem)
+        findNavController().navigate(direct)
     }
 
     private fun showMessage(it: String) {

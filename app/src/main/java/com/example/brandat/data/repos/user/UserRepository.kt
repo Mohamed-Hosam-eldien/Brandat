@@ -1,16 +1,11 @@
 package com.example.brandat.data.repos.user
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import com.example.brandat.data.source.local.ILocalDataSource
 import com.example.brandat.data.source.remote.IRemoteDataSource
 import com.example.brandat.models.*
 import com.example.brandat.utils.NetworkResult
-import dagger.hilt.android.scopes.ViewModelScoped
-import retrofit2.Response
 import javax.inject.Inject
 
-//@ViewModelScoped
 class UserRepository @Inject constructor(
     private var localDataSource: ILocalDataSource,
     private var remoteDataSource: IRemoteDataSource
@@ -32,21 +27,21 @@ class UserRepository @Inject constructor(
     override suspend fun registerCustomer(customer: CustomerRegisterModel): NetworkResult<CustomerRegisterModel?> {
         val result: NetworkResult<CustomerRegisterModel?>
         val response=remoteDataSource.registerCustomer(customer)
-      if(response.isSuccessful){
-          result=NetworkResult.Success(response.body())
-      }else{
-          result=NetworkResult.Error("error${response.code()}")
-      }
+        result = if(response.isSuccessful){
+            NetworkResult.Success(response.body())
+        }else{
+            NetworkResult.Error("error${response.code()}")
+        }
     return result
     }
 
     override suspend fun loginCustomer(email: String, tags:String): NetworkResult<CustomerModel?> {
        val result:NetworkResult<CustomerModel?>
        val response=remoteDataSource.loginCustomer(email,tags)
-        if(response.isSuccessful){
-            result=NetworkResult.Success(response.body())
+        result = if(response.isSuccessful){
+            NetworkResult.Success(response.body())
         }else{
-            result=NetworkResult.Error("error${response.code()}")
+            NetworkResult.Error("error${response.code()}")
         }
         return result
     }

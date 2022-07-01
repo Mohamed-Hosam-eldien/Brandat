@@ -1,9 +1,6 @@
 package com.example.brandat.utils
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.brandat.R

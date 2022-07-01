@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,18 +20,11 @@ class OrderDetailsFragment : Fragment() {
     private val args by navArgs<OrderDetailsFragmentArgs>()
     lateinit var order: Order
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val args: Bundle = requireArguments()
-        val brandId = args.getLong("productId")
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_order_details, container, false)
 
@@ -52,7 +44,6 @@ class OrderDetailsFragment : Fragment() {
             itemAdapter = OrderItemAdapter(requireContext(), order.items)
             binding.myOrderRecycler.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                //layoutManager = GridLayoutManager(context,2)
                 adapter = itemAdapter
             }
         }
@@ -63,11 +54,12 @@ class OrderDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     fun showData() {
         binding.orderNumber.text = order.orderNumber.toString()
-        var date = order.createdAt?.substring(0, 10)
+        val date = order.createdAt?.substring(0, 10)
         binding.orderDate.text = date
         binding.priceValue.text = order.finalPrice
         binding.priceCurrency.text = order.currency
-        binding.customerAddress.text = order.sourceName[0].uppercaseChar() + order.sourceName.substring(1)
+        binding.customerAddress.text =
+            order.sourceName[0].uppercaseChar() + order.sourceName.substring(1)
         binding.paymentMethod.text = order.gateway[0].uppercaseChar() + order.gateway.substring(1)
     }
 }

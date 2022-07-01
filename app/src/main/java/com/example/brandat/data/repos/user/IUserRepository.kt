@@ -1,11 +1,9 @@
 package com.example.brandat.data.repos.user
 
-import com.example.brandat.models.Customer
 import com.example.brandat.models.CustomerAddress
 import com.example.brandat.models.CustomerModel
 import com.example.brandat.models.CustomerRegisterModel
 import com.example.brandat.utils.NetworkResult
-import retrofit2.Response
 
 interface IUserRepository {
 

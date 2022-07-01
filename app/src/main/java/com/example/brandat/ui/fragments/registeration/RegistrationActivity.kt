@@ -14,9 +14,7 @@ class RegistrationActivity : AppCompatActivity(), IBadgeCount {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
         bageCountI = MainActivity()
-
     }
 
-    override fun updateBadgeCount(count: Int) {
-    }
+    override fun updateBadgeCount(count: Int) {}
 }

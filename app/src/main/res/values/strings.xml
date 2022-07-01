@@ -4,50 +4,28 @@
     <string name="category">Category</string>
     <string name="fav">Favorite</string>
     <string name="cart">Cart</string>
-    <string name="order">Order</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="item_details">Item Details</string>
-    <string name="brandat">Brandat</string>
-    <string name="Address">Address</string>
-    <string name="customer_name">Customer Name : </string>
     <string name="order_number">Order Number : </string>
-    <string name="order_item">Order Item : </string>
-    <string name="order_details">order details</string>
-    <string name="total_price">total price : </string>
+    <string name="order_item">Order Items</string>
+    <string name="order_details">Order Details</string>
+    <string name="total_price">Total Price : </string>
     <string name="payment_method">Payment Method : </string>
     <string name="order_date">Order Date : </string>
-    <string name="phone">Phone : </string>
     <string name="address">address : </string>
-    <string name="brands">Brands</string>
-
-    <string name="btn_persistent">Persistent Bottom Sheet</string>
-    <string name="btn_modal">Modal Bottom Sheet</string>
-    <string name="tv_title">Learn Bottom Sheet</string>
-    <string name="tv_description"></string>
-    <string name="btn_one">Button 1</string>
-    <string name="btn_two">Button 2</string>
-    <string name="btn_three">Button 3</string>
 
 
     <string name="my_addresses">My Addresses</string>
     <string name="currency">Currency</string>
-    <string name="language">Language</string>
     <string name="sign_out">Sign Out</string>
     <string name="dollar">Dollar</string>
-    <string name="bound">Bound</string>
-    <string name="steps">asd</string>
-    <string name="click_to_add_address">Click To Add Address</string>
-    <string name="credit_card">Credit Card</string>
-    <string name="cash">Cash on Delivery</string>
+    <string name="bound">Pound</string>
+    <string name="cash">Cash On Delivery</string>
     <string name="paypal">Paypal</string>
-    <string name="copon">copon</string>
     <string name="price">Sub Price</string>
     <string name="apply">Apply</string>
-    <string name="delivery">Delivery Coast</string>
     <string name="next">Next</string>
-    <string name="add">Add</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="men">Men</string>
     <string name="kids">Kids</string>
@@ -70,20 +48,12 @@
     <string name="country">Country</string>
     <string name="many_offers">Many Offers</string>
     <string name="desc1_tv">A lot of offers wait you with many coupons just for you</string>
-    <string name="message_order_don">ok</string>
-    <string name="operation_succeeded">operation  succeeded</string>
-    <string name="operation_faild">operation Faild</string>
-    <string name="someThing_wrong_happened">error</string>
     <string name="checkout">Checkout</string>
-    <string name="click_to_add_your_address">Click to add your address</string>
-    <string name="send_order">Send Order</string>
     <string name="promo_code">Promo Code</string>
     <string name="retry">retry</string>
-    <string name="pay_on_cash">pay on Delivery</string>
-    <string name="invalid_data">invalid data</string>
-    <string name="cancel">Cancel22</string>
-    <string name="discount">discount</string>
-    <string name="search">search</string>
+    <string name="pay_on_cash">Cash On Delivery</string>
+    <string name="cancel">Cancel</string>
+    <string name="discount">Discount</string>
     <string name="copunCode">agste54st</string>
 
     <string name="passward">Passward</string>
@@ -112,8 +82,7 @@
     <string name="my_orders">My Orders</string>
     <string name="search_fragment">SearchFragment</string>
     <string name="product_details_fragment">ProductDetailsFragment</string>
-    <string name="cart_is_empty">cart is empty</string>
-    <string name="item">item)</string>
+    <string name="item">item</string>
     <string name="login_now">Login Now</string>
     <string name="login_to_add_to_cart">please register or login to add item in cart</string>
     <string name="no">No</string>
@@ -121,8 +90,8 @@
     <string name="delete">delete?</string>
     <string name="delete_item_cart">Are you sure you want to delete this item from Cart?</string>
     <string name="delete_items_cart">Are you sure you want to delete this items from Cart?</string>
-    <string name="item_selected">\" item selected\"</string>
-    <string name="items_selected">items_selected</string>
+    <string name="item_selected"> item selected</string>
+    <string name="items_selected">items selected</string>
     <string name="added_to_cart">Added To Cart</string>
     <string name="saved_successfully">this country saved successfully</string>
     <string name="select_your_address">Please select your address</string>
@@ -136,11 +105,10 @@
     <string name="User_Created_Successfully">User Created Successfully</string>
     <string name="not_valid_email">Not valid Email</string>
     <string name="passward_doesnot_match">password doesn\'t match</string>
-    <string name="removed_from_cart">Removed from Cart!</string>
     <string name="terms_of_service">Terms of Service</string>
     <string name="failed_order">Sorry...\n try again</string>
     <string name="order_send_successfully">Successfully!\n👍🏻</string>
-    <string name="text_user_discount">check Home Screen to get Discount Code 🎁</string>
+    <string name="text_user_discount">check home screen to get discount code 🎁</string>
     <string name="text_copied">Text copied to clipboard</string>
     <string name="text">text</string>
     <string name="warning">Warning!</string>
@@ -154,23 +122,13 @@
     <string name="zero">0</string>
     <string name="zero_item">0 item</string>
     <string name="items_i">items</string>
-    <string name="payment_method_text">payment Method</string>
-    <string name="warning_dialog">warning</string>
+    <string name="payment_method_text">Payment Method</string>
     <string name="warning_message">You have exceeded your cash payment limit
 Please use another method of payment</string>
     <string name="egypt_currency">EGP</string>
     <string name="dollar_currency">USD</string>
-    <string name="order_number_txt">order number:</string>
     <string name="order_id_txt">order id :</string>
-
-    <string-array name="country_list">
-        <item>Egypt</item>
-        <item>Algeria</item>
-        <item>Iraq</item>
-        <item>Jordan</item>
-        <item>Lebanon</item>
-        <item>Libya</item>
-    </string-array>
+    <string name="click_to_add_your_address">click to add your address</string>
 
     <string-array name="city_list">
         <item>Cairo</item>

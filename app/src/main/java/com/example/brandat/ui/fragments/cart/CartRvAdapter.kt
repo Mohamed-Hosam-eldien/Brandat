@@ -17,7 +17,6 @@ import com.example.brandat.databinding.CartItemBinding
 import com.example.brandat.utils.CartDiffUtil
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.convertCurrency
-import com.google.android.material.snackbar.Snackbar
 
 
 class CartRvAdapter(
@@ -32,7 +31,6 @@ class CartRvAdapter(
     init {
         val sharedPreferences = context.getSharedPreferences(Constants.SHARD_NAME,Context.MODE_PRIVATE)
         currency = sharedPreferences.getString(Constants.CURRENCY_TYPE,context.getString(R.string.egypt_currency))!!
-
     }
     private lateinit var rootView: View
     private lateinit var mActionMode: ActionMode
@@ -78,21 +76,15 @@ class CartRvAdapter(
         }
         holder.binding.numberButton.number = currentCart.pQuantity.toString()
 
-//        holder.binding.tvProductPrice.text = (currentCart.pPrice.toDouble()
-//                * holder.binding.numberButton.number.toInt()).toString()
+        holder.binding.textCurrency.text = currency
 
         if (currentCart.tPrice == 0.0) {
-            holder.binding.tvProductPrice.text = convertCurrency(currentCart.pPrice!!.toDouble(),holder.itemView.context).plus("  ").plus(currency)
-//            holder.binding.tvProductPrice.text = currentCart.pPrice
+            holder.binding.tvProductPrice.text = convertCurrency(currentCart.pPrice!!.toDouble(),holder.itemView.context)
         } else {
-            holder.binding.tvProductPrice.text = convertCurrency(currentCart.tPrice!!.toDouble(),holder.itemView.context).plus("  ").plus(currency)
-            //holder.binding.tvProductPrice.text = currentCart.tPrice.toString()
+            holder.binding.tvProductPrice.text = convertCurrency(currentCart.tPrice!!.toDouble(),holder.itemView.context)
         }
 
         holder.binding.tvProductName.text = currentCart.pName.lowercase()
-
-//        if (position == carts.size - 1)
-//            Log.d("TAG", "onBindViewHolder: $totalPrice")
 
         holder.binding.numberButton.setOnValueChangeListener { _, _, newValue ->
             onClickListener.onPluseMinusClicked(newValue, currentCart)
@@ -178,7 +170,7 @@ class CartRvAdapter(
 
     override fun onDestroyActionMode(mode: ActionMode?) {
         myViewHolders.forEach { holder ->
-            changeCardStyle(holder, R.color.chipTextColor, R.color.white)
+            changeCardStyle(holder, R.color.shimmerColor, R.color.white)
         }
         multiSelection = false
         selectedOrders.clear()
@@ -192,13 +184,13 @@ class CartRvAdapter(
             }
             1 -> {
                 mActionMode.title =
-                    " ${selectedOrders.size}${context.getString(R.string.item_selected)}"
+                    "(${selectedOrders.size})  ${context.getString(R.string.item_selected)}"
 
                 //  mActionMode.title= R.font.m
             }
             else -> {
                 mActionMode.title =
-                    "${selectedOrders.size}${context.getString(R.string.items_selected)}"
+                    "(${selectedOrders.size})  ${context.getString(R.string.items_selected)}"
             }
         }
     }
@@ -206,14 +198,13 @@ class CartRvAdapter(
     private fun applySelection(holder: CartViewHolder, currentOrder: Cart) {
         if (selectedOrders.contains(currentOrder)) {
             selectedOrders.remove(currentOrder)
-            changeCardStyle(holder, R.color.chipTextColor, R.color.white)
+            changeCardStyle(holder, R.color.shimmerColor, R.color.white)
             applyActionModeTitle()
         } else {
             selectedOrders.add(currentOrder)
-            changeCardStyle(holder, R.color.red, R.color.green)
+            changeCardStyle(holder, R.color.red_low, R.color.green)
             applyActionModeTitle()
         }
-        Log.d("TAG", "applySelection adapter ${selectedOrders.size}: ")
     }
 
     private fun changeCardStyle(holder: CartViewHolder, backgroundColor: Int, strokeColor: Int) {

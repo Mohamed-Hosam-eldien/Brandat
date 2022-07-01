@@ -11,7 +11,6 @@ import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import com.example.brandat.R
-import com.example.brandat.databinding.FragmentOrderDetailsBinding
 import com.example.brandat.databinding.FragmentTermsOfServiceBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,20 +19,12 @@ class TermsOfServiceFragment : Fragment() {
 
     lateinit var binding: FragmentTermsOfServiceBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_terms_of_service, container, false)
-
-
+    ): View {
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_terms_of_service, container, false)
 
         return binding.root
     }

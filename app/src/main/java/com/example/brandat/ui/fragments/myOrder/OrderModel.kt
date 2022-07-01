@@ -21,8 +21,7 @@ data class OrderModel(
         parcel.readString(),
         parcel.readInt(),
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(customerName)

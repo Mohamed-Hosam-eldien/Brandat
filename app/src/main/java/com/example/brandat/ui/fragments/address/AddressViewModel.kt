@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.brandat.data.repos.products.IProductsRepository
-import com.example.brandat.data.repos.products.ProductsRepository
 import com.example.brandat.data.repos.user.IUserRepository
 import com.example.brandat.models.CustomerAddress
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddressViewModel @Inject public constructor(
+class AddressViewModel @Inject constructor(
     var repository: IUserRepository
 ):ViewModel() {
 
@@ -23,7 +21,7 @@ class AddressViewModel @Inject public constructor(
 
     fun getAllAddress(){
         viewModelScope.launch(Dispatchers.IO) {
-            var result = repository.getAllAddresses()
+            val result = repository.getAllAddresses()
             _getAddresses.postValue(result)
         }
     }

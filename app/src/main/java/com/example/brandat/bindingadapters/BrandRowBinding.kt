@@ -1,13 +1,12 @@
 package com.example.brandat.bindingadapters
 
-import android.util.Log
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.brandat.R
-import com.example.brandat.ui.fragments.category.ProductModel
+import com.example.brandat.ui.fragments.newcategory.ProductModel
 
 class BrandRowBinding {
     companion object {
@@ -21,7 +20,6 @@ class BrandRowBinding {
         @BindingAdapter("onBrandClicked")
         @JvmStatic
         fun onBrandClicked(productCard: CardView, product: ProductModel) {
-            Log.e("TAG", "onBrandClicked: ",)
             productCard.setOnClickListener {
 
                val navController = Navigation.findNavController(productCard)

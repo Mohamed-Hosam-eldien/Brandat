@@ -3,14 +3,11 @@ package com.example.brandat.ui.fragments.serach
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -22,13 +19,11 @@ import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
-import com.example.brandat.ui.fragments.cart.IBadgeCount
-import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
-import com.example.brandat.ui.fragments.category.ProductRvAdapter
+import com.example.brandat.ui.fragments.newcategory.OnImageFavClickedListener
+import com.example.brandat.ui.fragments.newcategory.ProductRvAdapter
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.observeOnce
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
@@ -39,8 +34,6 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
     private val viewModel: SearchViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
     private lateinit var iSnackBar: ISnackBar
-    private lateinit var bageCountI: IBadgeCount
-
     private lateinit var binding: FragmentSearchBinding
     private var itemList = emptyList<ProductDetails>()
     private lateinit var productRvAdapter: ProductRvAdapter
@@ -155,32 +148,23 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
     }
 
 
-    override fun onCartClicked(currentProduct: Cart, ivCart: ImageView) {
+    override fun onCartClicked(product: Cart, ivCart: ImageView) {
         if (Paper.book().read<String>("email") == null) {
             showDialog()
         } else {
 
             if (ivCart.tag != "done") {
-                addCartToDraft(currentProduct)
+                addCartToDraft(product)
                 ivCart.tag = "done"
-                cartViewModel.addProductToCart(currentProduct)
-                ivCart.setImageResource(R.drawable.cart_done)
+                cartViewModel.addProductToCart(product)
+                ivCart.setImageResource(R.drawable.ic_baseline_done_green)
                 ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
-                /*bageCountI.updateBadgeCount(count++)
-            cartViewModel.getAllCartProduct()
-            cartViewModel.cartProduct.observe(viewLifecycleOwner) {
-                count = it.size
-                cartViewModel.addProductToCart(currentProduct)
-                bageCountI.updateBadgeCount(count)
-            }
-            Paper.book().write("CountfromHome", count)*/
 
                 if (Paper.book().read<Int>("count") != null) {
                     Paper.book().write("count", Paper.book().read<Int>("count")!! + 1)
                 } else {
                     Paper.book().write("count", 1)
                 }
-//                bageCountI.updateBadgeCount(Paper.book().read<Int>("count")!!)
             }
         }
     }
@@ -227,34 +211,12 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
         builder.create().show()
     }
 
-    private fun showSnackBar(cart: Cart) {
-        val snackbar = Snackbar.make(binding.recyclerSearch, getString(R.string.added_to_cart), Snackbar.LENGTH_LONG)
-        snackbar.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.purple_700))
-        snackbar.setAction("undo") {
-            cartViewModel.removeProductFromCart(cart)
-            Toast.makeText(requireContext(), getString(R.string.removed_from_cart), Toast.LENGTH_SHORT).show()
-        }.show()
-    }
-
-    private fun showMessage() {
-        Snackbar.make(requireView(), getString(R.string.no_connection), Snackbar.LENGTH_LONG)
-            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
-                requireActivity().resources.getColor(
-                    R.color.black2
-                )
-            )
-            .setActionTextColor(requireActivity().resources.getColor(R.color.white)).setAction("Close") {
-            }.show()
-    }
-
     override fun onResume() {
         super.onResume()
         if (binding.search.query != null) {
             val list: MutableList<ProductDetails> = ArrayList()
             itemList.forEach {
-                Log.e("TAG", "onResume: type --> ${it.productType}")
+
                 if (it.title.contains(binding.search.query.toString().uppercase())
                     || it.handle.contains(binding.search.query.toString().uppercase())
                     || it.vendor.contains(binding.search.query.toString().uppercase())

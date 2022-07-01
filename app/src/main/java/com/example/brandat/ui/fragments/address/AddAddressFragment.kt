@@ -22,19 +22,12 @@ class AddAddressFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel:AddressViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        _binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_add_address, container, false)
-
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_address, container, false)
 
         return binding.root
     }
@@ -42,9 +35,8 @@ class AddAddressFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val cites = resources.getStringArray(R.array.city_list)
-        var citesAdapter = ArrayAdapter(
+        val citesAdapter = ArrayAdapter(
             requireContext(),
             R.layout.city_dropdown_item, cites
         )
@@ -68,17 +60,21 @@ class AddAddressFragment : Fragment() {
     }
 
     private fun checkValidity(): Boolean {
-        if (binding.autoCompleteTextView.text.toString().trim().isNullOrEmpty()) {
-            binding.autoCompleteTextView.error =getString(R.string.required)
-            return false
-        } else if (binding.autoCompleteCityTextView.text.toString().trim().isNullOrEmpty()) {
-            binding.autoCompleteCityTextView.error = getString(R.string.required)
-            return false
-        } else if (binding.streerAddress.text.toString().trim().isNullOrEmpty()) {
-            binding.streerAddress.error =getString(R.string.required)
-            return false
+        return when {
+            binding.autoCompleteTextView.text.toString().trim().isNullOrEmpty() -> {
+                binding.autoCompleteTextView.error =getString(R.string.required)
+                false
+            }
+            binding.autoCompleteCityTextView.text.toString().trim().isNullOrEmpty() -> {
+                binding.autoCompleteCityTextView.error = getString(R.string.required)
+                false
+            }
+            binding.streerAddress.text.toString().trim().isNullOrEmpty() -> {
+                binding.streerAddress.error =getString(R.string.required)
+                false
+            }
+            else -> true
         }
-        return true
     }
 
     override fun onDestroy() {

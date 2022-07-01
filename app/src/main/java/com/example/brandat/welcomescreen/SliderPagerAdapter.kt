@@ -16,7 +16,6 @@ import com.example.brandat.ui.ProductActivity
 
 class SliderPagerAdapter(var ctx: Context) : PagerAdapter() {
 
-
     lateinit var ind1: ImageView
     lateinit var ind2: ImageView
     lateinit var ind3: ImageView
@@ -60,7 +59,6 @@ class SliderPagerAdapter(var ctx: Context) : PagerAdapter() {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 ctx.startActivity(intent)
             }
-
 
         }
 

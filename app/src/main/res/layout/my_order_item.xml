@@ -24,7 +24,6 @@
             app:cardCornerRadius="20dp"
             app:cardElevation="3dp"
             app:cardMaxElevation="5dp"
-
             app:cardPreventCornerOverlap="true"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -32,15 +31,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="0dp"
-                android:background="@color/purple_700"
+                android:background="@color/shimmerColor"
                 app:cardElevation="3dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/order_image"
                     android:layout_width="82dp"
                     android:layout_height="82dp"
                     android:layout_marginStart="4dp"
                     android:src="@drawable/order"
+                    app:civ_border_width="2dp"
                     app:civ_border_color="@color/purple_700"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +52,7 @@
                     android:background="@android:color/transparent"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
+                    android:layout_marginStart="12dp"
                     app:layout_constraintStart_toEndOf="@id/order_image"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -60,8 +61,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="22 - 5- 2022"
-                        android:textColor="@color/white"
-                        android:textSize="16dp"
+                        android:textColor="@color/purple_700"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,7 +89,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="@string/order_id_txt"
-                            android:textColor="@color/white"
+                            android:textColor="@color/purple_700"
                             android:textSize="16sp" />
 
                         <TextView
@@ -98,7 +99,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text=" 2458745212"
-                            android:textColor="@color/white"
+                            android:textColor="@color/purple_700"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -117,7 +118,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="@string/total_price"
-                            android:textColor="@color/white"
+                            android:textColor="@color/purple_700"
                             android:textSize="16sp" />
 
                         <TextView
@@ -127,7 +128,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="@string/items"
-                            android:textColor="@color/white"
+                            android:textColor="@color/purple_700"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -151,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/active"
-                        android:textColor="@color/white"
+                        android:textColor="@color/purple_700"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"

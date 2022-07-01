@@ -11,10 +11,6 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.view.animation.Interpolator
-import android.view.animation.LayoutAnimationController
-import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
@@ -36,7 +32,6 @@ import com.example.brandat.utils.observeOnce
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 
 
 @AndroidEntryPoint
@@ -74,7 +69,7 @@ class HomeFragment : Fragment(), BrandOnClickListner {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         imageSlider()
-        ShowDescountCopune()
+        showDiscountCopone()
         discountInit()
         if (ConnectionUtil.isNetworkAvailable(requireContext())) {
             showShimmerEffect()
@@ -93,6 +88,7 @@ class HomeFragment : Fragment(), BrandOnClickListner {
                     Constants.discounCde = it.data.price_rules
                     binding.txtCode.text = it.data.price_rules[0].title
                 }
+                else -> {}
             }
         }
         observer = brandViewModel.brandResponse.observeOnce(requireActivity()) {
@@ -112,7 +108,7 @@ class HomeFragment : Fragment(), BrandOnClickListner {
         )
     }
 
-    private fun ShowDescountCopune() {
+    private fun showDiscountCopone() {
         binding.imgCopy.setOnClickListener {
             val clipboardManager =
                 requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -124,7 +120,7 @@ class HomeFragment : Fragment(), BrandOnClickListner {
     }
 
     private fun randomDiscountCode(priceRules: List<PriceRule>) {
-        val randomElements = (0..priceRules.size - 1).shuffled().random()
+        val randomElements = (priceRules.indices).shuffled().random()
         binding.txtCode.text = priceRules[randomElements].title
     }
 

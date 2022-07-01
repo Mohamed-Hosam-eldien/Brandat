@@ -1,6 +1,5 @@
 package com.example.brandat.ui.fragments.productdetails
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +24,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
             fun from(parent : ViewGroup) : ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                var binding = ReviewerRowLayoutBinding.inflate(layoutInflater, parent, false)
+                val binding = ReviewerRowLayoutBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

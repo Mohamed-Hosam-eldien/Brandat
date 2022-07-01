@@ -1,8 +1,6 @@
 package com.example.brandat.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.brandat.models.Favourite
-import com.example.brandat.models.Product
 import com.example.brandat.models.ProductDetails
 
 class FavouriteDiffUtil (

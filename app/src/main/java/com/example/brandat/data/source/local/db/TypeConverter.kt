@@ -1,10 +1,8 @@
 package com.example.brandat.data.source.local.db
 
-import android.R.attr.bitmap
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
-import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 
 

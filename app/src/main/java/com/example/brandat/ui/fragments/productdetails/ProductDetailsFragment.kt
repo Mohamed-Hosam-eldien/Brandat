@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +40,6 @@ import io.paperdb.Paper
 class ProductDetailsFragment : Fragment() {
 
     private var random: Float = 4.5F
-    private lateinit var mProduct: Product
     private lateinit var productToCart: Cart
     private lateinit var bageCountI: IBadgeCount
     lateinit var sharedPreferences: SharedPreferences
@@ -74,19 +72,19 @@ class ProductDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_product_details, container, false)
 
         sharedPreferences = context?.getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)!!
 
-        currency = sharedPreferences?.getString(Constants.CURRENCY_TYPE, "EGP")!!.toString()
+        currency = sharedPreferences.getString(Constants.CURRENCY_TYPE, "EGP")!!.toString()
 
-        if(requireActivity() is MainActivity)
-            bageCountI = requireActivity() as MainActivity
+        bageCountI = if(requireActivity() is MainActivity)
+            requireActivity() as MainActivity
         else
-            bageCountI = requireActivity() as SearchActivity
+            requireActivity() as SearchActivity
 
         Paper.init(requireContext())
 
@@ -115,7 +113,6 @@ class ProductDetailsFragment : Fragment() {
         }
 
         setupRecyclerView()
-        var usersList: User? = user.asSequence().shuffled().find { true }
         val numberOfElements = 3
         val randomElements = user.asSequence().shuffled().take(numberOfElements).toList()
         mAdapter.setDatat(randomElements)
@@ -164,7 +161,7 @@ class ProductDetailsFragment : Fragment() {
     }
 
     private fun shareProduct() {
-        var shareIntent = Intent().apply {
+        val shareIntent = Intent().apply {
             this.action = Intent.ACTION_SEND
             this.putExtra(Intent.EXTRA_TEXT, "Mohamed Galal Elsheikh")
             this.type = "text/plain"
@@ -173,7 +170,6 @@ class ProductDetailsFragment : Fragment() {
     }
 
     private fun observeShowData() {
-        //7782820708581L
         viewModel.getProduct.observeOnce(viewLifecycleOwner) {
             if (it != null) {
                 showData(it)

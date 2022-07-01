@@ -1,10 +1,8 @@
 package com.example.brandat.bindingadapters
 
-import android.util.Log
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
-import androidx.navigation.findNavController
 import coil.load
 import com.example.brandat.models.ProductDetails
 
@@ -14,11 +12,8 @@ class ProductRowBinding {
         @BindingAdapter("onProductClicked")
         @JvmStatic
         fun onProductClicked(productCard: CardView, product: ProductDetails) {
-           // Log.e("TAG", "onProductClicked: ")
             productCard.setOnClickListener {
 
-//                val navController = Navigation.findNavController(productCard)
-//                navController.navigate(R.id.action_productFragment_to_cartFragment)
             }
         }
 
@@ -26,7 +21,6 @@ class ProductRowBinding {
         @JvmStatic
         fun onFavClicked(favImag: ImageView, product: ProductDetails) {
             favImag.setOnClickListener {
-               // Log.e("TAG", "onFavClicked: ")
             }
         }
 
@@ -34,12 +28,7 @@ class ProductRowBinding {
         @JvmStatic
         fun onCartClicked(cartImag: ImageView, product: ProductDetails) {
             cartImag.setOnClickListener {
-              //  Log.e("Az", "onCartClicked: ")
-//                val action =
-//                    ProductDetailsFragmentDirections.actionProductDetailsFragmentToCartFragment(
-//                        product
-//                    )
-//                cartImag.findNavController().navigate(action)
+
             }
         }
 
@@ -54,7 +43,6 @@ class ProductRowBinding {
         @JvmStatic
         fun setImgForProduct(image: ImageView, url: String) {
             image.load(url)
-            // crossFade(600)
         }
     }
 }

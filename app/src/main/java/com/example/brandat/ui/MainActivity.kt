@@ -4,14 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -19,10 +13,8 @@ import androidx.preference.PreferenceManager
 import com.example.brandat.R
 import com.example.brandat.databinding.ActivityMainBinding
 import com.example.brandat.ui.fragments.cart.IBadgeCount
-import com.example.brandat.ui.fragments.registeration.ProfileSharedViewModel
 import com.google.android.material.badge.BadgeDrawable
 import com.example.brandat.ui.fragments.serach.SearchActivity
-import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
@@ -45,7 +37,7 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
 
         initUser()
 
-        badgeDrawable = binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment);
+        badgeDrawable = binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment)
         badgeDrawable.isVisible = true
         if (Paper.book().read<Int>("count") != null) {
             badgeDrawable.number = Paper.book().read<Int>("count")!!
@@ -56,7 +48,7 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
 
         navController = findNavController(R.id.navHostFragment)
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.productDetailsFragment
             ) {
                 binding.bottomNavigationView.visibility = View.GONE
@@ -101,14 +93,14 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
 
     override fun onStart() {
         super.onStart()
-        mCurrentLocale = getResources().getConfiguration().locale;
+        mCurrentLocale = resources.configuration.locale
     }
 
     override fun onRestart() {
         super.onRestart()
         val locale = getLocale(this)
 
-        if (!locale!!.equals(mCurrentLocale)) {
+        if (locale != mCurrentLocale) {
             mCurrentLocale = locale
             recreate()
         }
@@ -145,7 +137,7 @@ class MainActivity : AppCompatActivity(), IBadgeCount {
         }
     }
 
-    fun getLocale(context: Context?): Locale? {
+    fun getLocale(context: Context?): Locale {
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(context!!)
         var lang = sharedPreferences.getString("language", "en")

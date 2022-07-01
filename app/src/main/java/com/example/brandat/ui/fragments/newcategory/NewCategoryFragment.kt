@@ -29,8 +29,6 @@ import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.ui.fragments.cart.IBadgeCount
-import com.example.brandat.ui.fragments.category.OnImageFavClickedListener
-import com.example.brandat.ui.fragments.category.ProductRvAdapter
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.observeOnce
@@ -263,7 +261,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
     }
 
     private fun showMessage(it: String) {
-
         Snackbar.make(requireView(), it, Snackbar.LENGTH_INDEFINITE)
             .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
                 resources.getColor(
@@ -391,17 +388,6 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
         builder.setTitle("please register or login to add item in cart")
         // builder.setMessage("Are you sure you want to delete ${product.pName.toLowerCase()} from Cart?")
         builder.create().show()
-    }
-
-    private fun showSnackBar(cart: Cart) {
-        val snackbar = Snackbar.make(binding.newCat, "Added to Cart", Snackbar.LENGTH_LONG)
-        snackbar.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        snackbar.setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
-            .setBackgroundTint(resources.getColor(R.color.black2))
-            .setActionTextColor(resources.getColor(R.color.white)).setAction("Undo") {
-                cartViewModel.removeProductFromCart(cart)
-                Toast.makeText(requireContext(), "Removed from Cart!", Toast.LENGTH_SHORT).show()
-            }.show()
     }
 
     private fun showAllProductFilterDialog() {

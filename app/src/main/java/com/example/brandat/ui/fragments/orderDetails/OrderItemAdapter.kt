@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.brandat.databinding.ItemsInOrderBinding
-import com.example.brandat.databinding.MyOrderItemBinding
 import com.example.brandat.models.orderModel.LineItem
 
 class OrderItemAdapter(var context: Context, var itemList:List<LineItem>?):RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder>() {
@@ -20,22 +19,15 @@ class OrderItemAdapter(var context: Context, var itemList:List<LineItem>?):Recyc
     override fun onBindViewHolder(holder: OrderItemViewHolder, position: Int) {
 
         val orderItem = itemList?.get(position)
-       // holder.view.orderImage.setImageResource(orderItem.itemImage)
-        holder.view.numberOfItem.text = orderItem?.quantity.toString()
+        holder.view.numberOfItem.text = orderItem?.quantity.toString().plus("  item(s)")
         holder.view.itemPrice.text = orderItem?.price
-        holder.view.itemName.text = orderItem?.name
+        holder.view.itemName.text = orderItem?.name?.lowercase()
         Glide.with(context).load(orderItem?.sku).into(holder.view.orderImage)
-
     }
 
     override fun getItemCount(): Int {
         return  itemList!!.size
-
     }
 
-
-    class OrderItemViewHolder(var view : ItemsInOrderBinding): RecyclerView.ViewHolder(view.root){
-
-    }
-
+    class OrderItemViewHolder(var view : ItemsInOrderBinding): RecyclerView.ViewHolder(view.root)
 }

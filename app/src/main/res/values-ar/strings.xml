@@ -4,56 +4,33 @@
     <string name="category">التصنيفات</string>
     <string name="fav">المفضله</string>
     <string name="cart">السلة</string>
-    <string name="order">طلب</string>
+    <string name="click_to_add_your_address">أضفط لإضاف عنوانك</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="item_details">تفاصيل العنصر</string>
-    <string name="brandat">Brandat</string>
-    <string name="Address">العنوان</string>
-    <string name="customer_name">اسم المشتري : </string>
     <string name="order_number">رقم الطلب : </string>
     <string name="order_item">رقم الطلب : </string>
     <string name="order_details">تفاصيل الطلب : </string>
     <string name="total_price">إجمالي السعر : </string>
     <string name="payment_method">طريقة الدفع : </string>
     <string name="order_date">تاريخ الطلب : </string>
-    <string name="phone">رقم الهاتف : </string>
     <string name="address">العنوان : </string>
-    <string name="brands">Brands</string>
     <string name="payment_method_text">طريقة الدفع</string>
-    <string name="warning_dialog">تحذير</string>
     <string name="warning_message">قد تجاوزت الحد المسموح في الدفع الكاش
 من فضلك استخدم طريقه اخرى للدفع</string>
     <string name="text_user_discount">راجع الصفحة الرئيسية للحصول علي  كود لتخفيضات 🎁</string>
 
 
-    <string name="btn_persistent">Persistent Bottom Sheet</string>
-    <string name="btn_modal">Modal Bottom Sheet</string>
-    <string name="tv_title">Learn Bottom Sheet</string>
-    <string name="tv_description"></string>
-    <string name="btn_one">Button 1</string>
-    <string name="btn_two">Button 2</string>
-    <string name="btn_three">Button 3</string>
-
-
     <string name="my_addresses">العناوين</string>
     <string name="currency">العملة</string>
-    <string name="language">اللغة</string>
     <string name="sign_out">تسجيل خروج</string>
     <string name="dollar">دولار</string>
     <string name="bound">جنيه مصري</string>
-    <string name="steps">asd</string>
-    <string name="click_to_add_address">إضغط لإضافه عنوان</string>
-    <string name="credit_card">بطاقة الائتمان</string>
     <string name="cash">الدفع عند اللإستلام</string>
     <string name="paypal">Paypal</string>
-    <string name="copon">copon</string>
     <string name="price">السعر</string>
     <string name="apply">تطبيق</string>
-    <string name="delivery">خدمة التوصيل</string>
     <string name="next">التالي</string>
-    <string name="add">إضافة</string>
     <string name="add_to_cart">إضافة إلي السلة</string>
     <string name="men">رجالي</string>
     <string name="kids">أطفال</string>
@@ -72,10 +49,7 @@
     <string name="password">كلمه السر</string>
     <string name="total">الإجمالي</string>
     <string name="checkout">تابع عملية الشراء</string>
-    <string name="click_to_add_your_address">إضغط لإضافة عنوان</string>
-    <string name="send_order">إرسال الطلب</string>
     <string name="promo_code">كود الخصم</string>
-    <string name="search">بحث</string>
     <string name="copunCode">agste54st</string>
     <string name="failed_order">فشل في إرسال الطلب n\ حاول مرة أخرى</string>
     <string name="order_send_successfully">تم أرسل الطلب بنجاح!\n👍🏻</string>
@@ -84,12 +58,7 @@
     <string name="dollar_currency">دولار</string>
     <string name="retry">إعادة المحاولة</string>
     <string name="pay_on_cash">الدفع فورا</string>
-    <string name="invalid_data">بيانات غير صالحة</string>
     <string name="discount">الخصم</string>
-    <string name="message_order_don">تمام</string>
-    <string name="operation_succeeded">نجحت العمليلة</string>
-    <string name="operation_faild">العملية فشلت</string>
-    <string name="someThing_wrong_happened">خطأ</string>
     <string name="passward">كلمة السر</string>
     <string name="save_location">حفظ الموقع</string>
     <string name="country">البلد</string>
@@ -118,7 +87,6 @@
 
     <string name="my_orders">طلباتي</string>
     <string name="search_fragment">صفحة البحث</string>
-    <string name="cart_is_empty">سلة الشراء فارغة</string>
     <string name="item">عنصر)</string>
     <string name="login_now">تسجيل دخول</string>
     <string name="cancel">إلغاء</string>
@@ -145,7 +113,6 @@
     <string name="User_Created_Successfully">تم إنشاء حساب بنجاح</string>
     <string name="not_valid_email">البريد الالكتروني غير صالح</string>
     <string name="passward_doesnot_match">كلمة السر ليست مطابقه</string>
-    <string name="removed_from_cart">تم المسح من سلة المشتريات</string>
     <string name="terms_of_service">شروط الخدمات</string>
     <string name="many_offers">العديد من العروض</string>
     <string name="desc1_tv">العديد من العروض والخصومات تنتظرك</string>
@@ -160,16 +127,7 @@
     <string name="cart_empty">السلة فارغة</string>
     <string name="delete_cart">هل ترغب بإزالة هذا العنصر من سلة الشراء؟</string>
     <string name="items_i">عناصر </string>
-    <string name="order_number_txt">order number:</string>
     <string name="order_id_txt">order id:</string>
-    <string-array name="country_list">
-        <item>مصر</item>
-        <item>الجزائر</item>
-        <item>العراق</item>
-        <item>الأردن</item>
-        <item>لبنان</item>
-        <item>ليبيا</item>
-    </string-array>
     <string-array name="city_list">
         <item>القاهرة</item>
         <item>الأسكندريه</item>

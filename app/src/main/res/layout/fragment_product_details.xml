@@ -166,8 +166,7 @@
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                     android:id="@+id/elegantNumberButton_quantity"
                     android:layout_width="wrap_content"
-                    android:layout_height="42dp"
-                    android:textSize="12dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
                     android:gravity="center"
                     app:backgroundDrawable="@drawable/rounded_shap"

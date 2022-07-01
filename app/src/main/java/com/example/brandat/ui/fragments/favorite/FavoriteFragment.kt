@@ -1,7 +1,6 @@
 package com.example.brandat.ui.fragments.favorite
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFavoriteBinding
-import com.example.brandat.models.Favourite
 import com.example.brandat.models.ProductDetails
 import com.example.brandat.ui.MainActivity
-import com.example.brandat.ui.ProfileActivity
 import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.ui.fragments.cart.IBadgeCount
@@ -35,8 +32,6 @@ import io.paperdb.Paper
 class FavoriteFragment : Fragment(), OnclickListener {
     private lateinit var favouriteAdapter: FavouriteAdapter
     private lateinit var binding: FragmentFavoriteBinding
-    private val favourite: List<Favourite> = ArrayList()
-    private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
     private lateinit var bageCountI: IBadgeCount
 
@@ -171,7 +166,7 @@ class FavoriteFragment : Fragment(), OnclickListener {
                 addCartToDraft(product)
                 ivCart.tag = "done"
                 cartViewModel.addProductToCart(product)
-                ivCart.setImageResource(R.drawable.cart_done)
+                ivCart.setImageResource(R.drawable.ic_baseline_done_green)
                 ivCart.setBackgroundResource(R.drawable.cart_shape_back_done)
                 /*bageCountI.updateBadgeCount(count++)
             cartViewModel.getAllCartProduct()

@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.brandat.data.repos.products.IProductsRepository
 import com.example.brandat.models.Favourite
-import com.example.brandat.ui.fragments.orderDetails.OrderItemModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,14 +21,9 @@ class FavouriteViewModel @Inject constructor(
     private var _getFavouriteProducts = MutableLiveData<List<Favourite>>()
     var getFavouriteProducts: LiveData<List<Favourite>> = _getFavouriteProducts
 
-//    private var _getFavouriteDraft = MutableLiveData<Response<com.example.brandat.ordermodel.OrderResponse>>()
-//    var getFavouriteDraftModel: LiveData<Response<com.example.brandat.ordermodel.OrderResponse>> = _getFavouriteDraft
-
-
-
     fun getFavouriteProducts() {
         viewModelScope.launch {
-            var result = favouriteRepository.getFavouriteProducts()
+            val result = favouriteRepository.getFavouriteProducts()
             _getFavouriteProducts.postValue(result)
         }
     }

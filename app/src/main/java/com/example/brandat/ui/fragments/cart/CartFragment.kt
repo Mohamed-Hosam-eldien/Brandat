@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,13 +34,10 @@ class CartFragment : Fragment(), CartOnClickListener {
 
     private lateinit var binding: FragmentCartBinding
     private lateinit var cartAdapter: CartRvAdapter
-    private lateinit var builder: AlertDialog.Builder
     private lateinit var bindingDialog: AlertDialogBinding
-    private lateinit var dialog: AlertDialog
     lateinit var currencyCode: String
     lateinit var sharedPreferences: SharedPreferences
     private lateinit var bageCountI: IBadgeCount
-    private var badgeCount: Int = 0
     private val cartViewModel: CartViewModel by viewModels()
     private val listener by lazy {
         FirebaseDatabase.getInstance()
@@ -148,9 +144,9 @@ class CartFragment : Fragment(), CartOnClickListener {
 
                             when (list.size) {
                                 0, 1 -> binding.tvConut.text =
-                                    "(${list.size} ${getString(R.string.item)}"
+                                    "(${list.size} ${getString(R.string.item)})"
                                 else -> binding.tvConut.text =
-                                    "(${list.size} ${getString(R.string.items_i)}"
+                                    "(${list.size} ${getString(R.string.items_i)})"
                             }
                             binding.cartsCurrency.text = currencyCode
                             binding.rvCart.visibility = View.VISIBLE
@@ -220,13 +216,9 @@ class CartFragment : Fragment(), CartOnClickListener {
     override fun onPluseMinusClicked(count: Int, currentCart: Cart) {
         val priceChange = currentCart.pPrice?.toDouble()
         val _price = (count * priceChange!!)
-//        val currentOrder = Cart(pQuantity = count, pId = pId, tPrice = _price)
 
         currentCart.tPrice = _price
         currentCart.pQuantity = count
-
-//        val price = mapOf("tprice" to _price)
-//        listOf(price)
 
         cartViewModel.updateOrder(currentCart)
 
@@ -237,39 +229,16 @@ class CartFragment : Fragment(), CartOnClickListener {
         requireActivity().recreate()
     }
 
-    private fun checkEmptyList(list: List<Cart>) {
-        if (list.isEmpty()) {
-            binding.ivPlaceholder.visibility = View.VISIBLE
-            binding.rvCart.visibility = View.GONE
-        } else {
-            binding.ivPlaceholder.visibility = View.GONE
-            binding.rvCart.visibility = View.VISIBLE
-
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        // binding = null
         cartAdapter.clearContextualActionMode()
     }
 
-    //===============================================
-    private fun showAddAlertDialoge() {
-        builder = AlertDialog.Builder(requireContext())
-        builder.setCancelable(false)
-        builder.setView(bindingDialog.root)
-        dialog = builder.create()
-        dialog.show()
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.setCancelable(false)
-    }
 
     private fun showDialoge(products: Cart) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
             cartViewModel.removeProductFromCart(products)
-            // cartViewModel.getAllCartProduct()
             requireActivity().recreate()
         }
         builder.setNegativeButton(getString(R.string.no)) { _, _ ->

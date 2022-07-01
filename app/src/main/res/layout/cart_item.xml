@@ -14,9 +14,9 @@
         android:id="@+id/favoriteRecipesRowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="2dp">
 
         <com.google.android.material.card.MaterialCardView
@@ -29,14 +29,13 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/black"
             app:strokeWidth="1dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#7C7070"
+                android:background="@color/shimmerColor"
                 android:padding="9dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -44,7 +43,7 @@
                     android:layout_width="115dp"
                     android:layout_height="103dp"
                     android:src="@drawable/bag"
-                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_color="@color/purple_700"
                     app:civ_border_width="2dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -57,22 +56,38 @@
                     android:padding="3dp"
                     android:text="@{cart.PName}"
                     tools:text="CLASSIC BACKPACK"
-                    android:textColor="@color/white"
+                    android:textColor="@color/purple_700"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/img_product"
                     app:layout_constraintTop_toTopOf="@id/img_product" />
 
                 <TextView
+                    android:id="@+id/textCurrency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="serif"
+                    android:padding="1dp"
+                    android:gravity="center"
+                    android:textColor="@color/purple_700"
+                    android:textSize="10sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_name"
+                    app:layout_constraintStart_toEndOf="@id/tv_product_price"
+                    />
+
+                <TextView
                     android:id="@+id/tv_product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
+                    android:layout_marginStart="3dp"
                     android:layout_marginTop="3dp"
                     android:fontFamily="serif"
                     android:padding="1dp"
+                    tools:text="45.98"
                     android:text="@{String.valueOf(cart.PPrice)}"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textColor="@color/purple_700"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintHorizontal_bias="0.174"
                     app:layout_constraintStart_toStartOf="@id/tv_product_name"
@@ -80,16 +95,16 @@
 
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                     android:id="@+id/number_button"
-                    android:layout_width="110dp"
+                    android:layout_width="120dp"
                     android:layout_height="35dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginEnd="4dp"
-                    app:backGroundColor="@color/white"
+                    app:backGroundColor="@color/purple_700"
                     app:finalNumber="20"
                     app:initialNumber="1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:textColor="@color/black"
+                    app:textColor="@color/white"
                     app:textSize="4sp" />
 
                 <ImageView
@@ -100,8 +115,10 @@
                     app:layout_constraintTop_toTopOf="@+id/tv_product_name"
                     app:layout_constraintStart_toEndOf="@id/tv_product_name"
                     app:srcCompat="@drawable/ic_delete"
-                    />
+                    android:contentDescription="@null" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

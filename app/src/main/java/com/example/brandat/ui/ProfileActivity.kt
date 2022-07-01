@@ -8,7 +8,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.ActivityProfileBinding
-import com.example.brandat.ui.fragments.cart.IBadgeCount
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 

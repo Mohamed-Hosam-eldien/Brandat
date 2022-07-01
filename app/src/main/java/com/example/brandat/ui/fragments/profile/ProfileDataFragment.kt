@@ -1,7 +1,6 @@
 package com.example.brandat.ui.fragments.profile
 
 import android.app.AlertDialog
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,11 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentProfileDataBinding
 import com.example.brandat.models.Customer
-import com.example.brandat.ui.MainActivity
-import com.example.brandat.ui.fragments.cart.Cart
 import com.example.brandat.ui.fragments.cart.CartViewModel
-import com.example.brandat.ui.fragments.cart.IBadgeCount
-import com.example.brandat.ui.fragments.favorite.FavouriteViewModel
 import com.example.brandat.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
@@ -82,8 +77,8 @@ class ProfileDataFragment : Fragment() {
             binding.progress.visibility = View.VISIBLE
 
             cartViewModel.getAllCartProduct()
-            cartViewModel.cartProduct.observe(viewLifecycleOwner, Observer {
-                if(it != null) {
+            cartViewModel.cartProduct.observe(viewLifecycleOwner) {
+                if (it != null) {
                     cartViewModel.removeSelectedProductsFromCart(it)
                     Paper.book().delete("email")
                     Paper.book().delete("name")
@@ -93,7 +88,7 @@ class ProfileDataFragment : Fragment() {
                     Constants.user = Customer()
                     requireActivity().finish()
                 }
-            })
+            }
 
         }
         builder.setNegativeButton(context?.getString(R.string.no)) { _, _ ->

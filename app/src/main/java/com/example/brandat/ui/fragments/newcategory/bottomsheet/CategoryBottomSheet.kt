@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.brandat.R
 import com.example.brandat.databinding.CategoryBottomSheetBinding
-import com.example.brandat.ui.fragments.category.SharedViewModel
+import com.example.brandat.ui.fragments.newcategory.SharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 

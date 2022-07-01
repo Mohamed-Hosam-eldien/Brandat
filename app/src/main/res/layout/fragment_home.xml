@@ -19,9 +19,9 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
-            android:background="@color/lightGray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/lightGray"
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,9 +43,9 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
-                    app:cardUseCompatPadding="true"
                     app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp">
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true">
 
                     <com.denzcoskun.imageslider.ImageSlider
                         android:id="@+id/image_slider"
@@ -99,7 +99,7 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             tools:listitem="@layout/recycler_home_item" />
 
-        <com.mikelau.views.shimmer.ShimmerRecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.mikelau.views.shimmer.ShimmerRecyclerView
             android:id="@+id/shimmer_recycle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -133,6 +133,7 @@
                 android:layout_gravity="left"
                 android:gravity="left">
 
+
                 <ImageView
                     android:id="@+id/imgGift"
                     android:layout_width="48dp"
@@ -143,38 +144,45 @@
                     android:layout_marginRight="2dp"
                     android:src="@drawable/gift" />
 
+
                 <LinearLayout
                     android:id="@+id/layoutCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
                     android:layout_toRightOf="@id/imgGift"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:visibility="gone">
+                    android:orientation="vertical">
 
-
-                    <TextView
-                        android:id="@+id/txtCode"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="@string/copunCode"
-                        android:textStyle="bold" />
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/txtCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="@string/copunCode"
+                            android:textStyle="bold" />
 
 
-                    <ImageView
-                        android:id="@+id/imgCopy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:src="@drawable/ic_content_copy" />
+                        <ImageView
+                            android:id="@+id/imgCopy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:src="@drawable/ic_content_copy" />
 
+                    </LinearLayout>
 
                 </LinearLayout>
-
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>

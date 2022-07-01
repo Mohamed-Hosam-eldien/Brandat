@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brandat.databinding.AdderssItemBinding
 import com.example.brandat.models.CustomerAddress
-import com.example.brandat.ui.User
 
 class AddressAdapter (var onClickListener: OnClickListener)
     : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
@@ -13,12 +12,12 @@ class AddressAdapter (var onClickListener: OnClickListener)
     var addresses = emptyList<CustomerAddress>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {
-        var view =AdderssItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view =AdderssItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return AddressViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
-        var addressItem = addresses[position]
+        val addressItem = addresses[position]
         holder.view.textAddress.text = addressItem.address1 .plus(", "+addressItem.city).plus(", "+addressItem.country)
         holder.view.deleteAddress.setOnClickListener {
              onClickListener.onClick(addressItem)

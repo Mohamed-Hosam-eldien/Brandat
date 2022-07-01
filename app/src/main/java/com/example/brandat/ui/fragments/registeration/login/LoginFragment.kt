@@ -16,7 +16,6 @@ import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.utils.ConnectionUtil
 import com.example.brandat.utils.Constants
 import com.example.brandat.utils.Constants.Companion.showSnackBar
-import com.example.brandat.utils.observeOnce
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase

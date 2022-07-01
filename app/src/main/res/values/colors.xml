@@ -14,6 +14,7 @@
 <!--    E27802 774360-->
 <!--    774360-->
     <color name="red">#D70D0D</color>
+    <color name="red_low">#FF9797</color>
     <color name="green">#72B227</color>
     <color name="lightGray">#F0F0F0</color>
     <color name="darkGray">#C2C2C2</color>
@@ -27,10 +28,7 @@
     <color name="chipTextColor">@color/darkG</color>
     <color name="black2">#CE000000</color>
     <color name="blue">#2196F3</color>
-  // dialog color
-    <color name="colorPrimary">#566573</color>
-    <color name="colorPrimaryDark">#42505E</color>
-    <color name="colorAccent">#4CAF50</color>
+    // dialog color
     <color name="success">#1ec659</color>
     <color name="failure">#d30915</color>
     <color name="grey">#D6D6D6</color>

@@ -25,15 +25,12 @@ class CategoryViewModel @Inject constructor(
     private val _isOrderd: MutableLiveData<Cart> = MutableLiveData<Cart>()
     var isOrderd: LiveData<Cart> = _isOrderd
     var getError: LiveData<String> = _setError
-//    private val _isAdded: MutableLiveData<Cart> = MutableLiveData<Cart>()
-//    var isAdded: LiveData<Cart> = _isAdded
 
     var allProductResponse: MutableLiveData<List<ProductDetails>> = MutableLiveData()
     var productsLive: LiveData<List<ProductDetails>> = allProductResponse
 
     fun getCategory(productId: Long) = viewModelScope.launch {
-        val result = repoInterface.getCategories(productId)
-        when (result) {
+        when (val result = repoInterface.getCategories(productId)) {
             is NetworkResult.Success -> categoryResponse.postValue(result.data?.products)
             is NetworkResult.Error -> _setError.postValue(result.exception)
             else -> {
@@ -44,8 +41,7 @@ class CategoryViewModel @Inject constructor(
     }
 
     fun getAllProductsByName() = viewModelScope.launch {
-        val result = repoInterface.getAllProduct()
-        when (result) {
+        when (val result = repoInterface.getAllProduct()) {
             is NetworkResult.Success -> allProductResponse.postValue(result.data?.products)
             is NetworkResult.Error -> _setError.postValue(result.exception)
             else -> {
@@ -60,10 +56,6 @@ class CategoryViewModel @Inject constructor(
             repoInterface.getAllProduct()
         else
             repoInterface.getAllProductByType(type)
-
-        Log.d("TAG", "filterProducts: --> 22 $type")
-
-        Log.d("TAG", "filterProducts: result --> 33 ${result}")
 
         when (result) {
             is NetworkResult.Success -> allProductResponse.postValue(result.data?.products)

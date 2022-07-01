@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import android.widget.Toast.makeText
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -15,28 +13,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentAddressBinding
 import com.example.brandat.models.CustomerAddress
-import com.example.brandat.ui.fragments.productdetails.UserAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.notify
 
 @AndroidEntryPoint
-class AddressFragment : Fragment() ,OnClickListener{
-      lateinit var binding: FragmentAddressBinding
+class AddressFragment : Fragment(), OnClickListener {
+    lateinit var binding: FragmentAddressBinding
 
     private val addressAdapter by lazy { AddressAdapter(this) }
-      var addresses : List<CustomerAddress> = fakeData()
-      private val viewModel:AddressViewModel by viewModels()
+    var addresses: List<CustomerAddress> = fakeData()
+    private val viewModel: AddressViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-      }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding =DataBindingUtil.inflate(inflater,R.layout.fragment_address,container,false)
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address, container, false)
         return binding.root
     }
 
@@ -58,31 +50,30 @@ class AddressFragment : Fragment() ,OnClickListener{
         }
     }
 
-    fun showObservedData(){
+    fun showObservedData() {
         viewModel.getAllAddress()
-        viewModel.getAddresses.observe(viewLifecycleOwner){
+        viewModel.getAddresses.observe(viewLifecycleOwner) {
 
             initView(it)
         }
 
     }
 
-    private fun initView(addresses:List<CustomerAddress>) {
+    private fun initView(addresses: List<CustomerAddress>) {
         addressAdapter.setDatat(addresses)
-        //addressAdapter = AddressAdapter(this)
         binding.addressRecycler.apply {
-           layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-           adapter=addressAdapter
-       }
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = addressAdapter
+        }
 
     }
 
     private fun fakeData(): ArrayList<CustomerAddress> {
-      var addressList = ArrayList<CustomerAddress>()
-        for (i in 1 .. 10) {
-            addressList.add(CustomerAddress(false,"ismalia ,  ", "egypt","mmm"))
+        val addressList = ArrayList<CustomerAddress>()
+        for (i in 1..10) {
+            addressList.add(CustomerAddress(false, "ismalia ,  ", "egypt", "mmm"))
         }
-        return  addressList
+        return addressList
 
     }
 

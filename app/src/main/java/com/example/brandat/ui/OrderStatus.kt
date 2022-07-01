@@ -1,8 +1,6 @@
 package com.example.brandat.ui
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.brandat.databinding.ActivityOrderStatusBinding
 import com.example.brandat.ui.fragments.orderStatus.IChangeOrderStatus
@@ -13,11 +11,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class OrderStatus : AppCompatActivity(), IChangeOrderStatus {
 
     private lateinit var binding : ActivityOrderStatusBinding
-    private val stepList = arrayOf("Address","Payment Method","Done")
+    private val stepList = arrayOf("Address","Payment Method","Confirm")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var  intent =intent
+        val intent =intent
 
         if (intent!=null) {
             Constants.totalPrice = intent.getStringExtra("total")?.toDouble()

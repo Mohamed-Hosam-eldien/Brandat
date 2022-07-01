@@ -1,13 +1,11 @@
 package com.example.brandat.ui.fragments.orderStatus.checkOutOrder
 
-import android.content.ContentValues.TAG
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.brandat.data.repos.products.IProductsRepository
-import com.example.brandat.models.BillingAddress
 import com.example.brandat.models.CustomerAddress
 import com.example.brandat.models.orderModel.*
 import com.example.brandat.ui.fragments.cart.Cart
@@ -15,13 +13,11 @@ import com.example.brandat.utils.Constants
 import com.example.brandat.utils.ResponseResult
 import com.example.brandat.utils.convertToBillingAddress
 import com.example.brandat.utils.toLineItem
-import com.google.firebase.database.FirebaseDatabase
-import com.paypal.checkout.createorder.CurrencyCode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
+
 
 @HiltViewModel
 class CheckOutOrderViewModel @Inject constructor(private val repository: IProductsRepository) :

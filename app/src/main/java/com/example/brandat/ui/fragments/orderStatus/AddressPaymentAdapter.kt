@@ -3,11 +3,8 @@ package com.example.brandat.ui.fragments.orderStatus
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brandat.databinding.AdderssItemBinding
 import com.example.brandat.databinding.RadioButtonItemBinding
 import com.example.brandat.models.CustomerAddress
-import com.example.brandat.ui.fragments.address.AddressAdapter
-import com.example.brandat.ui.fragments.address.OnClickListener
 
 class AddressPaymentAdapter(var onClickListener: OnRadioClickListener)
     : RecyclerView.Adapter<AddressPaymentAdapter.AddressPaymentViewHolder>() {
@@ -20,12 +17,12 @@ class AddressPaymentAdapter(var onClickListener: OnRadioClickListener)
         parent: ViewGroup,
         viewType: Int
     ): AddressPaymentViewHolder {
-        var view =RadioButtonItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view =RadioButtonItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return AddressPaymentViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: AddressPaymentViewHolder, position: Int) {
-        var addressItem = addresses[position]
+        val addressItem = addresses[position]
         holder.view.radioBtn.text = addressItem.address1 .plus(", "+addressItem.city).plus(", "+addressItem.country)
         if (isNewRadioButtonChecked){
             holder.view.radioBtn.isChecked = position == selectedPosition
@@ -64,7 +61,5 @@ class AddressPaymentAdapter(var onClickListener: OnRadioClickListener)
         notifyDataSetChanged()
     }
 
-    class AddressPaymentViewHolder(var view : RadioButtonItemBinding):RecyclerView.ViewHolder(view.root) {
-
-    }
+    class AddressPaymentViewHolder(var view : RadioButtonItemBinding):RecyclerView.ViewHolder(view.root)
 }

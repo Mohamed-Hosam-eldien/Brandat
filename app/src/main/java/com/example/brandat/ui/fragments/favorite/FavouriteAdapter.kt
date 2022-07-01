@@ -1,7 +1,6 @@
 package com.example.brandat.ui.fragments.favorite
 
 import android.content.Context
-import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

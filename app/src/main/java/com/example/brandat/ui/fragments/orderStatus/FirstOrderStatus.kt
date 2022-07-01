@@ -1,7 +1,6 @@
 package com.example.brandat.ui.fragments.orderStatus
 
 import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,11 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FirstOrderStatusBinding
 import com.example.brandat.models.CustomerAddress
-import com.example.brandat.models.orderModel.ShippingAddress
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.fragments.address.AddressViewModel
 import com.example.brandat.utils.Constants
@@ -104,7 +101,6 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
             binding.fabMenu.visibility = View.VISIBLE
             binding.btnNext.visibility = View.VISIBLE
             mAdapter.setDatat(addresses)
-            //addressAdapter = AddressAdapter(this)
             binding.recyclerviewAddress.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 adapter = mAdapter
@@ -115,7 +111,6 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
     }
 
     override fun onItemClick(address: CustomerAddress) {
-        Toast.makeText(context, "${address.address1} ..selected", Toast.LENGTH_SHORT).show()
         selectedAddress = address
     }
 

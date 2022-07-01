@@ -13,7 +13,6 @@ import com.example.brandat.utils.BrandDiffUtil
 class BrandAdapter(var context: Context, var clickListner: BrandOnClickListner) :
     RecyclerView.Adapter<BrandAdapter.BrandViewHolder>() {
     private var brandList = ArrayList<Brand>()
-    private var latsPosition = -1
 
     fun setData(newData: List<Brand>) {
         val brandDiffutil = BrandDiffUtil(brandList, newData)
@@ -33,7 +32,7 @@ class BrandAdapter(var context: Context, var clickListner: BrandOnClickListner) 
 
     override fun onBindViewHolder(holder: BrandViewHolder, position: Int) {
 
-        var brandItem = brandList[position]
+        val brandItem = brandList[position]
         holder.view.brandName.text = brandItem.title
 
         Glide.with(context).load(brandItem.image.src).into(holder.view.imgBrand)
@@ -47,8 +46,5 @@ class BrandAdapter(var context: Context, var clickListner: BrandOnClickListner) 
         return brandList.size
     }
 
-
-    class BrandViewHolder(var view: RecyclerHomeItemBinding) : RecyclerView.ViewHolder(view.root) {
-
-    }
+    class BrandViewHolder(var view: RecyclerHomeItemBinding) : RecyclerView.ViewHolder(view.root)
 }

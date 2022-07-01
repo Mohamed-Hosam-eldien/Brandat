@@ -8,7 +8,6 @@ import coil.load
 class FavouriteRowBinding {
     companion object{
 
-
         @BindingAdapter("setImgForFav")
         @JvmStatic
         fun setImgForProduct(image: ImageView, bitmap: Bitmap) {

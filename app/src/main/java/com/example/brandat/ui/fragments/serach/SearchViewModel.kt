@@ -18,14 +18,10 @@ class SearchViewModel @Inject constructor(private val iRepo: IProductsRepository
     val liveSearch = mutableSearch
 
     fun getAllProduct() = viewModelScope.launch {
-        //mutableSearch.postValue(iRepo.getAllProduct().body()?.products)
-        val result = iRepo.getAllProduct()
-        when (result) {
+        when (val result = iRepo.getAllProduct()) {
             is NetworkResult.Success -> mutableSearch.postValue(result.data?.products)
             is NetworkResult.Error -> _setError.postValue(result.exception)
-            else -> {
-
-            }
+            else -> {}
         }
 
     }

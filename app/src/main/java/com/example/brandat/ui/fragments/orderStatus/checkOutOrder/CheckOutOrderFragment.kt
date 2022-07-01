@@ -1,26 +1,20 @@
 package com.example.brandat.ui.fragments.orderStatus.checkOutOrder
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentFinshOrderStateBinding
-import com.example.brandat.models.CustomerAddress
 import com.example.brandat.ui.OrderStatus
 import com.example.brandat.ui.fragments.cart.CartViewModel
 import com.example.brandat.ui.fragments.orderStatus.IChangeOrderStatus
@@ -31,9 +25,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.paypal.checkout.PayPalCheckout
 import com.paypal.checkout.approve.OnApprove
 import com.paypal.checkout.cancel.OnCancel
-import com.paypal.checkout.config.CheckoutConfig
-import com.paypal.checkout.config.Environment
-import com.paypal.checkout.config.SettingsConfig
 import com.paypal.checkout.createorder.CreateOrder
 import com.paypal.checkout.createorder.CurrencyCode
 import com.paypal.checkout.createorder.OrderIntent
@@ -47,8 +38,6 @@ import com.paypal.checkout.order.PurchaseUnit
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
 
-import java.math.BigDecimal
-
 @AndroidEntryPoint
 class CheckOutOrderFragment : Fragment() {
 
@@ -59,15 +48,11 @@ class CheckOutOrderFragment : Fragment() {
     lateinit var iChangeOrderStatus: IChangeOrderStatus
 
     lateinit var binding: FragmentFinshOrderStateBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_finsh_order_state, container, false)
         iChangeOrderStatus = requireActivity() as OrderStatus
@@ -80,7 +65,7 @@ class CheckOutOrderFragment : Fragment() {
 
         arguments?.let {
             checkOutOrderViewModel.selectedAddress =
-                arguments?.getParcelable<CustomerAddress>("address")!!
+                arguments?.getParcelable("address")!!
             checkOutOrderViewModel.selectedPaymentMethods = arguments?.getString("paymentMethod")!!
             checkOutOrderViewModel.discount = arguments?.getDouble("discount")!!
             checkOutOrderViewModel.totalPrice = arguments?.getDouble("price")!!
@@ -89,10 +74,13 @@ class CheckOutOrderFragment : Fragment() {
         sharedPreferences =
             requireActivity().getSharedPreferences(Constants.SHARD_NAME, Context.MODE_PRIVATE)
         checkOutOrderViewModel.currencyCode =
-            sharedPreferences.getString(Constants.CURRENCY_TYPE,getString(R.string.egypt_currency))!!
+            sharedPreferences.getString(
+                Constants.CURRENCY_TYPE,
+                getString(R.string.egypt_currency)
+            )!!
 
         initUi()
-//        setUpPayPal()
+
         setPaypal()
         checkOutOrderViewModel.createOrderResponse.observe(viewLifecycleOwner) {
 
@@ -111,6 +99,7 @@ class CheckOutOrderFragment : Fragment() {
                     failureDialog()
                     Log.e(TAG, "onViewCreated: ${it.message}")
                 }
+                else -> {}
             }
         }
 
@@ -120,19 +109,17 @@ class CheckOutOrderFragment : Fragment() {
             when (checkOutOrderViewModel.selectedPaymentMethods) {
                 "cash" -> checkOutOrderViewModel.createOrder()
                 "paypal" -> paypal()
-                //payPalPaymentMethod()
-
             }
         }
     }
 
     private fun paypal() {
-        var price: Double = when (checkOutOrderViewModel.currencyCode) {
+        val price: Double = when (checkOutOrderViewModel.currencyCode) {
             getString(R.string.dollar_currency) -> checkOutOrderViewModel.totalPrice
-             getString(R.string.egypt_currency) -> checkOutOrderViewModel.totalPrice.div(18.0)
+            getString(R.string.egypt_currency) -> checkOutOrderViewModel.totalPrice.div(18.0)
             else -> checkOutOrderViewModel.totalPrice
         }
-        Log.e(TAG, "paydddpal: ${price}", )
+
         PayPalCheckout.startCheckout(
             createOrder =
             CreateOrder { createOrderActions ->
@@ -144,7 +131,7 @@ class CheckOutOrderFragment : Fragment() {
                         listOf(
                             PurchaseUnit(
                                 amount =
-                                Amount(currencyCode = CurrencyCode.USD, value = price.toString())
+                                Amount(currencyCode = CurrencyCode.USD, value = "300.0")
                             )
                         )
                     )
@@ -159,21 +146,18 @@ class CheckOutOrderFragment : Fragment() {
 
         PayPalCheckout.registerCallbacks(
             onApprove = OnApprove { approval ->
-                approval.orderActions.capture { i ->
+                approval.orderActions.capture {
                     checkOutOrderViewModel.createOrder()
-
-
                 }
             },
 
             onCancel = OnCancel {
-                showCancelSnakebar()
+                showCancelSnakeBar()
             },
 
-            onError = OnError { errorInfo ->
+            onError = OnError {
                 hideLoading()
-                Log.e(TAG, "setPaypal: ${errorInfo}")
-                showErrorSnakebar()
+                showErrorSnakeBar()
             }
         )
     }
@@ -207,7 +191,7 @@ class CheckOutOrderFragment : Fragment() {
         hideLoading()
         showPaymentMethod()
         showSelectedAddress()
-        binding.orderPrice.text = (checkOutOrderViewModel.totalPrice!!).toString().plus("  ")
+        binding.orderPrice.text = (checkOutOrderViewModel.totalPrice).toString().plus("  ")
             .plus(checkOutOrderViewModel.currencyCode)
 
     }
@@ -339,7 +323,7 @@ class CheckOutOrderFragment : Fragment() {
         }
     }
 
-    private fun showCancelSnakebar() {
+    private fun showCancelSnakeBar() {
         Snackbar.make(requireView(), "Cancel", Snackbar.LENGTH_INDEFINITE)
             .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
                 resources.getColor(
@@ -351,7 +335,7 @@ class CheckOutOrderFragment : Fragment() {
 
     }
 
-    private fun showErrorSnakebar() {
+    private fun showErrorSnakeBar() {
         Snackbar.make(requireView(), "something wrong happen ", Snackbar.LENGTH_INDEFINITE)
             .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).setBackgroundTint(
                 resources.getColor(
