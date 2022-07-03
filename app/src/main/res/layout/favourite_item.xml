@@ -21,6 +21,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="@color/lightGray"
             android:layout_height="match_parent">
 
             <ImageView
@@ -66,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
                     android:padding="4dp"
-                    android:textColor="#EDC19A"
+                    android:textColor="@color/page"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     tools:text="1220" />
@@ -75,7 +76,7 @@
                     android:id="@+id/product_currency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#EDC19A"
+                    android:textColor="@color/page"
                     android:textSize="14sp"
                     tools:text="EGP" />
 
@@ -101,7 +102,7 @@
                 app:layout_constraintBottom_toTopOf="@id/tv_product_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/ic_add_to_cart"
-                app:tint="@color/purple_200" />
+                app:tint="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

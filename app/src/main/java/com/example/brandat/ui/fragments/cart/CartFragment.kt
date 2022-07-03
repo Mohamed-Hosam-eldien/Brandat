@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 
 @AndroidEntryPoint
 class CartFragment : Fragment(), CartOnClickListener {
@@ -185,8 +186,13 @@ class CartFragment : Fragment(), CartOnClickListener {
             //layoutManager.stackFromEnd = true
             // layoutManager.reverseLayout = true
             setLayoutManager(layoutManager)
+            val scaleAdapter = ScaleInAnimationAdapter(cartAdapter).apply {
+                setDuration(825)
+                setFirstOnly(false)
+            }
 
-            adapter = cartAdapter
+            adapter = scaleAdapter
+
         }
     }
 

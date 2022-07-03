@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment(), OnclickListener {
@@ -92,7 +93,14 @@ class FavoriteFragment : Fragment(), OnclickListener {
                                 GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
                             setLayoutManager(layoutManager)
                             favouriteAdapter.setData(list)
-                            adapter = favouriteAdapter
+                           // adapter = favouriteAdapter
+
+                            val scaleAdapter = ScaleInAnimationAdapter(favouriteAdapter).apply {
+                                setDuration(825)
+                                setFirstOnly(false)
+                            }
+
+                            adapter = scaleAdapter
                             binding.rvFavorits.visibility = View.VISIBLE
                             binding.empty.visibility = View.GONE
                         }

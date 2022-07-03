@@ -27,6 +27,7 @@ import com.example.brandat.utils.observeOnce
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import io.paperdb.Paper
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), OnImageFavClickedListener {
@@ -109,7 +110,13 @@ class SearchFragment : Fragment(), OnImageFavClickedListener {
             val layoutManager =
                 GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
             setLayoutManager(layoutManager)
+            val scaleAdapter = ScaleInAnimationAdapter(productRvAdapter).apply {
+                setDuration(825)
+                setFirstOnly(false)
+            }
             adapter = productRvAdapter
+            adapter = scaleAdapter
+
 
             checkEmpty(items)
         }
