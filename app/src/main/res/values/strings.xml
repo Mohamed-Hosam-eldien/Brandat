@@ -9,7 +9,7 @@
     <string name="item_details">Item Details</string>
     <string name="order_number">Order Number : </string>
     <string name="order_item">Order Items</string>
-    <string name="order_details">Order Details</string>
+    <string name="order_details">Order Price</string>
     <string name="total_price">Total Price : </string>
     <string name="payment_method">Payment Method : </string>
     <string name="order_date">Order Date : </string>
