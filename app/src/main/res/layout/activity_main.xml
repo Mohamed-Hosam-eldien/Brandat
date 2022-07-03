@@ -44,13 +44,17 @@
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_person_circle" />
 
-                <ImageView
+                <TextView
                     android:layout_width="260dp"
                     android:layout_height="58dp"
-                    android:scaleType="centerInside"
                     android:layout_centerInParent="true"
                     android:layout_marginEnd="8dp"
-                    android:src="@drawable/bran" />
+                    android:fontFamily="cursive"
+                    android:gravity="center"
+                    android:scaleType="centerInside"
+                    android:text="Brandat"
+                    android:textColor="@color/white"
+                    android:textSize="32sp" />
 
             </RelativeLayout>
 

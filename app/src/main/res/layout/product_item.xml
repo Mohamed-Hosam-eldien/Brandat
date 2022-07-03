@@ -29,11 +29,12 @@
                 android:id="@+id/iv_product"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                tools:src="@drawable/bag"
+                android:background="#FFFFFF"
                 android:src="@{product.imageProduct.src}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/bag" />
 
             <TextView
                 android:id="@+id/tv_product_name"

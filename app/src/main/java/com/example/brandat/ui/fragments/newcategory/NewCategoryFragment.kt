@@ -3,6 +3,7 @@ package com.example.brandat.ui.fragments.newcategory
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -107,7 +108,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 binding.chipCat.text = "Men"
                 binding.chipCatSub.text = "Shoes"
                 binding.groupChip.visibility = View.VISIBLE
-                productID = 395964875010L
+                productID = 397089505538L
 
                 observeCategoryData()
             }
@@ -126,7 +127,11 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
             binding.animationView.visibility = View.VISIBLE
         }
 
-        ConnectionUtil.registerConnectivityNetworkMonitor(requireContext(), viewModel, requireActivity())
+        ConnectionUtil.registerConnectivityNetworkMonitor(
+            requireContext(),
+            viewModel,
+            requireActivity()
+        )
 
     }
 
@@ -141,6 +146,7 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
                 if (it.productType == binding.chipCatSub.text.toString().uppercase()) {
                     val price: String = setPrice(it.id)
                     it.variants = mutableListOf()
+                    Log.d("TAG", "observeCategoryData: ${it.id}, ${it.title}")
                     it.variants?.add(Variant(price = price))
                     products.add(it)
                 }
@@ -183,72 +189,35 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
     private fun setPrice(id: Long): String {
         return when (id) {
-            7706240647426 -> "29"
-            7706241564930 -> "29"
-            7706242253058 -> "170"
-            7706241138946 -> "170"
-            7706242711810 -> "140"
-            7706241827074 -> "179.95"
-            7706246578434 -> "100"
-            7706242449666 -> "119.95"
-            7706242384130 -> "129.95"
-            7706241597698 -> "100.00"
-            7706241007874 -> "220.00"
-            7706240844034 -> "119.95"
-            7706241925378 -> "159.95"
-            7706241270018 -> "129.95"
-            7706240975106 -> "159.95"
-            7706245955842 -> "170"
-            7706242679042 -> "100"
-            7706242482434 -> "299.95"
-            7706241696002 -> "109.95"
-            7706241663234 -> "140.00"
-            7706241204482 -> "109.95"
-            7706245988610 -> "109.95"
-            7706245693698 -> "179.95"
-            7706245529858 -> "29"
-            7706241990914 -> "220"
-            7706241761538 -> "119.95"
-            7706241401090 -> "299.95"
-            7706240811266 -> "109.95"
-            7706240712962 -> "99.95"
-            7706248151298 -> "195.95"
-            7706248085762 -> "179.95"
-            7706248020226 -> "119.95"
-            7706247954690 -> "109.95"
-            7706246250754 -> "119.95"
-            7706246119682 -> "192.95"
-            7706246054146 -> "129.95"
-            7706245759234 -> "220"
-            7706245562626 -> "99.95"
-            7706242416898 -> "129.95"
-            7706242154754 -> "169.95"
-            7706241630466 -> "99.95"
-            7706241335554 -> "119.95"
-            7706241302786 -> "129.95"
-            7706241106178 -> "169.95"
-            7706248315138 -> "110"
-            7706241433858 -> "40"
-            7706242515202 -> "40"
-            7706246316290 -> "40"
-            7706243006722 -> "29.99"
-            7706247102722 -> "29.99"
-            7706242023682 -> "29.99"
-            7706241532162 -> "249"
-            7706241499394 -> "229"
-            7706242547970 -> "229"
-            7706242646274 -> "249"
-            7706242613506 -> "229"
-            7706241466626 -> "229"
-            7706242908418 -> "19.95"
-            7706241892610 -> "19.75"
-
-            7706241859842 -> "90"
-            7706242875650 -> "90"
-            7706242777346 -> "70"
-            7706241728770 -> "70"
-            7706242842882 -> "70"
-            7706241794306 -> "70"
+            //men shoes
+            7727816999170 -> "109.95"
+            7727817064706 -> "129.95"
+            7727817294082 -> "299.95"
+            7727816605954 -> "159.95"
+            7727817687298 -> "140.00"
+            7727816278274 -> "29.00"
+            7727816900866 -> "170.00"
+            7727816671490 -> "220.00"
+            7727816540418 -> "179.95"
+            7727816409346 -> "109.95"
+            7727816737026 -> "110.00"
+            7727816802562 -> "169.95"
+            7727817163010 -> "129.95"
+            7727816343810 -> "99.95"
+            7727817228546 -> "119.95"
+            7727817621762 -> "100.00"
+            7727816474882 -> "119.95"
+            //men accessory
+            7727818047746 -> "29.99"
+            7727817916674 -> "19.95"
+            //women shoes
+            7727817556226 -> "249.00"
+            7727817490690 -> "229.00"
+            7727817457922 -> "229.00"
+            //kids shoes
+            7727817851138 -> "90.00"
+            7727817818370 -> "70.00"
+            7727817752834 -> "70.00"
 
             else -> "0"
         }
@@ -486,22 +455,22 @@ class NewCategoryFragment : Fragment(), OnImageFavClickedListener {
 
         when (type) {
             "Men" -> {
-                productID = 395964875010L
+                productID = 397089505538L
                 binding.chipCat.text = type
                 binding.chipCatSub.text = subType
             }
             "Women" -> {
-                productID = 395963629826L
+                productID = 397089538306L
                 binding.chipCat.text = type
                 binding.chipCatSub.text = subType
             }
             "Kids" -> {
-                productID = 395963662594L
+                productID = 397089571074L
                 binding.chipCat.text = type
                 binding.chipCatSub.text = subType
             }
             "Sale" -> {
-                productID = 395963695362L
+                productID = 397089603842L
                 binding.chipCat.text = type
                 binding.chipCatSub.text = subType
             }
