@@ -170,7 +170,7 @@ class CartRvAdapter(
 
     override fun onDestroyActionMode(mode: ActionMode?) {
         myViewHolders.forEach { holder ->
-            changeCardStyle(holder, R.color.shimmerColor, R.color.white)
+            changeCardStyle(holder, R.color.shimmerColor, R.color.white, R.color.white)
         }
         multiSelection = false
         selectedOrders.clear()
@@ -183,8 +183,7 @@ class CartRvAdapter(
                 multiSelection = false
             }
             1 -> {
-                mActionMode.title =
-                    "(${selectedOrders.size})  ${context.getString(R.string.item_selected)}"
+                mActionMode.title = "(${selectedOrders.size})  ${context.getString(R.string.item_selected)}"
 
                 //  mActionMode.title= R.font.m
             }
@@ -198,21 +197,32 @@ class CartRvAdapter(
     private fun applySelection(holder: CartViewHolder, currentOrder: Cart) {
         if (selectedOrders.contains(currentOrder)) {
             selectedOrders.remove(currentOrder)
-            changeCardStyle(holder, R.color.shimmerColor, R.color.white)
+            changeCardStyle(holder, R.color.shimmerColor, R.color.white, R.color.white)
             applyActionModeTitle()
         } else {
             selectedOrders.add(currentOrder)
-            changeCardStyle(holder, R.color.red_low, R.color.green)
+            changeCardStyle(holder, R.color.red, R.color.green, R.color.white)
             applyActionModeTitle()
         }
     }
 
-    private fun changeCardStyle(holder: CartViewHolder, backgroundColor: Int, strokeColor: Int) {
+    private fun changeCardStyle(
+        holder: CartViewHolder,
+        backgroundColor: Int,
+        strokeColor: Int,
+        textColor: Int
+    ) {
         holder.binding.constraint.setBackgroundColor(
             ContextCompat.getColor(requireActivity, backgroundColor)
         )
-        holder.binding.cardOrder.strokeColor =
-            ContextCompat.getColor(requireActivity, strokeColor)
+//        holder.binding.textCurrency.setTextColor(textColor)
+//        holder.binding.tvProductName.setTextColor(textColor)
+//        holder.binding.tvProductPrice.setTextColor(textColor)
+
+//        holder.binding.cardOrder.strokeColor =
+//            ContextCompat.getColor(requireActivity, strokeColor)
+
+
     }
 
     fun clearContextualActionMode() {

@@ -52,14 +52,14 @@
                     android:id="@+id/tv_product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
                     android:padding="3dp"
+                    android:gravity="start"
                     android:text="@{cart.PName}"
-                    tools:text="CLASSIC BACKPACK"
                     android:textColor="@color/purple_700"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@id/img_product"
-                    app:layout_constraintTop_toTopOf="@id/img_product" />
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/img_product"
+                    app:layout_constraintTop_toTopOf="@id/img_product"
+                    tools:text="CLASSIC BACKPACK asdasd" />
 
                 <TextView
                     android:id="@+id/textCurrency"
