@@ -16,15 +16,23 @@
         android:label="@string/profile" >
         <action
             android:id="@+id/action_profileDataFragment_to_currencyFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/currencyFragment" />
         <action
             android:id="@+id/action_profileDataFragment_to_addressFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/addressFragment" />
         <action
             android:id="@+id/action_profileDataFragment_to_myOrderFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/myOrderFragment" />
         <action
             android:id="@+id/action_profileDataFragment_to_termsOfServiceFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/termsOfServiceFragment" />
     </fragment>
     <fragment
@@ -33,9 +41,13 @@
         android:label="@string/addresess">
         <action
             android:id="@+id/action_addressFragment_to_mapsFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/mapsFragment" />
         <action
             android:id="@+id/action_addressFragment_to_addAddressFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/addAddressFragment" />
     </fragment>
     <fragment
@@ -67,9 +79,13 @@
         android:label="@string/login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_profileDataFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/profileDataFragment" />
     </fragment>
     <fragment

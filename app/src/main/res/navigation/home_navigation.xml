@@ -12,6 +12,8 @@
         tools:layout="@layout/fragment_favorite" >
         <action
             android:id="@+id/action_favoriteFragment_to_productDetailsFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/productDetailsFragment" />
     </fragment>
 
@@ -23,14 +25,14 @@
         <action
             android:id="@+id/action_homeFragment_to_newCategoryFragment"
             app:destination="@id/newCategoryFragment"
-            app:enterAnim="@anim/rotate_open_anim"
-            app:exitAnim="@anim/fab_slide_in_from_left"
-            app:popEnterAnim="@anim/fab_slide_in_from_right"
-            app:popExitAnim="@anim/fab_slide_in_from_left"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/searchFragment" />
     </fragment>
 
@@ -52,6 +54,8 @@
             app:argType="com.example.brandat.ui.fragments.myOrder.OrderModel" />
         <action
             android:id="@+id/action_orderFragment_to_orderDetailsFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/orderDetailsFragment" />
 
     </fragment>
@@ -92,6 +96,8 @@
             app:destination="@id/categoryBottomSheetType" />
         <action
             android:id="@+id/action_newCategoryFragment_to_productDetailsFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/productDetailsFragment" />
     </fragment>
     <dialog

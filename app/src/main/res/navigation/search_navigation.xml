@@ -10,6 +10,8 @@
         android:label="@string/search_fragment" >
         <action
             android:id="@+id/action_searchFragment2_to_productDetailsFragment2"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_right"
             app:destination="@id/productDetailsFragment2" />
     </fragment>
     <fragment
