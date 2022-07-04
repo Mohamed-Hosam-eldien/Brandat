@@ -104,7 +104,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_add_location"
-                app:fab_colorNormal="#204B95"
+                app:fab_colorNormal="@color/purple_200"
+                app:backgroundTint="@color/white"
                 fab:fab_label="open map"
                 fab:fab_size="normal" />
 
@@ -114,7 +115,8 @@
                 android:layout_height="wrap_content"
                 android:background="#94C9E1"
                 android:src="@drawable/ic_home"
-                app:fab_colorNormal="#204B95"
+                app:fab_colorNormal="@color/purple_200"
+                app:backgroundTint="@color/white"
                 fab:fab_label="Add location "
                 fab:fab_size="normal" />
 
@@ -128,6 +130,8 @@
             android:layout_marginLeft="@dimen/dimen_16"
             android:layout_marginRight="@dimen/dimen_16"
             android:text="@string/next"
+            android:padding="12dp"
+            android:textSize="16sp"
             android:textAllCaps="false"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"

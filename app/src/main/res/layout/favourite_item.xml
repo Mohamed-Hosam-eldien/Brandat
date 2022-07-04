@@ -101,8 +101,7 @@
                 android:padding="7dp"
                 app:layout_constraintBottom_toTopOf="@id/tv_product_name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_add_to_cart"
-                app:tint="@color/white" />
+                app:srcCompat="@drawable/ic_add_to_cart"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

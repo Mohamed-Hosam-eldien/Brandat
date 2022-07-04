@@ -417,6 +417,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
+                    android:padding="12dp"
+                    android:textSize="16sp"
                     android:layout_marginBottom="16dp"
                     android:text="@string/next"
                     android:textAllCaps="false"

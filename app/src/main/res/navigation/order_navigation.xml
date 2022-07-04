@@ -15,7 +15,9 @@
             app:destination="@id/secondOrderStatus" />
         <action
             android:id="@+id/action_firstOrderStatus_to_addAddressFragment2"
-            app:destination="@id/addAddressFragment2" />
+            app:destination="@id/addAddressFragment2"
+            app:enterAnim="@anim/bottom_animation"
+            app:popExitAnim="@anim/from_bottom" />
         <action
             android:id="@+id/action_firstOrderStatus_to_mapsFragment2"
             app:destination="@id/mapsFragment2" />
