@@ -13,7 +13,8 @@ class SplashFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View?
+    {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }
@@ -21,7 +22,7 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Handler(Looper.myLooper()!!).postDelayed({
-        },2000)
+        },4000)
     }
 
 }
