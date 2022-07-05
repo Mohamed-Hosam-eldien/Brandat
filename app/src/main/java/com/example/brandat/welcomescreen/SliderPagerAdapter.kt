@@ -80,7 +80,7 @@ class SliderPagerAdapter(var ctx: Context) : PagerAdapter() {
                 ind3.setImageResource(R.drawable.unselected_item);
 
                 title.setText("Shopping on the way");
-                desc.setText("This is random text taking from lorem ipsum tesing puspose");
+                desc.setText("You can shop anytime and anywhere while keeping up with everything new");
             }
             2 -> {
                 logo.setImageResource(R.drawable.paypal);
@@ -89,7 +89,7 @@ class SliderPagerAdapter(var ctx: Context) : PagerAdapter() {
                 ind3.setImageResource(R.drawable.selected_item);
 
                 title.setText("Pay on Delivery");
-                desc.setText("This is random text taking from lorem ipsum tesing puspose");
+                desc.setText("You can pay when you receive the order");
             }
         }
 

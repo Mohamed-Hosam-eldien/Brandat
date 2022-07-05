@@ -151,6 +151,7 @@ class FavoriteFragment : Fragment(), OnclickListener {
         builder.setNegativeButton(getString(R.string.no)) { _, _ ->
 
         }
+        builder.setIcon(R.drawable.ic_delete)
         builder.setTitle(getString(R.string.delete))
         builder.setMessage(getString(R.string.deletfavourite))
         builder.create().show()

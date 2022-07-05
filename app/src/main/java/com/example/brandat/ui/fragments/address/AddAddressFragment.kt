@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentAddAddressBinding
 import com.example.brandat.models.CustomerAddress
@@ -21,6 +22,7 @@ class AddAddressFragment : Fragment() {
     private var _binding : FragmentAddAddressBinding? = null
     private val binding get() = _binding!!
     private val viewModel:AddressViewModel by viewModels()
+    private val args by navArgs<AddAddressFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +36,9 @@ class AddAddressFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.autoCompleteCityTextView.setText(args.currentAddress.city)
+        binding.streerAddress.setText(args.currentAddress.address1)
 
         val cites = resources.getStringArray(R.array.city_list)
         val citesAdapter = ArrayAdapter(

@@ -84,25 +84,33 @@ class MapsFragment : Fragment() {
 
 
         binding.btnLocation.setOnClickListener {
-            if (latitude != 0.0 && longitude != 0.0) {
 
-                customerAddress = getTimeZone(latitude, longitude)
-                viewModel.insertAddress(customerAddress)
-
-
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.saved_successfully),
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                findNavController().popBackStack()
-                //navController.popBackStack()
+            if (getTimeZone(latitude, longitude).country != "Egypt") {
+                Toast.makeText(context, "Delivery in Egypt only so far", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(context, getString(R.string.select_your_address), Toast.LENGTH_SHORT)
-                    .show()
-            }
+                if (latitude != 0.0 && longitude != 0.0) {
 
+                    customerAddress = getTimeZone(latitude, longitude)
+                    viewModel.insertAddress(customerAddress)
+
+
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.saved_successfully),
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    findNavController().popBackStack()
+                    //navController.popBackStack()
+                } else {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.select_your_address),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            }
 
         }
     }

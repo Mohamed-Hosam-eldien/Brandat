@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brandat.R
 import com.example.brandat.databinding.FragmentAddressBinding
@@ -22,6 +23,7 @@ class AddressFragment : Fragment(), OnClickListener {
     private val addressAdapter by lazy { AddressAdapter(this) }
     var addresses: List<CustomerAddress> = fakeData()
     private val viewModel: AddressViewModel by viewModels()
+
 
 
     override fun onCreateView(
@@ -40,7 +42,8 @@ class AddressFragment : Fragment(), OnClickListener {
 
         binding.btnAddAddress.setOnClickListener {
             //  replace with code navigation to add address screen
-            findNavController().navigate(R.id.action_addressFragment_to_addAddressFragment)
+            val action = AddressFragmentDirections.actionAddressFragmentToAddAddressFragment(CustomerAddress())
+            findNavController().navigate(action)
         }
 
         binding.btnOpenMao.setOnClickListener {
@@ -86,6 +89,11 @@ class AddressFragment : Fragment(), OnClickListener {
         // dont forget to ask user berfor remove
         showAlertDialog(customerAddress)
 
+    }
+
+    override fun onItemClick(city: CustomerAddress) {
+        val action = AddressFragmentDirections.actionAddressFragmentToAddAddressFragment(city)
+        findNavController().navigate(action)
     }
 
     private fun showAlertDialog(customerAddress: CustomerAddress) {

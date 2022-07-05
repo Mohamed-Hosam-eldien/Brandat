@@ -19,6 +19,9 @@ class AddressAdapter (var onClickListener: OnClickListener)
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         val addressItem = addresses[position]
         holder.view.textAddress.text = addressItem.address1 .plus(", "+addressItem.city).plus(", "+addressItem.country)
+        holder.view.rootView.setOnClickListener {
+            onClickListener.onItemClick(addressItem)
+        }
         holder.view.deleteAddress.setOnClickListener {
              onClickListener.onClick(addressItem)
         }

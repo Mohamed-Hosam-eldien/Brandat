@@ -57,11 +57,13 @@ class FirstOrderStatus : Fragment(), OnRadioClickListener {
             findNavController().navigate(R.id.action_firstOrderStatus_to_mapsFragment2)
         }
         binding.addAddressBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_firstOrderStatus_to_addAddressFragment2)
+            val action = FirstOrderStatusDirections.actionFirstOrderStatusToAddAddressFragment2(CustomerAddress())
+            findNavController().navigate(action)
         }
 
         binding.clickHereTxt.setOnClickListener {
-            findNavController().navigate(R.id.action_firstOrderStatus_to_addAddressFragment2)
+            val action = FirstOrderStatusDirections.actionFirstOrderStatusToAddAddressFragment2(CustomerAddress())
+            findNavController().navigate(action)
         }
 
         binding.btnNext.setOnClickListener {

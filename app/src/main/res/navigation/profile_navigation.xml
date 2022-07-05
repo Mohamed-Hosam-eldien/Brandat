@@ -68,6 +68,9 @@
         <action
             android:id="@+id/action_addAddressFragment_to_addressFragment"
             app:destination="@id/addressFragment" />
+        <argument
+            android:name="currentAddress"
+            app:argType="com.example.brandat.models.CustomerAddress" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"

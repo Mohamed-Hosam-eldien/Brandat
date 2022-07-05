@@ -50,6 +50,8 @@
         <action
             android:id="@+id/action_addAddressFragment2_to_firstOrderStatus"
             app:destination="@id/firstOrderStatus" />
+        <argument android:name="currentAddress"
+            app:argType="com.example.brandat.models.CustomerAddress" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment2"

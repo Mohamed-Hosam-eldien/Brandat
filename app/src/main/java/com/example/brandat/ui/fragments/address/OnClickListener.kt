@@ -4,4 +4,5 @@ import com.example.brandat.models.CustomerAddress
 
 interface OnClickListener {
     fun onClick(city:CustomerAddress)
+    fun onItemClick(city:CustomerAddress)
 }

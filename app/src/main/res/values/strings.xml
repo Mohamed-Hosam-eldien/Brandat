@@ -107,7 +107,7 @@
     <string name="passward_doesnot_match">password doesn\'t match</string>
     <string name="terms_of_service">Terms of Service</string>
     <string name="failed_order">Sorry...\n try again</string>
-    <string name="order_send_successfully">Successfully!\n👍🏻</string>
+    <string name="order_send_successfully">Successful!\n👍🏻</string>
     <string name="text_user_discount">check home screen to get discount code 🎁</string>
     <string name="text_copied">Text copied to clipboard</string>
     <string name="text">text</string>
